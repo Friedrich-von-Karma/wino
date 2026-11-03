@@ -1,0 +1,648 @@
+<title>Szafa Night City</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Barlow:wght@400;500;600&family=Share+Tech+Mono&display=swap">
+<style>
+/* Layout: nocny katalog — wąska kolumna tekstu, szerokie siatki kart; czerń jako baza, jeden neon na sekcję */
+:root{
+  --bg:#0a0b0f;
+  --panel:#12141b;
+  --panel-2:#181b24;
+  --line:#2a2e3b;
+  --ink:#e8e6df;
+  --muted:#9097ab;
+  --yellow:#f3e600;
+  --cyan:#33e6f5;
+  --magenta:#ff2e88;
+  --red:#ff3b3b;
+  --draw:#8b91a8;
+  --f-display:"Syncopate","Eurostile","Arial Black",sans-serif;
+  --f-body:"Barlow","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"Share Tech Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:56px;border-top:1px solid var(--line)}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:.02em}
+h2{font-size:clamp(20px,3.2vw,30px);text-transform:uppercase}
+h3{font-size:14px;text-transform:uppercase;letter-spacing:.06em}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.lead{max-width:65ch;color:#c9c8c2;margin:12px 0 0}
+.sec-head{display:grid;gap:8px;margin-bottom:28px}
+
+/* HERO */
+.hero{padding-block:48px 40px;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(30px,7.4vw,78px);line-height:.98;font-weight:700;text-transform:uppercase}
+.hero h1 .y{color:var(--yellow)}
+.hero h1 small{display:block;font-size:.34em;font-weight:400;letter-spacing:.32em;color:var(--muted);margin-top:14px}
+.scan{position:absolute;left:0;right:0;height:2px;top:0;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.5;animation:scan 7s linear infinite}
+@keyframes scan{from{top:0}to{top:100%}}
+@media (prefers-reduced-motion:reduce){.scan{animation:none;display:none}}
+.hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:32px;margin-top:32px;align-items:start}
+.hero-grid > *{min-width:0}
+.ratio{display:grid;gap:10px}
+.ratio-bar{display:flex;height:46px;border:1px solid var(--line)}
+.ratio-bar span{display:flex;align-items:flex-end;padding:4px 8px;font-family:var(--f-mono);font-size:12px}
+.r1{flex:80;background:#050608;color:var(--muted)}
+.r2{flex:15;background:#2b2e36;color:#cfd2da}
+.r3{flex:5;min-width:46px;background:var(--yellow);color:#111}
+.ratio dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:0;font-size:14px}
+.ratio dt{font-family:var(--f-mono);color:var(--yellow)}
+.ratio dd{margin:0;color:#c9c8c2}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px;margin-top:16px}
+.sw{border:1px solid var(--line);font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.sw i{display:block;height:44px}
+.sw span{display:block;padding:6px}
+
+/* TABELA POSTACI */
+.chars{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.char{background:var(--panel);padding:20px;display:grid;gap:8px;align-content:start}
+.char .who{font-family:var(--f-display);font-size:13px;text-transform:uppercase;letter-spacing:.06em}
+.char .from{font-size:14px;color:var(--muted)}
+.char .to{font-size:15px}
+.char .to b{font-weight:600}
+.char .tick{width:28px;height:3px}
+
+/* ZASADY */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;counter-reset:r}
+.rule{display:grid;gap:6px;align-content:start}
+.rule h3{color:var(--cyan)}
+.rule p{margin:0;color:#c9c8c2;font-size:15px}
+
+/* MARKI */
+.tiers{display:grid;gap:36px}
+.tier-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;margin-bottom:14px}
+.tier-head .price{font-family:var(--f-mono);font-size:12px;color:var(--yellow)}
+.brands{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.brand{background:var(--panel);border:1px solid var(--line);padding:16px;display:grid;gap:8px;align-content:start}
+.brand .bn{font-family:var(--f-display);font-size:13px;text-transform:uppercase;letter-spacing:.05em;display:flex;justify-content:space-between;gap:8px}
+.brand .bn em{font-style:normal;font-family:var(--f-mono);font-size:11px;color:var(--muted);letter-spacing:.08em;white-space:nowrap}
+.brand p{margin:0;font-size:14px;color:#c4c3bd}
+.brand .buy{font-size:13px;color:var(--muted)}
+.brand .buy b{color:var(--ink);font-weight:500}
+.links{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.links a{font-family:var(--f-mono);font-size:12px;text-decoration:none;border:1px solid var(--line);padding:5px 9px;color:var(--ink);background:var(--panel-2);transition:border-color .15s,color .15s}
+.links a:hover{border-color:var(--cyan);color:var(--cyan)}
+.links a.shop:hover{border-color:var(--yellow);color:var(--yellow)}
+
+/* SZAFA */
+.controls{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;margin-bottom:20px}
+.seg{display:inline-flex;border:1px solid var(--line)}
+.seg button{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;background:transparent;color:var(--muted);border:0;padding:9px 14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--yellow);color:#0a0b0f}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{font-family:var(--f-mono);font-size:12px;background:var(--panel);color:var(--muted);border:1px solid var(--line);padding:6px 10px;cursor:pointer}
+.chips button[aria-pressed="true"]{color:var(--cyan);border-color:var(--cyan)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.item{background:var(--panel);border:1px solid var(--line);display:grid;grid-template-rows:auto 1fr}
+.pic{position:relative;aspect-ratio:4/3;max-width:100%;background:
+  radial-gradient(ellipse 70% 40% at 50% 100%, color-mix(in srgb,var(--acc) 22%,transparent), transparent 70%),
+  linear-gradient(var(--panel-2),var(--panel-2));overflow:hidden;border-bottom:1px solid var(--line)}
+.pic::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:24px 24px;opacity:.35}
+.pic svg{position:relative;width:100%;height:100%;display:block}
+.pic .tag{position:absolute;top:8px;left:8px;max-width:calc(100% - 16px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(10,11,15,.85);border-left:2px solid var(--acc);padding:2px 6px}
+.meta{padding:14px 16px 16px;display:grid;gap:6px;align-content:start}
+.meta .b{font-family:var(--f-mono);font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.meta .n{font-weight:600;font-size:16px;line-height:1.3}
+.meta .note{font-size:14px;color:#bcbbb5;margin:0}
+.meta .pr{font-family:var(--f-mono);font-size:13px;color:var(--yellow);font-variant-numeric:tabular-nums}
+.meta .alt{font-size:13px;color:var(--muted)}
+.meta .alt b{color:#d6d5cf;font-weight:500}
+
+/* OUTFITY */
+.outfits{display:grid;gap:20px}
+.fit{background:var(--panel);border:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
+.fit > *{min-width:0}
+.collage{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);align-content:start;border-right:1px solid var(--line)}
+.collage{grid-template-rows:1fr 1fr}
+.collage .pic{border-bottom:0;aspect-ratio:auto;min-height:140px;height:100%}
+.collage .pic .tag{font-size:10px}
+.fit-body{padding:22px;display:grid;gap:12px;align-content:start}
+.fit-top{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline}
+.fit h3{font-size:clamp(15px,2vw,19px);color:var(--fa)}
+.occ{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.fit p{margin:0;color:#c9c8c2;font-size:15px;max-width:62ch}
+.fit ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.fit li{display:grid;grid-template-columns:10px 1fr;gap:10px;font-size:14px;align-items:start}
+.fit li i{width:10px;height:10px;margin-top:5px;border:1px solid var(--draw)}
+.fit li a{text-decoration:none;border-bottom:1px solid var(--line)}
+.fit li a:hover{border-color:var(--fa);color:var(--fa)}
+.fit li small{display:block;color:var(--muted);font-size:12.5px}
+.totals{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums;border-top:1px dashed var(--line);padding-top:10px}
+.totals span b{color:var(--fa);font-weight:400}
+.tip{font-size:14px;color:var(--ink);border-left:2px solid var(--fa);padding-left:10px}
+
+/* FRAKCJE */
+.fchips{margin-bottom:28px}
+.factions{display:grid;gap:56px}
+.faction{display:grid;gap:18px}
+.faction-head{display:grid;gap:6px;border-left:3px solid var(--fa);padding-left:16px}
+.faction-head h3{font-size:clamp(20px,3vw,28px);color:var(--fa)}
+.faction-head p{margin:0;max-width:70ch;color:#c9c8c2;font-size:15px}
+.faction-head p b{color:var(--ink);font-weight:600}
+.pal{display:flex;gap:4px}
+.pal i{width:26px;height:10px;border:1px solid var(--line)}
+.pic.photo{background:#f3f2ee}
+.pic.photo::before{display:none}
+.pic img{position:relative;width:100%;height:100%;object-fit:contain;display:block;padding:6px}
+
+/* SKLEPY */
+.shops{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.shop-card{border:1px solid var(--line);padding:14px;display:grid;gap:6px;text-decoration:none;background:var(--panel)}
+.shop-card:hover{border-color:var(--yellow)}
+.shop-card b{font-family:var(--f-display);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.shop-card span{font-size:13px;color:var(--muted)}
+footer{padding-block:32px 48px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+footer p{max-width:75ch;margin:0 0 8px}
+
+@media (max-width:820px){
+  .hero-grid{grid-template-columns:1fr}
+  .fit{grid-template-columns:1fr}
+  .collage{border-right:0;border-bottom:1px solid var(--line)}
+}
+</style>
+
+<header class="hero">
+  <div class="scan" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="eyebrow">Garderoba kapsułowa · styl Cyberpunk: Edgerunners · wersja elegancka</div>
+    <h1>Szafa <span class="y">Night City</span><small>czerń · chrom · jeden neon</small></h1>
+    <div class="hero-grid">
+      <div>
+        <p class="lead">Edgerunners to żółte kurtki z odblaskami, cyjanowe włosy Lucy i różowy neon Afterlife. Żeby nosić to na co dzień i nie wyglądać jak cosplay, zostawiamy z anime tylko trzy rzeczy: techniczne materiały, ostre sylwetki i <b>jeden</b> kolor-sygnał na całą stylizację. Reszta to czerń, grafit i dobre kroje.</p>
+        <p class="lead">Poniżej: marki w czterech budżetach, 52 rzeczy do szafy (każda z tańszym zamiennikiem) i 26 outfitów według frakcji: Arasaka, Militech, Solo, 6th Street, Tyger Claws, Valentinos, Maelstrom, Voodoo Boys, Nomadzi, Edgerunners i fixerzy. Przy każdej rzeczy są przyciski <b>Zdjęcia</b>, <b>Sklep</b> i <b>Ceny</b>.</p>
+      </div>
+      <div class="ratio">
+        <div class="eyebrow">Proporcja koloru w każdym outficie</div>
+        <div class="ratio-bar" aria-hidden="true"><span class="r1">80% czerń</span><span class="r2">15%</span><span class="r3">5%</span></div>
+        <dl>
+          <dt>80%</dt><dd>czerń i grafit: baza, matowe i techniczne tkaniny</dd>
+          <dt>15%</dt><dd>faktura: skóra, nylon z połyskiem, chrom, srebro</dd>
+          <dt>5%</dt><dd>neon: golf, soczewki okularów, podszewka, suwak</dd>
+        </dl>
+        <div class="swatches">
+          <div class="sw"><i style="background:#0a0b0f"></i><span>Night black</span></div>
+          <div class="sw"><i style="background:#2b2e36"></i><span>Grafit</span></div>
+          <div class="sw"><i style="background:#e9e6df"></i><span>Złamana biel</span></div>
+          <div class="sw"><i style="background:var(--yellow)"></i><span>Edgerunner yellow</span></div>
+          <div class="sw"><i style="background:var(--cyan)"></i><span>Netrunner cyan</span></div>
+          <div class="sw"><i style="background:var(--magenta)"></i><span>Afterlife pink</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Z anime do szafy</div>
+      <h2>Postacie przetłumaczone na elegancję</h2>
+    </div>
+    <div class="chars">
+      <div class="char"><i class="tick" style="background:var(--yellow)"></i><div class="who">David</div><div class="from">Żółto-czarna kurtka z odblaskowym paskiem, luźna sylwetka</div><div class="to"><b>Elegancko:</b> czarna skóra albo nylon + żółty golf z merino. Żółty jest blisko twarzy, a nie na całej kurtce.</div></div>
+      <div class="char"><i class="tick" style="background:var(--cyan)"></i><div class="who">Lucy</div><div class="from">Biała kurtka, czarny kombinezon netrunnerki, cyjanowe pasma</div><div class="to"><b>Elegancko:</b> złamana biel na wierzchu, czerń pod spodem, cyjan tylko w soczewkach okularów.</div></div>
+      <div class="char"><i class="tick" style="background:var(--magenta)"></i><div class="who">Rebecca</div><div class="from">Oversize, neonowy róż i zieleń, dużo detali</div><div class="to"><b>Elegancko:</b> siatkowy longsleeve, skórzane spodnie, różowy akcent w biżuterii albo podszewce. Na klub.</div></div>
+      <div class="char"><i class="tick" style="background:var(--draw)"></i><div class="who">Maine</div><div class="from">Masa, chrom, wszczepy, wojskowy ciężar</div><div class="to"><b>Elegancko:</b> sztywny długi płaszcz, metalowy G-Shock, ciężkie buty na zamek.</div></div>
+      <div class="char"><i class="tick" style="background:var(--red)"></i><div class="who">Faraday / Arasaka</div><div class="from">Korporacyjny garnitur, chłodna władza</div><div class="to"><b>Elegancko:</b> szerokie spodnie Yohji, koszula zapięta pod szyję, zero logo. Czerwony najwyżej w szczególe.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Zasady</div>
+      <h2>Jak to nosić, żeby było elegancko</h2>
+    </div>
+    <div class="rules">
+      <div class="rule"><h3>Jeden neon</h3><p>Jeden kolor-sygnał na outfit. Żółty i cyjan razem od razu robią kostium.</p></div>
+      <div class="rule"><h3>Mieszaj faktury</h3><p>Czerń na czerni działa, kiedy obok siebie leżą mat, połysk nylonu, skóra i wełna. Bez tego wygląda płasko.</p></div>
+      <div class="rule"><h3>Dopasowany dół, ostra góra</h3><p>Zwężane spodnie techniczne albo szerokie wełniane. Unikaj workowatych cargo z dziesięcioma paskami.</p></div>
+      <div class="rule"><h3>Funkcja zamiast ozdoby</h3><p>Suwaki, laminowane szwy, ukryte zapięcia. Żadnych sztucznych pasków i klamer dla efektu.</p></div>
+      <div class="rule"><h3>Chrom zamiast złota</h3><p>Srebro, stal, matowa czerń. Jeden mocny metalowy element: zegarek, klamra albo sygnet.</p></div>
+      <div class="rule"><h3>Logo na minimum</h3><p>Dobre marki z tego świata prawie nie pokazują logo. Elegancja to krój i materiał.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="marki">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Katalog marek</div>
+      <h2>Marki</h2>
+      <p class="lead">Od ikon techwearu po rzeczy z sieciówek, które dobrze udają drogie. Ceny to orientacyjne widełki za typową rzecz.</p>
+    </div>
+    <div class="tiers" id="tiers"></div>
+  </div>
+</section>
+
+<section id="szafa">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Garderoba kapsułowa · 52 rzeczy</div>
+      <h2>Cała szafa</h2>
+      <p class="lead">Przełącz na <b>Budżet</b>, żeby zobaczyć tańszy zamiennik każdej rzeczy. Przycisk <b>Zdjęcia</b> pokazuje więcej ujęć danego modelu.</p>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Wersja cenowa">
+        <button type="button" id="mode-premium" aria-pressed="true">Premium</button>
+        <button type="button" id="mode-budget" aria-pressed="false">Budżet</button>
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Kategoria"></div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section id="outfity">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">26 outfitów · 11 frakcji Night City</div>
+      <h2>Outfity według frakcji</h2>
+      <p class="lead">Każda frakcja z Cyberpunka przełożona na ubrania, które da się nosić na co dzień. Wszystkie rzeczy pochodzą z szafy powyżej. Pod każdym outfitem jest suma w wersji premium i budżetowej.</p>
+    </div>
+    <div class="chips fchips" id="fchips" role="group" aria-label="Frakcja"></div>
+    <div class="factions" id="outfits"></div>
+  </div>
+</section>
+
+<section id="sklepy">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Gdzie kupować</div>
+      <h2>Sklepy z wysyłką do Polski</h2>
+      <p class="lead">Marki premium najtaniej kupisz z drugiej ręki albo na wyprzedażach. Rick Owens, Y-3 i Veilance regularnie schodzą o 30–50%.</p>
+    </div>
+    <div class="shops" id="shops"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Ceny są orientacyjne, w złotówkach, stan na listopad 2026. Modele i kolory zmieniają się co sezon, więc przed zakupem sprawdź aktualną ofertę w sklepie.</p>
+    <p>Przycisk <b>Zdjęcia</b> otwiera wyszukiwanie grafiki dla dokładnej nazwy modelu, <b>Ceny</b> porównuje oferty sklepów, a <b>Sklep</b> prowadzi na oficjalną stronę marki.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+const C={olive:"#4a4f36",sand:"#b9a77e",denim:"#1f2a44",navy:"#1a2236",cream:"#e8dcc3",suede:"#6b4a33",white:"#f1f0ec",grey:"#6b6e76",gold:"#d8ae4b",crimson:"#b3122a",black:"#121318",jet:"#08090c",graph:"#2c2f38",off:"#e7e3da",yellow:"#f3e600",silver:"#c4c8d1",cyan:"#33e6f5",magenta:"#ff2e88",red:"#ff3b3b",olive:"#3a3d33"};
+const enc=encodeURIComponent;
+const gImg=q=>"https://www.google.com/search?tbm=isch&q="+enc(q);
+const gShop=q=>"https://www.google.com/search?tbm=shop&q="+enc(q);
+const zl=n=>n.toLocaleString("pl-PL")+" zł";
+const range=p=>p[0]===p[1]?zl(p[0]):p[0].toLocaleString("pl-PL")+"–"+zl(p[1]);
+const mid=p=>(p[0]+p[1])/2;
+const shopUrl=x=>x.url||gShop(x.brand+" "+x.q);
+/* Zdjęcia produktów: klucz = id rzeczy (premium) albo id+"-alt" (zamiennik). Wypełniane przy budowaniu pliku. */
+const IMG=/*IMG_MAP*/{};
+
+/* ---------- rysunki ubrań (SVG 120×120) ---------- */
+const S='stroke="var(--draw)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"';
+const L=(d,a,w)=>`<path d="${d}" fill="none" stroke="${a}" stroke-width="${w||2}" stroke-linecap="round"/>`;
+const F=(d,c)=>`<path d="${d}" fill="${c}" ${S}/>`;
+const BODY="M42 26 L50 22 L70 22 L78 26 L96 36 L106 94 L95 96 L83 50 L83 104 L37 104 L37 50 L25 96 L14 94 L24 36 Z";
+const ART={
+  tee:(c,a)=>F("M38 22 L50 17 Q60 27 70 17 L82 22 L101 40 L89 51 L82 45 L82 103 L38 103 L38 45 L31 51 L19 40 Z",c)+L("M40 98 H80",a,1.5),
+  knit:(c,a)=>F(BODY,c)+F("M50 10 H70 V24 H50 Z",c)+L("M54 13 V22 M58 13 V22 M62 13 V22 M66 13 V22",a,1)+L("M38 98 H82",a,1.2),
+  shirt:(c,a)=>F(BODY,c)+F("M50 22 L60 36 L54 18 Z",c)+F("M70 22 L60 36 L66 18 Z",c)+L("M60 36 V104",a,1.4),
+  blazer:(c,a)=>F(BODY,c)+F("M50 22 L60 64 L42 40 Z",c)+F("M70 22 L60 64 L78 40 Z",c)+`<circle cx="60" cy="74" r="2.4" fill="${a}"/>`+L("M70 84 H78",a,1.2),
+  coat:(c,a)=>F("M42 18 L50 14 L70 14 L78 18 L96 30 L106 96 L95 98 L84 46 L88 114 L32 114 L36 46 L25 98 L14 96 L24 30 Z",c)+F("M50 14 L60 56 L42 32 Z",c)+F("M70 14 L60 56 L78 32 Z",c)+L("M60 56 V114",a,1.4)+L("M36 70 H84",a,1),
+  shell:(c,a)=>F(BODY,c)+F("M45 28 Q44 6 60 6 Q76 6 75 28 Z",c)+L("M60 26 V104",a,2)+L("M66 44 L78 40",a,1.3),
+  biker:(c,a)=>F("M42 26 L50 22 L70 22 L78 26 L96 36 L106 90 L95 92 L83 50 L83 96 L37 96 L37 50 L25 92 L14 90 L24 36 Z",c)+F("M50 22 L42 36 L56 32 Z",c)+F("M70 22 L78 36 L64 32 Z",c)+L("M66 30 L54 96",a,2)+L("M37 88 H83",a,1),
+  hoodie:(c,a)=>F(BODY,c)+F("M45 28 Q44 6 60 6 Q76 6 75 28 Z",c)+F("M44 76 H76 L82 98 H38 Z",c)+L("M56 28 V40 M64 28 V40",a,1.4),
+  pants:(c,a)=>F("M38 12 H82 L86 112 H67 L60 48 L53 112 H34 Z",c)+L("M38 20 H82",a,1.2),
+  cargo:(c,a)=>F("M38 12 H82 L86 112 H67 L60 48 L53 112 H34 Z",c)+F("M34 54 H48 V72 H35 Z",c)+F("M72 54 H86 L85 72 H72 Z",c)+L("M35 104 H52 M68 104 H85",a,1.5),
+  wide:(c,a)=>F("M38 12 H82 L96 112 H68 L60 46 L52 112 H24 Z",c)+L("M47 20 L44 108 M73 20 L76 108",a,1)+L("M38 20 H82",a,1.2),
+  boots:(c,a)=>F("M42 14 H66 L68 80 Q74 86 98 90 Q106 92 106 100 V104 H34 L36 80 Z",c)+F("M32 104 H108 V111 H32 Z","#050608")+L("M45 18 V78",a,1.6),
+  sneakers:(c,a)=>F("M14 78 Q20 60 42 58 L58 48 Q82 52 98 68 Q108 74 108 84 V90 H14 Z",c)+F("M12 90 H110 V98 Q60 104 12 98 Z","#d8d9dd")+L("M52 56 L60 64 M60 52 L68 62 M68 52 L76 64",a,1.6),
+  ramones:(c,a)=>F("M30 22 H60 L66 70 Q84 74 102 80 Q110 84 110 92 V96 H22 Z",c)+F("M20 96 H112 V104 Q66 108 20 104 Z","#efede6")+L("M38 30 L54 34 M38 40 L54 44 M38 50 L54 54",a,1.4),
+  glasses:(c,a)=>F("M12 48 H54 Q54 72 33 72 Q12 72 12 48 Z",a+"55")+F("M66 48 H108 Q108 72 87 72 Q66 72 66 48 Z",a+"55")+L("M54 52 Q60 46 66 52",c==="#121318"?"var(--draw)":c,2)+L("M12 48 H108",c==="#121318"?"var(--draw)":c,3),
+  belt:(c,a)=>F("M4 52 H116 V68 H4 Z",c)+F("M44 44 H76 V76 H44 Z",C.silver)+F("M52 52 H68 V68 H52 Z","#0a0b0f")+L("M60 52 V68",a,2),
+  backpack:(c,a)=>F("M32 26 Q32 12 60 12 Q88 12 88 26 V106 Q88 112 82 112 H38 Q32 112 32 106 Z",c)+F("M32 26 Q60 42 88 26 V48 H32 Z",c)+L("M44 70 H76",a,1.6),
+  sling:(c,a)=>L("M16 8 L70 64","var(--draw)",3)+F("M44 58 H104 Q110 58 110 64 V94 Q110 100 104 100 H44 Q38 100 38 94 V64 Q38 58 44 58 Z",c)+L("M46 70 H102",a,1.6),
+  watch:(c,a)=>F("M46 6 H74 V36 H46 Z",c)+F("M46 84 H74 V114 H46 Z",c)+`<rect x="34" y="34" width="52" height="52" rx="9" fill="${c}" ${S}/>`+`<rect x="43" y="46" width="34" height="24" rx="2" fill="#0a0b0f" stroke="${a}" stroke-width="1.2"/>`+L("M48 58 H72",a,1.5),
+  ring:(c,a)=>`<circle cx="60" cy="70" r="28" fill="none" stroke="${c}" stroke-width="9"/>`+F("M46 30 H74 V46 H46 Z",c)+L("M52 38 H68",a,1.6),
+  bomber:(c,a)=>F("M42 26 L50 22 L70 22 L78 26 L96 36 L106 90 L95 92 L83 50 L83 96 L37 96 L37 50 L25 92 L14 90 L24 36 Z",c)+F("M37 94 H83 V104 H37 Z",c)+L("M50 23 Q60 31 70 23",a,1.6)+L("M60 30 V104",a,1.4),
+  sukajan:(c,a)=>ART.bomber(c,a)+`<circle cx="60" cy="62" r="13" fill="none" stroke="${a}" stroke-width="1.6"/>`+L("M51 66 Q60 50 69 62 Q62 70 54 58",a,1.4),
+  field:(c,a)=>F(BODY,c)+F("M48 14 H72 L70 26 H50 Z",c)+F("M42 44 H56 V58 H42 Z",c)+F("M64 44 H78 V58 H64 Z",c)+F("M42 74 H56 V90 H42 Z",c)+F("M64 74 H78 V90 H64 Z",c)+L("M60 26 V104",a,1.3),
+  pocket:(c,a)=>F("M30 42 H90 V102 H30 Z",c)+F("M30 42 L44 16 L58 42 Z",c)+F("M58 42 L74 20 L90 42 Z",c)+L("M34 96 H86",a,1.2),
+  chain:(c,a)=>Array.from({length:13},(_,k)=>{const t=Math.PI*(0.1+0.8*k/12);const x=60-44*Math.cos(t),y=20+70*Math.sin(t);return `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="5.5" ry="3.6" transform="rotate(${(k*14-84).toFixed(0)} ${x.toFixed(1)} ${y.toFixed(1)})" fill="none" stroke="${c}" stroke-width="2.6"/>`}).join("")+`<circle cx="60" cy="96" r="4" fill="${a}"/>`,
+  loafer:(c,a)=>F("M14 86 Q16 68 40 66 L84 62 Q104 66 108 82 V90 H14 Z",c)+F("M12 90 H110 V97 H12 Z","#050608")+L("M50 70 H84",a,2),
+  bandana:(c,a)=>F("M10 30 H110 L60 102 Z",c)+[[40,42],[60,44],[80,42],[50,58],[70,58],[60,74]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="3" fill="none" stroke="${a}" stroke-width="1.3"/>`).join(""),
+  gloves:(c,a)=>F("M40 112 V82 L30 58 Q28 52 34 50 Q38 50 40 56 L46 70 V22 Q46 16 52 16 Q58 16 58 22 V58 V16 Q58 10 64 10 Q70 10 70 16 V58 V22 Q70 16 76 16 Q82 16 82 22 V60 V34 Q82 28 88 28 Q94 28 94 34 V82 Q94 96 84 106 V112 Z",c)+L("M40 104 H84",a,1.4)
+};
+function art(type,color,acc,tag,key,alt){
+  const photo=key&&IMG[key];
+  return `<div class="pic${photo?" photo":""}" style="--acc:${acc}">`+(photo?`<img src="${photo}" alt="${alt||tag||""}" loading="lazy">`:`<svg viewBox="0 0 120 120" role="img" aria-label="${alt||tag||type}">${ART[type](color,acc)}</svg>`)+(tag?`<span class="tag">${tag}</span>`:"")+`</div>`;
+}
+
+/* ---------- marki ---------- */
+const TIERS=[
+ {t:"Ikony",p:"2 000 – 15 000 zł za rzecz",list:[
+  ["Acronym","DE","https://acrnm.com","Wzorzec techwearu. Kurtki J1A, spodnie P30A i P10. Dużo funkcji, zero ozdób.","Spodnie P30A-DS, kurtka J1A-GT"],
+  ["Rick Owens","IT/FR","https://www.rickowens.eu","Mroczna awangarda, czarne skóry, wydłużone sylwetki. Najbliżej klimatu Night City.","Kurtka skórzana, golf Lupetto, Ramones"],
+  ["Arc'teryx Veilance","CA","https://veilance.com","Miejskie płaszcze i marynarki z Gore-Tex. Wyglądają jak garnitur, a chronią przed deszczem.","Monitor Coat, Blazer LT, spodnie Indisce"],
+  ["Yohji Yamamoto","JP","https://www.yohjiyamamoto.co.jp","Szerokie, czarne, poetyckie kroje. Korporacyjna elegancja Arasaki.","Koszule, szerokie spodnie z zakładkami"],
+  ["Y-3","JP/DE","https://www.y-3.com","Yohji z adidasem. Sportowa awangarda, łatwiej dostępna niż linia główna.","Bluzy, dresy techniczne, buty"],
+  ["Boris Bidjan Saberi","ES","https://www.borisbidjansaberi.com","Ręcznie barwione skóry i drapowania. Post-apokaliptyczna wersja luksusu.","Buty, kurtki, spodnie"],
+  ["Julius","JP","https://julius-7.com","Japoński dark techwear z przesadnie długimi liniami i warstwami.","Kurtki z kapturem, spodnie z drapowaniem"],
+  ["Guidi","IT","https://www.guidi.it","Ręcznie robione buty z wyprawianej skóry konia. Model 788Z z zamkiem z tyłu.","Buty 788Z"]
+ ]},
+ {t:"Nowa fala",p:"600 – 5 000 zł za rzecz",list:[
+  ["Post Archive Faction","KR","https://www.postarchivefaction.com","Koreański techwear z asymetrią (linie Left / Center / Right). Bardzo czysty.","Kurtki techniczne 6.0+"],
+  ["Heliot Emil","DK","https://www.heliotemil.com","Skandynawski, rzeźbiarski techwear z karabińczykami.","Torby, pasy, kurtki"],
+  ["1017 ALYX 9SM","IT","https://www.alyxstudio.com","Słynna klamra Rollercoaster. Industrialne detale w eleganckim wydaniu.","Pasek Rollercoaster"],
+  ["Stone Island Shadow Project","IT","https://www.stoneisland.com","Linia projektowana z Errolsonem Hugh z Acronymu. Techniczne kurtki z modułami.","Kurtki, bluzy techniczne"],
+  ["Ann Demeulemeester","BE","https://www.anndemeulemeester.com","Romantyczny, czarny dandyzm. Dobra do look'u Lucy.","Koszule, płaszcze, buty"],
+  ["MISBHV","PL","https://misbhv.com","Warszawska marka z klimatem techno-klubu. Siatki, skóry, nocne wyjścia.","Siatkowe longsleeve'y, kurtki"],
+  ["Gentle Monster","KR","https://www.gentlemonster.com","Futurystyczne okulary. Najprostszy sposób na neon przy twarzy.","Okulary z kolorową soczewką"],
+  ["Norwegian Rain","NO","https://norwegianrain.com","Płaszcze przeciwdeszczowe skrojone jak krawiectwo.","Raincoat, T-Kimono"],
+  ["Herno Laminar","IT","https://www.herno.com","Włoskie krawiectwo z Gore-Tex. Lekkie i bardzo eleganckie.","Kurtki i płaszcze Laminar"],
+  ["Goldwin","JP","https://www.goldwin-global.com","Japońska spokojna funkcjonalność. Bliski krewny Acronymu.","Shelle, spodnie"]
+ ]},
+ {t:"Klasyka do frakcji",p:"300 – 13 000 zł za rzecz",list:[
+  ["Alpha Industries","US","https://www.alphaindustries.com","Oryginalne kurtki wojskowe MA-1 i M-65. Rdzeń 6th Street.","MA-1, M-65"],
+  ["Schott NYC","US","https://www.schottnyc.com","Amerykańskie skóry i peacoaty od ponad stu lat.","Peacoat 740N, zamsz"],
+  ["Red Wing","US","https://www.redwingshoes.com","Buty robocze, które wytrzymają Badlands.","Iron Ranger 8111"],
+  ["A.P.C.","FR","https://www.apc.fr","Surowy denim bez ozdób.","Petit Standard"],
+  ["Stone Island","IT","https://www.stoneisland.com","Linia Ghost w jednym kolorze, bez naszywki. Idealna dla Militech.","Kurtki Ghost"],
+  ["Maharishi","UK","https://www.maharishistore.com","Haftowane kurtki inspirowane Azją i wojskiem. Dla Tyger Claws.","Kurtki z haftem"],
+  ["Suitsupply","NL","https://suitsupply.com","Dobre garnitury w rozsądnej cenie, kremowe i czarne.","Marynarki dwurzędowe"],
+  ["Acne Studios","SE","https://www.acnestudios.com","Długie, minimalistyczne płaszcze skórzane.","Płaszcz skórzany"],
+  ["Drake's","UK","https://www.drakes.com","Koszule Oxford i jedwabne poszetki.","Poszetki, koszule"],
+  ["Reserved","PL","https://www.reserved.com/pl/pl/","Polska sieciówka. Tanie marynarki i kurtki zamszowe.","Marynarki, kurtki"]
+ ]},
+ {t:"Dostępne",p:"80 – 1 200 zł za rzecz",list:[
+  ["Salomon","FR","https://www.salomon.com","XT-6 i XT-4 w czerni to obowiązkowe buty techwearu.","XT-6 Black"],
+  ["Côte&Ciel","FR","https://www.coteetciel.com","Asymetryczne plecaki o rzeźbiarskiej formie.","Plecak Isar"],
+  ["Rains","DK","https://www.rains.com","Matowe płaszcze przeciwdeszczowe w minimalistycznym kroju.","Long Jacket, plecaki"],
+  ["AllSaints","UK","https://www.allsaints.com","Kurtki skórzane w dobrej cenie, często na wyprzedażach.","Kurtki biker"],
+  ["COS","SE","https://www.cos.com","Minimalistyczne kroje, dobre merino, szerokie spodnie.","Golfy, koszule, spodnie"],
+  ["Uniqlo","JP","https://www.uniqlo.com/pl/pl/","Podstawy z merino, koszulki U, spodnie Smart Ankle.","Golf merino, koszulki"],
+  ["Riot Division","EU","https://riotdivision.com","Budżetowy techwear. Cargo i kurtki do miasta.","Spodnie cargo, paski"],
+  ["Dr. Martens","UK","https://www.drmartens.com","Chelsea 2976 w gładkiej czarnej skórze.","2976 Chelsea"],
+  ["Casio G-Shock","JP","https://gshock.casio.com","Cyfrowy zegarek to kwintesencja cyberpunku. Od wersji za 400 zł po pełny metal.","DW-5600, GMW-B5000"],
+  ["Komono","BE","https://www.komono.com","Okulary w dobrej cenie, także z kolorowymi soczewkami.","Okulary przeciwsłoneczne"]
+ ]}
+];
+document.getElementById("tiers").innerHTML=TIERS.map(t=>`
+ <div><div class="tier-head"><h3>${t.t}</h3><span class="price">${t.p}</span></div>
+ <div class="brands">${t.list.map(b=>`
+  <article class="brand"><div class="bn"><span>${b[0]}</span><em>${b[1]}</em></div>
+  <p>${b[3]}</p><div class="buy">Kup: <b>${b[4]}</b></div>
+  <div class="links"><a class="shop" href="${b[2]}" target="_blank" rel="noopener">Sklep</a><a href="${gImg(b[0]+" "+b[4]+" outfit")}" target="_blank" rel="noopener">Zdjęcia</a></div></article>`).join("")}
+ </div></div>`).join("");
+
+/* ---------- szafa ---------- */
+const CATS={out:"Okrycia",top:"Góry",bot:"Spodnie",shoe:"Buty",acc:"Dodatki"};
+const W=[
+ {id:"coat",cat:"out",type:"coat",col:C.black,acc:C.cyan,brand:"Arc'teryx Veilance",name:"Monitor Coat, czarny",url:"https://veilance.com",q:"Arc'teryx Veilance Monitor Coat black",p:[4000,5700],note:"Długi płaszcz z Gore-Tex, ukryty kaptur. Baza na jesień i zimę.",
+  alt:{brand:"Uniqlo",name:"Płaszcz BLOCKTECH, czarny",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo Blocktech coat black",p:[400,500]}},
+ {id:"rain",cat:"out",type:"coat",col:C.graph,acc:C.yellow,brand:"Norwegian Rain",name:"Raincoat, czarny/grafit",url:"https://norwegianrain.com",q:"Norwegian Rain raincoat black",p:[4300,6000],note:"Płaszcz przeciwdeszczowy z krojem marynarki. Deszczowe Night City.",
+  alt:{brand:"Rains",name:"Long Jacket, czarny mat",url:"https://www.rains.com",q:"Rains Long Jacket black",p:[450,600]}},
+ {id:"leather",cat:"out",type:"biker",col:C.jet,acc:C.magenta,brand:"Rick Owens",name:"Kurtka skórzana biker",url:"https://www.rickowens.eu",q:"Rick Owens leather biker jacket black",p:[10000,14000],note:"Ostre ramiona, asymetryczny zamek. Najważniejsza rzecz na wieczór.",
+  alt:{brand:"AllSaints",name:"Kurtka skórzana biker",url:"https://www.allsaints.com",q:"AllSaints leather biker jacket black",p:[1800,2400]}},
+ {id:"shellY",cat:"out",type:"shell",col:C.yellow,acc:C.jet,brand:"Arc'teryx",name:"Beta Jacket, żółty/limonkowy kolor sezonowy",url:"https://arcteryx.com",q:"Arc'teryx Beta jacket yellow",p:[1800,2400],note:"Kurtka Davida w wersji dla dorosłych. Nosić tylko do czerni.",
+  alt:{brand:"The North Face",name:"Kurtka przeciwdeszczowa, żółta",url:"https://www.thenorthface.com",q:"The North Face rain jacket yellow black",p:[600,900]}},
+ {id:"shellW",cat:"out",type:"shell",col:C.off,acc:C.cyan,brand:"Arc'teryx Veilance",name:"Spere SL Jacket, off-white",url:"https://veilance.com",q:"Veilance Spere SL jacket off white",p:[1900,2300],note:"Lekka biała kurtka. Fundament look'u Lucy.",
+  alt:{brand:"Rains",name:"Kurtka, biała/kremowa",url:"https://www.rains.com",q:"Rains jacket off white",p:[400,550]}},
+ {id:"blazer",cat:"out",type:"blazer",col:C.black,acc:C.silver,brand:"Arc'teryx Veilance",name:"Blazer LT, czarny",url:"https://veilance.com",q:"Arc'teryx Veilance Blazer LT black",p:[3500,4300],note:"Marynarka z elastycznego materiału technicznego. Do biura i na kolację.",
+  alt:{brand:"Uniqlo",name:"Marynarka AirSense, czarna",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo AirSense jacket black",p:[300,400]}},
+ {id:"paf",cat:"out",type:"shell",col:C.graph,acc:C.cyan,brand:"Post Archive Faction",name:"Technical Jacket (Center), czarny",url:"https://www.postarchivefaction.com",q:"Post Archive Faction technical jacket center black",p:[2500,3500],note:"Asymetryczne suwaki i kieszenie. Najbardziej sci-fi rzecz w szafie.",
+  alt:{brand:"Riot Division",name:"Kurtka techniczna, czarna",url:"https://riotdivision.com",q:"Riot Division techwear jacket black",p:[500,700]}},
+
+ {id:"turtle",cat:"top",type:"knit",col:C.black,acc:C.graph,brand:"Rick Owens",name:"Golf Lupetto, czarny",url:"https://www.rickowens.eu",q:"Rick Owens Lupetto turtleneck black",p:[1500,2500],note:"Cienki, dopasowany golf. Pasuje pod wszystko z tej listy.",
+  alt:{brand:"Uniqlo",name:"Golf Extra Fine Merino, czarny",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo extra fine merino turtleneck black",p:[170,200]}},
+ {id:"turtleY",cat:"top",type:"knit",col:C.yellow,acc:C.jet,brand:"COS",name:"Golf z merino, żółty",url:"https://www.cos.com",q:"COS merino turtleneck yellow",p:[350,450],note:"Jedyny jaskrawy element outfitu Davida. Szukaj żółtego z zimnym, cytrynowym odcieniem.",
+  alt:{brand:"Uniqlo",name:"Golf Extra Fine Merino, żółty (sezonowo)",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo merino turtleneck yellow",p:[170,200]}},
+ {id:"tee",cat:"top",type:"tee",col:C.black,acc:C.graph,brand:"Rick Owens",name:"Level T, czarny",url:"https://www.rickowens.eu",q:"Rick Owens Level T black",p:[1200,1600],note:"Długi, miękki T-shirt. Pod płaszcz i kurtkę skórzaną.",
+  alt:{brand:"Uniqlo U",name:"Koszulka Crew Neck, czarna",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo U crew neck t-shirt black",p:[70,90]}},
+ {id:"mesh",cat:"top",type:"knit",col:"#1c1e26",acc:C.magenta,brand:"MISBHV",name:"Siatkowy longsleeve, czarny",url:"https://misbhv.com",q:"MISBHV mesh long sleeve top black",p:[400,700],note:"Polska marka. Prześwitująca siatka na wyjście do klubu.",
+  alt:{brand:"H&M",name:"Top z siatki, czarny",url:"https://www2.hm.com/pl_pl/",q:"mesh long sleeve top black men",p:[60,100]}},
+ {id:"shirt",cat:"top",type:"shirt",col:C.black,acc:C.graph,brand:"Yohji Yamamoto",name:"Koszula z krytą listwą, czarna",url:"https://www.yohjiyamamoto.co.jp",q:"Yohji Yamamoto Pour Homme black shirt",p:[2500,3500],note:"Zapinana pod szyję, bez krawata. Strój Arasaki.",
+  alt:{brand:"COS",name:"Koszula z krytą listwą, czarna",url:"https://www.cos.com",q:"COS black shirt concealed placket",p:[300,400]}},
+ {id:"hoodie",cat:"top",type:"hoodie",col:C.black,acc:C.cyan,brand:"Y-3",name:"Bluza z kapturem, czarna",url:"https://www.y-3.com",q:"Y-3 hoodie black",p:[1100,1500],note:"Ciężka bawełna, dyskretne logo. Na weekend.",
+  alt:{brand:"Uniqlo",name:"Bluza z kapturem, czarna",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo sweat hoodie black",p:[130,170]}},
+
+ {id:"tech",cat:"bot",type:"pants",col:C.black,acc:C.graph,brand:"Arc'teryx Veilance",name:"Spodnie Indisce, czarne",url:"https://veilance.com",q:"Arc'teryx Veilance Indisce pant black",p:[1500,2000],note:"Zwężane spodnie z elastycznego materiału. Wyglądają jak eleganckie chinosy.",
+  alt:{brand:"Uniqlo",name:"Spodnie Smart Ankle, czarne",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo smart ankle pants black",p:[150,200]}},
+ {id:"cargo",cat:"bot",type:"cargo",col:C.black,acc:C.graph,brand:"Acronym",name:"P30A-DS, czarne",url:"https://acrnm.com",q:"Acronym P30A-DS black",p:[3500,4500],note:"Kultowe cargo. Kieszenie są funkcjonalne, a krój zostaje smukły.",
+  alt:{brand:"Riot Division",name:"Spodnie cargo, czarne",url:"https://riotdivision.com",q:"Riot Division cargo pants black",p:[300,450]}},
+ {id:"lpants",cat:"bot",type:"pants",col:C.jet,acc:C.magenta,brand:"Rick Owens",name:"Skórzane spodnie, czarne",url:"https://www.rickowens.eu",q:"Rick Owens leather pants black",p:[6000,9000],note:"Opcjonalne. Mocny element na noc.",
+  alt:{brand:"AllSaints",name:"Skórzane spodnie, czarne",url:"https://www.allsaints.com",q:"AllSaints leather trousers black",p:[1800,2500]}},
+ {id:"wide",cat:"bot",type:"wide",col:C.black,acc:C.graph,brand:"Yohji Yamamoto",name:"Szerokie spodnie z wełny, czarne",url:"https://www.yohjiyamamoto.co.jp",q:"Yohji Yamamoto wide wool trousers black",p:[2500,3500],note:"Płynna, szeroka nogawka. Do koszuli i płaszcza.",
+  alt:{brand:"COS",name:"Szerokie spodnie z wełny, czarne",url:"https://www.cos.com",q:"COS wide leg wool trousers black",p:[400,500]}},
+
+ {id:"boots",cat:"shoe",type:"boots",col:C.jet,acc:C.silver,brand:"Guidi",name:"788Z, czarne",url:"https://www.guidi.it",q:"Guidi 788Z black",p:[4500,5500],note:"Buty z zamkiem z tyłu, z wyprawianej skóry. Starzeją się pięknie.",
+  alt:{brand:"Dr. Martens",name:"2976 Chelsea, czarne gładkie",url:"https://www.drmartens.com",q:"Dr Martens 2976 Chelsea black smooth",p:[800,900]}},
+ {id:"xt6",cat:"shoe",type:"sneakers",col:C.black,acc:C.cyan,brand:"Salomon",name:"XT-6, Black/Black",url:"https://www.salomon.com",q:"Salomon XT-6 black black",p:[850,950],note:"Standardowe buty techwearu. Wygodne cały dzień.",
+  alt:{brand:"Salomon",name:"XT-4 / Speedcross, czarne (wyprzedaż)",url:"https://www.salomon.com",q:"Salomon XT-4 black",p:[500,700]}},
+ {id:"ramones",cat:"shoe",type:"ramones",col:C.black,acc:C.magenta,brand:"Rick Owens DRKSHDW",name:"Ramones, czarne",url:"https://www.rickowens.eu",q:"Rick Owens DRKSHDW Ramones black",p:[1700,2300],note:"Wysokie trampki z grubą podeszwą. Na klub i luźniejsze wieczory.",
+  alt:{brand:"Converse",name:"Chuck 70 Hi, czarne",url:"https://www.converse.com",q:"Converse Chuck 70 Hi black",p:[400,450]}},
+
+ {id:"glassesC",cat:"acc",type:"glasses",col:C.black,acc:C.cyan,brand:"Gentle Monster",name:"Okulary z niebieską/cyjanową soczewką",url:"https://www.gentlemonster.com",q:"Gentle Monster sunglasses blue tinted lens",p:[1200,1600],note:"Najprostszy neon przy twarzy, w stylu Lucy.",
+  alt:{brand:"Komono",name:"Okulary z kolorową soczewką",url:"https://www.komono.com",q:"Komono sunglasses blue lens",p:[350,500]}},
+ {id:"glassesY",cat:"acc",type:"glasses",col:C.black,acc:C.yellow,brand:"Gentle Monster",name:"Okulary z żółtą soczewką",url:"https://www.gentlemonster.com",q:"Gentle Monster sunglasses yellow lens",p:[1200,1600],note:"Żółte szkła na wieczór. Rozjaśniają obraz nocą.",
+  alt:{brand:"Komono",name:"Okulary z żółtą soczewką",url:"https://www.komono.com",q:"yellow lens sunglasses black frame",p:[300,450]}},
+ {id:"belt",cat:"acc",type:"belt",col:C.jet,acc:C.silver,brand:"1017 ALYX 9SM",name:"Pasek Rollercoaster, czarny",url:"https://www.alyxstudio.com",q:"1017 ALYX 9SM rollercoaster belt black",p:[1600,2200],note:"Industrialna klamra. Jeden metalowy akcent na outfit.",
+  alt:{brand:"Riot Division",name:"Pasek z klamrą typu cobra",url:"https://riotdivision.com",q:"Riot Division belt cobra buckle",p:[150,250]}},
+ {id:"bag",cat:"acc",type:"backpack",col:C.black,acc:C.graph,brand:"Côte&Ciel",name:"Plecak Isar, czarny",url:"https://www.coteetciel.com",q:"Cote&Ciel Isar backpack black",p:[1000,1400],note:"Rzeźbiarski kształt, mieści laptopa.",
+  alt:{brand:"Rains",name:"Plecak Rolltop, czarny",url:"https://www.rains.com",q:"Rains rolltop backpack black",p:[350,450]}},
+ {id:"sling",cat:"acc",type:"sling",col:C.graph,acc:C.cyan,brand:"Heliot Emil",name:"Torba crossbody z karabińczykiem",url:"https://www.heliotemil.com",q:"Heliot Emil crossbody bag black",p:[1500,2500],note:"Przez klatkę piersiową, jak netrunnerka.",
+  alt:{brand:"Rains",name:"Torba crossbody, czarna",url:"https://www.rains.com",q:"Rains crossbody bag black",p:[200,300]}},
+ {id:"watch",cat:"acc",type:"watch",col:"#3a3d46",acc:C.cyan,brand:"Casio G-Shock",name:"GMW-B5000, pełny metal, czarny",url:"https://gshock.casio.com",q:"G-Shock GMW-B5000 black full metal",p:[2400,3000],note:"Cyfrowy ekran w stalowej kopercie. Czysty cyberpunk.",
+  alt:{brand:"Casio G-Shock",name:"DW-5600, czarny",url:"https://gshock.casio.com",q:"G-Shock DW-5600 black",p:[350,450]}},
+ {id:"ring",cat:"acc",type:"ring",col:C.silver,acc:C.graph,brand:"Tom Wood",name:"Srebrny sygnet",url:"https://www.tomwoodproject.com",q:"Tom Wood silver signet ring",p:[1000,2000],note:"Chrom zamiast wszczepów.",
+  alt:{brand:"Jubiler / Vinted",name:"Sygnet ze srebra 925",url:"https://www.vinted.pl",q:"srebrny sygnet 925 męski",p:[150,300]}},
+ {id:"gloves",cat:"acc",type:"gloves",col:C.jet,acc:C.graph,brand:"Hestra",name:"Skórzane rękawiczki, czarne",url:"https://hestragloves.com",q:"Hestra leather gloves black",p:[400,600],note:"Cienka skóra. Zimą do płaszcza.",
+  alt:{brand:"COS",name:"Skórzane rękawiczki, czarne",url:"https://www.cos.com",q:"COS leather gloves black",p:[200,300]}},
+ {id:"suit",cat:"out",type:"blazer",col:C.black,acc:C.crimson,brand:"Yohji Yamamoto",name:"Garnitur wełniany, czarny",url:"https://www.yohjiyamamoto.co.jp",q:"Yohji Yamamoto Pour Homme black wool suit",p:[9000,13000],note:"Miękka, luźna marynarka i szerokie spodnie. Garnitur zarządu Arasaki.",
+  alt:{brand:"COS",name:"Garnitur z wełny, czarny (marynarka + spodnie)",url:"https://www.cos.com",q:"COS black wool suit",p:[1100,1500]}},
+ {id:"lcoat",cat:"out",type:"coat",col:C.jet,acc:C.magenta,brand:"Acne Studios",name:"Długi płaszcz skórzany, czarny",url:"https://www.acnestudios.com",q:"Acne Studios long leather coat black",p:[9000,13000],note:"Płaszcz fixera. Do kolan, gładka skóra, bez ozdób.",
+  alt:{brand:"AllSaints",name:"Długi płaszcz skórzany, czarny",url:"https://www.allsaints.com",q:"AllSaints long leather coat black",p:[2500,3500]}},
+ {id:"olive",cat:"out",type:"shell",col:C.olive,acc:"#c9b27c",brand:"Stone Island",name:"Kurtka z linii Ghost, oliwkowa",url:"https://www.stoneisland.com",q:"Stone Island Ghost piece jacket olive",p:[3000,4500],note:"Monochromatyczna oliwka, techniczny materiał, bez naszywki na rękawie. Militech bez munduru.",
+  alt:{brand:"Rains",name:"Kurtka, oliwkowa",url:"https://www.rains.com",q:"Rains jacket olive green",p:[400,600]}},
+ {id:"m65",cat:"out",type:"field",col:C.olive,acc:"#5d8bff",brand:"Alpha Industries",name:"M-65 Field Jacket, oliwkowa",url:"https://www.alphaindustries.com",q:"Alpha Industries M-65 field jacket olive",p:[1000,1300],note:"Wojskowa klasyka z czterema kieszeniami. Podstawa 6th Street.",
+  alt:{brand:"Mil-Tec",name:"Kurtka M-65, oliwkowa",url:"https://www.mil-tec.de",q:"Mil-Tec M65 field jacket olive",p:[250,350]}},
+ {id:"ma1",cat:"out",type:"bomber",col:C.black,acc:"#ff8a1f",brand:"Alpha Industries",name:"MA-1, czarna z pomarańczową podszewką",url:"https://www.alphaindustries.com",q:"Alpha Industries MA-1 black",p:[700,950],note:"Kurtka pilota. Pomarańczowa podszewka to gotowy neon.",
+  alt:{brand:"Mil-Tec",name:"Kurtka MA-1, czarna",url:"https://www.mil-tec.de",q:"Mil-Tec MA1 flight jacket black",p:[200,300]}},
+ {id:"peacoat",cat:"out",type:"coat",col:C.navy,acc:C.silver,brand:"Schott NYC",name:"Peacoat 740N, granatowy",url:"https://www.schottnyc.com",q:"Schott NYC 740N peacoat navy",p:[1500,2000],note:"Dwurzędowy płaszcz marynarki USA. Wersja galowa 6th Street.",
+  alt:{brand:"Uniqlo",name:"Płaszcz z domieszką wełny, granatowy",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo wool blend coat navy",p:[400,600]}},
+ {id:"sukajan",cat:"out",type:"sukajan",col:C.black,acc:"#3dff8b",brand:"Maharishi",name:"Kurtka z haftem (sukajan / tour jacket), czarna",url:"https://www.maharishistore.com",q:"Maharishi embroidered tour jacket black",p:[2500,3500],note:"Japońska kurtka z haftowanym tygrysem lub smokiem. Serce Tyger Claws.",
+  alt:{brand:"Vinted",name:"Sukajan z haftem, czarna (z drugiej ręki)",url:"https://www.vinted.pl",q:"sukajan black embroidered tiger",p:[200,500]}},
+ {id:"cream",cat:"out",type:"blazer",col:C.cream,acc:C.gold,brand:"Suitsupply",name:"Marynarka dwurzędowa, kremowa",url:"https://suitsupply.com",q:"Suitsupply double breasted cream jacket",p:[1800,2600],note:"Ciepła biel i złoto. Niedzielna elegancja Valentinos.",
+  alt:{brand:"Reserved",name:"Marynarka, kremowa",url:"https://www.reserved.com/pl/pl/",q:"Reserved marynarka kremowa męska",p:[250,400]}},
+ {id:"suede",cat:"out",type:"biker",col:C.suede,acc:"#d98b4e",brand:"Schott NYC",name:"Kurtka zamszowa, brązowa",url:"https://www.schottnyc.com",q:"Schott NYC suede jacket brown",p:[2000,3000],note:"Pustynny kolor i miękki zamsz. Nomadzi z Aldecaldos.",
+  alt:{brand:"Reserved",name:"Kurtka z imitacji zamszu, brązowa",url:"https://www.reserved.com/pl/pl/",q:"Reserved kurtka zamszowa męska brązowa",p:[300,500]}},
+
+ {id:"wtee",cat:"top",type:"tee",col:C.white,acc:"#5d8bff",brand:"Sunspel",name:"Classic T-shirt, biały",url:"https://www.sunspel.com",q:"Sunspel classic t-shirt white",p:[300,400],note:"Gruba biała bawełna. Amerykańska klasyka pod M-65.",
+  alt:{brand:"Uniqlo U",name:"Koszulka Crew Neck, biała",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo U crew neck t-shirt white",p:[70,90]}},
+ {id:"ghoodie",cat:"top",type:"hoodie",col:C.grey,acc:"#5d8bff",brand:"Reigning Champ",name:"Bluza z kapturem, szara",url:"https://reigningchamp.com",q:"Reigning Champ hoodie heather grey",p:[600,800],note:"Ciężka pętelka. Pod MA-1 na nocny patrol.",
+  alt:{brand:"Uniqlo",name:"Bluza z kapturem, szara",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo sweat hoodie grey",p:[130,170]}},
+ {id:"oxford",cat:"top",type:"shirt",col:C.white,acc:C.silver,brand:"Drake's",name:"Koszula Oxford, biała",url:"https://www.drakes.com",q:"Drake's white oxford shirt",p:[900,1100],note:"Wykrochmalona biel pod granatowy płaszcz.",
+  alt:{brand:"Uniqlo",name:"Koszula Oxford, biała",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo oxford shirt white",p:[130,160]}},
+ {id:"silk",cat:"top",type:"shirt",col:C.jet,acc:C.gold,brand:"Saint Laurent",name:"Koszula jedwabna, czarna",url:"https://www.ysl.com",q:"Saint Laurent black silk shirt",p:[3500,5000],note:"Nosić rozpiętą o dwa guziki, ze złotym łańcuchem.",
+  alt:{brand:"Zara",name:"Koszula satynowa, czarna",url:"https://www.zara.com/pl/",q:"Zara satin shirt black men",p:[150,250]}},
+
+ {id:"sand",cat:"bot",type:"pants",col:C.sand,acc:C.olive,brand:"Goldwin",name:"Spodnie techniczne, piaskowe",url:"https://www.goldwin-global.com",q:"Goldwin tapered pants beige",p:[1200,1700],note:"Piasek zamiast czerni. Kolor Militech i nomadów.",
+  alt:{brand:"Uniqlo",name:"Spodnie Smart Ankle, beżowe",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo smart ankle pants beige",p:[150,200]}},
+ {id:"denim",cat:"bot",type:"pants",col:C.denim,acc:"#d98b4e",brand:"A.P.C.",name:"Petit Standard, surowy denim",url:"https://www.apc.fr",q:"A.P.C. Petit Standard raw denim",p:[1000,1300],note:"Ciemny surowy denim, który z czasem się wyciera po swojemu.",
+  alt:{brand:"Levi's",name:"501 Original, ciemny denim",url:"https://www.levi.com",q:"Levi's 501 dark rinse",p:[400,500]}},
+
+ {id:"ranger",cat:"shoe",type:"boots",col:"#4a2f22",acc:"#d98b4e",brand:"Red Wing",name:"Iron Ranger 8111",url:"https://www.redwingshoes.com",q:"Red Wing Iron Ranger 8111",p:[1800,2300],note:"Amerykańskie buty robocze. Ciężkie, na lata.",
+  alt:{brand:"Dr. Martens",name:"1460, czarne gładkie",url:"https://www.drmartens.com",q:"Dr Martens 1460 smooth black",p:[750,850]}},
+ {id:"loafers",cat:"shoe",type:"loafer",col:C.jet,acc:C.gold,brand:"J.M. Weston",name:"Loafersy 180, czarne",url:"https://www.jmweston.com",q:"J.M. Weston 180 loafer black",p:[4500,5500],note:"Mokasyny do garnituru. Bez skarpet latem.",
+  alt:{brand:"Sebago",name:"Classic Dan, czarne",url:"https://www.sebago.com",q:"Sebago Classic Dan black",p:[500,650]}},
+
+ {id:"pocket",cat:"acc",type:"pocket",col:C.crimson,acc:"#ff6a6a",brand:"Drake's",name:"Poszetka jedwabna, czerwona",url:"https://www.drakes.com",q:"Drake's red silk pocket square",p:[400,550],note:"Jedyny czerwony element Arasaki. Mały kwadrat w kieszeni.",
+  alt:{brand:"Allegro",name:"Poszetka jedwabna, czerwona",url:"https://allegro.pl",q:"poszetka jedwabna czerwona",p:[50,120]}},
+ {id:"glassesR",cat:"acc",type:"glasses",col:C.black,acc:"#ff3b3b",brand:"Gentle Monster",name:"Okulary z czerwoną soczewką",url:"https://www.gentlemonster.com",q:"Gentle Monster sunglasses red lens",p:[1200,1600],note:"Czerwone szkła jak optyka Maelstromu.",
+  alt:{brand:"Komono",name:"Okulary z czerwoną soczewką",url:"https://www.komono.com",q:"red lens sunglasses black frame",p:[300,450]}},
+ {id:"glassesP",cat:"acc",type:"glasses",col:C.black,acc:"#3dff8b",brand:"Gentle Monster",name:"Okulary z zieloną soczewką",url:"https://www.gentlemonster.com",q:"Gentle Monster sunglasses green lens",p:[1200,1600],note:"Neonowa zieleń Tyger Claws, tylko w szkłach.",
+  alt:{brand:"Komono",name:"Okulary z zieloną soczewką",url:"https://www.komono.com",q:"green lens sunglasses black frame",p:[300,450]}},
+ {id:"aviator",cat:"acc",type:"glasses",col:C.silver,acc:"#8a7a52",brand:"Randolph Engineering",name:"Aviator, srebrne",url:"https://www.randolphusa.com",q:"Randolph Engineering Aviator silver",p:[1000,1300],note:"Okulary pilotów wojskowych USA. 6th Street i Valentinos.",
+  alt:{brand:"Ray-Ban",name:"Aviator Classic",url:"https://www.ray-ban.com",q:"Ray-Ban Aviator Classic silver",p:[600,800]}},
+ {id:"chain",cat:"acc",type:"chain",col:C.gold,acc:C.gold,brand:"Tom Wood",name:"Łańcuch Curb, srebro złocone",url:"https://www.tomwoodproject.com",q:"Tom Wood curb chain gold",p:[2500,4000],note:"Złoto tylko tutaj i tylko u Valentinos.",
+  alt:{brand:"Apart",name:"Łańcuch pancerka, srebro złocone",url:"https://www.apart.pl",q:"Apart łańcuch pancerka srebro złocone",p:[300,700]}},
+ {id:"wchain",cat:"acc",type:"chain",col:C.silver,acc:C.silver,brand:"1017 ALYX 9SM",name:"Naszyjnik-łańcuch z klamrą, srebrny",url:"https://www.alyxstudio.com",q:"1017 ALYX 9SM chain necklace silver",p:[1200,2000],note:"Chromowany łańcuch. Industrialny akcent.",
+  alt:{brand:"Jubiler / Vinted",name:"Łańcuch ze srebra 925",url:"https://www.vinted.pl",q:"łańcuch srebrny 925 męski",p:[150,300]}},
+ {id:"bandana",cat:"acc",type:"bandana",col:"#8a3b22",acc:"#e8dcc3",brand:"Kapital",name:"Bandana z indygo lub rdzawa",url:null,q:"Kapital bandana",p:[200,300],note:"Na szyję jak u nomadów. Zawsze tylko jedna.",
+  alt:{brand:"Dowolna",name:"Bandana bawełniana",url:null,q:"bandana bawełniana paisley",p:[30,60]}}
+];
+const byId=Object.fromEntries(W.map(i=>[i.id,i]));
+let mode="premium",cat="all";
+function linksFor(x){return `<div class="links"><a href="${gImg(x.q)}" target="_blank" rel="noopener">Zdjęcia</a><a class="shop" href="${shopUrl(x)}" target="_blank" rel="noopener">Sklep</a><a href="${gShop(x.q)}" target="_blank" rel="noopener">Ceny</a></div>`;}
+function renderGrid(){
+  const list=W.filter(i=>cat==="all"||i.cat===cat);
+  document.getElementById("grid").innerHTML=list.map(i=>{
+    const x=mode==="premium"?i:i.alt;
+    const other=mode==="premium"?i.alt:i;
+    return `<article class="item">${art(i.type,i.col,i.acc,CATS[i.cat],mode==="premium"?i.id:i.id+"-alt",x.brand+" "+x.name)}
+    <div class="meta"><div class="b">${x.brand}</div><div class="n">${x.name}</div>
+    <p class="note">${i.note}</p><div class="pr">${range(x.p)}</div>
+    <div class="alt">${mode==="premium"?"Taniej":"Wersja premium"}: <b>${other.brand}</b>, ${range(other.p)}</div>
+    ${linksFor(x)}</div></article>`;}).join("");
+}
+const chips=document.getElementById("chips");
+chips.innerHTML=[["all","Wszystko"],...Object.entries(CATS)].map(([k,v])=>`<button type="button" data-c="${k}" aria-pressed="${k==="all"}">${v}</button>`).join("");
+chips.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;cat=b.dataset.c;chips.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));renderGrid();});
+const bP=document.getElementById("mode-premium"),bB=document.getElementById("mode-budget");
+function setMode(m){mode=m;bP.setAttribute("aria-pressed",m==="premium");bB.setAttribute("aria-pressed",m==="budget");renderGrid();}
+bP.onclick=()=>setMode("premium");bB.onclick=()=>setMode("budget");
+renderGrid();
+
+/* ---------- frakcje i outfity ---------- */
+const FACTIONS=[
+ {id:"arasaka",n:"Arasaka",a:"#ff3b4e",who:"Japońska megakorporacja. Władza, dyscyplina, czarne garnitury i czerwone logo.",el:"Czerń od stóp do głów, zero logo. Czerwień tylko w poszetce albo podszewce.",pal:["#08090c","#121318","#b3122a"],
+  fits:[
+  {n:"Saburo — posiedzenie zarządu",o:"Gala · ważne spotkanie",items:["suit","shirt","pocket","loafers","watch","gloves"],d:"Miękki czarny garnitur Yohji, czarna koszula zapięta pod szyję i czerwona poszetka. Władza bez krawata.",t:"Poszetka składana prosto, wystaje na 1 cm. Więcej czerwieni nie trzeba."},
+  {n:"Takemura — ochrona osobista",o:"Biuro · miasto zimą",items:["coat","turtle","tech","boots","gloves","watch"],d:"Długi techniczny płaszcz, golf i rękawiczki. Ktoś, kto pilnuje prezesa i nie musi tego pokazywać.",t:"Rękawiczki noś także w środku dnia. To one robią ten look."},
+  {n:"Hanako — wieczór w Embers",o:"Kolacja · teatr",items:["blazer","turtle","wide","boots","ring","pocket"],d:"Marynarka techniczna, golf i płynne szerokie spodnie. Japońska elegancja bez kostiumu.",t:"Czerwoną poszetkę możesz zawiązać na nadgarstku albo przy pasku, jako jedwabny akcent."}
+ ]},
+ {id:"militech",n:"Militech",a:"#c9b27c",who:"Amerykański koncern zbrojeniowy. Oliwka, piasek, stal, wojskowa precyzja.",el:"Techniczne tkaniny w oliwce i piasku, żadnych moro i naszywek.",pal:["#4a4f36","#b9a77e","#2c2f38"],
+  fits:[
+  {n:"Oficer Militech",o:"Biuro · podróż służbowa",items:["olive","turtle","sand","boots","watch","gloves"],d:"Oliwkowa kurtka Stone Island, czarny golf i piaskowe spodnie. Wygląda jak mundur oficerski w wersji cywilnej.",t:"Oliwka i piasek plus czarny golf. Trzeci kolor zabiłby efekt."},
+  {n:"Operator w terenie",o:"Weekend · wyjazd",items:["olive","hoodie","cargo","xt6","sling","aviator"],d:"Oliwkowy shell na czarnej bluzie, cargo Acronym i torba przez klatkę. Gotowy na każdą pogodę.",t:"Torba crossbody nosi się wysoko, na mostku, a nie na biodrze."}
+ ]},
+ {id:"solo",n:"Solo",a:"#ff8a1f",who:"Najemnicy od brudnej roboty: ochrona, kontrakty, walka. Funkcja ponad wszystko.",el:"Czarny techwear, mocne buty, metalowy zegarek. Pomarańcz tylko jako sygnał.",pal:["#08090c","#2c2f38","#ff8a1f"],
+  fits:[
+  {n:"Kontrakt nocny",o:"Miasto · cały dzień",items:["paf","tee","cargo","boots","sling","watch"],d:"Asymetryczna kurtka PAF, cargo Acronym i buty Guidi. Wszystko ma funkcję, nic nie jest na pokaz.",t:"Same czarne rzeczy, ale każda w innej fakturze: nylon, bawełna, skóra."},
+  {n:"Maine — ciężka waga",o:"Wieczór · klub",items:["lcoat","tee","cargo","ranger","watch","wchain"],d:"Długi skórzany płaszcz, ciężkie buty i chromowany łańcuch. Sylwetka szefa ekipy.",t:"Płaszcz zapięty daje elegancję, rozpięty daje siłę. Wybierz jedno."},
+  {n:"V — lekki solo",o:"Bar · randka",items:["ma1","hoodie","tech","xt6","ring","watch"],d:"MA-1 z pomarańczową podszewką na czarnej bluzie. Podszewka pokazuje się tylko, gdy kurtka jest rozpięta.",t:"Kaptur bluzy na kołnierz kurtki. Rękawy MA-1 lekko podwinięte."}
+ ]},
+ {id:"sixth",n:"6th Street",a:"#5d8bff",who:"Gang weteranów wojny korporacyjnej. Amerykański patriotyzm, wojskowe kurtki, porządek na ulicy.",el:"Klasyka amerykańskiej armii: M-65, MA-1, peacoat, biały T-shirt, surowy denim. Bez flag.",pal:["#4a4f36","#1a2236","#f1f0ec"],
+  fits:[
+  {n:"Weteran",o:"Codziennie · weekend",items:["m65","wtee","denim","ranger","aviator","watch"],d:"Oliwkowa M-65, biały T-shirt, surowy denim i Red Wingi. Amerykańska klasyka w wersji z Night City.",t:"Denim ma być ciemny i bez przetarć. Wtedy całość wygląda czysto."},
+  {n:"Patrol nocny",o:"Wieczór · miasto",items:["ma1","ghoodie","cargo","ranger","gloves","watch"],d:"Czarna MA-1, szara bluza i czarne cargo. Ktoś, kto pilnuje swojej dzielnicy.",t:"Szara bluza rozbija czerń. Nie dawaj już nic kolorowego."},
+  {n:"Mundur galowy",o:"Uroczystość · zima",items:["peacoat","oxford","tech","boots","aviator","gloves"],d:"Granatowy peacoat, biała koszula Oxford i błyszczące buty. Defilada, tylko bez munduru.",t:"Koszula zapięta pod szyję, bez krawata. Buty wypastowane na błysk."}
+ ]},
+ {id:"tyger",n:"Tyger Claws",a:"#3dff8b",who:"Japoński gang z Japantown. Motocykle, katany, neon zielony i różowy, haftowane kurtki.",el:"Czarny sukajan z haftem i neon tylko w szkłach okularów.",pal:["#08090c","#3dff8b","#ff2e88"],
+  fits:[
+  {n:"Sukajan na noc",o:"Bar · koncert",items:["sukajan","tee","tech","ramones","glassesP","wchain"],d:"Czarna kurtka z haftowanym tygrysem to jedyny ozdobny element. Reszta jest czarna i prosta.",t:"Haft ma być ciemny, ton w ton. Kolorowy smok na plecach to już kostium."},
+  {n:"Oyabun",o:"Kolacja · klub VIP",items:["suit","tee","loafers","ring","glassesP","watch"],d:"Czarny garnitur na czarnym T-shircie i mokasyny na bosą stopę. Szef, który nie musi nosić krawata.",t:"Do garnituru T-shirt z grubej bawełny, nigdy cienki."}
+ ]},
+ {id:"valentinos",n:"Valentinos",a:"#e4b54a",who:"Latynoski gang z Heywood. Rodzina, honor, złote łańcuchy, krzyże i lowridery.",el:"Czerń i krem plus złoto, ale tylko w jednym łańcuchu.",pal:["#08090c","#e8dcc3","#d8ae4b"],
+  fits:[
+  {n:"Valentino nocą",o:"Klub · wesele wieczorem",items:["silk","wide","boots","chain","ring","aviator"],d:"Czarna jedwabna koszula rozpięta o dwa guziki, złoty łańcuch i szerokie spodnie.",t:"Złoto w jednym miejscu. Sygnet zostaw srebrny albo zdejmij."},
+  {n:"Niedziela w Heywood",o:"Wesele · lato",items:["cream","silk","wide","loafers","chain","aviator"],d:"Kremowa dwurzędowa marynarka na czarnej jedwabnej koszuli. Elegancja latynoskiej rodziny.",t:"Marynarka zapięta na jeden guzik. Mokasyny bez skarpet."}
+ ]},
+ {id:"maelstrom",n:"Maelstrom",a:"#ff5a1f",who:"Cybernetyczni fanatycy chromu. Czerwone optyki, metal, industrial.",el:"Czarna skóra, metal i czerwone szkła okularów. Bez wszczepów.",pal:["#08090c","#c4c8d1","#ff3b3b"],
+  fits:[
+  {n:"Chrom i czerwień",o:"Klub techno",items:["leather","mesh","lpants","boots","glassesR","wchain"],d:"Skóra na siatce, skórzane spodnie, łańcuch i czerwone szkła. Najmocniejszy outfit w szafie.",t:"Czerwone szkła wystarczą. Bez czerwonych ubrań."},
+  {n:"Warsztat w All Foods",o:"Wieczór · miasto",items:["lcoat","tee","cargo","ranger","glassesR","gloves"],d:"Długi skórzany płaszcz, cargo i ciężkie buty. Industrialnie, ale nadal elegancko.",t:"Rękawiczki bez palców to już kostium. Zostań przy pełnych."}
+ ]},
+ {id:"voodoo",n:"Voodoo Boys",a:"#33e6f5",who:"Haitańscy netrunnerzy z Pacifiki. Sieć, cisza, ciało zostaje w cieniu.",el:"Luźne czarne warstwy, siatka i cyjan w szkłach.",pal:["#08090c","#1c1e26","#33e6f5"],
+  fits:[
+  {n:"Pacifica po zmroku",o:"Lato · wieczór",items:["mesh","wide","ramones","glassesC","wchain","sling"],d:"Siatkowy longsleeve, szerokie spodnie i cyjanowe szkła. Lekko, ciemno, na ciepłą noc.",t:"Pod siatkę czarny podkoszulek, jeśli to nie klub."},
+  {n:"Netrunner na weekend",o:"Weekend · podróż",items:["paf","hoodie","cargo","xt6","sling","glassesC"],d:"Asymetryczna kurtka, bluza i torba przez klatkę. Wygodny techwear na cały dzień.",t:"Kaptur bluzy wyłożony na kurtkę wygląda celowo."}
+ ]},
+ {id:"nomads",n:"Nomadzi",a:"#d98b4e",who:"Klany z Badlands, np. Aldecaldos. Rodzina, pustynia, samochody i kurz.",el:"Zamsz, denim, Red Wingi, jedna bandana. Ziemiste kolory zamiast czerni.",pal:["#6b4a33","#b9a77e","#1f2a44"],
+  fits:[
+  {n:"Aldecaldos",o:"Weekend · wyjazd",items:["suede","wtee","denim","ranger","bandana","aviator"],d:"Brązowy zamsz, biały T-shirt, ciemny denim i bandana na szyi. Pustynna elegancja.",t:"Bandana luźno na szyi, węzłem do tyłu."},
+  {n:"Nomada w mieście",o:"Codziennie · jesień",items:["m65","turtle","sand","ranger","bag","bandana"],d:"M-65 na czarnym golfie i piaskowe spodnie. Nomada, który przyjechał do Night City na spotkanie.",t:"Czarny golf sprawia, że wojskowa kurtka wygląda elegancko."}
+ ]},
+ {id:"edgerunners",n:"Edgerunners",a:"#f3e600",who:"Ekipa Davida, Lucy i Maine’a. Młodzi najemnicy, neon, szybkie życie.",el:"Czerń plus jeden neon: żółty Davida albo cyjan Lucy.",pal:["#08090c","#f3e600","#33e6f5"],
+  fits:[
+  {n:"David — żółta kurtka",o:"Dzień · miasto",items:["shellY","tee","tech","xt6","glassesY","bag"],d:"Żółta techniczna kurtka, a wszystko inne czarne i dopasowane. Najbliżej anime.",t:"Przy żółtej kurtce bez żółtego golfa. Szkła mogą zostać."},
+  {n:"Edgerunner wieczorem",o:"Kolacja · bar",items:["leather","turtleY","tech","boots","ring","glassesY"],d:"Czarna skóra i żółty golf z merino. Kolor przy twarzy, więc wygląda drogo, a nie jak przebranie.",t:"Żółty golf i żółte szkła to maksimum."},
+  {n:"Lucy",o:"Galeria · wieczór",items:["shellW","turtle","wide","boots","glassesC","ring"],d:"Złamana biel na wierzchu, czerń pod spodem i cyjan tylko w okularach.",t:"W wersji damskiej: czarne body z golfem i wysokie płaskie kozaki."}
+ ]},
+ {id:"fixer",n:"Fixerzy · Afterlife",a:"#ff2e88",who:"Pośrednicy, którzy dają zlecenia: Rogue, Wakako, Faraday. Bar Afterlife.",el:"Długa skóra, golf i pewność siebie. Róż tylko w świetle baru.",pal:["#08090c","#2c2f38","#ff2e88"],
+  fits:[
+  {n:"Rogue",o:"Spotkanie · kolacja",items:["lcoat","turtle","wide","boots","ring","watch"],d:"Długi skórzany płaszcz na czarnym golfie. Ktoś, kto rozdaje zlecenia, a nie je wykonuje.",t:"Jeden srebrny sygnet. Fixerzy nie potrzebują więcej."},
+  {n:"Noc w Afterlife",o:"Klub · koncert",items:["leather","mesh","lpants","ramones","belt","ring"],d:"Siatka pod skórą, skórzane spodnie i ciężkie trampki.",t:"Róż pokaż światłem klubu, nie ubraniem."}
+ ]}
+];
+let fac="all";
+const fchips=document.getElementById("fchips");
+fchips.innerHTML=[["all","Wszystkie"],...FACTIONS.map(f=>[f.id,f.n])].map(([k,v])=>`<button type="button" data-f="${k}" aria-pressed="${k==="all"}">${v}</button>`).join("");
+fchips.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;fac=b.dataset.f;fchips.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));renderFactions();});
+function fitCard(f,a){
+  const its=f.items.map(id=>byId[id]);
+  const tp=its.reduce((s,i)=>s+mid(i.p),0), tb=its.reduce((s,i)=>s+mid(i.alt.p),0);
+  const r=n=>zl(Math.round(n/100)*100);
+  return `<article class="fit" style="--fa:${a}">
+   <div class="collage">${its.map(i=>art(i.type,i.col,i.acc===C.graph?a:i.acc,i.brand,i.id,i.brand+" "+i.name)).join("")}</div>
+   <div class="fit-body">
+    <div class="fit-top"><h3>${f.n}</h3><span class="occ">${f.o}</span></div>
+    <p>${f.d}</p>
+    <ul>${its.map(i=>`<li><i style="background:${i.col}"></i><div><a href="${gImg(i.q)}" target="_blank" rel="noopener">${i.brand} · ${i.name}</a><small>taniej: ${i.alt.brand}, ${i.alt.name} (${range(i.alt.p)})</small></div></li>`).join("")}</ul>
+    <div class="tip">${f.t}</div>
+    <div class="totals"><span>Premium ≈ <b>${r(tp)}</b></span><span>Budżet ≈ <b>${r(tb)}</b></span></div>
+   </div></article>`;
+}
+function renderFactions(){
+  document.getElementById("outfits").innerHTML=FACTIONS.filter(f=>fac==="all"||f.id===fac).map(f=>`
+   <div class="faction" style="--fa:${f.a}">
+    <div class="faction-head">
+     <h3>${f.n}</h3>
+     <div class="pal">${f.pal.map(c=>`<i style="background:${c}"></i>`).join("")}</div>
+     <p><b>Kim są:</b> ${f.who}</p>
+     <p><b>Elegancko:</b> ${f.el}</p>
+    </div>
+    <div class="outfits">${f.fits.map(x=>fitCard(x,f.a)).join("")}</div>
+   </div>`).join("");
+}
+renderFactions();
+
+/* ---------- sklepy ---------- */
+const SHOPS=[
+ ["Vitkac","https://www.vitkac.com/pl","Polski sklep luksusowy. Rick Owens, Y-3, ALYX, Yohji."],
+ ["Moliera2","https://www.moliera2.com","Polski sklep z markami premium, często z rabatami."],
+ ["SSENSE","https://www.ssense.com","Największy wybór awangardy i Veilance. Duże wyprzedaże."],
+ ["END. Clothing","https://www.endclothing.com","Salomon, Arc'teryx, Stone Island, Y-3."],
+ ["Lyst","https://www.lyst.com","Porównywarka cen z setek sklepów. Ustaw alert na model."],
+ ["Grailed","https://www.grailed.com","Rzeczy z drugiej ręki. Acronym i Rick Owens nawet o połowę taniej."],
+ ["Vinted","https://www.vinted.pl","Polskie z drugiej ręki. Szukaj: Rick Owens, Y-3, Salomon XT-6."],
+ ["Zalando","https://www.zalando.pl","COS, AllSaints, Dr. Martens, Salomon z szybką dostawą."]
+];
+document.getElementById("shops").innerHTML=SHOPS.map(s=>`<a class="shop-card" href="${s[1]}" target="_blank" rel="noopener"><b>${s[0]}</b><span>${s[2]}</span></a>`).join("");
+})();
+</script>
