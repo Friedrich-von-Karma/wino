@@ -286,7 +286,7 @@ footer p{max-width:75ch;margin:0 0 8px}
 <footer>
   <div class="wrap">
     <p>Ceny są orientacyjne, w złotówkach, stan na listopad 2026. Modele i kolory zmieniają się co sezon, więc przed zakupem sprawdź aktualną ofertę w sklepie.</p>
-    <p>Przycisk <b>Zdjęcia</b> otwiera wyszukiwanie grafiki dla dokładnej nazwy modelu, <b>Ceny</b> porównuje oferty sklepów, a <b>Sklep</b> prowadzi na oficjalną stronę marki.</p>
+    <p>Zdjęcia produktów pochodzą ze stron marek i sklepów. Gdzie dokładny model był niedostępny, pokazujemy najbliższy odpowiednik tej samej marki. Przycisk <b>Zdjęcia</b> otwiera wyszukiwanie grafiki dla dokładnej nazwy modelu, <b>Ceny</b> porównuje oferty sklepów, a <b>Sklep</b> prowadzi na oficjalną stronę marki.</p>
   </div>
 </footer>
 
@@ -340,7 +340,7 @@ const ART={
 };
 function art(type,color,acc,tag,key,alt){
   const photo=key&&IMG[key];
-  return `<div class="pic${photo?" photo":""}" style="--acc:${acc}">`+(photo?`<img src="${photo}" alt="${alt||tag||""}" loading="lazy">`:`<svg viewBox="0 0 120 120" role="img" aria-label="${alt||tag||type}">${ART[type](color,acc)}</svg>`)+(tag?`<span class="tag">${tag}</span>`:"")+`</div>`;
+  return `<div class="pic${photo?" photo":""}" style="--acc:${acc}">`+(photo?`<img src="${photo}" alt="${alt||tag||""}">`:`<svg viewBox="0 0 120 120" role="img" aria-label="${alt||tag||type}">${ART[type](color,acc)}</svg>`)+(tag?`<span class="tag">${tag}</span>`:"")+`</div>`;
 }
 
 /* ---------- marki ---------- */
@@ -403,31 +403,31 @@ document.getElementById("tiers").innerHTML=TIERS.map(t=>`
 /* ---------- szafa ---------- */
 const CATS={out:"Okrycia",top:"Góry",bot:"Spodnie",shoe:"Buty",acc:"Dodatki"};
 const W=[
- {id:"coat",cat:"out",type:"coat",col:C.black,acc:C.cyan,brand:"Arc'teryx Veilance",name:"Monitor Coat, czarny",url:"https://veilance.com",q:"Arc'teryx Veilance Monitor Coat black",p:[4000,5700],note:"Długi płaszcz z Gore-Tex, ukryty kaptur. Baza na jesień i zimę.",
+ {id:"coat",cat:"out",type:"coat",col:C.black,acc:C.cyan,brand:"Arc'teryx Veilance",name:"Monitor Coat, czarny",url:"https://lagarconne.com/products/ss24vlm03-veilance-monitor-coat",q:"Arc'teryx Veilance Monitor Coat black",p:[4000,5700],note:"Długi płaszcz z Gore-Tex, ukryty kaptur. Baza na jesień i zimę.",
   alt:{brand:"Uniqlo",name:"Płaszcz BLOCKTECH, czarny",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo Blocktech coat black",p:[400,500]}},
- {id:"rain",cat:"out",type:"coat",col:C.graph,acc:C.yellow,brand:"Norwegian Rain",name:"Raincoat, czarny/grafit",url:"https://norwegianrain.com",q:"Norwegian Rain raincoat black",p:[4300,6000],note:"Płaszcz przeciwdeszczowy z krojem marynarki. Deszczowe Night City.",
+ {id:"rain",cat:"out",type:"coat",col:C.graph,acc:C.yellow,brand:"Norwegian Rain",name:"Płaszcz Gdansk, czarny",url:"https://norwegianrain.com/product/gdansk-homme-mixed-black/",q:"Norwegian Rain raincoat black",p:[4300,6000],note:"Płaszcz przeciwdeszczowy z krojem marynarki. Deszczowe Night City.",
   alt:{brand:"Rains",name:"Long Jacket, czarny mat",url:"https://www.rains.com",q:"Rains Long Jacket black",p:[450,600]}},
  {id:"leather",cat:"out",type:"biker",col:C.jet,acc:C.magenta,brand:"Rick Owens",name:"Kurtka skórzana biker",url:"https://www.rickowens.eu",q:"Rick Owens leather biker jacket black",p:[10000,14000],note:"Ostre ramiona, asymetryczny zamek. Najważniejsza rzecz na wieczór.",
   alt:{brand:"AllSaints",name:"Kurtka skórzana biker",url:"https://www.allsaints.com",q:"AllSaints leather biker jacket black",p:[1800,2400]}},
- {id:"shellY",cat:"out",type:"shell",col:C.yellow,acc:C.jet,brand:"Arc'teryx",name:"Beta Jacket, żółty/limonkowy kolor sezonowy",url:"https://arcteryx.com",q:"Arc'teryx Beta jacket yellow",p:[1800,2400],note:"Kurtka Davida w wersji dla dorosłych. Nosić tylko do czerni.",
-  alt:{brand:"The North Face",name:"Kurtka przeciwdeszczowa, żółta",url:"https://www.thenorthface.com",q:"The North Face rain jacket yellow black",p:[600,900]}},
- {id:"shellW",cat:"out",type:"shell",col:C.off,acc:C.cyan,brand:"Arc'teryx Veilance",name:"Spere SL Jacket, off-white",url:"https://veilance.com",q:"Veilance Spere SL jacket off white",p:[1900,2300],note:"Lekka biała kurtka. Fundament look'u Lucy.",
-  alt:{brand:"Rains",name:"Kurtka, biała/kremowa",url:"https://www.rains.com",q:"Rains jacket off white",p:[400,550]}},
+ {id:"shellY",cat:"out",type:"shell",col:C.yellow,acc:C.jet,brand:"Arc'teryx",name:"Beta Jacket, kolor Euphoria",url:"https://lelabostore.com/en/products/arcteryx-euphoria-beta-jacket",q:"Arc'teryx Beta jacket yellow",p:[1800,2400],note:"Kurtka Davida w wersji dla dorosłych. Nosić tylko do czerni.",
+  alt:{brand:"The North Face",name:"Mountain Jacket DryVent, żółto-czarna",url:"https://www.thenorthface.com",q:"The North Face rain jacket yellow black",p:[600,900]}},
+ {id:"shellW",cat:"out",type:"shell",col:C.off,acc:C.cyan,brand:"Arc'teryx Veilance",name:"Spere SL Jacket, kolor Dark Cocoon",url:"https://arcteryx.com/ca/en/shop/mens/spere-sl-jacket-0321",q:"Veilance Spere SL jacket off white",p:[1900,2300],note:"Lekka biała kurtka. Fundament look'u Lucy.",
+  alt:{brand:"Rains",name:"Niseko Insulated, kolor Blizzard",url:"https://www.rains.com",q:"Rains jacket off white",p:[400,550]}},
  {id:"blazer",cat:"out",type:"blazer",col:C.black,acc:C.silver,brand:"Arc'teryx Veilance",name:"Blazer LT, czarny",url:"https://veilance.com",q:"Arc'teryx Veilance Blazer LT black",p:[3500,4300],note:"Marynarka z elastycznego materiału technicznego. Do biura i na kolację.",
   alt:{brand:"Uniqlo",name:"Marynarka AirSense, czarna",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo AirSense jacket black",p:[300,400]}},
- {id:"paf",cat:"out",type:"shell",col:C.graph,acc:C.cyan,brand:"Post Archive Faction",name:"Technical Jacket (Center), czarny",url:"https://www.postarchivefaction.com",q:"Post Archive Faction technical jacket center black",p:[2500,3500],note:"Asymetryczne suwaki i kieszenie. Najbardziej sci-fi rzecz w szafie.",
-  alt:{brand:"Riot Division",name:"Kurtka techniczna, czarna",url:"https://riotdivision.tech",q:"Riot Division techwear jacket black",p:[500,700]}},
+ {id:"paf",cat:"out",type:"shell",col:C.graph,acc:C.cyan,brand:"Post Archive Faction",name:"Technical Jacket 5.0 (Center), czarny",url:"https://www.svrn.com/products/post-archive-faction-5-0-technical-jacket-center-in-black",q:"Post Archive Faction technical jacket center black",p:[2500,3500],note:"Asymetryczne suwaki i kieszenie. Najbardziej sci-fi rzecz w szafie.",
+  alt:{brand:"Riot Division",name:"Kurtka puchowa Common Short, czarna",url:"https://riotdivision.tech",q:"Riot Division Common Short Down Jacket black",p:[600,800]}},
 
- {id:"turtle",cat:"top",type:"knit",col:C.black,acc:C.graph,brand:"Rick Owens",name:"Golf Lupetto, czarny",url:"https://www.rickowens.eu",q:"Rick Owens Lupetto turtleneck black",p:[1500,2500],note:"Cienki, dopasowany golf. Pasuje pod wszystko z tej listy.",
+ {id:"turtle",cat:"top",type:"knit",col:C.black,acc:C.graph,brand:"Rick Owens",name:"Sweter Lupetto Tommy, ażurowy, czarny",url:"https://svrn.com/products/rick-owens-tommy-lupetto-sweater-in-black",q:"Rick Owens Lupetto turtleneck black",p:[1500,2500],note:"Golf z ażurowym splotem. Pod spód możesz założyć czarny T-shirt. Tańsza wersja to klasyczny gładki golf.",
   alt:{brand:"Uniqlo",name:"Golf Extra Fine Merino, czarny",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo extra fine merino turtleneck black",p:[170,200]}},
- {id:"turtleY",cat:"top",type:"knit",col:C.yellow,acc:C.jet,brand:"COS",name:"Golf z merino, żółty",url:"https://www.cos.com",q:"COS merino turtleneck yellow",p:[350,450],note:"Jedyny jaskrawy element outfitu Davida. Szukaj żółtego z zimnym, cytrynowym odcieniem.",
-  alt:{brand:"Uniqlo",name:"Golf Extra Fine Merino, żółty (sezonowo)",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo merino turtleneck yellow",p:[170,200]}},
+ {id:"turtleY",cat:"top",type:"knit",col:C.yellow,acc:C.jet,brand:"Drumohr",name:"Golf z merino, musztardowy",url:"https://www.lyst.co.uk/clothing/drumohr-turtleneck-2223/",q:"Drumohr merino turtleneck yellow",p:[450,600],note:"Jedyny jaskrawy element outfitu Davida. Żółty przy twarzy wygląda drogo.",
+  alt:{brand:"Uniqlo",name:"Golf HEATTECH, żółty",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo merino turtleneck yellow",p:[170,200]}},
  {id:"tee",cat:"top",type:"tee",col:C.black,acc:C.graph,brand:"Rick Owens",name:"Level T, czarny",url:"https://www.rickowens.eu",q:"Rick Owens Level T black",p:[1200,1600],note:"Długi, miękki T-shirt. Pod płaszcz i kurtkę skórzaną.",
   alt:{brand:"Uniqlo U",name:"Koszulka Crew Neck, czarna",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo U crew neck t-shirt black",p:[70,90]}},
- {id:"mesh",cat:"top",type:"knit",col:"#1c1e26",acc:C.magenta,brand:"MISBHV",name:"Siatkowy longsleeve, czarny",url:"https://misbhv.com",q:"MISBHV mesh long sleeve top black",p:[400,700],note:"Polska marka. Prześwitująca siatka na wyjście do klubu.",
-  alt:{brand:"H&M",name:"Top z siatki, czarny",url:"https://www2.hm.com/pl_pl/",q:"mesh long sleeve top black men",p:[60,100]}},
+ {id:"mesh",cat:"top",type:"knit",col:"#1c1e26",acc:C.magenta,brand:"MISBHV",name:"Dopasowany top z monogramem, na zamek, czarny",url:"https://misbhv.com/products/monogram-zip-top-black-3121w104",q:"MISBHV mesh long sleeve top black",p:[400,700],note:"Polska marka z Warszawy. Obcisły top z połyskującym monogramem na wyjście do klubu.",
+  alt:{brand:"Disturbia",name:"Siatkowy top Dissident, czarny",url:"https://disturbia.co.uk/products/dissident-asymmetric-seam-mesh-top",q:"mesh long sleeve top black men",p:[60,100]}},
  {id:"shirt",cat:"top",type:"shirt",col:C.black,acc:C.graph,brand:"Yohji Yamamoto",name:"Koszula z krytą listwą, czarna",url:"https://www.yohjiyamamoto.co.jp",q:"Yohji Yamamoto Pour Homme black shirt",p:[2500,3500],note:"Zapinana pod szyję, bez krawata. Strój Arasaki.",
-  alt:{brand:"COS",name:"Koszula z krytą listwą, czarna",url:"https://www.cos.com",q:"COS black shirt concealed placket",p:[300,400]}},
+  alt:{brand:"COS",name:"Koszula jedwabna, czarna",url:"https://www.cos.com",q:"COS black shirt concealed placket",p:[300,400]}},
  {id:"hoodie",cat:"top",type:"hoodie",col:C.black,acc:C.cyan,brand:"Y-3",name:"Bluza z kapturem, czarna",url:"https://www.y-3.com",q:"Y-3 hoodie black",p:[1100,1500],note:"Ciężka bawełna, dyskretne logo. Na weekend.",
   alt:{brand:"Uniqlo",name:"Bluza z kapturem, czarna",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo sweat hoodie black",p:[130,170]}},
 
@@ -441,18 +441,18 @@ const W=[
   alt:{brand:"COS",name:"Szerokie spodnie z wełny, czarne",url:"https://www.cos.com",q:"COS wide leg wool trousers black",p:[400,500]}},
 
  {id:"boots",cat:"shoe",type:"boots",col:C.jet,acc:C.silver,brand:"Guidi",name:"788Z, czarne",url:"https://www.guidi.it",q:"Guidi 788Z black",p:[4500,5500],note:"Buty z zamkiem z tyłu, z wyprawianej skóry. Starzeją się pięknie.",
-  alt:{brand:"Dr. Martens",name:"2976 Chelsea, czarne gładkie",url:"https://www.drmartens.com",q:"Dr Martens 2976 Chelsea black smooth",p:[800,900]}},
+  alt:{brand:"Dr. Martens",name:"2976 Chelsea, czarne z żółtym szwem",url:"https://www.drmartens.com",q:"Dr Martens 2976 Chelsea black smooth",p:[800,900]}},
  {id:"xt6",cat:"shoe",type:"sneakers",col:C.black,acc:C.cyan,brand:"Salomon",name:"XT-6, Black/Black",url:"https://www.salomon.com",q:"Salomon XT-6 black black",p:[850,950],note:"Standardowe buty techwearu. Wygodne cały dzień.",
-  alt:{brand:"Salomon",name:"XT-4 / Speedcross, czarne (wyprzedaż)",url:"https://www.salomon.com",q:"Salomon XT-4 black",p:[500,700]}},
- {id:"ramones",cat:"shoe",type:"ramones",col:C.black,acc:C.magenta,brand:"Rick Owens DRKSHDW",name:"Ramones, czarne",url:"https://www.rickowens.eu",q:"Rick Owens DRKSHDW Ramones black",p:[1700,2300],note:"Wysokie trampki z grubą podeszwą. Na klub i luźniejsze wieczory.",
+  alt:{brand:"Salomon",name:"XT-4 OG, Black/Ebony",url:"https://www.salomon.com",q:"Salomon XT-4 black",p:[500,700]}},
+ {id:"ramones",cat:"shoe",type:"ramones",col:C.black,acc:C.magenta,brand:"Rick Owens DRKSHDW",name:"Ramones, czarno-mleczne",url:"https://www.svrn.com/products/rick-owens-drkshdw-edfu-ramones-in-black-milk",q:"Rick Owens DRKSHDW Ramones black",p:[1700,2300],note:"Wysokie trampki z grubą podeszwą. Na klub i luźniejsze wieczory.",
   alt:{brand:"Converse",name:"Chuck 70 Hi, czarne",url:"https://www.converse.com",q:"Converse Chuck 70 Hi black",p:[400,450]}},
 
- {id:"glassesC",cat:"acc",type:"glasses",col:C.black,acc:C.cyan,brand:"Gentle Monster",name:"Okulary z niebieską/cyjanową soczewką",url:"https://www.gentlemonster.com",q:"Gentle Monster sunglasses blue tinted lens",p:[1200,1600],note:"Najprostszy neon przy twarzy, w stylu Lucy.",
-  alt:{brand:"Komono",name:"Okulary z kolorową soczewką",url:"https://www.komono.com",q:"Komono sunglasses blue lens",p:[350,500]}},
- {id:"glassesY",cat:"acc",type:"glasses",col:C.black,acc:C.yellow,brand:"Gentle Monster",name:"Okulary z żółtą soczewką",url:"https://www.gentlemonster.com",q:"Gentle Monster sunglasses yellow lens",p:[1200,1600],note:"Żółte szkła na wieczór. Rozjaśniają obraz nocą.",
-  alt:{brand:"Komono",name:"Okulary z żółtą soczewką",url:"https://www.komono.com",q:"yellow lens sunglasses black frame",p:[300,450]}},
+ {id:"glassesC",cat:"acc",type:"glasses",col:C.black,acc:C.cyan,brand:"Gentle Monster",name:"Eq BL6, niebieskie szkła",url:"https://www.gentlemonster.com/us/en/item/0MKYDKCBVG25D/eqbl6",q:"Gentle Monster sunglasses blue tinted lens",p:[1200,1600],note:"Najprostszy neon przy twarzy, w stylu Lucy.",
+  alt:{brand:"Komono",name:"Corbin, błękitne szkła",url:"https://www.komono.com/products/corbin-black-olive",q:"Komono sunglasses blue lens",p:[350,500]}},
+ {id:"glassesY",cat:"acc",type:"glasses",col:C.black,acc:C.yellow,brand:"Gentle Monster",name:"Limitless SY9, limonkowa oprawka",url:"https://www.gentlemonster.com/int/en/item/G8JJJSZ059BL/limitlesssy9",q:"Gentle Monster Limitless SY9",p:[1200,1600],note:"Kwaśna limonka jak kurtka Davida. Jedyny kolor w outficie.",
+  alt:{brand:"Komono",name:"Tate, żółta soczewka",url:"https://www.komono.com/products/tate-black-amber",q:"yellow lens sunglasses black frame",p:[300,450]}},
  {id:"belt",cat:"acc",type:"belt",col:C.jet,acc:C.silver,brand:"1017 ALYX 9SM",name:"Pasek Rollercoaster, czarny",url:"https://www.alyxstudio.com",q:"1017 ALYX 9SM rollercoaster belt black",p:[1600,2200],note:"Industrialna klamra. Jeden metalowy akcent na outfit.",
-  alt:{brand:"Riot Division",name:"Pasek z klamrą typu cobra",url:"https://riotdivision.tech",q:"Riot Division belt cobra buckle",p:[150,250]}},
+  alt:{brand:"M-Tac",name:"Pasek taktyczny z klamrą Cobra",url:"https://m-tac.us/products/m-tac-cobra-buckle-tactical-belt-gen-ii",q:"M-Tac Cobra buckle tactical belt",p:[150,250]}},
  {id:"bag",cat:"acc",type:"backpack",col:C.black,acc:C.graph,brand:"Côte&Ciel",name:"Plecak Isar, czarny",url:"https://www.coteetciel.com",q:"Cote&Ciel Isar backpack black",p:[1000,1400],note:"Rzeźbiarski kształt, mieści laptopa.",
   alt:{brand:"Rains",name:"Plecak Rolltop, czarny",url:"https://www.rains.com",q:"Rains rolltop backpack black",p:[350,450]}},
  {id:"sling",cat:"acc",type:"sling",col:C.graph,acc:C.cyan,brand:"Heliot Emil",name:"Torba crossbody z karabińczykiem",url:"https://www.heliotemil.com",q:"Heliot Emil crossbody bag black",p:[1500,2500],note:"Przez klatkę piersiową, jak netrunnerka.",
@@ -463,57 +463,57 @@ const W=[
   alt:{brand:"Jubiler / Vinted",name:"Sygnet ze srebra 925",url:"https://www.vinted.pl",q:"srebrny sygnet 925 męski",p:[150,300]}},
  {id:"gloves",cat:"acc",type:"gloves",col:C.jet,acc:C.graph,brand:"Hestra",name:"Skórzane rękawiczki, czarne",url:"https://hestragloves.com",q:"Hestra leather gloves black",p:[400,600],note:"Cienka skóra. Zimą do płaszcza.",
   alt:{brand:"COS",name:"Skórzane rękawiczki, czarne",url:"https://www.cos.com",q:"COS leather gloves black",p:[200,300]}},
- {id:"suit",cat:"out",type:"blazer",col:C.black,acc:C.crimson,brand:"Yohji Yamamoto",name:"Garnitur wełniany, czarny",url:"https://www.yohjiyamamoto.co.jp",q:"Yohji Yamamoto Pour Homme black wool suit",p:[9000,13000],note:"Miękka, luźna marynarka i szerokie spodnie. Garnitur zarządu Arasaki.",
+ {id:"suit",cat:"out",type:"blazer",col:C.black,acc:C.crimson,brand:"Yohji Yamamoto",name:"Marynarka wełniana ze szpiczastymi klapami, czarna (do kompletu spodnie)",url:"https://lagarconne.com/products/jyy140fw14-yohji-yamamoto-peaked-lapel-jacket",q:"Yohji Yamamoto Pour Homme black wool suit",p:[9000,13000],note:"Miękka, luźna marynarka i szerokie spodnie. Garnitur zarządu Arasaki.",
   alt:{brand:"COS",name:"Garnitur z wełny, czarny (marynarka + spodnie)",url:"https://www.cos.com",q:"COS black wool suit",p:[1100,1500]}},
  {id:"lcoat",cat:"out",type:"coat",col:C.jet,acc:C.magenta,brand:"Acne Studios",name:"Długi płaszcz skórzany, czarny",url:"https://www.acnestudios.com",q:"Acne Studios long leather coat black",p:[9000,13000],note:"Płaszcz fixera. Do kolan, gładka skóra, bez ozdób.",
-  alt:{brand:"AllSaints",name:"Długi płaszcz skórzany, czarny",url:"https://www.allsaints.com",q:"AllSaints long leather coat black",p:[2500,3500]}},
- {id:"olive",cat:"out",type:"shell",col:C.olive,acc:"#c9b27c",brand:"Stone Island",name:"Kurtka z linii Ghost, oliwkowa",url:"https://www.stoneisland.com",q:"Stone Island Ghost piece jacket olive",p:[3000,4500],note:"Monochromatyczna oliwka, techniczny materiał, bez naszywki na rękawie. Militech bez munduru.",
+  alt:{brand:"AllSaints",name:"Długi płaszcz skórzany Kellett, czarny",url:"https://www.allsaints.com",q:"AllSaints long leather coat black",p:[2500,3500]}},
+ {id:"olive",cat:"out",type:"shell",col:C.olive,acc:"#c9b27c",brand:"Stone Island",name:"Ghost, kurtka z bawełnianego canvasu, oliwkowa",url:"https://www.endclothing.com/products/stone-island-ghost-all-weather-cotton-canvas-jacket-l2s15q100026-s0f01-v0054",q:"Stone Island Ghost piece jacket olive",p:[3000,4500],note:"Monochromatyczna oliwka, techniczny materiał, bez naszywki na rękawie. Militech bez munduru.",
   alt:{brand:"Rains",name:"Kurtka, oliwkowa",url:"https://www.rains.com",q:"Rains jacket olive green",p:[400,600]}},
  {id:"m65",cat:"out",type:"field",col:C.olive,acc:"#5d8bff",brand:"Alpha Industries",name:"M-65 Field Jacket, oliwkowa",url:"https://www.alphaindustries.com",q:"Alpha Industries M-65 field jacket olive",p:[1000,1300],note:"Wojskowa klasyka z czterema kieszeniami. Podstawa 6th Street.",
-  alt:{brand:"Mil-Tec",name:"Kurtka M-65, oliwkowa",url:"https://www.mil-tec.de",q:"Mil-Tec M65 field jacket olive",p:[250,350]}},
+  alt:{brand:"Sklep militarny",name:"Kurtka M-65 z podpinką, oliwkowa",url:null,q:"Mil-Tec M65 field jacket olive",p:[250,350]}},
  {id:"ma1",cat:"out",type:"bomber",col:C.black,acc:"#ff8a1f",brand:"Alpha Industries",name:"MA-1, czarna z pomarańczową podszewką",url:"https://www.alphaindustries.com",q:"Alpha Industries MA-1 black",p:[700,950],note:"Kurtka pilota. Pomarańczowa podszewka to gotowy neon.",
-  alt:{brand:"Mil-Tec",name:"Kurtka MA-1, czarna",url:"https://www.mil-tec.de",q:"Mil-Tec MA1 flight jacket black",p:[200,300]}},
+  alt:{brand:"Mil-Tec",name:"US Tactical Flight Jacket, czarna",url:"https://www.militarykit.com/products/mil-tec-us-tactical-flight-jacket-black",q:"Mil-Tec MA1 flight jacket black",p:[200,300]}},
  {id:"peacoat",cat:"out",type:"coat",col:C.navy,acc:C.silver,brand:"Schott NYC",name:"Peacoat 740N, granatowy",url:"https://www.schottnyc.com",q:"Schott NYC 740N peacoat navy",p:[1500,2000],note:"Dwurzędowy płaszcz marynarki USA. Wersja galowa 6th Street.",
-  alt:{brand:"Uniqlo",name:"Płaszcz z domieszką wełny, granatowy",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo wool blend coat navy",p:[400,600]}},
+  alt:{brand:"Uniqlo",name:"Płaszcz Chesterfield z wełną, granatowy",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo wool blend coat navy",p:[400,600]}},
  {id:"sukajan",cat:"out",type:"sukajan",col:C.black,acc:"#3dff8b",brand:"Maharishi",name:"Kurtka z haftem (sukajan / tour jacket), czarna",url:"https://www.maharishistore.com",q:"Maharishi embroidered tour jacket black",p:[2500,3500],note:"Japońska kurtka z haftowanym tygrysem lub smokiem. Serce Tyger Claws.",
   alt:{brand:"Vinted",name:"Sukajan z haftem, czarna (z drugiej ręki)",url:"https://www.vinted.pl",q:"sukajan black embroidered tiger",p:[200,500]}},
- {id:"cream",cat:"out",type:"blazer",col:C.cream,acc:C.gold,brand:"Suitsupply",name:"Marynarka dwurzędowa, kremowa",url:"https://suitsupply.com",q:"Suitsupply double breasted cream jacket",p:[1800,2600],note:"Ciepła biel i złoto. Niedzielna elegancja Valentinos.",
-  alt:{brand:"Reserved",name:"Marynarka, kremowa",url:"https://www.reserved.com/pl/pl/",q:"Reserved marynarka kremowa męska",p:[250,400]}},
+ {id:"cream",cat:"out",type:"blazer",col:C.cream,acc:C.gold,brand:"Suitsupply",name:"Marynarka Havana, dwurzędowa, złamana biel",url:"https://suitsupply.com/en-ie/men/jackets/off-white-tailored-fit-havana-suit-jacket/C7250.html",q:"Suitsupply double breasted cream jacket",p:[1800,2600],note:"Ciepła biel i złoto. Niedzielna elegancja Valentinos.",
+  alt:{brand:"Reserved",name:"Marynarka z lnem, jasna",url:"https://www.reserved.com/pl/pl/",q:"Reserved marynarka kremowa męska",p:[250,400]}},
  {id:"suede",cat:"out",type:"biker",col:C.suede,acc:"#d98b4e",brand:"Schott NYC",name:"Kurtka zamszowa, brązowa",url:"https://www.schottnyc.com",q:"Schott NYC suede jacket brown",p:[2000,3000],note:"Pustynny kolor i miękki zamsz. Nomadzi z Aldecaldos.",
   alt:{brand:"Reserved",name:"Kurtka z imitacji zamszu, brązowa",url:"https://www.reserved.com/pl/pl/",q:"Reserved kurtka zamszowa męska brązowa",p:[300,500]}},
 
  {id:"wtee",cat:"top",type:"tee",col:C.white,acc:"#5d8bff",brand:"Sunspel",name:"Classic T-shirt, biały",url:"https://www.sunspel.com",q:"Sunspel classic t-shirt white",p:[300,400],note:"Gruba biała bawełna. Amerykańska klasyka pod M-65.",
   alt:{brand:"Uniqlo U",name:"Koszulka Crew Neck, biała",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo U crew neck t-shirt white",p:[70,90]}},
  {id:"ghoodie",cat:"top",type:"hoodie",col:C.grey,acc:"#5d8bff",brand:"Reigning Champ",name:"Bluza z kapturem, szara",url:"https://reigningchamp.com",q:"Reigning Champ hoodie heather grey",p:[600,800],note:"Ciężka pętelka. Pod MA-1 na nocny patrol.",
-  alt:{brand:"Uniqlo",name:"Bluza z kapturem, szara",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo sweat hoodie grey",p:[130,170]}},
+  alt:{brand:"Uniqlo",name:"Bluza z kapturem na zamek, szara",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo sweat hoodie grey",p:[130,170]}},
  {id:"oxford",cat:"top",type:"shirt",col:C.white,acc:C.silver,brand:"Drake's",name:"Koszula Oxford, biała",url:"https://www.drakes.com",q:"Drake's white oxford shirt",p:[900,1100],note:"Wykrochmalona biel pod granatowy płaszcz.",
   alt:{brand:"Uniqlo",name:"Koszula Oxford, biała",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo oxford shirt white",p:[130,160]}},
- {id:"silk",cat:"top",type:"shirt",col:C.jet,acc:C.gold,brand:"Saint Laurent",name:"Koszula jedwabna, czarna",url:"https://www.ysl.com",q:"Saint Laurent black silk shirt",p:[3500,5000],note:"Nosić rozpiętą o dwa guziki, ze złotym łańcuchem.",
-  alt:{brand:"Zara",name:"Koszula satynowa, czarna",url:"https://www.zara.com/pl/",q:"Zara satin shirt black men",p:[150,250]}},
+ {id:"silk",cat:"top",type:"shirt",col:C.jet,acc:C.gold,brand:"Kith",name:"Koszula Thompson z jedwabiem, czarna (kołnierz camp)",url:"https://kith.com/products/khm031760-001",q:"Kith Silk Cotton Thompson Camp Collar Shirt black",p:[700,950],note:"Rozpięty kołnierz camp i połysk jedwabiu. Do złotego łańcucha.",
+  alt:{brand:"Suitable",name:"Koszula satynowa, czarna",url:"https://www.suitable.ie/shirts/suitable-satin-shirt-black.html",q:"Suitable satin shirt black",p:[250,350]}},
 
  {id:"sand",cat:"bot",type:"pants",col:C.sand,acc:C.olive,brand:"Goldwin",name:"Spodnie techniczne, piaskowe",url:"https://www.goldwin-global.com",q:"Goldwin tapered pants beige",p:[1200,1700],note:"Piasek zamiast czerni. Kolor Militech i nomadów.",
   alt:{brand:"Uniqlo",name:"Spodnie Smart Ankle, beżowe",url:"https://www.uniqlo.com/pl/pl/",q:"Uniqlo smart ankle pants beige",p:[150,200]}},
- {id:"denim",cat:"bot",type:"pants",col:C.denim,acc:"#d98b4e",brand:"A.P.C.",name:"Petit Standard, surowy denim",url:"https://www.apc.fr",q:"A.P.C. Petit Standard raw denim",p:[1000,1300],note:"Ciemny surowy denim, który z czasem się wyciera po swojemu.",
+ {id:"denim",cat:"bot",type:"pants",col:C.denim,acc:"#d98b4e",brand:"A.P.C.",name:"Petit New Standard, surowy denim",url:"https://incu.com/products/apc-petit-new-standard-raw-indigo",q:"A.P.C. Petit Standard raw denim",p:[1000,1300],note:"Ciemny surowy denim, który z czasem się wyciera po swojemu.",
   alt:{brand:"Levi's",name:"501 Original, ciemny denim",url:"https://www.levi.com",q:"Levi's 501 dark rinse",p:[400,500]}},
 
  {id:"ranger",cat:"shoe",type:"boots",col:"#4a2f22",acc:"#d98b4e",brand:"Red Wing",name:"Iron Ranger 8111",url:"https://www.redwingshoes.com",q:"Red Wing Iron Ranger 8111",p:[1800,2300],note:"Amerykańskie buty robocze. Ciężkie, na lata.",
   alt:{brand:"Dr. Martens",name:"1460, czarne gładkie",url:"https://www.drmartens.com",q:"Dr Martens 1460 smooth black",p:[750,850]}},
- {id:"loafers",cat:"shoe",type:"loafer",col:C.jet,acc:C.gold,brand:"J.M. Weston",name:"Loafersy 180, czarne",url:"https://www.jmweston.com",q:"J.M. Weston 180 loafer black",p:[4500,5500],note:"Mokasyny do garnituru. Bez skarpet latem.",
+ {id:"loafers",cat:"shoe",type:"loafer",col:C.jet,acc:C.gold,brand:"J.M. Weston",name:"Loafersy 180, czarne",url:"https://stuf-f.com/en/products/j-m-weston-loafer-180-black-boxcalf",q:"J.M. Weston 180 loafer black",p:[4500,5500],note:"Mokasyny do garnituru. Bez skarpet latem.",
   alt:{brand:"Sebago",name:"Classic Dan, czarne",url:"https://www.sebago.com",q:"Sebago Classic Dan black",p:[500,650]}},
 
- {id:"pocket",cat:"acc",type:"pocket",col:C.crimson,acc:"#ff6a6a",brand:"Drake's",name:"Poszetka jedwabna, czerwona",url:"https://www.drakes.com",q:"Drake's red silk pocket square",p:[400,550],note:"Jedyny czerwony element Arasaki. Mały kwadrat w kieszeni.",
+ {id:"pocket",cat:"acc",type:"pocket",col:C.crimson,acc:"#ff6a6a",brand:"Drake's",name:"Poszetka jedwabna, czerwona w paisley",url:"https://www.drakes.com/collections/new-in/products/red-paisley-spot-print-silk-pocket-square",q:"Drake's red silk pocket square",p:[400,550],note:"Jedyny czerwony element Arasaki. Mały kwadrat w kieszeni.",
   alt:{brand:"Allegro",name:"Poszetka jedwabna, czerwona",url:"https://allegro.pl",q:"poszetka jedwabna czerwona",p:[50,120]}},
- {id:"glassesR",cat:"acc",type:"glasses",col:C.black,acc:"#ff3b3b",brand:"Gentle Monster",name:"Okulary z czerwoną soczewką",url:"https://www.gentlemonster.com",q:"Gentle Monster sunglasses red lens",p:[1200,1600],note:"Czerwone szkła jak optyka Maelstromu.",
-  alt:{brand:"Komono",name:"Okulary z czerwoną soczewką",url:"https://www.komono.com",q:"red lens sunglasses black frame",p:[300,450]}},
- {id:"glassesP",cat:"acc",type:"glasses",col:C.black,acc:"#3dff8b",brand:"Gentle Monster",name:"Okulary z zieloną soczewką",url:"https://www.gentlemonster.com",q:"Gentle Monster sunglasses green lens",p:[1200,1600],note:"Neonowa zieleń Tyger Claws, tylko w szkłach.",
-  alt:{brand:"Komono",name:"Okulary z zieloną soczewką",url:"https://www.komono.com",q:"green lens sunglasses black frame",p:[300,450]}},
+ {id:"glassesR",cat:"acc",type:"glasses",col:C.black,acc:"#ff3b3b",brand:"Gentle Monster",name:"M87 R6, czerwona oprawka",url:"https://www.gentlemonster.com/us/en/item/0MKYDKBZ3G24R/m87r6",q:"Gentle Monster M87 R6",p:[1200,1600],note:"Czerwone szkła jak optyka Maelstromu.",
+  alt:{brand:"Sunhauk",name:"Crimson Sunset, czerwone lustrzane szkła",url:"https://sunhauk.com/products/crimson-sunset",q:"Sunhauk Crimson Sunset",p:[300,450]}},
+ {id:"glassesP",cat:"acc",type:"glasses",col:C.black,acc:"#3dff8b",brand:"Gentle Monster",name:"Gamot 02, bezramkowe, zielonkawe szkła",url:"https://www.gentlemonster.com/us/en/item/0P0M4JBBNF0QH/gamot02",q:"Gentle Monster Gamot 02",p:[1200,1600],note:"Neonowa zieleń Tyger Claws, tylko w szkłach.",
+  alt:{brand:"Ray-Ban",name:"New Wayfarer, zielone szkła G-15",url:"https://www.ray-ban.com",q:"Ray-Ban New Wayfarer RB2132 G-15",p:[300,450]}},
  {id:"aviator",cat:"acc",type:"glasses",col:C.silver,acc:"#8a7a52",brand:"Randolph Engineering",name:"Aviator, srebrne",url:"https://www.randolphusa.com",q:"Randolph Engineering Aviator silver",p:[1000,1300],note:"Okulary pilotów wojskowych USA. 6th Street i Valentinos.",
   alt:{brand:"Ray-Ban",name:"Aviator Classic",url:"https://www.ray-ban.com",q:"Ray-Ban Aviator Classic silver",p:[600,800]}},
  {id:"chain",cat:"acc",type:"chain",col:C.gold,acc:C.gold,brand:"Tom Wood",name:"Łańcuch Curb, srebro złocone",url:"https://www.tomwoodproject.com",q:"Tom Wood curb chain gold",p:[2500,4000],note:"Złoto tylko tutaj i tylko u Valentinos.",
-  alt:{brand:"Apart",name:"Łańcuch pancerka, srebro złocone",url:"https://www.apart.pl",q:"Apart łańcuch pancerka srebro złocone",p:[300,700]}},
+  alt:{brand:"Serge DeNimes",name:"Łańcuch curb, srebro złocone",url:"https://www.sergedenimes.com/products/gold-curb-chain",q:"Apart łańcuch pancerka srebro złocone",p:[300,700]}},
  {id:"wchain",cat:"acc",type:"chain",col:C.silver,acc:C.silver,brand:"1017 ALYX 9SM",name:"Naszyjnik-łańcuch z klamrą, srebrny",url:"https://www.alyxstudio.com",q:"1017 ALYX 9SM chain necklace silver",p:[1200,2000],note:"Chromowany łańcuch. Industrialny akcent.",
   alt:{brand:"Jubiler / Vinted",name:"Łańcuch ze srebra 925",url:"https://www.vinted.pl",q:"łańcuch srebrny 925 męski",p:[150,300]}},
- {id:"bandana",cat:"acc",type:"bandana",col:"#8a3b22",acc:"#e8dcc3",brand:"Kapital",name:"Bandana z indygo lub rdzawa",url:null,q:"Kapital bandana",p:[200,300],note:"Na szyję jak u nomadów. Zawsze tylko jedna.",
+ {id:"bandana",cat:"acc",type:"bandana",col:"#8a3b22",acc:"#e8dcc3",brand:"Kapital",name:"Bandana Fastcolor, indygo",url:"https://standardandstrange.com/products/fastcolor-selvedge-bandanna-origami-navy",q:"Kapital bandana",p:[200,300],note:"Na szyję jak u nomadów. Zawsze tylko jedna.",
   alt:{brand:"Dowolna",name:"Bandana bawełniana",url:null,q:"bandana bawełniana paisley",p:[30,60]}}
 ];
 const byId=Object.fromEntries(W.map(i=>[i.id,i]));
