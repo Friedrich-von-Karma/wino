@@ -1,0 +1,188 @@
+<title>Wino von Karma</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* Layout: one bottle label centred on a dark cellar ground, with a single personalisation field below. Single dark look by choice. */
+:root {
+  color-scheme: dark;
+  --cellar: #1b1412;      /* page ground: dark oak */
+  --cellar-ink: #e9dcc3;  /* text on the ground */
+  --muted: #a8977c;
+  --parchment: #efe2c4;
+  --wine: #6e1424;
+  --gold: #b0893a;
+  --forest: #23402c;
+  --ink: #2a1a14;
+  --display: "UnifrakturMaguntia", "Old English Text MT", serif;
+  --caps: "Cinzel", "Trajan Pro", Georgia, serif;
+  --body: "IM Fell English", Garamond, Georgia, serif;
+}
+html, body { background: var(--cellar); color: var(--cellar-ink); }
+body {
+  font-family: var(--body);
+  padding-block: 28px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; justify-items: center; gap: 20px;
+}
+.label {
+  width: 100%; max-width: 420px; aspect-ratio: 3 / 4; height: auto;
+  box-shadow: 0 18px 50px rgba(0,0,0,.55), 0 2px 6px rgba(0,0,0,.4);
+}
+.controls { width: 100%; max-width: 420px; display: grid; gap: 6px; }
+.controls label { font-family: var(--caps); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.controls input {
+  font: 18px var(--body); padding: 10px 12px; border-radius: 4px;
+  background: #2a201c; color: var(--cellar-ink); border: 1px solid #4a3a30;
+}
+.controls input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.controls p { margin: 4px 0 0; font-size: 14px; color: var(--muted); line-height: 1.45; }
+@page { size: 90mm 120mm; margin: 0; }
+@media print {
+  html, body { background: none; padding: 0; margin: 0; display: block; }
+  .controls { display: none; }
+  .label { width: 90mm; height: 120mm; max-width: none; box-shadow: none; display: block; }
+}
+</style>
+
+<svg class="label" id="label" viewBox="0 0 900 1200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Etykieta wina von Karma z Talabheimu">
+  <defs>
+    <filter id="paper" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.45  0 0 0 0 0.32  0 0 0 0 0.18  0 0 0 0.16 0" result="grain"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="3" result="m"/>
+      <feColorMatrix in="m" type="matrix" values="0 0 0 0 0.55  0 0 0 0 0.38  0 0 0 0 0.2  0 0 0 0.22 -0.04" result="mottle"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="mottle"/><feMergeNode in="grain"/></feMerge>
+    </filter>
+    <radialGradient id="vignette" cx="50%" cy="48%" r="70%">
+      <stop offset="60%" stop-color="#7a5a32" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#5a3c1c" stop-opacity="0.45"/>
+    </radialGradient>
+    <linearGradient id="goldfill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d9b862"/><stop offset=".5" stop-color="#b0893a"/><stop offset="1" stop-color="#8a6524"/>
+    </linearGradient>
+    <linearGradient id="wineShield" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7f1a2c"/><stop offset="1" stop-color="#4f0d19"/>
+    </linearGradient>
+    <path id="arc" d="M 190 330 A 300 300 0 0 1 710 330"/>
+    <g id="corner" fill="none" stroke="#b0893a" stroke-width="3">
+      <path d="M0 60 V0 H60"/>
+      <path d="M14 46 V14 H46" stroke-width="1.5"/>
+      <path d="M22 22 l10 0 l-10 10 z" fill="#6e1424" stroke="none"/>
+    </g>
+    <g id="grapes" fill="#4f0d19" stroke="#2a0710" stroke-width="1.5">
+      <circle cx="0" cy="0" r="9"/><circle cx="17" cy="0" r="9"/><circle cx="-17" cy="0" r="9"/>
+      <circle cx="8" cy="15" r="9"/><circle cx="-8" cy="15" r="9"/>
+      <circle cx="0" cy="30" r="9"/>
+      <circle cx="-2" cy="-3" r="2.5" fill="#c46a7a" stroke="none"/>
+    </g>
+    <g id="vine">
+      <path d="M0 0 C -30 -40 -40 -100 -20 -170" fill="none" stroke="#23402c" stroke-width="5" stroke-linecap="round"/>
+      <path d="M-30 -70 c -25 -6 -45 6 -55 22 c 18 -2 22 10 40 8 c 10 -2 18 -14 15 -30 z" fill="#23402c"/>
+      <path d="M-25 -130 c -22 -12 -44 -4 -56 10 c 18 2 20 14 38 14 c 10 0 20 -10 18 -24 z" fill="#2e5238"/>
+      <path d="M-22 -40 c -12 4 -20 14 -14 26" fill="none" stroke="#23402c" stroke-width="2"/>
+      <use href="#grapes" x="-62" y="-40"/>
+    </g>
+    <g id="antler" fill="none" stroke="url(#goldfill)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M436 372 C420 345 400 330 388 300 C378 275 382 250 396 232"/>
+      <path d="M418 343 C402 345 388 352 376 364"/>
+      <path d="M398 312 C384 306 372 296 364 282"/>
+      <path d="M387 283 C392 268 402 258 414 252"/>
+      <path d="M384 262 C372 254 366 240 366 226"/>
+    </g>
+  </defs>
+
+  <!-- paper -->
+  <rect width="900" height="1200" fill="#efe2c4" filter="url(#paper)"/>
+  <rect width="900" height="1200" fill="url(#vignette)"/>
+
+  <!-- frame -->
+  <rect x="28" y="28" width="844" height="1144" fill="none" stroke="#6e1424" stroke-width="6"/>
+  <rect x="44" y="44" width="812" height="1112" fill="none" stroke="#b0893a" stroke-width="2"/>
+  <use href="#corner" x="58" y="58"/>
+  <use href="#corner" transform="translate(842 58) scale(-1 1)"/>
+  <use href="#corner" transform="translate(58 1142) scale(1 -1)"/>
+  <use href="#corner" transform="translate(842 1142) scale(-1 -1)"/>
+
+  <!-- arched house name -->
+  <text font-family="Cinzel, Georgia, serif" font-size="26" font-weight="600" letter-spacing="6" fill="#2a1a14">
+    <textPath href="#arc" startOffset="50%" text-anchor="middle">TALABHEIM · TALABECLAND</textPath>
+  </text>
+  <text x="450" y="112" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="17" letter-spacing="6" fill="#6e1424">✦ WEINGUT · ZAŁ. 2187 KI ✦</text>
+
+  <!-- vines either side of the crest -->
+  <use href="#vine" x="318" y="500"/>
+  <use href="#vine" transform="translate(582 500) scale(-1 1)"/>
+
+  <!-- shield -->
+  <path d="M352 274 H548 V390 C548 452 500 488 450 506 C400 488 352 452 352 390 Z" fill="url(#wineShield)" stroke="url(#goldfill)" stroke-width="6"/>
+  <path d="M364 286 H536 V390 C536 444 494 476 450 492 C406 476 364 444 364 390 Z" fill="none" stroke="#b0893a" stroke-width="1.5" opacity=".8"/>
+
+  <!-- stag of Taal -->
+  <use href="#antler"/>
+  <use href="#antler" transform="translate(900 0) scale(-1 1)"/>
+  <g fill="url(#goldfill)" stroke="#6b4c1a" stroke-width="1.2">
+    <path d="M418 386 C402 382 390 372 384 362 C398 360 414 366 426 378 Z"/>
+    <path d="M482 386 C498 382 510 372 516 362 C502 360 486 366 474 378 Z"/>
+    <path d="M450 366 C430 366 420 380 422 398 L436 452 C440 466 460 466 464 452 L478 398 C480 380 470 366 450 366 Z"/>
+  </g>
+  <g fill="#4f0d19">
+    <ellipse cx="437" cy="404" rx="4.5" ry="3"/><ellipse cx="463" cy="404" rx="4.5" ry="3"/>
+    <ellipse cx="450" cy="455" rx="7" ry="5"/>
+  </g>
+
+  <!-- motto ribbon -->
+  <g>
+    <path d="M296 528 L330 520 L322 548 L330 576 L296 568 L308 548 Z" fill="#4f0d19"/>
+    <path d="M604 528 L570 520 L578 548 L570 576 L604 568 L592 548 Z" fill="#4f0d19"/>
+    <path d="M326 516 Q450 494 574 516 L574 556 Q450 534 326 556 Z" fill="#6e1424" stroke="#b0893a" stroke-width="2"/>
+    <text x="450" y="542" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="20" font-weight="700" letter-spacing="5" fill="#efe2c4">IN SILVA VERITAS</text>
+  </g>
+
+  <!-- name -->
+  <text x="450" y="700" text-anchor="middle" font-family="UnifrakturMaguntia, 'Old English Text MT', serif" font-size="150" fill="#6e1424">von Karma</text>
+  <text x="450" y="760" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="32" font-weight="600" letter-spacing="10" fill="#2a1a14">TALABHEIMER ROTWEIN</text>
+  <text x="450" y="803" text-anchor="middle" font-family="'IM Fell English', Georgia, serif" font-style="italic" font-size="29" fill="#2a1a14">czerwone wytrawne z Oka Lasu</text>
+
+  <!-- divider -->
+  <g stroke="#b0893a" stroke-width="2" fill="#b0893a">
+    <line x1="230" y1="838" x2="420" y2="838"/><line x1="480" y1="838" x2="670" y2="838"/>
+    <path d="M450 826 L462 838 L450 850 L438 838 Z" fill="#6e1424" stroke="none"/>
+    <circle cx="420" cy="838" r="3"/><circle cx="480" cy="838" r="3"/>
+  </g>
+
+  <text x="450" y="898" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="38" font-weight="700" letter-spacing="8" fill="#6e1424">ROCZNIK 2522 KI</text>
+
+  <g font-family="'IM Fell English', Georgia, serif" font-style="italic" font-size="23" fill="#3a271c" text-anchor="middle">
+    <text x="450" y="948">Z winorośli rosnących na zboczach krateru Talabheimu,</text>
+    <text x="450" y="978">dojrzewało w beczkach z dębu Wielkiego Lasu.</text>
+    <text x="450" y="1008">Niech Taal i Rhya błogosławią Twój puchar.</text>
+  </g>
+
+  <text id="dedication" x="450" y="1058" text-anchor="middle" font-family="'IM Fell English', Georgia, serif" font-size="26" fill="#6e1424"></text>
+
+  <!-- bottom line -->
+  <line x1="130" y1="1082" x2="770" y2="1082" stroke="#b0893a" stroke-width="1.5"/>
+  <g font-family="Cinzel, Georgia, serif" font-size="21" font-weight="600" letter-spacing="3" fill="#2a1a14">
+    <text x="132" y="1118">0,75 L</text>
+    <text x="450" y="1118" text-anchor="middle" font-size="15" letter-spacing="3">BUTELKOWANE W TALABHEIMIE</text>
+    <text x="768" y="1118" text-anchor="end">13% OBJ.</text>
+  </g>
+  <text x="450" y="1144" text-anchor="middle" font-family="'IM Fell English', Georgia, serif" font-style="italic" font-size="17" fill="#5a4330">butelka nr 47 z 300 · dla przyjaciół rodu</text>
+</svg>
+
+<div class="controls">
+  <label for="dla">Dedykacja na etykiecie</label>
+  <input id="dla" type="text" maxlength="40" placeholder="np. Dla Kasi, na zdrowie!" autocomplete="off">
+  <p>Wpisany tekst pojawi się nad dolną linią etykiety. Gotowy plik do druku (9 × 12 cm) jest w PDF.</p>
+</div>
+
+<script>
+const ded = document.getElementById('dedication');
+const input = document.getElementById('dla');
+function sync() { ded.textContent = input.value.trim(); }
+input.addEventListener('input', sync);
+sync();
+</script>
