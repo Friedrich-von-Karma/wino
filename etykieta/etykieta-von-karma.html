@@ -2,181 +2,321 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Herr+Von+Muellerhoff&display=swap" rel="stylesheet">
 <style>
-/* Layout: one bottle label centred on a dark cellar ground, with a single personalisation field below. Single dark look by choice. */
+/* Layout: one hand-coloured woodcut label lying on a dark oak table, a single personalisation field below. Single dark look by choice. */
 :root {
   color-scheme: dark;
-  --cellar: #1b1412;      /* page ground: dark oak */
-  --cellar-ink: #e9dcc3;  /* text on the ground */
+  --table: #1a1310;
+  --table-ink: #eadcc2;
   --muted: #a8977c;
-  --parchment: #efe2c4;
-  --wine: #6e1424;
-  --gold: #b0893a;
-  --forest: #23402c;
-  --ink: #2a1a14;
-  --display: "UnifrakturMaguntia", "Old English Text MT", serif;
-  --caps: "Cinzel", "Trajan Pro", Georgia, serif;
+  --field: #2a201b;
+  --line: #4a3a30;
+  --gold: #b38b3b;
+  --blackletter: "UnifrakturMaguntia", "Old English Text MT", serif;
+  --caps: "IM Fell English SC", "IM Fell English", Garamond, serif;
   --body: "IM Fell English", Garamond, Georgia, serif;
 }
-html, body { background: var(--cellar); color: var(--cellar-ink); }
+html, body { background: var(--table); color: var(--table-ink); }
 body {
   font-family: var(--body);
   padding-block: 28px 40px;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
-  display: grid; justify-items: center; gap: 20px;
+  display: grid; justify-items: center; gap: 22px;
+  background-image: repeating-linear-gradient(92deg, rgba(255,255,255,.012) 0 3px, rgba(0,0,0,.03) 3px 9px);
 }
 .label {
-  width: 100%; max-width: 420px; aspect-ratio: 3 / 4; height: auto;
-  box-shadow: 0 18px 50px rgba(0,0,0,.55), 0 2px 6px rgba(0,0,0,.4);
+  width: 100%; max-width: 440px; aspect-ratio: 3 / 4; height: auto; display: block;
+  filter: drop-shadow(0 16px 26px rgba(0,0,0,.6)) drop-shadow(0 2px 3px rgba(0,0,0,.5));
 }
-.controls { width: 100%; max-width: 420px; display: grid; gap: 6px; }
-.controls label { font-family: var(--caps); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.controls { width: 100%; max-width: 440px; display: grid; gap: 6px; }
+.controls label { font-family: var(--caps); font-size: 15px; letter-spacing: .08em; color: var(--muted); }
 .controls input {
-  font: 18px var(--body); padding: 10px 12px; border-radius: 4px;
-  background: #2a201c; color: var(--cellar-ink); border: 1px solid #4a3a30;
+  font: 18px var(--body); padding: 10px 12px; border-radius: 3px;
+  background: var(--field); color: var(--table-ink); border: 1px solid var(--line);
 }
 .controls input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-.controls p { margin: 4px 0 0; font-size: 14px; color: var(--muted); line-height: 1.45; }
+.controls p { margin: 4px 0 0; font-size: 15px; color: var(--muted); line-height: 1.45; }
 @page { size: 90mm 120mm; margin: 0; }
 @media print {
-  html, body { background: none; padding: 0; margin: 0; display: block; }
+  html, body { background: #fff; background-image: none; padding: 0; margin: 0; display: block; }
   .controls { display: none; }
-  .label { width: 90mm; height: 120mm; max-width: none; box-shadow: none; display: block; }
+  .label { width: 90mm; height: 120mm; max-width: none; filter: none; }
 }
 </style>
 
 <svg class="label" id="label" viewBox="0 0 900 1200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Etykieta wina von Karma z Talabheimu">
   <defs>
-    <filter id="paper" x="0" y="0" width="100%" height="100%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7" result="n"/>
-      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.45  0 0 0 0 0.32  0 0 0 0 0.18  0 0 0 0.16 0" result="grain"/>
-      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="3" result="m"/>
-      <feColorMatrix in="m" type="matrix" values="0 0 0 0 0.55  0 0 0 0 0.38  0 0 0 0 0.2  0 0 0 0.22 -0.04" result="mottle"/>
-      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="mottle"/><feMergeNode in="grain"/></feMerge>
+    <!-- aged parchment: rough deckled edge, mottling, fibres, scorched rim -->
+    <filter id="parchment" x="-3%" y="-3%" width="106%" height="106%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" seed="11" result="edgeN"/>
+      <feDisplacementMap in="SourceGraphic" in2="edgeN" scale="16" xChannelSelector="R" yChannelSelector="G" result="shape"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="4" seed="5" result="blotch"/>
+      <feColorMatrix in="blotch" type="matrix" values="0 0 0 0 0.50  0 0 0 0 0.33  0 0 0 0 0.16  0 0 0 0.7 -0.3" result="blotchC"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.04 0.9" numOctaves="2" seed="2" result="fibre"/>
+      <feColorMatrix in="fibre" type="matrix" values="0 0 0 0 0.42  0 0 0 0 0.30  0 0 0 0 0.18  0 0 0 0.35 -0.1" result="fibreC"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="9" result="grain"/>
+      <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0.35  0 0 0 0 0.24  0 0 0 0 0.12  0 0 0 0.22 -0.03" result="grainC"/>
+      <feMorphology in="shape" operator="erode" radius="10" result="inner"/>
+      <feGaussianBlur in="inner" stdDeviation="28" result="innerB"/>
+      <feComposite in="shape" in2="innerB" operator="out" result="rimA"/>
+      <feFlood flood-color="#5a3412" flood-opacity="0.85"/>
+      <feComposite in2="rimA" operator="in" result="rim"/>
+      <feMerge result="all"><feMergeNode in="shape"/><feMergeNode in="blotchC"/><feMergeNode in="fibreC"/><feMergeNode in="grainC"/><feMergeNode in="rim"/></feMerge>
+      <feComposite in="all" in2="shape" operator="in"/>
     </filter>
-    <radialGradient id="vignette" cx="50%" cy="48%" r="70%">
-      <stop offset="60%" stop-color="#7a5a32" stop-opacity="0"/>
-      <stop offset="100%" stop-color="#5a3c1c" stop-opacity="0.45"/>
+    <!-- printed ink: ragged edges and uneven take-up -->
+    <filter id="ink" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="1" seed="4" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="2.6" xChannelSelector="R" yChannelSelector="G" result="rough"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="8" result="take"/>
+      <feColorMatrix in="take" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.6 1.3" result="takeA"/>
+      <feComposite in="rough" in2="takeA" operator="in"/>
+    </filter>
+    <!-- watercolour wash for hand colouring -->
+    <filter id="wash" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="13" result="p"/>
+      <feColorMatrix in="p" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.15" result="pA"/>
+      <feComposite in="d" in2="pA" operator="in" result="patchy"/>
+      <feGaussianBlur in="patchy" stdDeviation="0.7"/>
+    </filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="6"/></filter>
+    <!-- sealing wax -->
+    <filter id="wax" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="21" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="waxShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="3" dy="5"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="waxFill" cx="40%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#b3262d"/><stop offset=".55" stop-color="#8a141c"/><stop offset="1" stop-color="#4e070d"/>
     </radialGradient>
-    <linearGradient id="goldfill" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#d9b862"/><stop offset=".5" stop-color="#b0893a"/><stop offset="1" stop-color="#8a6524"/>
-    </linearGradient>
-    <linearGradient id="wineShield" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#7f1a2c"/><stop offset="1" stop-color="#4f0d19"/>
-    </linearGradient>
-    <path id="arc" d="M 190 330 A 300 300 0 0 1 710 330"/>
-    <g id="corner" fill="none" stroke="#b0893a" stroke-width="3">
-      <path d="M0 60 V0 H60"/>
-      <path d="M14 46 V14 H46" stroke-width="1.5"/>
-      <path d="M22 22 l10 0 l-10 10 z" fill="#6e1424" stroke="none"/>
+    <radialGradient id="waxWell" cx="60%" cy="65%" r="70%">
+      <stop offset="0" stop-color="#a31e25"/><stop offset="1" stop-color="#6a0c13"/>
+    </radialGradient>
+
+    <!-- heraldic hatching (Petra Sancta): vertical lines = gules -->
+    <pattern id="gules" width="7" height="7" patternUnits="userSpaceOnUse">
+      <line x1="3.5" y1="0" x2="3.5" y2="7" stroke="#231811" stroke-width="1.4"/>
+    </pattern>
+    <pattern id="shade" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(40)">
+      <line x1="0" y1="3" x2="6" y2="3" stroke="#231811" stroke-width="1.1"/>
+    </pattern>
+
+    <!-- border vine scroll, drawn in a 60 x 34 cell -->
+    <g id="scroll" fill="none" stroke="#231811" stroke-linecap="round">
+      <path d="M0 17 C10 3 22 3 30 17 C38 31 50 31 60 17" stroke-width="2.6"/>
+      <path d="M14 7 c-2 -5 2 -6 5 -4 c3 3 1 6 -5 4 z" fill="#231811" stroke-width="1"/>
+      <path d="M22 9 c4 -2 7 1 5 4" stroke-width="1.4"/>
+      <circle cx="44" cy="27.5" r="2.6" fill="#231811" stroke="none"/>
+      <circle cx="49" cy="28.5" r="2.6" fill="#231811" stroke="none"/>
+      <circle cx="46.5" cy="32" r="2.4" fill="#231811" stroke="none"/>
+      <path d="M38 25 c-4 2 -5 -2 -3 -4" stroke-width="1.4"/>
     </g>
-    <g id="grapes" fill="#4f0d19" stroke="#2a0710" stroke-width="1.5">
-      <circle cx="0" cy="0" r="9"/><circle cx="17" cy="0" r="9"/><circle cx="-17" cy="0" r="9"/>
-      <circle cx="8" cy="15" r="9"/><circle cx="-8" cy="15" r="9"/>
-      <circle cx="0" cy="30" r="9"/>
-      <circle cx="-2" cy="-3" r="2.5" fill="#c46a7a" stroke="none"/>
+    <pattern id="bandH" x="58" y="58" width="60.923" height="34" patternUnits="userSpaceOnUse">
+      <use href="#scroll" transform="scale(1.01538 1)"/>
+    </pattern>
+    <pattern id="bandV" x="808" y="58" width="34" height="60.667" patternUnits="userSpaceOnUse">
+      <use href="#scroll" transform="translate(34 0) rotate(90) scale(1.01111 1)"/>
+    </pattern>
+    <g id="rosette">
+      <rect x="-17" y="-17" width="34" height="34" fill="#efe1c0" stroke="#231811" stroke-width="2"/>
+      <g fill="#231811">
+        <path d="M0 -12 C5 -6 5 -4 0 0 C-5 -4 -5 -6 0 -12 Z"/>
+        <path d="M0 -12 C5 -6 5 -4 0 0 C-5 -4 -5 -6 0 -12 Z" transform="rotate(90)"/>
+        <path d="M0 -12 C5 -6 5 -4 0 0 C-5 -4 -5 -6 0 -12 Z" transform="rotate(180)"/>
+        <path d="M0 -12 C5 -6 5 -4 0 0 C-5 -4 -5 -6 0 -12 Z" transform="rotate(270)"/>
+      </g>
+      <circle r="3.2" fill="#8e1b1b"/>
+    </g>
+
+    <!-- vine leaf and grapes, woodcut style -->
+    <g id="leaf">
+      <path d="M0 0 C-8 -6 -22 -8 -26 -20 C-20 -22 -16 -26 -18 -34 C-10 -30 -6 -34 0 -44 C6 -34 10 -30 18 -34 C16 -26 20 -22 26 -20 C22 -8 8 -6 0 0 Z" fill="#6f8a4e" opacity=".6" filter="url(#wash)" transform="translate(2 2)"/>
+      <path d="M0 0 C-8 -6 -22 -8 -26 -20 C-20 -22 -16 -26 -18 -34 C-10 -30 -6 -34 0 -44 C6 -34 10 -30 18 -34 C16 -26 20 -22 26 -20 C22 -8 8 -6 0 0 Z" fill="none" stroke="#231811" stroke-width="2"/>
+      <path d="M0 0 V-38 M0 -8 L-18 -20 M0 -8 L18 -20 M0 -20 L-10 -30 M0 -20 L10 -30" fill="none" stroke="#231811" stroke-width="1.1"/>
+    </g>
+    <g id="grape">
+      <circle r="8.5" fill="#6e1630" opacity=".55" filter="url(#wash)" transform="translate(1.5 1.5)"/>
+      <circle r="8.5" fill="none" stroke="#231811" stroke-width="1.8"/>
+      <path d="M2 6 A7 7 0 0 0 6.5 1" fill="none" stroke="#231811" stroke-width="1.6"/>
+    </g>
+    <g id="cluster">
+      <use href="#grape" x="-16" y="0"/><use href="#grape" x="0" y="0"/><use href="#grape" x="16" y="0"/>
+      <use href="#grape" x="-8" y="14"/><use href="#grape" x="8" y="14"/>
+      <use href="#grape" x="0" y="28"/>
+      <path d="M0 -8 C0 -16 4 -22 10 -26" fill="none" stroke="#231811" stroke-width="2"/>
     </g>
     <g id="vine">
-      <path d="M0 0 C -30 -40 -40 -100 -20 -170" fill="none" stroke="#23402c" stroke-width="5" stroke-linecap="round"/>
-      <path d="M-30 -70 c -25 -6 -45 6 -55 22 c 18 -2 22 10 40 8 c 10 -2 18 -14 15 -30 z" fill="#23402c"/>
-      <path d="M-25 -130 c -22 -12 -44 -4 -56 10 c 18 2 20 14 38 14 c 10 0 20 -10 18 -24 z" fill="#2e5238"/>
-      <path d="M-22 -40 c -12 4 -20 14 -14 26" fill="none" stroke="#23402c" stroke-width="2"/>
-      <use href="#grapes" x="-62" y="-40"/>
+      <path d="M0 0 C-34 -40 -40 -100 -16 -168" fill="none" stroke="#231811" stroke-width="6" stroke-linecap="round"/>
+      <path d="M0 0 C-34 -40 -40 -100 -16 -168" fill="none" stroke="#efe1c0" stroke-width="2" stroke-linecap="round"/>
+      <path d="M-16 -168 c 12 -6 20 0 16 10 c -4 8 -14 4 -8 -2" fill="none" stroke="#231811" stroke-width="1.6"/>
+      <use href="#leaf" transform="translate(-30 -72) rotate(-62)"/>
+      <use href="#leaf" transform="translate(-26 -132) rotate(-50) scale(.85)"/>
+      <use href="#cluster" x="-58" y="-40"/>
     </g>
-    <g id="antler" fill="none" stroke="url(#goldfill)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- antler: ink line with a gold wash inside, reads as an outlined woodcut stroke -->
+    <g id="antlerPaths">
       <path d="M436 372 C420 345 400 330 388 300 C378 275 382 250 396 232"/>
       <path d="M418 343 C402 345 388 352 376 364"/>
       <path d="M398 312 C384 306 372 296 364 282"/>
       <path d="M387 283 C392 268 402 258 414 252"/>
       <path d="M384 262 C372 254 366 240 366 226"/>
     </g>
+    <g id="antler" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <use href="#antlerPaths" stroke="#231811" stroke-width="13"/>
+      <use href="#antlerPaths" stroke="#e2c27a" stroke-width="6.5"/>
+    </g>
+
+    <clipPath id="shieldClip"><path d="M352 274 H548 V390 C548 452 500 488 450 506 C400 488 352 452 352 390 Z"/></clipPath>
+    <path id="ribbonText" d="M318 474 Q450 452 582 474"/>
+    <path id="arcTop" d="M260 168 Q450 140 640 168"/>
   </defs>
 
-  <!-- paper -->
-  <rect width="900" height="1200" fill="#efe2c4" filter="url(#paper)"/>
-  <rect width="900" height="1200" fill="url(#vignette)"/>
-
-  <!-- frame -->
-  <rect x="28" y="28" width="844" height="1144" fill="none" stroke="#6e1424" stroke-width="6"/>
-  <rect x="44" y="44" width="812" height="1112" fill="none" stroke="#b0893a" stroke-width="2"/>
-  <use href="#corner" x="58" y="58"/>
-  <use href="#corner" transform="translate(842 58) scale(-1 1)"/>
-  <use href="#corner" transform="translate(58 1142) scale(1 -1)"/>
-  <use href="#corner" transform="translate(842 1142) scale(-1 -1)"/>
-
-  <!-- arched house name -->
-  <text font-family="Cinzel, Georgia, serif" font-size="26" font-weight="600" letter-spacing="6" fill="#2a1a14">
-    <textPath href="#arc" startOffset="50%" text-anchor="middle">TALABHEIM · TALABECLAND</textPath>
-  </text>
-  <text x="450" y="112" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="17" letter-spacing="6" fill="#6e1424">✦ WEINGUT · ZAŁ. 2187 KI ✦</text>
-
-  <!-- vines either side of the crest -->
-  <use href="#vine" x="318" y="500"/>
-  <use href="#vine" transform="translate(582 500) scale(-1 1)"/>
-
-  <!-- shield -->
-  <path d="M352 274 H548 V390 C548 452 500 488 450 506 C400 488 352 452 352 390 Z" fill="url(#wineShield)" stroke="url(#goldfill)" stroke-width="6"/>
-  <path d="M364 286 H536 V390 C536 444 494 476 450 492 C406 476 364 444 364 390 Z" fill="none" stroke="#b0893a" stroke-width="1.5" opacity=".8"/>
-
-  <!-- stag of Taal -->
-  <use href="#antler"/>
-  <use href="#antler" transform="translate(900 0) scale(-1 1)"/>
-  <g fill="url(#goldfill)" stroke="#6b4c1a" stroke-width="1.2">
-    <path d="M418 386 C402 382 390 372 384 362 C398 360 414 366 426 378 Z"/>
-    <path d="M482 386 C498 382 510 372 516 362 C502 360 486 366 474 378 Z"/>
-    <path d="M450 366 C430 366 420 380 422 398 L436 452 C440 466 460 466 464 452 L478 398 C480 380 470 366 450 366 Z"/>
+  <!-- ================= paper ================= -->
+  <rect x="14" y="14" width="872" height="1172" fill="#ecdcb6" filter="url(#parchment)"/>
+  <!-- faint ring left by a wine glass, and foxing -->
+  <g opacity=".5" filter="url(#wash)">
+    <circle cx="742" cy="232" r="66" fill="none" stroke="#7a2a2a" stroke-width="5" opacity=".18"/>
+    <circle cx="745" cy="236" r="62" fill="none" stroke="#7a2a2a" stroke-width="1.5" opacity=".18"/>
   </g>
-  <g fill="#4f0d19">
-    <ellipse cx="437" cy="404" rx="4.5" ry="3"/><ellipse cx="463" cy="404" rx="4.5" ry="3"/>
-    <ellipse cx="450" cy="455" rx="7" ry="5"/>
+  <g fill="#7a4a1c" filter="url(#soft)" opacity=".22">
+    <circle cx="160" cy="300" r="9"/><circle cx="178" cy="318" r="5"/><circle cx="700" cy="980" r="11"/>
+    <circle cx="232" cy="1040" r="7"/><circle cx="640" cy="120" r="6"/><circle cx="120" cy="760" r="10"/>
   </g>
 
-  <!-- motto ribbon -->
-  <g>
-    <path d="M296 528 L330 520 L322 548 L330 576 L296 568 L308 548 Z" fill="#4f0d19"/>
-    <path d="M604 528 L570 520 L578 548 L570 576 L604 568 L592 548 Z" fill="#4f0d19"/>
-    <path d="M326 516 Q450 494 574 516 L574 556 Q450 534 326 556 Z" fill="#6e1424" stroke="#b0893a" stroke-width="2"/>
-    <text x="450" y="542" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="20" font-weight="700" letter-spacing="5" fill="#efe2c4">IN SILVA VERITAS</text>
+  <!-- ================= ink layer ================= -->
+  <g filter="url(#ink)">
+    <!-- border -->
+    <rect x="44" y="44" width="812" height="1112" fill="none" stroke="#231811" stroke-width="5"/>
+    <rect x="58" y="58" width="784" height="1084" fill="none" stroke="#231811" stroke-width="1.6"/>
+    <rect x="58" y="58" width="784" height="34" fill="url(#bandH)"/>
+    <rect x="58" y="1108" width="784" height="34" fill="url(#bandH)"/>
+    <rect x="58" y="58" width="34" height="1084" fill="url(#bandV)"/>
+    <rect x="808" y="58" width="34" height="1084" fill="url(#bandV)"/>
+    <rect x="92" y="92" width="716" height="1016" fill="none" stroke="#231811" stroke-width="1.6"/>
+    <rect x="100" y="100" width="700" height="1000" fill="none" stroke="#231811" stroke-width=".9"/>
+    <use href="#rosette" x="75" y="75"/><use href="#rosette" x="825" y="75"/>
+    <use href="#rosette" x="75" y="1125"/><use href="#rosette" x="825" y="1125"/>
+
+    <!-- header -->
+    <text x="450" y="158" text-anchor="middle" font-family="'IM Fell English SC', 'IM Fell English', Georgia, serif" font-size="26" letter-spacing="5" fill="#231811">Z winnic szlachetnego rodu</text>
+
+    <!-- vines -->
+    <use href="#vine" x="318" y="452"/>
+    <use href="#vine" transform="translate(582 452) scale(-1 1)"/>
+
+    <!-- crest -->
+    <g transform="translate(450 214) scale(.86) translate(-450 -274)">
+      <!-- hand colouring, slightly out of register -->
+      <path d="M352 274 H548 V390 C548 452 500 488 450 506 C400 488 352 452 352 390 Z" fill="#a3242b" opacity=".75" filter="url(#wash)" transform="translate(4 3)"/>
+      <rect x="340" y="260" width="220" height="260" fill="url(#gules)" clip-path="url(#shieldClip)" opacity=".85"/>
+      <path d="M352 274 H548 V390 C548 452 500 488 450 506 C400 488 352 452 352 390 Z" fill="none" stroke="#231811" stroke-width="5"/>
+      <path d="M362 284 H538 V390 C538 446 494 478 450 494 C406 478 362 446 362 390 Z" fill="none" stroke="#231811" stroke-width="1.4"/>
+      <!-- stag of Taal -->
+      <use href="#antler"/>
+      <use href="#antler" transform="translate(900 0) scale(-1 1)"/>
+      <g stroke="#231811" stroke-width="3" stroke-linejoin="round">
+        <path d="M418 386 C402 382 390 372 384 362 C398 360 414 366 426 378 Z" fill="#e2c27a"/>
+        <path d="M482 386 C498 382 510 372 516 362 C502 360 486 366 474 378 Z" fill="#e2c27a"/>
+        <path d="M450 366 C430 366 420 380 422 398 L436 452 C440 466 460 466 464 452 L478 398 C480 380 470 366 450 366 Z" fill="#e2c27a"/>
+      </g>
+      <g fill="none" stroke="#231811" stroke-width="1.3" stroke-linecap="round">
+        <path d="M428 414 l5 14 M432 412 l5 16 M436 416 l4 12"/>
+        <path d="M472 414 l-5 14 M468 412 l-5 16 M464 416 l-4 12"/>
+        <path d="M445 380 v14 M455 380 v14"/>
+      </g>
+      <g fill="#231811">
+        <path d="M432 402 q6 -5 11 1 q-6 4 -11 -1 z"/><path d="M468 402 q-6 -5 -11 1 q6 4 11 -1 z"/>
+        <ellipse cx="450" cy="455" rx="7" ry="5"/>
+      </g>
+    </g>
+
+    <!-- motto scroll -->
+    <g stroke="#231811" stroke-linejoin="round">
+      <path d="M318 460 L272 466 L288 486 L272 508 L326 502 Z" fill="#efe1c0" stroke-width="2.4"/>
+      <path d="M582 460 L628 466 L612 486 L628 508 L574 502 Z" fill="#efe1c0" stroke-width="2.4"/>
+      <path d="M272 466 L318 460 L326 502 L272 508 Z" fill="url(#shade)" stroke="none" opacity=".7"/>
+      <path d="M628 466 L582 460 L574 502 L628 508 Z" fill="url(#shade)" stroke="none" opacity=".7"/>
+      <path d="M318 460 L326 502 L340 490 Z M582 460 L574 502 L560 490 Z" fill="#231811" stroke-width="1.5"/>
+      <path d="M318 456 Q450 432 582 456 L582 494 Q450 470 318 494 Z" fill="#f3e7c9" stroke-width="2.6"/>
+      <path d="M326 462 Q450 440 574 462 M326 488 Q450 466 574 488" fill="none" stroke-width=".9"/>
+    </g>
+    <text font-family="'IM Fell English SC', 'IM Fell English', Georgia, serif" font-size="25" letter-spacing="5" fill="#8e1b1b">
+      <textPath href="#ribbonText" startOffset="50%" text-anchor="middle">In Silva Veritas</textPath>
+    </text>
+
+    <!-- name -->
+    <text x="450" y="628" text-anchor="middle" font-family="UnifrakturMaguntia, 'Old English Text MT', serif" fill="#231811">
+      <tspan font-size="96">von </tspan><tspan font-size="158" fill="#8e1b1b">Karma</tspan>
+    </text>
+    <text x="450" y="684" text-anchor="middle" font-family="'IM Fell English SC', 'IM Fell English', Georgia, serif" font-size="37" letter-spacing="7" fill="#231811">Talabheimer Rotwein</text>
+    <text x="450" y="724" text-anchor="middle" font-family="'IM Fell English', Georgia, serif" font-style="italic" font-size="27" fill="#231811">wino czerwone, wytrawne, z winnic Oka Lasu</text>
+
+    <!-- fleuron rule -->
+    <g fill="#231811" stroke="#231811">
+      <line x1="236" y1="756" x2="420" y2="756" stroke-width="1.6"/><line x1="480" y1="756" x2="664" y2="756" stroke-width="1.6"/>
+      <line x1="270" y1="762" x2="420" y2="762" stroke-width=".8"/><line x1="480" y1="762" x2="630" y2="762" stroke-width=".8"/>
+      <path d="M450 748 C440 736 426 750 450 772 C474 750 460 736 450 748 Z" fill="#8e1b1b" stroke-width="1.4" transform="rotate(180 450 759)"/>
+      <path d="M420 759 c-8 -8 -16 -4 -20 2" fill="none" stroke-width="1.6"/><path d="M480 759 c8 -8 16 -4 20 2" fill="none" stroke-width="1.6"/>
+    </g>
+
+    <!-- vintage -->
+    <text x="450" y="800" text-anchor="middle" font-family="'IM Fell English SC', 'IM Fell English', Georgia, serif" font-size="23" letter-spacing="5" fill="#231811">Rocznik roku Sigmara</text>
+    <text x="450" y="852" text-anchor="middle" font-family="'IM Fell English', Georgia, serif" font-size="54" letter-spacing="12" fill="#8e1b1b">MMDXXII</text>
+
+    <!-- description with an illuminated initial -->
+    <g transform="translate(176 878)">
+      <rect x="0" y="0" width="60" height="60" fill="#8e1b1b" opacity=".8" filter="url(#wash)" transform="translate(2 2)"/>
+      <rect x="0" y="0" width="60" height="60" fill="none" stroke="#231811" stroke-width="2.2"/>
+      <path d="M6 54 c8 -4 10 -14 4 -18 M54 6 c-8 4 -10 14 -4 18" fill="none" stroke="#e2c27a" stroke-width="1.6"/>
+      <circle cx="9" cy="9" r="2.2" fill="#e2c27a"/><circle cx="51" cy="51" r="2.2" fill="#e2c27a"/>
+      <text x="30" y="48" text-anchor="middle" font-family="'IM Fell English', Georgia, serif" font-size="52" fill="#e9c66e" stroke="#231811" stroke-width="1.4" paint-order="stroke">Z</text>
+    </g>
+    <g font-family="'IM Fell English', Georgia, serif" font-size="23" fill="#231811">
+      <text x="248" y="900">winorośli rosnących na zboczach krateru</text>
+      <text x="248" y="928">Talabheimu, dojrzewało w beczkach z dębu</text>
+      <text x="176" y="962">Wielkiego Lasu. Niech <tspan fill="#8e1b1b">Taal</tspan> i <tspan fill="#8e1b1b">Rhya</tspan> błogosławią</text>
+      <text x="176" y="990">Twój puchar, a <tspan fill="#8e1b1b">Sigmar</tspan> strzeże Twej głowy.</text>
+    </g>
+
+    <!-- bottom -->
+    <line x1="140" y1="1040" x2="760" y2="1040" stroke="#231811" stroke-width="1.4"/>
+    <g font-family="'IM Fell English SC', 'IM Fell English', Georgia, serif" font-size="21" letter-spacing="3" fill="#231811">
+      <text x="140" y="1076">0,75 l · 13% obj.</text>
+      <text x="530" y="1076" text-anchor="end">Butelka</text>
+    </g>
   </g>
 
-  <!-- name -->
-  <text x="450" y="700" text-anchor="middle" font-family="UnifrakturMaguntia, 'Old English Text MT', serif" font-size="150" fill="#6e1424">von Karma</text>
-  <text x="450" y="760" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="32" font-weight="600" letter-spacing="10" fill="#2a1a14">TALABHEIMER ROTWEIN</text>
-  <text x="450" y="803" text-anchor="middle" font-family="'IM Fell English', Georgia, serif" font-style="italic" font-size="29" fill="#2a1a14">czerwone wytrawne z Oka Lasu</text>
-
-  <!-- divider -->
-  <g stroke="#b0893a" stroke-width="2" fill="#b0893a">
-    <line x1="230" y1="838" x2="420" y2="838"/><line x1="480" y1="838" x2="670" y2="838"/>
-    <path d="M450 826 L462 838 L450 850 L438 838 Z" fill="#6e1424" stroke="none"/>
-    <circle cx="420" cy="838" r="3"/><circle cx="480" cy="838" r="3"/>
+  <!-- hand-written in ink -->
+  <g font-family="'Herr Von Muellerhoff', 'IM Fell English', cursive" fill="#2b1d16">
+    <text x="540" y="1080" font-size="46">47/300</text>
+    <text id="dedication" x="450" y="1030" text-anchor="middle" font-size="52"></text>
   </g>
 
-  <text x="450" y="898" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="38" font-weight="700" letter-spacing="8" fill="#6e1424">ROCZNIK 2522 KI</text>
-
-  <g font-family="'IM Fell English', Georgia, serif" font-style="italic" font-size="23" fill="#3a271c" text-anchor="middle">
-    <text x="450" y="948">Z winorośli rosnących na zboczach krateru Talabheimu,</text>
-    <text x="450" y="978">dojrzewało w beczkach z dębu Wielkiego Lasu.</text>
-    <text x="450" y="1008">Niech Taal i Rhya błogosławią Twój puchar.</text>
+  <!-- wax seal over the corner -->
+  <g transform="translate(790 1096)" filter="url(#waxShadow)">
+    <circle r="60" fill="url(#waxFill)" filter="url(#wax)"/>
+    <circle r="40" fill="url(#waxWell)" stroke="#5a0a10" stroke-width="3"/>
+    <circle r="40" fill="none" stroke="#d2555b" stroke-width="1.5" opacity=".5" transform="translate(-1.5 -1.5)"/>
+    <circle r="33" fill="none" stroke="#5a0a10" stroke-width="1.2" stroke-dasharray="2 3"/>
+    <text x="-1" y="13" text-anchor="middle" font-family="UnifrakturMaguntia, serif" font-size="40" fill="#e36b70" opacity=".45">vK</text>
+    <text x="1" y="15" text-anchor="middle" font-family="UnifrakturMaguntia, serif" font-size="40" fill="#4e070d">vK</text>
+    <ellipse cx="-24" cy="-30" rx="14" ry="6" fill="#fff" opacity=".18" transform="rotate(-30 -24 -30)"/>
   </g>
-
-  <text id="dedication" x="450" y="1058" text-anchor="middle" font-family="'IM Fell English', Georgia, serif" font-size="26" fill="#6e1424"></text>
-
-  <!-- bottom line -->
-  <line x1="130" y1="1082" x2="770" y2="1082" stroke="#b0893a" stroke-width="1.5"/>
-  <g font-family="Cinzel, Georgia, serif" font-size="21" font-weight="600" letter-spacing="3" fill="#2a1a14">
-    <text x="132" y="1118">0,75 L</text>
-    <text x="450" y="1118" text-anchor="middle" font-size="15" letter-spacing="3">BUTELKOWANE W TALABHEIMIE</text>
-    <text x="768" y="1118" text-anchor="end">13% OBJ.</text>
-  </g>
-  <text x="450" y="1144" text-anchor="middle" font-family="'IM Fell English', Georgia, serif" font-style="italic" font-size="17" fill="#5a4330">butelka nr 47 z 300 · dla przyjaciół rodu</text>
 </svg>
 
 <div class="controls">
-  <label for="dla">Dedykacja na etykiecie</label>
-  <input id="dla" type="text" maxlength="40" placeholder="np. Dla Kasi, na zdrowie!" autocomplete="off">
-  <p>Wpisany tekst pojawi się nad dolną linią etykiety. Gotowy plik do druku (9 × 12 cm) jest w PDF.</p>
+  <label for="dla">Dedykacja, wpisana jak piórem</label>
+  <input id="dla" type="text" maxlength="28" placeholder="np. Dla Kasi" autocomplete="off">
+  <p>Tekst pojawi się odręcznym pismem nad dolną linią etykiety. Plik do druku (9 × 12 cm) jest w PDF.</p>
 </div>
 
 <script>
