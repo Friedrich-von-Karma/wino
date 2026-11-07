@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lista 2: 100 nazw</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Nunito:wght@400;600;800&family=DM+Serif+Display&family=Pacifico&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF7F2; --surface:#FFFFFF; --surface2:#F3ECE3; --text:#2A2420; --muted:#6E645B;
+  --line:#E6DCD0; --accent:#E8643C; --accent2:#2F7D6D; --good:#2F7D6D; --warn:#C2410C; --chip:#F6E7DC;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1A1715; --surface:#24201D; --surface2:#2E2925; --text:#F2ECE6; --muted:#B3A89D;
+    --line:#3B3430; --accent:#FF8A5C; --accent2:#5CC2AD; --good:#5CC2AD; --warn:#FF9D6B; --chip:#3A2F28;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1A1715; --surface:#24201D; --surface2:#2E2925; --text:#F2ECE6; --muted:#B3A89D;
+  --line:#3B3430; --accent:#FF8A5C; --accent2:#5CC2AD; --good:#5CC2AD; --warn:#FF9D6B; --chip:#3A2F28;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 Nunito,system-ui,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header.hero{padding:48px 0 28px}
+.eyebrow{font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:12px;color:var(--accent)}
+h1{font-family:Fredoka,sans-serif;font-size:clamp(32px,6vw,56px);line-height:1.05;margin:8px 0 14px}
+h2{font-family:Fredoka,sans-serif;font-size:clamp(24px,4vw,34px);margin:48px 0 8px}
+h3{margin:0 0 6px}
+h3.blk{font-family:Fredoka,sans-serif;font-size:21px;margin:30px 0 10px}
+.rule a{color:var(--accent2);font-size:12px;display:inline-block;margin-top:6px}
+.lead{font-size:18px;color:var(--muted);max-width:760px}
+.grid{display:grid;gap:14px}
+.facts{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+.fact b.big{display:block;font-family:Fredoka,sans-serif;font-size:30px;color:var(--accent);line-height:1.1}
+.fact p{margin:6px 0 0;font-size:14px;color:var(--muted)}
+.fact a{color:var(--accent2);font-size:12px;display:inline-block;margin-top:8px}
+.rules{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.rule{background:var(--surface2);border-radius:16px;padding:16px}
+.rule h3{font-size:17px}
+.rule p{margin:0;font-size:14.5px}
+.note{background:var(--chip);border-radius:14px;padding:14px 16px;font-size:14.5px;margin-top:14px}
+.note b{color:var(--warn)}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+
+/* podium */
+.podium{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.pod{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;position:relative;cursor:pointer}
+.pod .rank{position:absolute;top:10px;right:12px;font-family:Fredoka;font-weight:700;color:var(--muted)}
+
+/* controls */
+.controls{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.controls input,.controls select{font:inherit;padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text)}
+.controls input{flex:1 1 200px;min-width:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;width:100%}
+.chipbtn{font:inherit;font-size:13px;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer}
+.chipbtn.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.count{font-size:13px;color:var(--muted);margin-left:auto}
+
+/* cards */
+.cards{grid-template-columns:repeat(auto-fill,minmax(310px,1fr));margin:18px 0 40px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+.logo{height:130px;display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;text-align:center}
+.logo svg{width:44px;height:44px;flex:none}
+.logo .wm{font-size:30px;line-height:1.05;word-break:break-word}
+.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.num{color:var(--muted);font-size:13px;font-weight:700}
+.cat{font-size:12px;background:var(--chip);border-radius:999px;padding:3px 9px;white-space:nowrap}
+.name{font-family:Fredoka;font-size:22px;font-weight:700;margin:0}
+.pron{font-size:13px;color:var(--muted)}
+.score{font-family:Fredoka;font-weight:700;font-size:22px;color:var(--accent)}
+.score small{font-size:12px;color:var(--muted);font-weight:500}
+.meters{display:grid;grid-template-columns:auto 1fr auto;gap:3px 8px;font-size:12px;align-items:center}
+.bar{height:6px;background:var(--surface2);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent2);border-radius:6px}
+.lbl{color:var(--muted)}
+.sec{font-size:14.5px;margin:0}
+.sec b{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:1px}
+.slogan{font-style:italic}
+.risk{font-size:13px;color:var(--warn)}
+.sw{display:flex;gap:4px;align-items:center;font-size:12px;color:var(--muted)}
+.sw span{width:16px;height:16px;border-radius:5px;border:1px solid var(--line)}
+.drow{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:3px 0;font-size:12.5px}
+.drow code{font-size:12.5px;margin-right:2px}
+.db{font-size:11.5px;padding:2px 7px;border-radius:999px;font-weight:700}
+.db.free{background:#DDF3E6;color:#1B6B3A}.db.taken{background:#FBE0DC;color:#A3261B}.db.unk{background:var(--surface2);color:var(--muted)}
+.tm{font-size:13px;margin-top:6px;padding:7px 9px;border-radius:10px;background:var(--surface2)}
+.tm a,.tml a{color:var(--accent2)}
+.tm.r-HIGH,.tm.r-MEDIUM-HIGH{background:#FBE0DC;color:#7A1D14}.tm.r-LOW{background:#DDF3E6;color:#174F2C}
+.tml{font-size:12px;color:var(--muted);margin-top:6px}
+.tog{font-size:13px;display:flex;gap:6px;align-items:center}
+footer{padding:30px 0 60px;color:var(--muted);font-size:14px}
+ol.src{padding-left:20px;font-size:14px}
+ol.src li{margin:4px 0}
+ol.src a{color:var(--accent2);word-break:break-word}
+.theme{position:fixed;right:14px;bottom:14px;z-index:9;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:999px;padding:8px 12px;font:inherit;font-size:13px;cursor:pointer}
+@media (max-width:520px){.controls{position:static}.cards{grid-template-columns:1fr}.logo .wm{font-size:26px}}
+</style>
+</head>
+<body>
+<button class="theme" id="themeBtn" aria-label="Zmień motyw">◐ motyw</button>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Naming · marka zoologiczna · research 2025/2026</div>
+  <h1>Lista 2: kolejne 100 uniwersalnych nazw</h1>
+  <p class="lead">Nowa setka. <b>Żadna nazwa nie powtarza się z poprzednimi listami</b> (sprawdzone automatycznie względem 276 wcześniejszych propozycji, łącznie z bliskimi wariantami). Wszystkie pasują do każdego zwierzęcia. Mocniej postawiłem na trendy Gen Z („in my … era”, „-core”, drop, mystery box, unboxing) i elektronikę. Research jest ten sam co w liście 1, a domeny i kolizje są sprawdzone na nowo. <a href="nazwy-marki-zoo.html">← Lista 1</a></p>
+</header>
+
+<h2>1. Research: dane, trendy, badania</h2>
+<p class="lead">Ponad 40 źródeł z lat 2023–2026: raporty branżowe (FEDIAF, APPA, OC&amp;C, Euromonitor), sondaże konsumenckie (Harris Poll, Talker Research, Otodom, PAYBACK), dane o wiralowości i social mediach oraz recenzowane badania nad nazwami marek. Każdy blok kończy się wnioskiem, jak przełożył się na nazwy.</p>
+
+<h3 class="blk">🇵🇱 A. Polski rynek: duży, szybko rośnie i jest „mieszany”</h3>
+<div class="grid facts">
+  <div class="fact"><b class="big">9,6 mld zł</b>Rynek karmy i akcesoriów w Polsce w 2025 r. Prognoza na 2029: ok. 13 mld zł. Średni wzrost to ok. 14% rocznie przez ostatnie 5 lat (OC&amp;C).<a href="https://www.tvp.info/89748255/polski-rynek-zoologiczny-bije-rekordy-wartosc-zbliza-sie-do-10-miliardow-zlotych" target="_blank" rel="noopener">TVP Info</a> · <a href="https://pro.rp.pl/raporty-ekonomiczne/art43244201-polacy-wydaja-coraz-wiecej-pieniedzy-na-zwierzeta-wiecej-niz-na-produkty-dla-dzieci" target="_blank" rel="noopener">Rzeczpospolita / OC&amp;C</a></div>
+  <div class="fact"><b class="big">49% / 41%</b>gospodarstw w Polsce ma psa / kota. W obu przypadkach to 2. miejsce w UE (FEDIAF, analiza Rankomat).<p>Psiarzy i kociarzy jest prawie tyle samo, więc nazwa „psia” lub „kocia” odcina blisko połowę rynku.</p><a href="https://rankomat.pl/o-nas/biuro-prasowe/niemal-co-drugie-gospodarstwo-domowe-w-polsce-posiada-psa-lub-kota-analiza-rankomat-pl" target="_blank" rel="noopener">Rankomat / FEDIAF</a></div>
+  <div class="fact"><b class="big">8,5 mln psów</b>vs 7,2 mln dzieci (0–18 lat) w Polsce (GUS, FEDIAF 2023). Do tego ok. 7,2–7,5 mln kotów.<a href="https://xyz.pl/nanoanalizy/w-polsce-jest-wiecej-psow-niz-dzieci-to-symptom-glebszych-zmian-spolecznych-3073" target="_blank" rel="noopener">XYZ.pl</a> · <a href="https://www.infor.pl/prawo/nowosci-prawne/6736091,polacy-sa-wielkimi-milosnikami-kotow-zajmujemy-drugie-miejsce-w-europ.html" target="_blank" rel="noopener">Infor</a></div>
+  <div class="fact"><b class="big">84%</b>właścicieli traktuje pupila jak członka rodziny (sondaż PAYBACK Polska; data badania nie jest podana w źródle). Otodom 2025: 68% mieszka z pupilem.<a href="https://superbiz.se.pl/wiadomosci/polacy-nie-oszczedzaja-na-pupilach-kwoty-robia-wrazenie-aa-WB8G-JpVS-BoFM.html" target="_blank" rel="noopener">Super Biznes / PAYBACK</a> · <a href="https://media.otodom.pl/zwierzeta-maja-glos-jak-pupile-wplywaja-na-domowe-przestrzenie-polakow" target="_blank" rel="noopener">Otodom</a></div>
+  <div class="fact"><b class="big">20–30%</b>zakupów zoologicznych odbywa się online (Euromonitor/ECDB 20–25%, OC&amp;C ok. 30%). Wolt, maj 2026: +26% zamówień dla zwierząt.<a href="https://ecdb.com/resources/sample-data/market/pl/pet-supplies" target="_blank" rel="noopener">ECDB</a> · <a href="https://www.wiadomoscihandlowe.pl/e-commerce-i-e-grocery/rynek-zoologiczny-w-polsce-2026-wzrost-e-commerce-o-26-2535084" target="_blank" rel="noopener">Wiadomości Handlowe</a></div>
+  <div class="fact"><b class="big">3×</b>częściej Polacy zabierają zwierzęta na wyjazdy świąteczne niż na weekendowe (Slowhop). PKP Intercity notuje stały wzrost liczby podróżujących zwierząt.<a href="https://www.pap.pl/mediaroom/boom-na-podroze-ze-zwierzetami-pies-na-wakacjach-juz-standard" target="_blank" rel="noopener">PAP MediaRoom</a> · <a href="https://www.wiadomoscihandlowe.pl/konsument-i-trendy-zakupowe/prezenty-pod-choinka-takze-dla-zwierzat-swieta-napedzaja-rynek-pet-care-w-polsce-2531133" target="_blank" rel="noopener">WH: święta napędzają pet care</a></div>
+</div>
+<div class="note">→ <b>Wniosek:</b> nazwa musi być <b>uniwersalna</b> (pies, kot, królik, gryzoń), mieć emocjonalny, „rodzinny” ton i działać w e-commerce (krótka domena, łatwa do wpisania). Warto mieć gotowe linie na podróże i święta (Expetition, Pawsport, Santa Paws).</div>
+
+<h3 class="blk">👨‍👩‍👧 B. Pokolenia i humanizacja: zwierzę jako dziecko</h3>
+<div class="grid facts">
+  <div class="fact"><b class="big">$6 103</b>rocznie wydaje na zwierzę przeciętny właściciel z Gen Z, a millenials $5 150. Boomersi tylko $2 454 (Harris Poll).<a href="https://www.petfoodprocessing.net/articles/20691-report-pet-parents-are-pinching-pennies-to-prioritize-their-fur-babies" target="_blank" rel="noopener">Pet Food Processing / Harris</a></div>
+  <div class="fact"><b class="big">48%</b>osób z Gen Z nie widzi różnicy między pupilem a dzieckiem (Talker Research dla Vetster). 77% Gen Z i millenialsów ma osobny budżet na zwierzę.<a href="https://talkerresearch.com/paw-rental-differences-how-each-generation-views-their-pets/" target="_blank" rel="noopener">Talker Research</a> · <a href="https://www.petfoodindustry.com/pet-food-market/market-trends-and-reports/news/15830305/survey-americans-increasingly-choose-pets-over-children" target="_blank" rel="noopener">Pet Food Industry</a></div>
+  <div class="fact"><b class="big">$158 mld</b>wydatki w USA w 2025 (+3,7%), prognoza $165 mld w 2026 (APPA). Wzrost napędzają Gen Z i millenialsi, a główne trendy to humanizacja i wellness.<a href="https://www.accessnewswire.com/newsroom/en/business-and-professional-services/u.s.-pet-industry-reaches-158-billion-in-2025-poised-for-continu-1165595" target="_blank" rel="noopener">APPA 2026</a> · <a href="https://americanpetproducts.org/news/the-american-pet-products-association-appa-releases-2025-dog-cat-report" target="_blank" rel="noopener">APPA Dog &amp; Cat 2025</a></div>
+  <div class="fact"><b class="big">49%</b>gospodarstw w Europie ma zwierzę (139 mln). Koty (26%) i psy (25%) są niemal na równi (FEDIAF 2025).<a href="https://europeanpetfood.org/_/news/fediaf-publishes-2025-facts-and-figures/" target="_blank" rel="noopener">FEDIAF 2025</a></div>
+</div>
+<div class="note">→ <b>Wniosek:</b> język „rodziny” (Furmily, Home Sweet Zoo, Furbaby Co.) i nazwy-postacie (Sir Fluffington) trafiają w to, jak główna grupa kupujących myśli o zwierzętach. Gen Z zna slang internetowy (zoomies, boop, squad), więc może on pojawić się w liniach produktowych.</div>
+
+<h3 class="blk">📱 C. Wiralowość i social media</h3>
+<div class="grid facts">
+  <div class="fact"><b class="big">#2</b>miejsce Labubu (pluszowa figurka) wśród najszybciej rosnących wyszukiwań w Polsce w 2025 („Rok w wyszukiwarce Google”). Wyżej były tylko wybory prezydenckie.<p>Uroczy, kolekcjonerski charakter z wyrazistą postacią to dziś najmocniejszy mechanizm wiralowy.</p><a href="https://blog.google/intl/pl-pl/nowosci-produktowe/rok-w-wyszukiwarce-2025-polityka-konklawe-i-labubu/" target="_blank" rel="noopener">Google Polska</a></div>
+  <div class="fact"><b class="big">~2 mln</b>kont petfluencerów na Instagramie (szacunek inBeat, 2025). Badanie InTechOpen wskazuje, że petfluencerzy angażują emocjonalnie co najmniej tak samo mocno jak influencerzy-ludzie.<a href="https://www.inbeat.co/articles/pet-influencer-marketing" target="_blank" rel="noopener">inBeat</a> · <a href="https://www.intechopen.com/chapters/1243679" target="_blank" rel="noopener">InTechOpen</a></div>
+  <div class="fact"><b class="big">5 000+</b>twórców i ponad 10 000 filmów reklamowych zrealizowała jedna marka zoologiczna na YouTube, Instagramie i TikToku (raport 2025 Pet Brand Influencer Marketing Ecosystem).<a href="https://baike.baidu.com/en/item/2025%20Pet%20Brand%20Influencer%20Marketing%20Ecosystem%20Report/7361391" target="_blank" rel="noopener">Raport 2025</a></div>
+  <div class="fact"><b class="big">6,4% vs 3,1%</b>średnie zaangażowanie kampanii influencerów na TikToku vs Instagramie (zestawienie Zebracat; szacunki różnią się między źródłami). Gen Z odkrywa produkty zoologiczne głównie w social mediach.<a href="https://www.zebracat.ai/post/influencer-marketing-statistics" target="_blank" rel="noopener">Zebracat</a> · <a href="https://www.bigeyeagency.com/insights/pet-brand-marketing-strategy-2026-a-step-by-step-playbook" target="_blank" rel="noopener">Big Eye</a></div>
+  <div class="fact"><b class="big">139 mln+</b>wyświetleń zebrało 9 filmów z dwoma trendami TikToka ze zwierzętami („pet swap” i taniec Cha-Cha-Cha). Format „zwierzę + popularny dźwięk lub mem” to najczęstszy wzór wiralowy.<a href="https://www.trendsbymasterhooks.com/articles/tiktok-pet-trends" target="_blank" rel="noopener">Trends by Masterhooks</a></div>
+  <div class="fact"><b class="big">Luna</b>to najpopularniejsze imię zwierzęcia w 2025. Rosną imiona z jedzenia, mitologii i popkultury (Chewy, Rover). Właściciele lubią zabawę słowem i odniesienia do popkultury.<a href="https://www.chewy.com/education/pet-trend-report" target="_blank" rel="noopener">Chewy 2025</a> · <a href="https://vcahospitals.com/resources/new-pet/top-20-popular-names-for-pets" target="_blank" rel="noopener">VCA</a></div>
+</div>
+<div class="note">→ <b>Wniosek:</b> nazwa musi być <b>„memiczna”</b>, czyli działać jako hashtag (#homesweetzoo, #zoolala), dać się zamienić w postać lub maskotkę (efekt Labubu) i mieć odniesienie do popkultury, które ludzie chętnie udostępniają.</div>
+
+<h3 class="blk">📡 D. Pet tech: najszybciej rosnąca kategoria</h3>
+<div class="grid facts">
+  <div class="fact"><b class="big">$15,6 mld</b>globalny rynek pet tech w 2025, $19,1 mld w 2026, wzrost ok. 12% rocznie (Global Market Insights).<a href="https://gminsights.com/industry-analysis/pet-tech-market" target="_blank" rel="noopener">GMI</a></div>
+  <div class="fact"><b class="big">$2,6 mld</b>rynek lokalizatorów GPS dla zwierząt w 2025, wzrost ok. 14% rocznie. Ok. 60% właścicieli w USA i Europie korzysta już z jakiegoś smart urządzenia (szacunki SNS Insider/Reanin).<a href="https://www.giikorea.co.kr/report/vmr1782209-global-pet-gps-tracker-market-research-report.html" target="_blank" rel="noopener">VMR</a> · <a href="https://www.snsinsider.com/reports/pet-tech-market-9224" target="_blank" rel="noopener">SNS Insider</a></div>
+</div>
+<div class="note">→ <b>Wniosek:</b> warto mieć nazwę, która „unosi” elektronikę, albo osobną linię tech (Pet Detective, Petabyte, Zoologic, Pet-Fi).</div>
+
+<h3 class="blk">🔬 E. Badania naukowe: co sprawia, że nazwa zostaje w głowie</h3>
+<div class="grid rules">
+  <div class="rule"><h3>Gra słów działa dla nowych marek</h3><p>Analizy copytestingu pokazują, że gra słów (paronomazja), dopasowanie znaczenia do kategorii i spółgłoski zwarte na początku (P, B, K, T) poprawiają pamięć nazwy, <b>szczególnie gdy marka jest nowa i nieznana</b>. To dokładnie twoja sytuacja (Lowrey i in., Journal of Advertising).</p><a href="https://www.researchgate.net/publication/261668779_The_Relation_Between_Brand-name_Linguistic_Characteristics_and_Brand-name_Memory" target="_blank" rel="noopener">ResearchGate</a></div>
+  <div class="rule"><h3>Obrazowe nazwy łatwiej zapamiętać</h3><p>Eksperyment w Journal of Business Research (2023): nazwy i loga „figuratywne”, czyli wywołujące obraz, są łatwiej zapamiętywane niż abstrakcyjne. Dlatego „Home Sweet Zoo” czy „Snoozoo” wygrywają z nazwami bez obrazu.</p><a href="https://www.sciencedirect.com/science/article/pii/S0148296323003028" target="_blank" rel="noopener">ScienceDirect</a></div>
+  <div class="rule"><h3>Dźwięk niesie znaczenie (2025)</h3><p>Zulfugarova i in., Journal of International Consumer Marketing (2025), 446 osób: spółgłoski bezdźwięczne (f, s) brzmią „miękko”, dźwięczne (z, b) „twardo”. Długie samogłoski kojarzą się ze słodyczą i miękkością (Pathak &amp; Calvert, 2021). Stąd miękkie „Fluff” przy legowiskach i energetyczne „Zoo” przy zabawkach.</p><a href="https://avesis.istanbul.edu.tr/yayin/67adc2b5-2a54-4bd1-949d-9482ac286c41/beyond-words-a-cross-cultural-comparative-study-on-brand-naming-strategies-and-sound-symbolism" target="_blank" rel="noopener">Beyond Words (2025)</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7909286/" target="_blank" rel="noopener">PMC</a></div>
+  <div class="rule"><h3>Łatwa wymowa = wiarygodność</h3><p>Nazwy łatwe do wymówienia są oceniane jako bardziej wiarygodne (Current Psychology 2024/25). Pisownia zgodna z brzmieniem poprawia zapamiętanie nazw słyszanych, np. w reklamie audio czy na TikToku (Luna i in., Journal of Consumer Psychology, 2013).</p><a href="https://myscp.onlinelibrary.wiley.com/doi/10.1016/j.jcps.2012.02.003" target="_blank" rel="noopener">JCP</a> · <a href="https://www.nominus.com/blog/domain-name-for-the-science-of-brand-recall" target="_blank" rel="noopener">przegląd</a></div>
+  <div class="rule"><h3>⚠️ Humor może „zjeść” markę</h3><p>Hansen i in. (Journal of Consumer Behaviour): humor poprawia pamięć reklamy, ale może <b>osłabić pamięć produktu</b>. Dlatego w każdej nazwie zostawiam widoczne słowo-kotwicę (pet, zoo, fur, fluff, paws), żeby żart nie przykrył kategorii.</p><a href="https://onlinelibrary.wiley.com/doi/10.1002/cb.278" target="_blank" rel="noopener">Wiley</a></div>
+  <div class="rule"><h3>⚠️ „Uroczo” nie znaczy „tanio”</h3><p>Badanie 404 konsumentów: produkty „cute” budzą pozytywne emocje, ale bywają oceniane jako droższe i gorszej jakości. Uroczą nazwę (Fluffycorn) warto równoważyć dojrzałą identyfikacją wizualną albo wybrać nazwę z „klasą” (Pet-a-Porter, Sir Fluffington).</p><a href="https://dergipark.org.tr/en/download/article-file/314439" target="_blank" rel="noopener">DergiPark</a></div>
+</div>
+
+<h3 class="blk">🗣️ F. Język: co Polak naprawdę rozumie</h3>
+<div class="grid facts">
+  <div class="fact"><b class="big">#15 / 600 pkt</b>Polska w EF English Proficiency Index 2025 (wysoka biegłość). Czytanie 612, słuchanie 597, pisanie 557, mówienie tylko 518.<p>Gra słów musi być widoczna wzrokowo (na logo, na opakowaniu), a nazwa łatwa do wypowiedzenia.</p><a href="https://www.ef.com/assetscdn/WIBIwq6RdJvcD9bc8RMd/cefcom-epi-site/fact-sheets/2025/ef-epi-fact-sheet-poland-english.pdf" target="_blank" rel="noopener">EF EPI 2025</a></div>
+  <div class="fact"><b class="big">„zoo”</b>to słowo identyczne po polsku i angielsku („sklep zoologiczny”). Najbezpieczniejsza kotwica: 100% zrozumiałości i 100% skojarzenia ze wszystkimi zwierzętami.<p>Dlatego najwięcej propozycji z czołówki opiera się na „zoo”.</p></div>
+  <div class="fact"><b class="big">„paw” = 🦚</b>po polsku to ptak, a „puścić pawia” znaczy zwymiotować. Nazwy z „Paw” mają niższą ocenę brzmienia. Liczba mnoga „paws” (czyt. „pos”) jest bezpieczniejsza.</div>
+</div>
+
+<h2>2. Zasady, które z tego wynikają</h2>
+<div class="grid rules">
+  <div class="rule"><h3>🐾 Uniwersalność gatunkowa</h3><p>Żadna nazwa nie wskazuje wyłącznie na psa ani kota. Kotwice: <b>pet, zoo, fur, fluff, paws, tail, wild, four legs</b>.</p></div>
+  <div class="rule"><h3>💡 Efekt „aha!”</h3><p>Gra słów oparta na słowie, które Polak już zna (supermarket, et cetera, tsunami, zodiak, snooze, Ooh la la). Mózg rozpoznaje wzór i wyłapuje podmianę.</p></div>
+  <div class="rule"><h3>🎭 Potencjał postaci</h3><p>Nazwa, z której da się zrobić maskotkę lub świat marki (efekt Labubu), ma większą szansę na wiralowość i kolekcje.</p></div>
+  <div class="rule"><h3>#️⃣ Hashtag test</h3><p>Maksymalnie 3 słowa, bez trudnych liter („th”, „ough”). Dobrze wygląda jako #hashtag i @handle.</p></div>
+  <div class="rule"><h3>🧺 Pojemność</h3><p>Sprzedajesz wszystko, więc nazwa nie może zamykać marki w jednej kategorii. Nazwy wąskie (Snoozoo, Peticure) są oznaczone jako dobre na linie produktowe.</p></div>
+  <div class="rule"><h3>⚖️ Bez kolizji</h3><p>Odrzucam nazwy zbyt bliskie dużym markom (Netflix, Disney, Marvel) i istniejącym markom zoologicznym.</p></div>
+</div>
+<div class="note"><b>Uczciwie o metodzie:</b> dane rynkowe, sondaże i badania pochodzą ze źródeł podlinkowanych przy każdej liczbie. Część to szacunki firm badawczych lub materiały prasowe (zaznaczone). Recenzowanych badań z 2025–2026 o samych nazwach marek jest niewiele, więc łączę nowe prace z ugruntowanymi. <b>Oceny punktowe to ekspercka ocena według tych kryteriów, nie wynik ankiety.</b> Na końcu jest plan testu finałowej trójki na prawdziwych ludziach.</div>
+
+<h2>3. Jak liczona jest ocena (0–100)</h2>
+<div class="tablewrap"><table>
+<tr><th>Kryterium</th><th>Waga</th><th>Co mierzy</th></tr>
+<tr><td><b>Zrozumiałość PL</b></td><td>20%</td><td>Czy przeciętny Polak (EF EPI: dobre czytanie, słabsza wymowa) zrozumie wszystkie słowa</td></tr>
+<tr><td><b>Skojarzenie ze zwierzętami</b></td><td>20%</td><td>Czy od pierwszej sekundy wiadomo, że chodzi o zwierzęta</td></tr>
+<tr><td><b>Zapamiętywalność</b></td><td>20%</td><td>Długość, rytm, aliteracja, obrazowość, symbolika dźwięku</td></tr>
+<tr><td><b>Brzmienie</b></td><td>10%</td><td>Jak brzmi wypowiedziane przez Polaka; brak niechcianych polskich skojarzeń</td></tr>
+<tr><td><b>Unikalność</b></td><td>10%</td><td>Wstępna ocena ryzyka kolizji z istniejącymi markami (do potwierdzenia w EUIPO/UPRP)</td></tr>
+<tr><td><b>Kreatywność</b></td><td>20%</td><td>Czy nazwa ma efekt „aha!”: ukryte zwierzę w znanym słowie, gra słów, własny świat lub postać</td></tr>
+</table></div>
+
+<h2>4. Top 10 po sprawdzeniu dostępności</h2>
+<p class="lead">Tylko nazwy z wolną domeną <b>.pl i .eu</b> oraz niskim ryzykiem kolizji we wstępnym sprawdzeniu. Kliknij, żeby przejść do karty.</p>
+<div class="grid podium" id="podium"></div>
+
+<h2>4a. Dostępność: domeny i kolizje</h2>
+<p class="lead">Sprawdzone 7 listopada 2026 r. Domeny dla wszystkich 100 nazw, wstępne sprawdzenie kolizji dla 30 nazw z czołówki.</p>
+<div class="grid rules">
+  <div class="rule"><h3>🌐 Domeny .pl</h3><p>Sprawdzone w oficjalnym rejestrze NASK (RDAP, rdap.dns.pl). Wynik „wolna” oznacza brak rejestracji w momencie sprawdzenia.</p></div>
+  <div class="rule"><h3>🇪🇺 Domeny .eu i .com</h3><p>Sprawdzone przez DNS (rekordy NS). Brak domeny w DNS prawie zawsze oznacza, że jest wolna, ale <b>przed zakupem potwierdź u rejestratora</b>: domena może być w kwarantannie albo zarejestrowana bez serwerów DNS.</p></div>
+  <div class="rule"><h3>⚖️ Znaki towarowe i firmy</h3><p>Rejestry EUIPO/TMview i UPRP blokują zapytania automatyczne, więc nie odpytywałem ich bezpośrednio. Zamiast tego było wyszukiwanie w sieci (2–3 zapytania na nazwę): istniejące sklepy i marki, firmy w Polsce oraz znaki widoczne w agregatorach. To <b>wstępne sprawdzenie, nie opinia prawna</b>. Przy każdej karcie są linki do ręcznego sprawdzenia.</p></div>
+</div>
+<div class="tablewrap" style="margin-top:14px"><table>
+<tr><th>Nazwa</th><th>.pl</th><th>.eu</th><th>.com</th><th>Ryzyko kolizji</th></tr>
+<tr><td><b>Zoorprise</b></td><td>✅</td><td>✅</td><td>✅</td><td>🟢 niskie</td></tr>
+<tr><td><b>Baron von Fluff</b></td><td>✅</td><td>✅</td><td>✅</td><td>🟢 niskie</td></tr>
+<tr><td><b>Fluffport</b></td><td>✅</td><td>✅</td><td>✅</td><td>🟢 niskie</td></tr>
+<tr><td><b>Zoo Turbo</b></td><td>✅</td><td>✅</td><td>✅</td><td>🟢 niskie</td></tr>
+<tr><td><b>Fluffinator</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟢 niskie</td></tr>
+<tr><td><b>Furbrella</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟢 niskie</td></tr>
+<tr><td><b>Fluffmobile</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟢 niskie</td></tr>
+<tr><td><b>Zootronic</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟢 niskie</td></tr>
+<tr><td><b>Zoo Kiosk</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟢 niskie</td></tr>
+<tr><td><b>Pet Playlist</b></td><td>✅</td><td>✅</td><td>?</td><td>🟢🟡 niskie/średnie</td></tr>
+<tr><td><b>Zoomatic</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟢🟡 niskie/średnie</td></tr>
+<tr><td><b>Zoobotics</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟢🟡 niskie/średnie</td></tr>
+<tr><td><b>Zoo Parade</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟢🟡 niskie/średnie</td></tr>
+<tr><td><b>Zoo Boom</b></td><td>❌</td><td>✅</td><td>❌</td><td>🟢🟡 niskie/średnie</td></tr>
+<tr><td><b>Mild Wild</b></td><td>✅</td><td>❌</td><td>❌</td><td>🟢🟡 niskie/średnie</td></tr>
+<tr><td><b>Zoopedia</b></td><td>❌</td><td>✅</td><td>❌</td><td>🟢🟡 niskie/średnie</td></tr>
+<tr><td><b>Zoo Zone</b></td><td>❌</td><td>✅</td><td>?</td><td>🟢🟡 niskie/średnie</td></tr>
+<tr><td><b>Pet Era</b></td><td>❌</td><td>❌</td><td>❌</td><td>🟢🟡 niskie/średnie</td></tr>
+<tr><td><b>Zoo Bazaar</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Furnado</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Zoodoku</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Pet Bingo</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Zootique</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Fluff Factory</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Fluff & Puff</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Zoorama</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Pet Drop</b></td><td>❌</td><td>✅</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Mister Zoo</b></td><td>✅</td><td>❌</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Zoo Crew</b></td><td>✅</td><td>❌</td><td>?</td><td>🟠 średnie/wysokie</td></tr>
+<tr><td><b>Petmoji</b></td><td>✅</td><td>❌</td><td>❌</td><td>🟠 średnie/wysokie</td></tr>
+</table></div>
+<div class="note"><b>Ważne o „Zoo”:</b> po polsku „zoo” to potoczne określenie sklepu zoologicznego (Maxi Zoo, Super Zoo, Aquael Zoo). Samo „Zoo” nie daje więc ochrony prawnej. O sile znaku decyduje drugi człon albo cała gra słów (np. Zootronic czy Zoorprise są mocniejsze niż Zoo Zone czy Zoo Kiosk). Najlepiej rejestrować nazwę razem z logo.</div>
+<div class="note"><b>Rekomendacja:</b> najczystsze nazwy (wolne .pl, .eu i .com, brak kolizji we wstępnym sprawdzeniu): <b>Zoorprise</b>, <b>Baron von Fluff</b>, <b>Fluffport</b>, <b>Zoo Turbo</b>. Wolne .pl i .eu, niskie ryzyko: <b>Fluffinator</b>, <b>Furbrella</b>, <b>Fluffmobile</b>, <b>Zootronic</b>, <b>Zoo Kiosk</b>, <b>Pet Playlist</b>, <b>Zoomatic</b>, <b>Zoobotics</b>, <b>Zoo Parade</b>. <b>Odpadają:</b> Zoo Crew, Petmoji. Przed rejestracją zleć rzecznikowi patentowemu pełne badanie w TMview (UE + PL) w klasach 9, 18, 20, 21, 28 i 35.</div>
+
+<h2>5. Wszystkie 100 propozycji</h2>
+<div class="controls">
+  <input id="q" type="search" placeholder="Szukaj nazwy lub słowa…" aria-label="Szukaj">
+  <select id="sort" aria-label="Sortuj">
+    <option value="score">Sortuj: ocena</option>
+    <option value="num">Sortuj: numer</option>
+    <option value="c">Sortuj: zrozumiałość</option>
+    <option value="m">Sortuj: zapamiętywalność</option>
+    <option value="az">Sortuj: A–Z</option>
+  </select>
+  <label class="tog"><input type="checkbox" id="onlyfree"> tylko wolne .pl + .eu</label>
+  <span class="count" id="count"></span>
+  <div class="chips" id="chips"></div>
+</div>
+<div class="grid cards" id="cards"></div>
+
+<h2>6. Odrzucone, bo już zajęte lub ryzykowne</h2>
+<div class="tablewrap"><table>
+<tr><th>Nazwa</th><th>Dlaczego nie</th></tr>
+<tr><td>Happy Dog / Happy Cat</td><td>Istniejące marki karmy (Interquell, Niemcy), mocno obecne w Polsce</td></tr>
+<tr><td>Petlove</td><td>Duży sklep zoologiczny online w Brazylii</td></tr>
+<tr><td>Four Paws</td><td>Międzynarodowa organizacja prozwierzęca (Vier Pfoten)</td></tr>
+<tr><td>Good Boy</td><td>Brytyjska marka przysmaków dla psów</td></tr>
+<tr><td>PetLab</td><td>PetLab Co. – suplementy dla zwierząt</td></tr>
+<tr><td>Pet Corner / Pet Planet / Super Pet</td><td>Istniejące sieci lub marki zoologiczne (UK, NZ, USA)</td></tr>
+<tr><td>BarkBox, Wild One, Kong, Chewy</td><td>Znane globalne marki z branży</td></tr>
+<tr><td>Catpuccino, Woof-Fi, Dogma, Meow Mafia…</td><td>Świetne, ale wskazują na jeden gatunek. Mogą posłużyć jako nazwy linii produktów dla psów lub kotów</td></tr>
+<tr><td>Zootopia / Zoomania</td><td>Film Disneya (w Niemczech „Zoomania”)</td></tr>
+<tr><td>Doggy Style</td><td>Oczywiste skojarzenie seksualne. Takie nazwy bywają zgłaszane, ale nie warto</td></tr>
+<tr><td>Furever, Purrfect</td><td>Gra słów nieczytelna dla większości Polaków (furry, purr)</td></tr>
+<tr><td>Pupperoni, Woof Gang, Snuggle…</td><td>Istniejące marki (przysmaki Pupperoni, Woof Gang Bakery w USA, płyn Snuggle)</td></tr>
+<tr><td>Petflix, Hairy Pawter, Star Paws</td><td>Zbyt blisko chronionych marek (Netflix, Harry Potter, Star Wars), więc pozew murowany</td></tr>
+</table></div>
+
+<h2>7. Jak zweryfikować finałową trójkę w tydzień</h2>
+<div class="grid rules">
+  <div class="rule"><h3>1. Test 5 sekund</h3><p>Pokaż 50–100 osobom (ankieta na Instagramie lub w Google Forms) samą nazwę przez 5 sekund. Zapytaj: „Co ta firma sprzedaje?”. Cel: ponad 80% odpowiedzi „rzeczy dla zwierząt”.</p></div>
+  <div class="rule"><h3>2. Test przypomnienia</h3><p>Następnego dnia zapytaj te same osoby, jakie nazwy pamiętają. Wygrywa nazwa, którą pamięta najwięcej osób.</p></div>
+  <div class="rule"><h3>3. Test wymowy</h3><p>Poproś 10 osób o nagranie, jak czytają nazwę. Jeśli powstają trzy różne wymowy, nazwa odpada.</p></div>
+  <div class="rule"><h3>4. Sprawdzenie prawne i domen</h3><p>Szukaj w EUIPO (TMview) i UPRP w klasach 18 (smycze, obroże), 20 (legowiska), 21 (miski), 28 (zabawki), 9 (elektronika) i 35 (sklep). Do tego domeny .pl i .com oraz @ na Instagramie i TikToku.</p></div>
+</div>
+
+<h2>Źródła (46)</h2>
+<ol class="src">
+  <li><a href="https://www.tvp.info/89748255/polski-rynek-zoologiczny-bije-rekordy-wartosc-zbliza-sie-do-10-miliardow-zlotych" target="_blank" rel="noopener">TVP Info</a> <span style="color:var(--muted)">(tvp.info)</span></li>
+  <li><a href="https://pro.rp.pl/raporty-ekonomiczne/art43244201-polacy-wydaja-coraz-wiecej-pieniedzy-na-zwierzeta-wiecej-niz-na-produkty-dla-dzieci" target="_blank" rel="noopener">Rzeczpospolita / OC&amp;C</a> <span style="color:var(--muted)">(pro.rp.pl)</span></li>
+  <li><a href="https://rankomat.pl/o-nas/biuro-prasowe/niemal-co-drugie-gospodarstwo-domowe-w-polsce-posiada-psa-lub-kota-analiza-rankomat-pl" target="_blank" rel="noopener">Rankomat / FEDIAF</a> <span style="color:var(--muted)">(rankomat.pl)</span></li>
+  <li><a href="https://xyz.pl/nanoanalizy/w-polsce-jest-wiecej-psow-niz-dzieci-to-symptom-glebszych-zmian-spolecznych-3073" target="_blank" rel="noopener">XYZ.pl</a> <span style="color:var(--muted)">(xyz.pl)</span></li>
+  <li><a href="https://www.infor.pl/prawo/nowosci-prawne/6736091,polacy-sa-wielkimi-milosnikami-kotow-zajmujemy-drugie-miejsce-w-europ.html" target="_blank" rel="noopener">Infor</a> <span style="color:var(--muted)">(infor.pl)</span></li>
+  <li><a href="https://superbiz.se.pl/wiadomosci/polacy-nie-oszczedzaja-na-pupilach-kwoty-robia-wrazenie-aa-WB8G-JpVS-BoFM.html" target="_blank" rel="noopener">Super Biznes / PAYBACK</a> <span style="color:var(--muted)">(superbiz.se.pl)</span></li>
+  <li><a href="https://media.otodom.pl/zwierzeta-maja-glos-jak-pupile-wplywaja-na-domowe-przestrzenie-polakow" target="_blank" rel="noopener">Otodom</a> <span style="color:var(--muted)">(media.otodom.pl)</span></li>
+  <li><a href="https://ecdb.com/resources/sample-data/market/pl/pet-supplies" target="_blank" rel="noopener">ECDB</a> <span style="color:var(--muted)">(ecdb.com)</span></li>
+  <li><a href="https://www.wiadomoscihandlowe.pl/e-commerce-i-e-grocery/rynek-zoologiczny-w-polsce-2026-wzrost-e-commerce-o-26-2535084" target="_blank" rel="noopener">Wiadomości Handlowe</a> <span style="color:var(--muted)">(wiadomoscihandlowe.pl)</span></li>
+  <li><a href="https://www.pap.pl/mediaroom/boom-na-podroze-ze-zwierzetami-pies-na-wakacjach-juz-standard" target="_blank" rel="noopener">PAP MediaRoom</a> <span style="color:var(--muted)">(pap.pl)</span></li>
+  <li><a href="https://www.wiadomoscihandlowe.pl/konsument-i-trendy-zakupowe/prezenty-pod-choinka-takze-dla-zwierzat-swieta-napedzaja-rynek-pet-care-w-polsce-2531133" target="_blank" rel="noopener">WH: święta napędzają pet care</a> <span style="color:var(--muted)">(wiadomoscihandlowe.pl)</span></li>
+  <li><a href="https://www.petfoodprocessing.net/articles/20691-report-pet-parents-are-pinching-pennies-to-prioritize-their-fur-babies" target="_blank" rel="noopener">Pet Food Processing / Harris</a> <span style="color:var(--muted)">(petfoodprocessing.net)</span></li>
+  <li><a href="https://talkerresearch.com/paw-rental-differences-how-each-generation-views-their-pets/" target="_blank" rel="noopener">Talker Research</a> <span style="color:var(--muted)">(talkerresearch.com)</span></li>
+  <li><a href="https://www.petfoodindustry.com/pet-food-market/market-trends-and-reports/news/15830305/survey-americans-increasingly-choose-pets-over-children" target="_blank" rel="noopener">Pet Food Industry</a> <span style="color:var(--muted)">(petfoodindustry.com)</span></li>
+  <li><a href="https://www.accessnewswire.com/newsroom/en/business-and-professional-services/u.s.-pet-industry-reaches-158-billion-in-2025-poised-for-continu-1165595" target="_blank" rel="noopener">APPA 2026</a> <span style="color:var(--muted)">(accessnewswire.com)</span></li>
+  <li><a href="https://americanpetproducts.org/news/the-american-pet-products-association-appa-releases-2025-dog-cat-report" target="_blank" rel="noopener">APPA Dog &amp; Cat 2025</a> <span style="color:var(--muted)">(americanpetproducts.org)</span></li>
+  <li><a href="https://europeanpetfood.org/_/news/fediaf-publishes-2025-facts-and-figures/" target="_blank" rel="noopener">FEDIAF 2025</a> <span style="color:var(--muted)">(europeanpetfood.org)</span></li>
+  <li><a href="https://blog.google/intl/pl-pl/nowosci-produktowe/rok-w-wyszukiwarce-2025-polityka-konklawe-i-labubu/" target="_blank" rel="noopener">Google Polska</a> <span style="color:var(--muted)">(blog.google)</span></li>
+  <li><a href="https://www.inbeat.co/articles/pet-influencer-marketing" target="_blank" rel="noopener">inBeat</a> <span style="color:var(--muted)">(inbeat.co)</span></li>
+  <li><a href="https://www.intechopen.com/chapters/1243679" target="_blank" rel="noopener">InTechOpen</a> <span style="color:var(--muted)">(intechopen.com)</span></li>
+  <li><a href="https://baike.baidu.com/en/item/2025%20Pet%20Brand%20Influencer%20Marketing%20Ecosystem%20Report/7361391" target="_blank" rel="noopener">Raport 2025</a> <span style="color:var(--muted)">(baike.baidu.com)</span></li>
+  <li><a href="https://www.zebracat.ai/post/influencer-marketing-statistics" target="_blank" rel="noopener">Zebracat</a> <span style="color:var(--muted)">(zebracat.ai)</span></li>
+  <li><a href="https://www.bigeyeagency.com/insights/pet-brand-marketing-strategy-2026-a-step-by-step-playbook" target="_blank" rel="noopener">Big Eye</a> <span style="color:var(--muted)">(bigeyeagency.com)</span></li>
+  <li><a href="https://www.trendsbymasterhooks.com/articles/tiktok-pet-trends" target="_blank" rel="noopener">Trends by Masterhooks</a> <span style="color:var(--muted)">(trendsbymasterhooks.com)</span></li>
+  <li><a href="https://www.chewy.com/education/pet-trend-report" target="_blank" rel="noopener">Chewy 2025</a> <span style="color:var(--muted)">(chewy.com)</span></li>
+  <li><a href="https://vcahospitals.com/resources/new-pet/top-20-popular-names-for-pets" target="_blank" rel="noopener">VCA</a> <span style="color:var(--muted)">(vcahospitals.com)</span></li>
+  <li><a href="https://gminsights.com/industry-analysis/pet-tech-market" target="_blank" rel="noopener">GMI</a> <span style="color:var(--muted)">(gminsights.com)</span></li>
+  <li><a href="https://www.giikorea.co.kr/report/vmr1782209-global-pet-gps-tracker-market-research-report.html" target="_blank" rel="noopener">VMR</a> <span style="color:var(--muted)">(giikorea.co.kr)</span></li>
+  <li><a href="https://www.snsinsider.com/reports/pet-tech-market-9224" target="_blank" rel="noopener">SNS Insider</a> <span style="color:var(--muted)">(snsinsider.com)</span></li>
+  <li><a href="https://www.researchgate.net/publication/261668779_The_Relation_Between_Brand-name_Linguistic_Characteristics_and_Brand-name_Memory" target="_blank" rel="noopener">ResearchGate</a> <span style="color:var(--muted)">(researchgate.net)</span></li>
+  <li><a href="https://www.sciencedirect.com/science/article/pii/S0148296323003028" target="_blank" rel="noopener">ScienceDirect</a> <span style="color:var(--muted)">(sciencedirect.com)</span></li>
+  <li><a href="https://avesis.istanbul.edu.tr/yayin/67adc2b5-2a54-4bd1-949d-9482ac286c41/beyond-words-a-cross-cultural-comparative-study-on-brand-naming-strategies-and-sound-symbolism" target="_blank" rel="noopener">Beyond Words (2025)</a> <span style="color:var(--muted)">(avesis.istanbul.edu.tr)</span></li>
+  <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7909286/" target="_blank" rel="noopener">PMC</a> <span style="color:var(--muted)">(pmc.ncbi.nlm.nih.gov)</span></li>
+  <li><a href="https://myscp.onlinelibrary.wiley.com/doi/10.1016/j.jcps.2012.02.003" target="_blank" rel="noopener">JCP</a> <span style="color:var(--muted)">(myscp.onlinelibrary.wiley.com)</span></li>
+  <li><a href="https://www.nominus.com/blog/domain-name-for-the-science-of-brand-recall" target="_blank" rel="noopener">przegląd</a> <span style="color:var(--muted)">(nominus.com)</span></li>
+  <li><a href="https://onlinelibrary.wiley.com/doi/10.1002/cb.278" target="_blank" rel="noopener">Wiley</a> <span style="color:var(--muted)">(onlinelibrary.wiley.com)</span></li>
+  <li><a href="https://dergipark.org.tr/en/download/article-file/314439" target="_blank" rel="noopener">DergiPark</a> <span style="color:var(--muted)">(dergipark.org.tr)</span></li>
+  <li><a href="https://www.ef.com/assetscdn/WIBIwq6RdJvcD9bc8RMd/cefcom-epi-site/fact-sheets/2025/ef-epi-fact-sheet-poland-english.pdf" target="_blank" rel="noopener">EF EPI 2025</a> <span style="color:var(--muted)">(ef.com)</span></li>
+  <li><a href="https://www.researchgate.net/publication/250168757_Why_Do_Advertisers_Use_Puns_A_Linguistic_Perspective" target="_blank" rel="noopener">Why Do Advertisers Use Puns? A Linguistic Perspective</a></li>
+  <li><a href="https://doi.org/10.1108/jpbm-12-2021-3794" target="_blank" rel="noopener">Sound symbolism & blended brand names (JPBM 2023)</a></li>
+  <li><a href="https://cordis.europa.eu/article/id/175272-whats-in-a-brand-name" target="_blank" rel="noopener">CORDIS / FLUENTBRAND – What's in a brand name</a></li>
+  <li><a href="https://www.persistencemarketresearch.com/market-research/pet-tech-products-market.asp" target="_blank" rel="noopener">Persistence – Pet Tech Products Market 2026–2033</a></li>
+  <li><a href="https://www.petfoodprocessing.net/articles/19391-fediaf-thriving-pet-ownership-fuels-337-billion-european-pet-food-industry" target="_blank" rel="noopener">FEDIAF – European pet food industry</a></li>
+  <li><a href="https://www.pap.pl/mediaroom/occ-polacy-maja-coraz-wiecej-psow-i-kotow-rynek-karmy-i-akcesoriow-czeka-dynamiczny" target="_blank" rel="noopener">PAP / OC&amp;C – rynek karmy i akcesoriów</a></li>
+  <li><a href="https://oko.press/zwierzeta-w-domu-maja-wplyw-na-dzieci-odpowiedz-jest-zaskakujaca" target="_blank" rel="noopener">OKO.press – sondaż Otodom 2025</a></li>
+  <li><a href="https://dallasexpress.com/national/pet-humanization-millennials-and-gen-z-turn-pets-into-family-fueling-pet-boom/" target="_blank" rel="noopener">Dallas Express – humanizacja, Gen Z</a></li>
+</ol>
+
+<footer>Przygotowane w listopadzie 2026. Domeny sprawdzone 7.11.2026. Lista 2. Wstępne sprawdzenie kolizji nie zastępuje badania przez rzecznika patentowego.</footer>
+</div>
+
+<script>
+const ICONS={
+ paw:'<circle cx="6" cy="9" r="2.2"/><circle cx="10" cy="5.5" r="2.2"/><circle cx="14" cy="5.5" r="2.2"/><circle cx="18" cy="9" r="2.2"/><path d="M12 10.5c-3.2 0-6 4.2-6 6.6 0 1.9 1.4 2.9 3 2.9 1.2 0 2-.6 3-.6s1.8.6 3 .6c1.6 0 3-1 3-2.9 0-2.4-2.8-6.6-6-6.6z"/>',
+ heart:'<path d="M12 21s-7.2-4.6-9.6-9.1A5.4 5.4 0 0 1 12 6.2a5.4 5.4 0 0 1 9.6 5.7C19.2 16.4 12 21 12 21z"/>',
+ home:'<path d="M3 11.2 12 3.5l9 7.7V21h-6v-6H9v6H3z"/>',
+ star:'<path d="M12 2.5l2.9 6.2 6.8.8-5 4.7 1.3 6.8L12 17.6 6 21l1.3-6.8-5-4.7 6.8-.8z"/>',
+ bone:'<rect x="6" y="10" width="12" height="4" rx="1"/><circle cx="5.5" cy="9.3" r="2.6"/><circle cx="5.5" cy="14.7" r="2.6"/><circle cx="18.5" cy="9.3" r="2.6"/><circle cx="18.5" cy="14.7" r="2.6"/>',
+ cat:'<path d="M4 21V8.5L6.5 3l3.6 4.2h3.8L17.5 3 20 8.5V21z"/>',
+ dog:'<path d="M6.5 4C3.5 4 2 8 2 12c0 2 .9 3 2 3l1-1v3.5C5 20.6 8 23 12 23s7-2.4 7-5.5V14l1 1c1.1 0 2-1 2-3 0-4-1.5-8-4.5-8-2 0-3.2 1-3.7 2h-3.6C9.7 5 8.5 4 6.5 4z"/>',
+ cloud:'<path d="M7 19a5 5 0 0 1-.6-9.96A6 6 0 0 1 18 8.3 4.5 4.5 0 0 1 17.5 19z"/>',
+ ball:'<circle cx="12" cy="12" r="9.5"/>',
+ bubble:'<path d="M3 4h18v12H9.5L4 20.5V16H3z"/>',
+ crown:'<path d="M3 18.5 2 7l5.2 4L12 4l4.8 7L22 7l-1 11.5z"/>',
+ bolt:'<path d="M13.5 2 4 14h7l-1.5 8L20 10h-7z"/>',
+ sun:'<circle cx="12" cy="12" r="5.5"/><path d="M11 1h2v4h-2zM11 19h2v4h-2zM1 11h4v2H1zM19 11h4v2h-4zM3.5 5 5 3.5 7.8 6.3 6.3 7.8zM16.2 17.7l1.5-1.5 2.8 2.8-1.5 1.5zM3.5 19l2.8-2.8 1.5 1.5L5 20.5zM16.2 6.3 19 3.5l1.5 1.5-2.8 2.8z"/>',
+ smile:'<path d="M12 2.5a9.5 9.5 0 1 0 0 19 9.5 9.5 0 0 0 0-19zM8.5 8a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm7 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM7 14h10a5 5 0 0 1-10 0z"/>',
+ gift:'<path d="M3 8h18v4H3zM4.5 12h15v9h-15z"/><path d="M12 8C10 4 6 4 7 7M12 8c2-4 6-4 5-1" stroke-width="1.6" fill="none" stroke="currentColor"/>'
+};
+const FONTS={f:"'Fredoka',sans-serif;font-weight:700",n:"'Nunito',sans-serif;font-weight:800",d:"'DM Serif Display',serif",p:"'Pacifico',cursive",o:"'Poppins',sans-serif;font-weight:800"};
+
+// [nazwa, wymowa, kategoria, [zrozumiałość, skojarzenie, zapamiętywalność, brzmienie, unikalność, kreatywność], ikona, font, [kolor1, tło], dlaczego, logo, slogan, ryzyko]
+const D=[
+["Zoo Crew","zu kru","Zoo",[9,9,10,10,7,8],"star","o",["#E8643C","#FFF1E8"],"Rym „zu-kru” wpada w ucho od pierwszego razu. „Crew” (ekipa) zna każdy fan sportu i gier. Twoje zwierzaki to twoja ekipa.","Kilka sylwetek zwierząt ustawionych jak drużyna na zdjęciu grupowym.","Join the zoo crew.","Popularne zestawienie słów, więc trzeba sprawdzić EUIPO."],
+["Zoo Zone","zu zołn","Zoo",[10,9,9,9,7,7],"bolt","o",["#3B6FD8","#EEF3FF"],"Aliteracja Z–Z, mocne i dynamiczne. Strefa zwierzaka w domu i w sieci.","Dwa „Z” jak błyskawice, między nimi łapka.","Enter the zoo zone.","Mało zaskakujące."],
+["Zoo Bazaar","zu bazar","Zoo",[10,9,10,9,8,8],"home","f",["#C65D2E","#FFF2EA"],"„Bazar” brzmi identycznie po polsku i angielsku. Rym „zu-ba-zar”, klimat targu, na którym jest wszystko. Idealne dla sklepu z pełnym asortymentem.","Kolorowy namiot targowy w paski z zwierzakami wyglądającymi zza straganu.","Everything pets, one bazaar.","Bazar może kojarzyć się z tanim towarem. Warto równoważyć to designem."],
+["Zootique","zutik","Zoo",[8,9,9,9,8,9],"star","d",["#9C4F96","#F8EEF7"],"Zoo + boutique (butik). Elegancki sklep z rzeczami dla zwierząt, wyższa półka.","Elegancki serif, „q” zakończone ogonem.","The boutique for every pet.","Kilka butików zoologicznych za granicą może używać tej gry słów."],
+["Zoorprise","zurprajz","Zoo",[8,8,10,9,9,9],"gift","f",["#FF4FA3","#FFF0F8"],"Surprise + zoo. Pudełka-niespodzianki, subskrypcje i prezenty. Unboxing to jeden z najbardziej wiralowych formatów.","Pudełko z wyskakującymi uszami.","Every box is a zoorprise.","Pisownia może być trudna do zgadnięcia ze słuchu."],
+["Zoomatic","zumatik","Tech",[9,8,9,9,8,8],"bolt","o",["#0096C7","#E6F6FB"],"„Automat” zna każdy, a „zoo” daje kontekst. Linia elektroniki: automatyczne karmniki, poidła, kuwety.","Koło zębate z łapką w środku.","Smart care, automatic love.","Kojarzy się głównie z elektroniką."],
+["Zootronic","zutronik","Tech",[9,8,9,9,8,8],"bolt","o",["#14213D","#FCA311"],"Elektronika + zoo. Mocne „tronic” brzmi technologicznie (jak w nazwach marek RTV). Marka urządzeń: GPS, kamery, zabawki interaktywne.","Obwód drukowany w kształcie łapki.","Tech for every pet.","Zawęża do elektroniki."],
+["Zoobotics","zubotiks","Tech",[8,8,9,8,9,9],"bolt","o",["#6C757D","#EEF0F2"],"Robotics + zoo. Zabawki interaktywne i robotyczne, czyli szybko rosnący segment pet tech.","Robot z uszami królika i psa.","Play gets smart.","Zawęża do elektroniki i zabawek."],
+["Zoo Lounge","zu laundż","Zoo",[8,8,9,9,8,7],"cloud","d",["#5C9CE6","#EEF5FD"],"Lounge kojarzy się z relaksem (lounge music, strefa VIP). Legowiska, maty i koce premium.","Fotel lounge z puchatym zwierzakiem.","Relax like a VIP.","„Lounge” bywa różnie wymawiane."],
+["Zoo Garage","zu garaż","Zoo",[10,8,8,9,8,7],"home","o",["#455A64","#ECEFF1"],"Garaż to miejsce, gdzie trzyma się sprzęt. Akcesoria spacerowe, transportery, smycze i gadżety.","Brama garażowa z łapką.","Gear up.","Słabo pasuje do legowisk i ubranek."],
+["Zoo Studio","zu studio","Zoo",[10,8,8,9,7,7],"star","o",["#212121","#F2F2F2"],"Studio projektowe, czyli marka designerska, rzeczy dla zwierząt zaprojektowane jak meble skandynawskie.","Minimalistyczny wordmark z kropką-łapką.","Designed for pets.","Mało zaskakujące."],
+["Zoo Factory","zu fektori","Zoo",[10,8,8,8,7,7],"home","o",["#E09F3E","#FFF6E6"],"Fabryka zabawek i akcesoriów. Kojarzy się z dużym wyborem i produkcją na miejscu.","Fabryka z kominami w kształcie uszu.","Made with love in the zoo factory.","Brzmi jak producent, a nie sklep."],
+["Zoo Parade","zu parejd","Zoo",[9,9,9,9,8,7],"star","f",["#F72585","#FDEAF4"],"Parada zwierząt, kolorowo i radośnie. Idealne pod social media (zwierzaki „defilują” w nowych ubrankach).","Zwierzaki maszerujące w rzędzie z balonikami.","Join the parade.","Brzmi trochę dziecięco."],
+["Zoo Circus","zu cirkus","Zoo",[10,8,9,9,7,7],"star","o",["#D00000","#FFEDED"],"Cyrk zabawy, kolorowo i energetycznie, pod zabawki.","Namiot cyrkowy w paski.","The greatest show at home.","Cyrk ze zwierzętami ma negatywne skojarzenia (prawa zwierząt)."],
+["Zoo Island","zu ajlend","Zoo",[9,8,8,9,8,7],"sun","f",["#00B4D8","#E6F8FC"],"Wyspa zwierzaków, wakacyjny luz i szczęście.","Wyspa z palmą i zwierzakami na hamakach.","Your pet's happy island.","Brzmi jak park rozrywki."],
+["Zoovibe","zuwajb","Zoo",[8,8,9,9,8,8],"sun","f",["#06D6A0","#E6FBF4"],"„Vibe” to słowo Gen Z na klimat i energię. Krótkie i nowoczesne.","Fala dźwiękowa w kształcie ogona.","Good zoovibes only.","Slang może się zestarzeć."],
+["Zoo Station","zu stejszyn","Zoo",[9,8,8,9,7,7],"home","o",["#1565C0","#E9F1FB"],"Stacja, czyli wszystko po drodze. Piosenka U2 jako bonus.","Tablica stacji z łapką.","Next stop: happy pet.","Mało emocji."],
+["Zoo Kiosk","zu kiosk","Zoo",[10,8,9,9,8,7],"home","o",["#2E7D32","#ECF6EC"],"Kiosk zna każdy Polak. Mały, sąsiedzki sklep z wszystkim. Swojsko i z humorem.","Kiosk Ruchu w wersji zwierzęcej, z okienkiem i uszami.","Your neighborhood pet kiosk.","Kojarzy się z małym sklepem, a nie z dużym e-commerce."],
+["Zoo Village","zu wilidż","Zoo",[9,8,8,8,7,7],"home","f",["#588157","#EFF5EC"],"Wioska zwierzaków, społeczność i ciepło.","Domki z dachami w kształcie uszu.","It takes a village.","„Village” nie każdy zna."],
+["Zoo Jazz","zu dżez","Zoo",[9,7,9,9,9,8],"bubble","d",["#1D3557","#ECF1F6"],"Rytmiczne „zu-dżez”, stylowo i z klasą. Kolekcje designerskie.","Saksofon z ogonem zamiast ustnika.","Life is jazz with pets.","Słabe skojarzenie z produktami."],
+["Zoocore","zukor","Trendy Gen Z",[7,8,9,9,9,9],"star","o",["#7209B7","#F4ECFB"],"Trend „-core” (cottagecore, gorpcore) to język estetyki Gen Z. „Zoocore” oznacza styl życia ze zwierzakiem jako estetykę.","Minimalistyczny wordmark w stylu streetwear.","Live the zoocore.","Trend może przeminąć."],
+["Mystery Zoo","misteri zu","Trendy Gen Z",[9,8,9,9,8,8],"gift","o",["#5A189A","#F2ECFA"],"Mystery box i blind box to mechanizm, który zrobił Labubu hitem 2025. Paczki-niespodzianki dla zwierząt.","Pudełko ze znakiem zapytania i uszami.","What's inside?","Lepiej jako linia niż cały sklep."],
+["Zoo Unboxed","zu anbokst","Trendy Gen Z",[8,8,9,8,9,8],"gift","o",["#F77F00","#FFF4E6"],"Unboxing to format wiralowy. Nazwa sama zachęca do nagrywania.","Otwarte pudełko z łapką wychodzącą z niego.","Unbox the fun.","Słowo „unboxed” średnio znane."],
+["Mister Zoo","mister zu","Postacie",[10,9,9,9,7,7],"crown","d",["#3E2723","#F3EDE6"],"Pan Zoo, ekspert od wszystkiego dla zwierząt. Osobisty, elegancki ton.","Melonik z uszami i wąsik.","Ask Mister Zoo.","Bliskie nazwom typu „Mister Pet”."],
+["Pet Era","pet ira","Trendy Gen Z",[8,8,10,9,8,9],"star","d",["#F15BB5","#FFEFF8"],"„In my … era” to jedna z najbardziej wiralowych fraz ostatnich lat (Taylor Swift „Eras Tour”). „In my pet era” wpisuje markę w język memów.","Napis w stylu plakatu trasy koncertowej.","Welcome to your pet era.","Trend może przeminąć, ale nazwa i tak zostaje czytelna."],
+["Petcore","petkor","Trendy Gen Z",[8,8,9,9,8,9],"star","o",["#111111","#FFD60A"],"Estetyka „-core” plus pet. Marka lifestylowa dla właścicieli, którzy chcą wyglądać spójnie ze zwierzakiem.","Pogrubiony wordmark w stylu streetwear.","Pet is the new core.","Trend może przeminąć."],
+["Pet Drop","pet drop","Trendy Gen Z",[9,8,9,9,8,9],"bolt","o",["#D7263D","#FDECEE"],"„Drop” to limitowana premiera w streetwearze (Supreme, Nike). Model limitowanych kolekcji dla zwierząt buduje hype.","Kropla w kształcie łapki.","New drop every Friday.","„Drop” może kojarzyć się z „upuścić”."],
+["Pet Hype","pet hajp","Trendy Gen Z",[9,8,9,9,8,8],"bolt","o",["#FF006E","#FFEEF5"],"„Hype” to słowo, które zna każdy nastolatek. Energia, nowości, trendy.","Wykrzyknik z uszami.","Feel the pet hype.","Może brzmieć zbyt krzykliwie dla klienta premium."],
+["Main Character Pet","mejn kerekter pet","Trendy Gen Z",[7,8,9,8,9,9],"star","d",["#E07A5F","#FDF0EB"],"„Main character energy” to wiralowy trend TikToka: twój zwierzak jest głównym bohaterem.","Reflektor oświetlający małą sylwetkę.","Every pet is the main character.","Trzy słowa, długie. Lepiej jako kampania."],
+["Pet Atelier","pet atelje","Moda",[8,8,8,8,8,8],"star","d",["#8D6E63","#F7F0EC"],"Atelier zna każdy Polak. Szycie i projektowanie ubranek, smyczy i legowisk na miarę.","Nożyczki i miarka krawiecka układająca się w ogon.","Handmade for your pet.","„Atelier” może być różnie wymawiane."],
+["Pet Oasis","petołejzis","Pet",[9,8,8,9,7,7],"sun","f",["#2A9D8F","#E8F6F4"],"Oaza, czyli spokój i komfort. Pod legowiska i rzeczy do domu.","Palma z liśćmi w kształcie łapek.","Your pet's oasis.","Popularna nazwa dla hoteli i salonów."],
+["Pet Harbor","pet harbor","Podróże",[7,8,8,8,8,7],"home","o",["#1D3557","#ECF1F6"],"Port, czyli bezpieczne miejsce. Akcesoria podróżne i bezpieczeństwo.","Kotwica z łapką.","A safe harbor for pets.","„Harbor” mniej znane."],
+["Pet Atlas","pet atlas","Podróże",[10,7,8,9,8,7],"ball","o",["#2E7D32","#ECF6EC"],"Atlas zna każdy. Odkrywanie świata ze zwierzakiem, czyli akcesoria podróżne. Boom na podróże ze zwierzętami (Slowhop).","Globus z łapką jako lądem.","Explore the world together.","Słabe skojarzenie z legowiskami."],
+["Pet Compass","pet kompas","Podróże",[10,7,8,9,8,7],"star","o",["#023E8A","#E7F0FA"],"Kompas, czyli kierunek. Podróże, spacery i GPS.","Róża wiatrów z łapką.","Find your way together.","Bardzo „podróżnicze”."],
+["Pet Voyage","pet wojaż","Podróże",[9,7,8,9,8,7],"sun","d",["#0077B6","#E6F3FB"],"„Wojaż” zna każdy Polak. Elegancka nazwa dla linii podróżnej.","Walizka z naklejkami-łapkami.","Bon voyage, pet.","Wąsko."],
+["Pet Odyssey","pet odisej","Podróże",[9,7,8,8,8,7],"star","d",["#264653","#E9F2F1"],"Odyseja, czyli wielka przygoda.","Statek z żaglem w kształcie łapki.","Every walk is an odyssey.","Długie."],
+["Pet Cosmos","pet kosmos","Pet",[10,7,9,9,8,7],"star","o",["#3A0CA3","#EFEAFB"],"Kosmos zna każdy, a rym „pet kos-mos” jest rytmiczny. Świat marki: zwierzaki-astronauci.","Planeta z pierścieniem-smyczą.","A universe for pets.","Mało zaskakujące."],
+["Pet Nova","pet nowa","Pet",[9,7,9,9,8,7],"star","d",["#F72585","#FDEAF4"],"Nova to nowa gwiazda. Krótko, elegancko, brzmi jak polskie „nowa”.","Gwiazda wybuchająca z łapką w środku.","A new star for pets.","Słabe skojarzenie zwierzęce."],
+["Pet Orbit","pet orbit","Tech",[9,7,9,9,8,7],"ball","o",["#00ACC1","#E5F7FA"],"Orbita, czyli zwierzak w centrum twojego świata. Pod elektronikę i GPS.","Łapka z orbitą wokół.","Your world orbits around them.","Bardziej tech niż lifestyle."],
+["Pet Pulse","pet pals","Tech",[9,7,9,9,7,7],"heart","o",["#D62828","#FFF0EE"],"Puls, czyli zdrowie i elektronika monitorująca. Aliteracja P–P.","Linia EKG z łapką.","Feel their pulse.","Popularne w usługach weterynaryjnych."],
+["Pet Sync","pet sink","Tech",[8,7,9,9,8,7],"bolt","o",["#0096C7","#E6F6FB"],"Synchronizacja z aplikacją, czyli smart urządzenia.","Dwie strzałki w kółku z łapką.","Always in sync.","Wymowa „sync” nieoczywista."],
+["Pet Glow","pet glou","Pet",[8,7,9,9,8,7],"sun","f",["#FFB703","#FFF8E1"],"Blask i zdrowie, czyli pielęgnacja i kosmetyki. Plus odblaskowe smycze na wieczorne spacery.","Łapka świecąca jak latarka.","Let them glow.","„Glow” średnio znane."],
+["Pet Fusion","pet fjużyn","Pet",[9,7,8,9,7,7],"bolt","o",["#7B2CBF","#F5EDFC"],"Fuzja, czyli połączenie designu i funkcji.","Dwa kształty łączące się w łapkę.","Where design meets pets.","„Pet Fusion” to istniejąca marka w USA, więc nazwa jest do sprawdzenia."],
+["Pet Carnival","pet karniwal","Pet",[9,8,8,8,8,7],"gift","p",["#FF9F1C","#FFF5E6"],"Karnawał, czyli kolory, zabawa i sezonowe kolekcje.","Maska karnawałowa z uszami.","Every day is a carnival.","Długie."],
+["Pet Academy","pet akademi","Pet",[10,8,8,9,6,6],"star","o",["#1D3557","#ECF1F6"],"Akademia, czyli akcesoria treningowe i edukacja właścicieli.","Czapka absolwenta z uszami.","Smart pets start here.","Bardzo popularna nazwa szkółek."],
+["Petsville","petswil","Pet",[8,8,9,9,8,7],"home","f",["#43A047","#EDF7EE"],"„-ville” to miasteczko z bajek (Whoville). Bajkowe miasteczko zwierzaków.","Miasteczko z domkami-budami.","Welcome to Petsville.","Brzmi lekko dziecięco."],
+["Pet It Forward","pet it forłard","Idiomy",[6,8,9,8,9,9],"heart","d",["#2A9D8F","#E8F6F4"],"„Pay it forward” (podaj dalej dobro) jako marka z misją. Część zysku idzie na schroniska.","Serce z łapką i strzałką.","Pet it forward.","Idiom mało znany w Polsce."],
+["Furnado","fernejdou","Futro",[8,8,10,9,9,10],"cloud","o",["#00897B","#E6F4F2"],"Tornado + fur. Każdy właściciel zna futrzane tornado na kanapie. Zabawne, energetyczne, świetne pod zabawki i środki do sierści.","Wir tornado z futra z oczkami.","Unleash the furnado.","„Fur” bywa wymawiane różnie."],
+["Furmazing","fermejzing","Futro",[8,8,9,8,8,7],"star","f",["#FB8500","#FFF4E6"],"Amazing + fur. Zachwyt, entuzjazm.","Gwiazdki z futra.","Simply furmazing.","Popularna gra słów."],
+["Fluff Factory","flaf fektori","Puch",[9,8,10,9,8,8],"cloud","f",["#FF8FAB","#FFF0F5"],"Aliteracja F–F. Fabryka puchu, czyli legowiska, maty i pluszaki.","Fabryka z chmurkami z komina.","Made in the fluff factory.","Brzmi jak producent."],
+["Fluffport","flafport","Puch",[8,8,9,9,9,9],"star","o",["#0077B6","#E6F3FB"],"Airport + fluff. Lotnisko puchu, czyli akcesoria podróżne.","Samolot z puchatymi skrzydłami.","Ready for takeoff.","Wąsko (podróże)."],
+["Fluff Lab","flaf leb","Puch",[9,7,9,9,8,7],"bolt","o",["#3D405B","#EFEFF4"],"Laboratorium puchu, czyli pielęgnacja, szczotki i kosmetyki.","Kolba laboratoryjna z puchem.","Science of soft.","„Fluff Lab” może być używane przez groomerów."],
+["Fluffmobile","flafmobil","Puch",[9,8,9,9,9,8],"bolt","f",["#E76F51","#FDF0EC"],"Mobil (jak Batmobil) z puchem. Transportery i akcesoria do auta.","Autko z uszami.","Fluff on the move.","Wąsko."],
+["Fluff Hotel","flaf hotel","Puch",[10,7,8,9,8,6],"home","d",["#8D6E63","#F7F0EC"],"Hotel puchu, czyli legowiska.","Hotelowa tabliczka „do not disturb” z łapką.","Five-star sleep.","Myli się z hotelem dla zwierząt (usługa)."],
+["Fluff Nation","flaf nejszyn","Puch",[9,8,9,9,8,7],"crown","o",["#264653","#E9F2F1"],"Naród puchu, czyli społeczność właścicieli.","Flaga z puchatym herbem.","One fluff nation.","Mało zaskakujące."],
+["Fluff & Puff","flaf end paf","Puch",[8,8,10,10,8,8],"cloud","f",["#B5838D","#F9EFF1"],"Rym „flaf-paf” jest bardzo zapamiętywalny. Puch i puszystość, idealne dla legowisk.","Dwie chmurki-puszki.","Soft as fluff, light as puff.","„Puff” może kojarzyć się z paleniem."],
+["Fluffle","flafl","Puch",[6,8,9,9,8,9],"cloud","f",["#FFADAD","#FFF2F2"],"„Fluffle” to angielskie słowo na grupę królików (prawdziwe!). Uroczo i z ciekawostką.","Kilka puchatych kulek w grupie.","Join the fluffle.","Słowo nieznane w Polsce, ale „fluff” daje sens."],
+["Fluffcore","flafkor","Trendy Gen Z",[7,8,9,9,9,9],"cloud","o",["#C77DFF","#F8F0FF"],"Estetyka „-core” plus puch. Miękkie, pastelowe kolekcje dla Gen Z.","Pastelowy wordmark z puchatymi literami.","Soft is the new core.","Trend może przeminąć."],
+["Fluff Bomb","flaf bomb","Puch",[8,7,9,9,8,8],"ball","f",["#EF476F","#FEEEF2"],"Bath bomb + fluff. Kosmetyki i pielęgnacja dla zwierząt.","Kula puchu z iskierkami.","Drop the fluff bomb.","„Bomb” może być źle odebrane."],
+["Fluffmaster","flafmaster","Puch",[9,7,9,9,8,7],"crown","o",["#2B2D42","#EDF2F4"],"Mistrz puchu, czyli szczotki i pielęgnacja profesjonalna.","Korona z puchu.","Master the fluff.","Mało emocji."],
+["Fluff Theory","flaf tiori","Puch",[7,7,9,8,9,8],"star","d",["#5E548E","#F2F0F7"],"Teoria puchu, pół-naukowy humor (Big Bang Theory).","Wzór matematyczny z puszkiem.","The science of soft.","„Th” jest trudne dla Polaków."],
+["Baron von Fluff","baron fon flaf","Postacie",[8,8,10,8,9,9],"crown","d",["#3E2723","#F3EDE6"],"Arystokratyczny baron puchu. Zabawna postać z wiktoriańskim klimatem, świetna na Instagram.","Portret w złotej ramie: puchata kulka z monoklem.","Noble fluff since today.","Długie."],
+["Furrytopia","fyritopia","Futro",[8,8,9,9,8,7],"sun","f",["#06D6A0","#E6FBF4"],"Utopia futrzaków, wersja bardziej puchata niż Petopia.","Tęcza nad futrzaną wyspą.","A utopia for every furry.","Długie."],
+["Paws Up!","pos ap","Łapki",[8,8,9,8,8,8],"paw","f",["#F4511E","#FEEFEA"],"„Hands up” (ręce do góry) zamienione na łapki. Radość i energia.","Dwie łapki uniesione w górę.","Paws up if you love pets!","„Paws” bywa źle wymawiane."],
+["Paws Café","pos kafej","Łapki",[8,8,9,9,6,7],"heart","d",["#8B5A3C","#FBF1E8"],"Kawiarniany klimat, ciepło i przytulnie.","Filiżanka z łapką w piance.","Cozy like a café.","Popularna nazwa kawiarni ze zwierzętami."],
+["Paws Planet","pos planet","Łapki",[8,8,9,8,7,7],"ball","o",["#4361EE","#ECEFFD"],"Planeta łapek, czyli szeroki świat produktów.","Planeta z pierścieniem z odcisków łap.","A planet for every paw.","Popularne."],
+["Professor Paws","profesor pos","Postacie",[8,8,10,9,8,8],"star","d",["#264653","#E9F2F1"],"Aliteracja P–P. Mądra postać-maskotka, która doradza w sklepie.","Łapka w okularach z biretem.","Professor Paws recommends.","„Paws” bywa źle wymawiane."],
+["Tail Club","tejl klab","Ogony",[8,9,9,9,8,7],"star","o",["#00796B","#E6F4F2"],"Klub ogonów. Prosto, społecznościowo, pod program lojalnościowy.","Ogon w kształcie znaku zapytania z emblematem klubu.","Members with tails.","„Tail” średnio znane."],
+["Tail Waves","tejl łejws","Ogony",[7,9,9,9,8,8],"cloud","f",["#00B4D8","#E6F8FC"],"Machanie ogonem jak fala. Radość i energia.","Fala w kształcie machającego ogona.","Make tails wave.","„Waves” mniej znane."],
+["Nosey Club","nołzi klab","Dzikie",[7,8,9,9,9,8],"heart","f",["#E85D04","#FFF2E8"],"„Nosey” to ciekawski (wścibski), a każdy zwierzak wtyka nos wszędzie. Zabawki węchowe i interaktywne.","Duży nos z lupą.","For curious noses.","„Nosey” średnio znane."],
+["Sniff Club","snif klab","Dzikie",[7,8,9,9,8,8],"heart","o",["#6D4C41","#F7F0EB"],"Klub wąchaczy, czyli zabawki węchowe (hit wśród właścicieli psów i kotów).","Nos z liniami zapachu.","Follow your nose.","„Sniff” średnio znane."],
+["Ears Up","irs ap","Dzikie",[7,8,9,9,9,8],"smile","f",["#FFB703","#FFF8E1"],"Postawione uszy to sygnał zainteresowania i radości u psów, kotów i królików.","Para uszu postawionych w górę.","Ears up, life's good.","„Ears” średnio znane."],
+["Mild Wild","majld łajld","Dzikie",[7,8,10,10,9,9],"sun","f",["#606C38","#F2F4EA"],"Rym „majld łajld”: trochę dziki, trochę oswojony, jak każdy zwierzak w domu.","Zwierzak w koronie z liści i w szlafroku.","A little bit wild.","„Mild” średnio znane."],
+["Wild & Cozy","łajld end kołzi","Dzikie",[7,8,9,9,8,8],"cloud","f",["#B5651D","#FBF1E6"],"Kontrast: dziki charakter i przytulny dom. Opisuje każdego pupila.","Liść i kocyk splecione w &.","Wild hearts, cozy homes.","„Cozy” nie wszyscy znają."],
+["Wildling","łajldling","Dzikie",[6,7,9,9,8,8],"sun","d",["#386641","#EEF4EC"],"Mała dzika istotka (słowo znane fanom „Gry o tron”). Poetycko.","Mała sylwetka z koroną z liści.","For your little wildling.","Słowo mało znane, a w serialu ma inny sens."],
+["Little Giants","litl dżajants","Dzikie",[8,8,9,9,8,8],"star","o",["#0D47A1","#EAF1FB"],"Małe olbrzymy, czyli małe ciała i wielkie osobowości. Tytuł znanej komedii sportowej.","Mała sylwetka z wielkim cieniem.","Small pets, big personalities.","Kolizja z filmem nieistotna, ale słowo jest popularne."],
+["Main Zoo","mejn zu","Zoo",[9,8,9,9,8,7],"home","o",["#2E7D32","#ECF6EC"],"Główny sklep zoo, krótko i rzeczowo.","Szyld sklepu.","Your main zoo.","Mało emocji."],
+["Yes Pets","jes pets","Idiomy",[10,8,9,9,8,7],"smile","o",["#00C853","#E8F9EF"],"Pozytywne „tak dla zwierząt”. Pet-friendly jako manifest.","Znak ✓ z łapką.","Say yes to pets.","Mało zaskakujące."],
+["Pet Peace","pet pis","Idiomy",[9,7,9,9,8,7],"heart","f",["#5B8C5A","#EEF5EC"],"Aliteracja P–P. Spokój, czyli legowiska i produkty uspokajające.","Symbol pokoju z łapką.","Peace, love &amp; pets.","„Peace” bywa źle wymawiane („pis”)."],
+["Lovebox","lawboks","Pet",[10,7,9,9,6,7],"gift","f",["#E91E63","#FDEBF2"],"Pudełko miłości, czyli subskrypcje i prezenty.","Pudełko w kształcie serca z łapką.","Love in a box.","Istnieje marka Lovebox (urządzenie do wiadomości)."],
+["Hugzoo","hagzu","Zoo",[8,8,9,9,9,8],"heart","f",["#D9467A","#FFEFF5"],"Hug + zoo, przytul zoo. Krótko i ciepło. Pod pluszaki i legowiska.","Dwie łapki obejmujące literę Z.","Hug the whole zoo.","„Hug” nie wszyscy znają."],
+["Happy Hour Pets","hepi auer pets","Idiomy",[9,8,9,8,9,8],"smile","f",["#FF9F1C","#FFF5E6"],"Happy hour, czyli promocje i dobra zabawa. Pod cotygodniowe okazje.","Zegar z łapkami zamiast wskazówek.","It's always happy hour.","Kojarzy się z alkoholem."],
+["Zoo Society","zu sosajeti","Zoo",[9,8,8,8,6,6],"crown","d",["#3E2723","#F3EDE6"],"Społeczność zoo, elegancki klub.","Emblemat jak z towarzystwa naukowego.","Est. for every pet.","Kolizja z zoologicznymi towarzystwami naukowymi (np. ZSL)."],
+["Soft Paws Society","soft pos sosajeti","Łapki",[7,8,9,9,8,7],"paw","p",["#F06292","#FDEEF4"],"Aliteracja S–S, miękko i elegancko.","Odręczny napis z miękką łapką.","Soft paws only.","Długie. „Soft Paws” to marka nakładek na pazury w USA."],
+["Zoovana","zuwana","Zoo",[7,8,9,9,9,8],"sun","d",["#7209B7","#F4ECFB"],"Nirwana + zoo, czyli totalny spokój i zadowolenie.","Lotos z łapką.","Reach zoovana.","„Nirwana” to też nazwa zespołu, choć gra słów jest odrębna."],
+["Zoolicious","zuliszys","Zoo",[8,8,9,9,8,7],"heart","f",["#FF4081","#FFEEF4"],"Delicious + zoo. Smakowicie i atrakcyjnie.","Lizak z łapką.","Simply zoolicious.","Sugeruje jedzenie."],
+["Zoo Avenue","zu awenju","Zoo",[9,8,8,9,8,7],"home","d",["#212121","#F5F0EB"],"Aleja zoo, elegancki adres zakupów (jak 5th Avenue).","Tabliczka ulicy z łapką.","Shop the avenue.","Długie."],
+["Zoodoku","zudoku","Zoo",[8,8,10,9,9,10],"gift","o",["#3A0CA3","#EFEAFB"],"Sudoku + zoo. Łamigłówki dla zwierząt (maty węchowe, zabawki-puzzle). Według weterynarzy zabawa umysłowa to jeden z najważniejszych trendów wellness. Polacy znają sudoku.","Kratka sudoku, w której cyfry zastąpiono łapkami.","Smart play for smart pets.","Pasuje głównie do zabawek."],
+["Zoorama","zurama","Zoo",[9,8,9,9,9,8],"sun","f",["#00B4D8","#E6F8FC"],"Panorama + zoo, czyli pełny widok na wszystko dla zwierząt. „Panorama” to słowo międzynarodowe.","Szeroki pejzaż z sylwetkami różnych zwierząt.","The full view of pet life.","Brzmi jak park lub wystawa."],
+["Zoopedia","zupidia","Zoo",[9,8,9,9,8,9],"star","d",["#1D3557","#ECF1F6"],"Wikipedia/encyklopedia + zoo. Sklep, który jest też bazą wiedzy (poradniki, recenzje). Treści edukacyjne dobrze wypadają w social mediach.","Otwarta książka z „Z” w stylu encyklopedii.","Everything about every pet.","Wikimedia chroni „Wikipedia”, ale „-pedia” jest ogólne."],
+["Zoomix","zumiks","Zoo",[9,8,9,9,8,7],"star","f",["#F72585","#FDEAF4"],"Mix wszystkiego dla zwierząt. Krótko, rytmicznie, po polsku „miks”.","Kolorowe kształty zwierząt zmiksowane w kółko.","Mix it up.","Może sugerować mieszankę karmy."],
+["Furbrella","ferbrela","Futro",[7,8,10,9,9,10],"cloud","p",["#118AB2","#E7F5FA"],"Umbrella (parasol) + fur. Parasol dla futrzaka, czyli płaszczyki, kurtki, ochrona przed deszczem. Gra słów widoczna od razu.","Parasol, pod którym chowa się puchaty zwierzak.","Rain or shine, fur stays fine.","Wąsko (odzież przeciwdeszczowa), lepiej jako linia."],
+["Pet Playlist","pet plejlist","Trendy Gen Z",[9,8,9,9,9,8],"bubble","o",["#1DB954","#E8F8EE"],"Playlista to słowo ery Spotify. Zestaw ulubionych rzeczy twojego zwierzaka. Dobre pod personalizowane zestawy.","Przycisk play z łapką i fala dźwiękowa.","Press play on pet life.","Zbliżone do muzyki, ale bez kolizji."],
+["Petmoji","petmołdżi","Trendy Gen Z",[8,8,10,9,7,9],"smile","f",["#FFB703","#FFF8E1"],"Emoji + pet. Język obrazkowy internetu. Gotowa linia naklejek, nadruków i tagów z emotkami.","Okrągła buźka emoji z uszami zwierzaka.","Say it with a petmoji.","Istnieją aplikacje o podobnej nazwie (sprawdzić)."],
+["Petverse","petwers","Trendy Gen Z",[8,8,9,9,8,9],"star","o",["#5A189A","#F2ECFA"],"Metaverse/universe + pet. Cały wszechświat zwierzaka: produkty, treści, społeczność.","Planeta z pierścieniem w kształcie obroży.","Welcome to the petverse.","Słowo „metaverse” traci popularność."],
+["Pet Bingo","pet bingo","Idiomy",[10,8,10,9,9,8],"gift","f",["#FF6D00","#FFF3E6"],"Bingo to okrzyk trafienia: znalazłeś idealną rzecz dla zwierzaka. Rytmiczne, radosne.","Kula bingo z łapką i numerem.","Bingo! Found it.","Może kojarzyć się z hazardem."],
+["Fluffinator","flafinejtor","Puch",[8,8,10,9,9,10],"bolt","o",["#2B2D42","#EDF2F4"],"Terminator + fluff. Pogromca sierści, czyli szczotki, odkurzacze i rękawice do wyczesywania. Śmieszne i zapamiętywalne.","Szczotka w okularach przeciwsłonecznych.","I'll be fluff.","Nie używaj cytatów i wizerunku z filmu."],
+["Zoo Turbo","zu turbo","Zoo",[10,8,9,9,9,7],"bolt","o",["#E63946","#FDEEEF"],"„Turbo” zna każdy Polak. Energia i szybka dostawa.","Strzałka prędkości z uszami.","Turbo fun for every pet.","Mało emocji."],
+["Zoo Boom","zu bum","Zoo",[9,8,10,10,8,8],"star","f",["#FF006E","#FFEEF5"],"Rym „zu-bum”, krótko i wybuchowo. Boom na zwierzęta (rynek rośnie ok. 14% rocznie) w nazwie.","Wybuch konfetti w kształcie łapek.","Boom! Pets are here.","„Boom” może brzmieć zbyt hałaśliwie."],
+["Zoo Expo","zu ekspo","Zoo",[10,8,9,9,8,7],"home","o",["#0277BD","#E7F2F9"],"Expo, czyli wystawa, a sklep jako wystawa nowości dla zwierząt.","Pawilon wystawowy z łapką.","The pet expo, every day.","Myli się z targami branżowymi."],
+];
+
+const DOM={"Zoo Crew": [{"slug": "zoocrew", "pl": "free", "eu": "taken", "com": "unknown"}], "Zoo Zone": [{"slug": "zoozone", "pl": "taken", "eu": "free", "com": "unknown"}], "Zoo Bazaar": [{"slug": "zoobazaar", "pl": "free", "eu": "free", "com": "taken"}], "Zootique": [{"slug": "zootique", "pl": "free", "eu": "free", "com": "taken"}], "Zoorprise": [{"slug": "zoorprise", "pl": "free", "eu": "free", "com": "free"}], "Zoomatic": [{"slug": "zoomatic", "pl": "free", "eu": "free", "com": "taken"}], "Zootronic": [{"slug": "zootronic", "pl": "free", "eu": "free", "com": "taken"}], "Zoobotics": [{"slug": "zoobotics", "pl": "free", "eu": "free", "com": "taken"}], "Zoo Lounge": [{"slug": "zoolounge", "pl": "free", "eu": "free", "com": "taken"}], "Zoo Garage": [{"slug": "zoogarage", "pl": "free", "eu": "free", "com": "taken"}], "Zoo Studio": [{"slug": "zoostudio", "pl": "free", "eu": "free", "com": "taken"}], "Zoo Factory": [{"slug": "zoofactory", "pl": "free", "eu": "free", "com": "taken"}], "Zoo Parade": [{"slug": "zooparade", "pl": "free", "eu": "free", "com": "taken"}], "Zoo Circus": [{"slug": "zoocircus", "pl": "free", "eu": "free", "com": "taken"}], "Zoo Island": [{"slug": "zooisland", "pl": "taken", "eu": "free", "com": "taken"}], "Zoovibe": [{"slug": "zoovibe", "pl": "free", "eu": "free", "com": "taken"}], "Zoo Station": [{"slug": "zoostation", "pl": "free", "eu": "taken", "com": "taken"}], "Zoo Kiosk": [{"slug": "zookiosk", "pl": "free", "eu": "free", "com": "taken"}], "Zoo Village": [{"slug": "zoovillage", "pl": "free", "eu": "free", "com": "taken"}], "Zoo Jazz": [{"slug": "zoojazz", "pl": "free", "eu": "free", "com": "taken"}], "Zoocore": [{"slug": "zoocore", "pl": "free", "eu": "free", "com": "taken"}], "Mystery Zoo": [{"slug": "mysteryzoo", "pl": "free", "eu": "free", "com": "taken"}], "Zoo Unboxed": [{"slug": "zoounboxed", "pl": "free", "eu": "free", "com": "free"}], "Mister Zoo": [{"slug": "misterzoo", "pl": "free", "eu": "taken", "com": "taken"}], "Pet Era": [{"slug": "petera", "pl": "taken", "eu": "taken", "com": "taken"}], "Petcore": [{"slug": "petcore", "pl": "taken", "eu": "free", "com": "taken"}], "Pet Drop": [{"slug": "petdrop", "pl": "taken", "eu": "free", "com": "taken"}], "Pet Hype": [{"slug": "pethype", "pl": "free", "eu": "free", "com": "taken"}], "Main Character Pet": [{"slug": "maincharacterpet", "pl": "free", "eu": "free", "com": "unknown"}], "Pet Atelier": [{"slug": "petatelier", "pl": "free", "eu": "free", "com": "taken"}], "Pet Oasis": [{"slug": "petoasis", "pl": "free", "eu": "free", "com": "unknown"}], "Pet Harbor": [{"slug": "petharbor", "pl": "free", "eu": "free", "com": "taken"}], "Pet Atlas": [{"slug": "petatlas", "pl": "free", "eu": "free", "com": "taken"}], "Pet Compass": [{"slug": "petcompass", "pl": "free", "eu": "taken", "com": "taken"}], "Pet Voyage": [{"slug": "petvoyage", "pl": "free", "eu": "taken", "com": "taken"}], "Pet Odyssey": [{"slug": "petodyssey", "pl": "free", "eu": "free", "com": "taken"}], "Pet Cosmos": [{"slug": "petcosmos", "pl": "free", "eu": "free", "com": "taken"}], "Pet Nova": [{"slug": "petnova", "pl": "taken", "eu": "free", "com": "taken"}], "Pet Orbit": [{"slug": "petorbit", "pl": "free", "eu": "free", "com": "taken"}], "Pet Pulse": [{"slug": "petpulse", "pl": "free", "eu": "taken", "com": "taken"}], "Pet Sync": [{"slug": "petsync", "pl": "free", "eu": "free", "com": "taken"}], "Pet Glow": [{"slug": "petglow", "pl": "free", "eu": "free", "com": "taken"}], "Pet Fusion": [{"slug": "petfusion", "pl": "taken", "eu": "taken", "com": "taken"}], "Pet Carnival": [{"slug": "petcarnival", "pl": "free", "eu": "free", "com": "taken"}], "Pet Academy": [{"slug": "petacademy", "pl": "taken", "eu": "free", "com": "taken"}], "Petsville": [{"slug": "petsville", "pl": "free", "eu": "free", "com": "taken"}], "Pet It Forward": [{"slug": "petitforward", "pl": "free", "eu": "free", "com": "taken"}], "Furnado": [{"slug": "furnado", "pl": "free", "eu": "free", "com": "taken"}], "Furmazing": [{"slug": "furmazing", "pl": "free", "eu": "free", "com": "taken"}], "Fluff Factory": [{"slug": "flufffactory", "pl": "free", "eu": "free", "com": "taken"}], "Fluffport": [{"slug": "fluffport", "pl": "free", "eu": "free", "com": "free"}], "Fluff Lab": [{"slug": "flufflab", "pl": "free", "eu": "free", "com": "taken"}], "Fluffmobile": [{"slug": "fluffmobile", "pl": "free", "eu": "free", "com": "taken"}], "Fluff Hotel": [{"slug": "fluffhotel", "pl": "free", "eu": "free", "com": "free"}], "Fluff Nation": [{"slug": "fluffnation", "pl": "free", "eu": "free", "com": "taken"}], "Fluff & Puff": [{"slug": "fluffandpuff", "pl": "free", "eu": "free", "com": "taken"}, {"slug": "fluffpuff", "pl": "free", "eu": "free", "com": "taken"}], "Fluffle": [{"slug": "fluffle", "pl": "free", "eu": "free", "com": "taken"}], "Fluffcore": [{"slug": "fluffcore", "pl": "free", "eu": "free", "com": "taken"}], "Fluff Bomb": [{"slug": "fluffbomb", "pl": "free", "eu": "free", "com": "free"}], "Fluffmaster": [{"slug": "fluffmaster", "pl": "free", "eu": "free", "com": "taken"}], "Fluff Theory": [{"slug": "flufftheory", "pl": "free", "eu": "free", "com": "taken"}], "Baron von Fluff": [{"slug": "baronvonfluff", "pl": "free", "eu": "free", "com": "free"}], "Furrytopia": [{"slug": "furrytopia", "pl": "free", "eu": "free", "com": "taken"}], "Paws Up!": [{"slug": "pawsup", "pl": "taken", "eu": "taken", "com": "taken"}], "Paws Café": [{"slug": "pawscaf", "pl": "free", "eu": "free", "com": "free"}], "Paws Planet": [{"slug": "pawsplanet", "pl": "taken", "eu": "free", "com": "taken"}], "Professor Paws": [{"slug": "professorpaws", "pl": "free", "eu": "free", "com": "taken"}], "Tail Club": [{"slug": "tailclub", "pl": "free", "eu": "free", "com": "taken"}], "Tail Waves": [{"slug": "tailwaves", "pl": "free", "eu": "free", "com": "taken"}], "Nosey Club": [{"slug": "noseyclub", "pl": "free", "eu": "free", "com": "free"}], "Sniff Club": [{"slug": "sniffclub", "pl": "free", "eu": "free", "com": "taken"}], "Ears Up": [{"slug": "earsup", "pl": "free", "eu": "taken", "com": "taken"}], "Mild Wild": [{"slug": "mildwild", "pl": "free", "eu": "taken", "com": "taken"}], "Wild & Cozy": [{"slug": "wildandcozy", "pl": "free", "eu": "free", "com": "unknown"}, {"slug": "wildcozy", "pl": "free", "eu": "free", "com": "taken"}], "Wildling": [{"slug": "wildling", "pl": "free", "eu": "taken", "com": "taken"}], "Little Giants": [{"slug": "littlegiants", "pl": "free", "eu": "taken", "com": "taken"}], "Main Zoo": [{"slug": "mainzoo", "pl": "free", "eu": "taken", "com": "taken"}], "Yes Pets": [{"slug": "yespets", "pl": "free", "eu": "free", "com": "taken"}], "Pet Peace": [{"slug": "petpeace", "pl": "free", "eu": "free", "com": "taken"}], "Lovebox": [{"slug": "lovebox", "pl": "taken", "eu": "taken", "com": "taken"}], "Hugzoo": [{"slug": "hugzoo", "pl": "free", "eu": "free", "com": "taken"}], "Happy Hour Pets": [{"slug": "happyhourpets", "pl": "free", "eu": "free", "com": "free"}], "Zoo Society": [{"slug": "zoosociety", "pl": "free", "eu": "free", "com": "taken"}], "Soft Paws Society": [{"slug": "softpawssociety", "pl": "free", "eu": "free", "com": "taken"}], "Zoovana": [{"slug": "zoovana", "pl": "free", "eu": "free", "com": "taken"}], "Zoolicious": [{"slug": "zoolicious", "pl": "free", "eu": "free", "com": "taken"}], "Zoo Avenue": [{"slug": "zooavenue", "pl": "free", "eu": "free", "com": "taken"}], "Zoodoku": [{"slug": "zoodoku", "pl": "free", "eu": "free", "com": "taken"}], "Zoorama": [{"slug": "zoorama", "pl": "free", "eu": "free", "com": "taken"}], "Zoopedia": [{"slug": "zoopedia", "pl": "taken", "eu": "free", "com": "taken"}], "Zoomix": [{"slug": "zoomix", "pl": "taken", "eu": "taken", "com": "taken"}], "Furbrella": [{"slug": "furbrella", "pl": "free", "eu": "free", "com": "taken"}], "Pet Playlist": [{"slug": "petplaylist", "pl": "free", "eu": "free", "com": "unknown"}], "Petmoji": [{"slug": "petmoji", "pl": "free", "eu": "taken", "com": "taken"}], "Petverse": [{"slug": "petverse", "pl": "free", "eu": "taken", "com": "taken"}], "Pet Bingo": [{"slug": "petbingo", "pl": "free", "eu": "free", "com": "taken"}], "Fluffinator": [{"slug": "fluffinator", "pl": "free", "eu": "free", "com": "taken"}], "Zoo Turbo": [{"slug": "zooturbo", "pl": "free", "eu": "free", "com": "free"}], "Zoo Boom": [{"slug": "zooboom", "pl": "taken", "eu": "free", "com": "taken"}], "Zoo Expo": [{"slug": "zooexpo", "pl": "free", "eu": "free", "com": "taken"}]};
+const TM={"Zoo Bazaar": ["MEDIUM", "Zoobazar.by to sieć sklepów zoologicznych na Białorusi (poza UE), z niemal identyczną pisownią. W UE i PL nic nie znaleziono.", "https://ahrefstop.com/websites/zoobazar.by"], "Furnado": ["MEDIUM", "Aktywny znak FURNADO w USA (kl. 44, groomer w Teksasie). To usługa lokalna, bez śladów w UE/PL.", "https://markinton.com/trademark/furnado-98860938"], "Zoodoku": ["MEDIUM", "Gra planszowa Zoodoku (2006, kl. 28) i kilka aplikacji sudoku (kl. 9). Brak użycia w branży zoologicznej.", "https://www.meeplemountain.com/boardgame/zoodoku/"], "Pet Bingo": ["MEDIUM", "Popularna nazwa gier dla dzieci (Dunelm UK, aplikacje). W USA są znaki „B BINGO'S” (ubranka, smycze) i „BINGO PET CO.”. Nazwa słaba do ochrony.", "https://trademark.justia.com/owners/pet-bingo-s-llc-5633395"], "Fluffinator": ["LOW", "Jedyny ślad to pojedynczy produkt spoza branży zoologicznej w USA. Brak marki i znaku.", ""], "Zoo Crew": ["MEDIUM–HIGH", "Kilka aktywnych znaków ZOO CREW w USA (zabawki, pluszaki, odzież, sprzedaż), marka zabawek w Australii i projekt zoocrew.eu.", "https://trademark.justia.com/886/79/zoo-crew-we-bring-the-zoo-to-88679279.html"], "Zoorprise": ["LOW", "Nie znaleziono identycznego użycia.", ""], "Furbrella": ["LOW", "Nie znaleziono identycznego użycia.", ""], "Zoo Boom": ["LOW–MEDIUM", "Gra mobilna typu „match-3” (Famobi), kl. 9/28. Brak sklepu i znaku w branży zoologicznej.", "https://www.crazygames.com/kr/game/zoo-boom"], "Zootique": ["MEDIUM", "Popularna nazwa sklepów z pamiątkami w ogrodach zoologicznych w USA. Podobnie brzmi „Zootic”, sieć sklepów zoologicznych w Słowenii i Belgii (UE).", "https://nl.trustpilot.com/review/zootic.be"], "Pet Era": ["LOW–MEDIUM", "Brak sklepu i marki. Podobnie brzmią znaki PETERA i PETSETERA (szczotki, miski) w USA.", "https://trademarks.justia.com/877/76/petsetera-87776824.html"], "Pet Drop": ["MEDIUM", "Aplikacja dropshippingowa Pet DropShipper (USA), wygasły znak PET DROPS i startup Dogdrop. Nazwa opisowa i słaba do ochrony.", "https://apps.shopify.com/petdropshipper"], "Fluff Factory": ["MEDIUM", "„The Fluff Factory” to groomer w Irlandii (UE), a „fluff” jest zatłoczone w branży (Fluff & Tuff, Fluff & Boots).", "https://www.roscommonherald.ie/news/county-roscommon-dog-groomer-nominated-for-national-award_arid-77243.html"], "Baron von Fluff": ["LOW", "Nie znaleziono firmy, marki ani znaku.", ""], "Mild Wild": ["LOW–MEDIUM", "Zgłoszenie MILD WILD w USA (towary nieznane). Wiele marek zoologicznych z „Wild” (Wild One, Taste of the Wild).", "https://trademarks.justia.com/980/34/mild-98034646.html"], "Zoopedia": ["LOW–MEDIUM", "Encyklopedia w grze Planet Zoo (Frontier) i aplikacja ogrodu zoologicznego w Indiach. Brak użycia w branży zoologicznej.", "https://thegameswiki.com/planet-zoo-2/wiki/zoopedia"], "Zoo Zone": ["LOW–MEDIUM", "Brak identycznej nazwy, ale „zoo” jest po polsku opisowe, a wokół jest wiele „Pet Zone”. Słaba do ochrony.", ""], "Mister Zoo": ["MEDIUM", "Sklep „Mr. Zoo” w Kaliningradzie, a w UE podobne „Mr.Pet” (Słowenia) i „Mister Pet” (Włochy).", "https://www.zoomark.it/en/discover/the-voice-of-exhibitors/mister-pet/"], "Fluffport": ["LOW", "Nie znaleziono identycznego użycia.", ""], "Fluffmobile": ["LOW", "Nie znaleziono identycznego użycia.", ""], "Fluff & Puff": ["MEDIUM", "„Puff & Fluff Grooming” (USA, kilka salonów), znaki FLUFF PUFFS i FLUFFYPUFF (legowiska dla kotów) w USA.", "https://trademark.justia.com/owners/fluff-tuff-inc-2162647"], "Zoorama": ["MEDIUM", "Sklep zoologiczny Zoo-Rama Pets w Nowym Jorku. Brak użycia w UE.", "https://dogdog.org/pet-store/zoorama-pets-bronx"], "Pet Playlist": ["LOW–MEDIUM", "Spotify ma funkcję „Pet Playlists” (muzyka, nie towary).", "https://newsroom.spotify.com/tag/kitten/"], "Petmoji": ["MEDIUM–HIGH", "Universal City Studios ma aktywny znak PETMOJI w USA (kl. 9), a we Włoszech działa aplikacja „PETmoji”.", "https://markinton.com/trademark/petmoji-87011553"], "Zoo Turbo": ["LOW", "Jedynie atrakcja w parku rozrywki w Japonii.", ""], "Zoomatic": ["LOW–MEDIUM", "Brak identycznej nazwy. Podobne karmniki: „Zoomtopia” (Fressnapf, zooplus) i „Zoom Automatic” (Japonia).", "https://www.zooplus.de/shop/katzen/fressnapf/futterautomaten/9980076553"], "Zootronic": ["LOW", "Brak identycznego użycia.", ""], "Zoobotics": ["LOW–MEDIUM", "Termin naukowy (roboty inspirowane zwierzętami), więc częściowo opisowy dla zabawek-robotów.", "https://www.popsci.com/technology/article/2011-07/hordes-animal-inspired-machines-lead-new-robotic-phylogenesis"], "Zoo Parade": ["LOW–MEDIUM", "Program TV z lat 50. w USA. Aktywny znak PET PARADE w USA (kl. 9).", "https://markinton.com/trademark/pet-parade-87086364"], "Zoo Kiosk": ["LOW", "Brak marki, ale nazwa jest prawie opisowa po polsku, więc trudna do zastrzeżenia.", ""]};
+
+const okDom=n=>(DOM[n]||[]).some(e=>e.pl==='free'&&e.eu==='free');
+const RISKOK=r=>r==='LOW'||r==='LOW–MEDIUM';
+const badge=(t,s)=>`<span class="db ${s==='free'?'free':s==='taken'?'taken':'unk'}">.${t} ${s==='free'?'wolna':s==='taken'?'zajęta':'?'}</span>`;
+function avail(d){
+  const doms=(DOM[d.name]||[]).map(e=>`<div class="drow"><code>${e.slug}</code> ${badge('pl',e.pl)}${badge('eu',e.eu)}${badge('com',e.com)}</div>`).join('');
+  const tm=TM[d.name];
+  const q=encodeURIComponent(d.name);
+  const tmh=tm?`<div class="tm r-${tm[0].replace('–','-')}"><b>Kolizje (wstępnie): ${tm[0]==='LOW'?'niskie':tm[0]==='LOW–MEDIUM'?'niskie/średnie':tm[0]==='MEDIUM'?'średnie':tm[0]==='MEDIUM–HIGH'?'średnie/wysokie':'wysokie'}</b> ${tm[1]} ${tm[2]?`<a href="${tm[2]}" target="_blank" rel="noopener">źródło</a>`:''}</div>`:`<div class="tm r-NA"><b>Kolizje:</b> nie sprawdzano (poza top 30)</div>`;
+  return `<div class="sec"><b>Dostępność</b>${doms}${tmh}<div class="tml">Sprawdź ręcznie: <a href="https://www.tmdn.org/tmview/#/tmview/results?page=1&pageSize=30&criteria=C&basicSearch=${q}" target="_blank" rel="noopener">TMview (UE+PL)</a> · <a href="https://euipo.europa.eu/eSearch/#basic/1+1+1+1/100+100+100+100/${q}" target="_blank" rel="noopener">EUIPO</a> · <a href="https://ewyszukiwarka.pue.uprp.gov.pl/search/simple-search" target="_blank" rel="noopener">UPRP</a> · <a href="https://wyszukiwarka-krs.ms.gov.pl/" target="_blank" rel="noopener">KRS</a></div></div>`;
+}
+const INS={"Trendy Gen Z":"Język i formaty Gen Z (eras, -core, drop, unboxing, mystery box), czyli mechanizmy wiralowe z TikToka i efekt Labubu.","Podróże":"Boom na podróże ze zwierzętami (Slowhop, PKP Intercity).","Ukryty „pet”":"Gra słów na znanym słowie (badania nad paronomazją) + uniwersalna kotwica „pet”.","Zoo":"„Zoo” jest identyczne po polsku i angielsku, więc rozumie je każdy, i obejmuje wszystkie gatunki.","Postacie":"Potencjał maskotki i kolekcji (efekt Labubu, petfluencerzy).","Popkultura":"Odniesienie do popkultury, które ludzie chętnie udostępniają (wzór wiralowy z TikToka).","Moda":"Humanizacja: zwierzę ubierane jak członek rodziny (APPA, Harris).","Idiomy":"Znany idiom, czyli płynność przetwarzania i efekt „aha!”.","Futro":"„Fur” obejmuje każde futrzane zwierzę; humanizacja (fur baby, furmily).","Puch":"Miękkie brzmienie „fl-” (symbolika dźwięku) pasuje do legowisk i pluszów; estetyka „cute”.","Ogony":"Ukryte „tail” w znanym słowie, czyli gra słów dla nowej marki.","Łapki":"„Paws” obejmuje psy, koty i gryzonie; uwaga na polskie „paw”.","Dzikie":"Język właścicieli z internetu (zoomies, boop) i natura zwierzaka.","Tech":"Pet tech rośnie ok. 12% rocznie (GMI 2025)."};
+const cats=["Wszystkie",...new Set(D.map(d=>d[2]))];
+const W=[.2,.2,.2,.1,.1,.2];
+const data=D.map((d,i)=>({num:i+1,name:d[0],pron:d[1],cat:d[2],s:d[3],icon:d[4],font:d[5],col:d[6],why:d[7],logo:d[8],slogan:d[9],risk:d[10],score:Math.round(d[3].reduce((a,v,j)=>a+v*W[j],0)*10)}));
+const esc=s=>String(s).replace(/[<>]/g,c=>({'<':'&lt;','>':'&gt;'}[c]));
+function logoHTML(d,size){
+  const [c1,bg]=d.col;
+  return `<div class="logo" style="background:${bg}"><svg viewBox="0 0 24 24" fill="${c1}" aria-hidden="true" style="color:${c1}">${ICONS[d.icon]||ICONS.paw}</svg><span class="wm" style="font-family:${FONTS[d.font]};color:${c1}${size?';font-size:'+size+'px':''}">${esc(d.name)}</span></div>`;
+}
+const LB=["Zrozumiałość PL","Skojarzenie","Zapamiętywalność","Brzmienie","Unikalność","Kreatywność"];
+function card(d){
+  return `<article class="card" id="n${d.num}">${logoHTML(d)}<div class="body">
+  <div class="top"><span class="num">#${d.num}</span><span class="cat">${d.cat}</span></div>
+  <div class="top"><div><h3 class="name">${esc(d.name)}</h3><div class="pron">czyt. „${d.pron}”</div></div><div class="score">${d.score}<small>/100</small></div></div>
+  <div class="meters">${d.s.map((v,i)=>`<span class="lbl">${LB[i]}</span><span class="bar"><i style="width:${v*10}%"></i></span><span>${v}</span>`).join("")}</div>
+  <p class="sec"><b>Dlaczego ta nazwa</b>${d.why}</p>
+  <p class="sec"><b>Pomysł na logo</b>${d.logo}</p>
+  <div class="sw"><span style="background:${d.col[0]}"></span><span style="background:${d.col[1]}"></span>${d.col[0]} · ${d.col[1]}</div>
+  <p class="sec slogan"><b>Slogan</b>${d.slogan}</p>
+  <p class="sec"><b>Na czym oparte</b>${INS[d.cat]||""}</p>
+  <p class="sec risk"><b>Ryzyko / uwaga</b>${d.risk}</p>
+  ${avail(d)}
+  </div></article>`;
+}
+// top 10
+const top10=[...data].filter(d=>okDom(d.name)&&TM[d.name]&&RISKOK(TM[d.name][0])).sort((a,b)=>b.score-a.score||a.num-b.num).slice(0,10);
+document.getElementById("podium").innerHTML=top10.map((d,i)=>`<div class="pod" data-n="${d.num}"><span class="rank">${i+1}.</span>${logoHTML(d,22)}<div style="margin-top:8px;font-weight:800">${esc(d.name)} <span style="color:var(--accent)">${d.score}</span></div><div style="font-size:13px;color:var(--muted)">${d.cat} · „${d.pron}”</div></div>`).join("");
+document.querySelectorAll(".pod").forEach(p=>p.onclick=()=>{state.cat="Wszystkie";state.q="";q.value="";render();document.getElementById("n"+p.dataset.n).scrollIntoView({behavior:"smooth",block:"center"})});
+
+const state={cat:"Wszystkie",q:"",sort:"score"};
+const chips=document.getElementById("chips"),q=document.getElementById("q"),sort=document.getElementById("sort");
+chips.innerHTML=cats.map(c=>`<button class="chipbtn" data-c="${c}">${c}</button>`).join("");
+chips.onclick=e=>{const b=e.target.closest("button");if(!b)return;state.cat=b.dataset.c;render()};
+q.oninput=()=>{state.q=q.value.toLowerCase();render()};
+sort.onchange=()=>{state.sort=sort.value;render()};
+document.getElementById("onlyfree").onchange=e=>{state.free=e.target.checked;render()};
+function render(){
+  let r=data.filter(d=>(!state.free||okDom(d.name))&&(state.cat==="Wszystkie"||d.cat===state.cat)&&(!state.q||(d.name+" "+d.why+" "+d.cat).toLowerCase().includes(state.q)));
+  const k=state.sort;
+  r.sort((a,b)=>k==="num"?a.num-b.num:k==="az"?a.name.localeCompare(b.name):k==="c"?b.s[0]-a.s[0]||b.score-a.score:k==="m"?b.s[2]-a.s[2]||b.score-a.score:b.score-a.score||a.num-b.num);
+  document.getElementById("cards").innerHTML=r.map(card).join("");
+  document.getElementById("count").textContent=`${r.length} z ${data.length}`;
+  chips.querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.c===state.cat));
+}
+render();
+// theme toggle
+document.getElementById("themeBtn").onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark"};
+</script>
+</body>
+</html>
