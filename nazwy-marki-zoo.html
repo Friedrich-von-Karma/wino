@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>100 nazw dla marki zoologicznej</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Nunito:wght@400;600;800&family=DM+Serif+Display&family=Pacifico&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF7F2; --surface:#FFFFFF; --surface2:#F3ECE3; --text:#2A2420; --muted:#6E645B;
+  --line:#E6DCD0; --accent:#E8643C; --accent2:#2F7D6D; --good:#2F7D6D; --warn:#C2410C; --chip:#F6E7DC;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1A1715; --surface:#24201D; --surface2:#2E2925; --text:#F2ECE6; --muted:#B3A89D;
+    --line:#3B3430; --accent:#FF8A5C; --accent2:#5CC2AD; --good:#5CC2AD; --warn:#FF9D6B; --chip:#3A2F28;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1A1715; --surface:#24201D; --surface2:#2E2925; --text:#F2ECE6; --muted:#B3A89D;
+  --line:#3B3430; --accent:#FF8A5C; --accent2:#5CC2AD; --good:#5CC2AD; --warn:#FF9D6B; --chip:#3A2F28;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 Nunito,system-ui,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header.hero{padding:48px 0 28px}
+.eyebrow{font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:12px;color:var(--accent)}
+h1{font-family:Fredoka,sans-serif;font-size:clamp(32px,6vw,56px);line-height:1.05;margin:8px 0 14px}
+h2{font-family:Fredoka,sans-serif;font-size:clamp(24px,4vw,34px);margin:48px 0 8px}
+h3{margin:0 0 6px}
+.lead{font-size:18px;color:var(--muted);max-width:760px}
+.grid{display:grid;gap:14px}
+.facts{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+.fact b.big{display:block;font-family:Fredoka,sans-serif;font-size:30px;color:var(--accent);line-height:1.1}
+.fact p{margin:6px 0 0;font-size:14px;color:var(--muted)}
+.fact a{color:var(--accent2);font-size:12px}
+.rules{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.rule{background:var(--surface2);border-radius:16px;padding:16px}
+.rule h3{font-size:17px}
+.rule p{margin:0;font-size:14.5px}
+.note{background:var(--chip);border-radius:14px;padding:14px 16px;font-size:14.5px;margin-top:14px}
+.note b{color:var(--warn)}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+
+/* podium */
+.podium{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.pod{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;position:relative;cursor:pointer}
+.pod .rank{position:absolute;top:10px;right:12px;font-family:Fredoka;font-weight:700;color:var(--muted)}
+
+/* controls */
+.controls{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.controls input,.controls select{font:inherit;padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text)}
+.controls input{flex:1 1 200px;min-width:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;width:100%}
+.chipbtn{font:inherit;font-size:13px;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer}
+.chipbtn.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.count{font-size:13px;color:var(--muted);margin-left:auto}
+
+/* cards */
+.cards{grid-template-columns:repeat(auto-fill,minmax(310px,1fr));margin:18px 0 40px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+.logo{height:130px;display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;text-align:center}
+.logo svg{width:44px;height:44px;flex:none}
+.logo .wm{font-size:30px;line-height:1.05;word-break:break-word}
+.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.num{color:var(--muted);font-size:13px;font-weight:700}
+.cat{font-size:12px;background:var(--chip);border-radius:999px;padding:3px 9px;white-space:nowrap}
+.name{font-family:Fredoka;font-size:22px;font-weight:700;margin:0}
+.pron{font-size:13px;color:var(--muted)}
+.score{font-family:Fredoka;font-weight:700;font-size:22px;color:var(--accent)}
+.score small{font-size:12px;color:var(--muted);font-weight:500}
+.meters{display:grid;grid-template-columns:auto 1fr auto;gap:3px 8px;font-size:12px;align-items:center}
+.bar{height:6px;background:var(--surface2);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent2);border-radius:6px}
+.lbl{color:var(--muted)}
+.sec{font-size:14.5px;margin:0}
+.sec b{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:1px}
+.slogan{font-style:italic}
+.risk{font-size:13px;color:var(--warn)}
+.sw{display:flex;gap:4px;align-items:center;font-size:12px;color:var(--muted)}
+.sw span{width:16px;height:16px;border-radius:5px;border:1px solid var(--line)}
+footer{padding:30px 0 60px;color:var(--muted);font-size:14px}
+ol.src{padding-left:20px;font-size:14px}
+ol.src li{margin:4px 0}
+ol.src a{color:var(--accent2);word-break:break-word}
+.theme{position:fixed;right:14px;bottom:14px;z-index:9;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:999px;padding:8px 12px;font:inherit;font-size:13px;cursor:pointer}
+@media (max-width:520px){.controls{position:static}.cards{grid-template-columns:1fr}.logo .wm{font-size:26px}}
+</style>
+</head>
+<body>
+<button class="theme" id="themeBtn" aria-label="Zmień motyw">◐ motyw</button>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Naming · marka zoologiczna · listopad 2026</div>
+  <h1>100 nazw dla sklepu ze wszystkim dla zwierząt</h1>
+  <p class="lead">Legowiska, miski, smycze, zabawki, elektronika, ubranka, maty i akcesoria. Każda nazwa jest po angielsku, od razu kojarzy się ze zwierzętami i opiera się na słowach, które przeciętny Polak zna ze szkoły, internetu albo popkultury. Przy każdej jest uzasadnienie, pomysł na logo, kolory, slogan i ryzyka.</p>
+</header>
+
+<h2>1. Na czym to jest oparte</h2>
+<p class="lead">Dane rynkowe i badania z lat 2025–2026 oraz klasyczne badania psycholingwistyczne nad nazwami marek (tam, gdzie nowszych brak).</p>
+<div class="grid facts">
+  <div class="fact"><b class="big">≈ 9,6 mld zł</b>Wartość polskiego rynku produktów dla zwierząt w 2025 r.; prognoza ok. 13 mld zł w 2029.<p>Rynek rośnie szybko, więc nazwa musi pomieścić szeroką ofertę, nie tylko jedną kategorię.</p><a href="https://www.tvp.info/89748255/polski-rynek-zoologiczny-bije-rekordy-wartosc-zbliza-sie-do-10-miliardow-zlotych" target="_blank" rel="noopener">TVP Info</a></div>
+  <div class="fact"><b class="big">68%</b>osób mieszka z pupilem (sondaż Otodom 2025). OC&amp;C: ok. 60% gospodarstw ma psa, kota lub inne zwierzę.<p>Psy i koty dominują, więc nazwa powinna obejmować oba gatunki albo być neutralna („pet”).</p><a href="https://oko.press/zwierzeta-w-domu-maja-wplyw-na-dzieci-odpowiedz-jest-zaskakujaca" target="_blank" rel="noopener">OKO.press</a> · <a href="https://www.pap.pl/mediaroom/occ-polacy-maja-coraz-wiecej-psow-i-kotow-rynek-karmy-i-akcesoriow-czeka-dynamiczny" target="_blank" rel="noopener">PAP / OC&amp;C</a></div>
+  <div class="fact"><b class="big">20–30%</b>zakupów zoologicznych w Polsce odbywa się online (Euromonitor/ECDB: 20–25%, OC&amp;C: blisko 30%). Wolt, maj 2026: +26% zamówień.<p>Nazwa musi dobrze działać jako domena, @handle i fraza wpisywana w wyszukiwarkę: krótko, bez trudnej pisowni.</p><a href="https://ecdb.com/resources/sample-data/market/pl/pet-supplies" target="_blank" rel="noopener">ECDB</a> · <a href="https://www.wiadomoscihandlowe.pl/e-commerce-i-e-grocery/rynek-zoologiczny-w-polsce-2026-wzrost-e-commerce-o-26-2535084" target="_blank" rel="noopener">Wiadomości Handlowe</a></div>
+  <div class="fact"><b class="big">#15 / 600 pkt</b>Polska w EF English Proficiency Index 2025 (wysoka biegłość). Czytanie 612 pkt, mówienie tylko 518.<p>Polacy dobrze rozumieją angielski na piśmie, gorzej z wymową. Nazwa musi być łatwa do przeczytania i do powiedzenia na głos.</p><a href="https://www.ef.com/assetscdn/WIBIwq6RdJvcD9bc8RMd/cefcom-epi-site/fact-sheets/2025/ef-epi-fact-sheet-poland-english.pdf" target="_blank" rel="noopener">EF EPI 2025 – Polska</a></div>
+  <div class="fact"><b class="big">$158 mld</b>Wydatki na zwierzęta w USA w 2025 (+3,7%), prognoza $165 mld w 2026 (APPA). Główne trendy to humanizacja i dbanie o zdrowie zwierząt.<p>Zwierzę to członek rodziny, więc dobrze działają słowa emocjonalne: love, hug, family, joy, home.</p><a href="https://www.accessnewswire.com/newsroom/en/business-and-professional-services/u.s.-pet-industry-reaches-158-billion-in-2025-poised-for-continu-1165595" target="_blank" rel="noopener">APPA 2026</a> · <a href="https://americanpetproducts.org/news/the-american-pet-products-association-appa-releases-2025-dog-cat-report" target="_blank" rel="noopener">APPA Dog &amp; Cat 2025</a></div>
+  <div class="fact"><b class="big">33%</b>właścicieli zwierząt w USA to millenialsi; to oni razem z Gen Z napędzają humanizację. Chewy 2025: „Pets – they're just like us”.<p>Ton nazwy może być ciepły i lekko zabawny. Język internetu („doggo”, „fluffy”) jest dla tej grupy zrozumiały.</p><a href="https://dallasexpress.com/national/pet-humanization-millennials-and-gen-z-turn-pets-into-family-fueling-pet-boom/" target="_blank" rel="noopener">Dallas Express</a> · <a href="https://www.chewy.com/education/pet-trend-report" target="_blank" rel="noopener">Chewy Trend Report</a></div>
+</div>
+
+<h2>2. Zasady, które z tego wynikają</h2>
+<div class="grid rules">
+  <div class="rule"><h3>🗣️ Płynność przetwarzania</h3><p>Nazwy łatwe do wymówienia są oceniane jako bardziej wiarygodne (Current Psychology, 2024/2025) i budują silniejszą więź z marką (Psychology &amp; Marketing, 2024). Stąd: 1–3 sylaby i żadnych „th”, „ough” ani cichych liter.</p></div>
+  <div class="rule"><h3>🔤 Symbolika dźwięku</h3><p>Nazwy zgodne z „regułami” symboliki dźwięku są lepiej zapamiętywane (przegląd Motoki i in., 2022). Samogłoski przednie (i, e) brzmią lekko i uroczo, np. Kitty, Petsy. Tylne (o, u) brzmią solidnie i ciepło, np. Woof, Cozy. Spółgłoski zwarte (p, b, k, t) dodają energii.</p></div>
+  <div class="rule"><h3>🔁 Rytm i powtórzenia</h3><p>Aliteracja (Pet Pals, Paw Pal), rym i reduplikacja (Woof Woof) poprawiają zapamiętywanie. Pomaga też zgodność nazwy z kategorią produktu (Allen i in.).</p></div>
+  <div class="rule"><h3>🇵🇱 Słowa z „polskiego angielskiego”</h3><p>Bezpieczne słowa: pet, dog, cat, happy, love, home, club, star, kitty, puppy, smile, family, best. Średnio znane: paw, tail, fluffy, cozy, buddy, woof. Unikam słów rzadkich, np. snuggle, wag, purr.</p></div>
+  <div class="rule"><h3>⚠️ Pułapki w polszczyźnie</h3><p><b>„Paw”</b> po polsku to ptak, a „puścić pawia” znaczy zwymiotować. Dlatego nazwy z „Paw” mają niższą ocenę brzmienia. <b>„Pet”</b> potocznie znaczy niedopałek, ale w kontekście zoologicznym to ryzyko marginalne (rynek już je oswoił).</p></div>
+  <div class="rule"><h3>🧺 Szeroka oferta</h3><p>Sprzedajesz wszystko, od legowisk po elektronikę, więc nazwa nie może zamykać marki w jednej kategorii (np. „Bone”, „Toy”). Najlepiej sprawdza się emocja lub zwierzę plus słowo ogólne.</p></div>
+</div>
+<div class="note"><b>Uczciwie o metodzie:</b> dane rynkowe i językowe pochodzą ze źródeł podanych wyżej. Recenzowanych badań z 2025–2026 dotyczących konkretnie nazw marek jest niewiele, dlatego zasady łączą nowe publikacje z ugruntowanymi badaniami. <b>Oceny punktowe przy nazwach to ekspercka ocena według tych kryteriów, nie wynik ankiety.</b> Na końcu jest prosty plan, jak zweryfikować finałową trójkę na prawdziwych ludziach w tydzień.</div>
+
+<h2>3. Jak liczona jest ocena (0–100)</h2>
+<div class="tablewrap"><table>
+<tr><th>Kryterium</th><th>Waga</th><th>Co mierzy</th></tr>
+<tr><td><b>Zrozumiałość PL</b></td><td>25%</td><td>Czy przeciętny Polak (EF EPI: dobre czytanie, słabsza wymowa) zrozumie wszystkie słowa</td></tr>
+<tr><td><b>Skojarzenie ze zwierzętami</b></td><td>25%</td><td>Czy od pierwszej sekundy wiadomo, że chodzi o zwierzęta. Nazwy tylko „psie” albo tylko „kocie” tracą 2 pkt, bo sklep jest dla wszystkich zwierząt (ale świetnie nadają się na linie produktów)</td></tr>
+<tr><td><b>Zapamiętywalność</b></td><td>20%</td><td>Długość, rytm, aliteracja, obrazowość, symbolika dźwięku</td></tr>
+<tr><td><b>Brzmienie</b></td><td>15%</td><td>Jak brzmi wypowiedziane przez Polaka; brak niechcianych polskich skojarzeń</td></tr>
+<tr><td><b>Unikalność</b></td><td>15%</td><td>Wstępna ocena ryzyka kolizji z istniejącymi markami (do potwierdzenia w EUIPO/UPRP)</td></tr>
+</table></div>
+
+<h2>4. Top 10 według oceny</h2>
+<p class="lead">Kliknij, żeby przejść do karty z pełnym opisem.</p>
+<div class="grid podium" id="podium"></div>
+
+<h2>5. Wszystkie 100 propozycji</h2>
+<div class="controls">
+  <input id="q" type="search" placeholder="Szukaj nazwy lub słowa…" aria-label="Szukaj">
+  <select id="sort" aria-label="Sortuj">
+    <option value="score">Sortuj: ocena</option>
+    <option value="num">Sortuj: numer</option>
+    <option value="c">Sortuj: zrozumiałość</option>
+    <option value="m">Sortuj: zapamiętywalność</option>
+    <option value="az">Sortuj: A–Z</option>
+  </select>
+  <span class="count" id="count"></span>
+  <div class="chips" id="chips"></div>
+</div>
+<div class="grid cards" id="cards"></div>
+
+<h2>6. Odrzucone, bo już zajęte lub ryzykowne</h2>
+<div class="tablewrap"><table>
+<tr><th>Nazwa</th><th>Dlaczego nie</th></tr>
+<tr><td>Happy Dog / Happy Cat</td><td>Istniejące marki karmy (Interquell, Niemcy), mocno obecne w Polsce</td></tr>
+<tr><td>Petlove</td><td>Duży sklep zoologiczny online w Brazylii</td></tr>
+<tr><td>Four Paws</td><td>Międzynarodowa organizacja prozwierzęca (Vier Pfoten)</td></tr>
+<tr><td>Good Boy</td><td>Brytyjska marka przysmaków dla psów</td></tr>
+<tr><td>PetLab</td><td>PetLab Co. – suplementy dla zwierząt</td></tr>
+<tr><td>Pet Corner / Pet Planet / Super Pet</td><td>Istniejące sieci lub marki zoologiczne (UK, NZ, USA)</td></tr>
+<tr><td>BarkBox, Wild One, Kong, Chewy</td><td>Znane globalne marki z branży</td></tr>
+<tr><td>Doggy Style</td><td>Oczywiste skojarzenie seksualne. Takie nazwy bywają zgłaszane, ale nie warto</td></tr>
+<tr><td>Furever, Purrfect</td><td>Gra słów nieczytelna dla większości Polaków (furry, purr)</td></tr>
+</table></div>
+
+<h2>7. Jak zweryfikować finałową trójkę w tydzień</h2>
+<div class="grid rules">
+  <div class="rule"><h3>1. Test 5 sekund</h3><p>Pokaż 50–100 osobom (ankieta na Instagramie lub w Google Forms) samą nazwę przez 5 sekund. Zapytaj: „Co ta firma sprzedaje?”. Cel: ponad 80% odpowiedzi „rzeczy dla zwierząt”.</p></div>
+  <div class="rule"><h3>2. Test przypomnienia</h3><p>Następnego dnia zapytaj te same osoby, jakie nazwy pamiętają. Wygrywa nazwa, którą pamięta najwięcej osób.</p></div>
+  <div class="rule"><h3>3. Test wymowy</h3><p>Poproś 10 osób o nagranie, jak czytają nazwę. Jeśli powstają trzy różne wymowy, nazwa odpada.</p></div>
+  <div class="rule"><h3>4. Sprawdzenie prawne i domen</h3><p>Szukaj w EUIPO (TMview) i UPRP w klasach 18 (smycze, obroże), 20 (legowiska), 21 (miski), 28 (zabawki), 9 (elektronika) i 35 (sklep). Do tego domeny .pl i .com oraz @ na Instagramie i TikToku.</p></div>
+</div>
+
+<h2>Źródła</h2>
+<ol class="src">
+  <li><a href="https://www.tvp.info/89748255/polski-rynek-zoologiczny-bije-rekordy-wartosc-zbliza-sie-do-10-miliardow-zlotych" target="_blank" rel="noopener">TVP Info – polski rynek zoologiczny bije rekordy (2025)</a></li>
+  <li><a href="https://bezprawnik.pl/polacy-wydaja-miliardy-na-psy-i-koty/" target="_blank" rel="noopener">Bezprawnik – rynek karmy dla psów i kotów 2025</a></li>
+  <li><a href="https://www.pap.pl/mediaroom/occ-polacy-maja-coraz-wiecej-psow-i-kotow-rynek-karmy-i-akcesoriow-czeka-dynamiczny" target="_blank" rel="noopener">PAP / OC&amp;C – Polacy mają coraz więcej psów i kotów</a></li>
+  <li><a href="https://oko.press/zwierzeta-w-domu-maja-wplyw-na-dzieci-odpowiedz-jest-zaskakujaca" target="_blank" rel="noopener">OKO.press – sondaż Otodom 2025 (68% mieszka z pupilem)</a></li>
+  <li><a href="https://ecdb.com/resources/sample-data/market/pl/pet-supplies" target="_blank" rel="noopener">ECDB – Pet Supplies e-commerce in Poland</a></li>
+  <li><a href="https://www.wiadomoscihandlowe.pl/e-commerce-i-e-grocery/rynek-zoologiczny-w-polsce-2026-wzrost-e-commerce-o-26-2535084" target="_blank" rel="noopener">Wiadomości Handlowe – rynek zoologiczny 2026, e-commerce +26%</a></li>
+  <li><a href="https://www.wiadomoscihandlowe.pl/handel-i-dystrybucja/handel-detaliczny/maxi-zoo-przyspiesza-siec-chce-miec-270-sklepow-do-2029-r-2536009" target="_blank" rel="noopener">Wiadomości Handlowe – Maxi Zoo przyspiesza (2026)</a></li>
+  <li><a href="https://www.ef.com/assetscdn/WIBIwq6RdJvcD9bc8RMd/cefcom-epi-site/fact-sheets/2025/ef-epi-fact-sheet-poland-english.pdf" target="_blank" rel="noopener">EF English Proficiency Index 2025 – Poland fact sheet</a></li>
+  <li><a href="https://www.accessnewswire.com/newsroom/en/business-and-professional-services/u.s.-pet-industry-reaches-158-billion-in-2025-poised-for-continu-1165595" target="_blank" rel="noopener">APPA – U.S. Pet Industry Reaches $158 Billion in 2025</a></li>
+  <li><a href="https://americanpetproducts.org/news/the-american-pet-products-association-appa-releases-2025-dog-cat-report" target="_blank" rel="noopener">APPA – 2025 Dog &amp; Cat Report</a></li>
+  <li><a href="https://www.chewy.com/education/pet-trend-report" target="_blank" rel="noopener">Chewy – 2025 Pet Trend Report</a></li>
+  <li><a href="https://dallasexpress.com/national/pet-humanization-millennials-and-gen-z-turn-pets-into-family-fueling-pet-boom/" target="_blank" rel="noopener">Dallas Express – humanizacja zwierząt, millenialsi i Gen Z</a></li>
+  <li><a href="https://members.petfoodinstitute.org/news/719826/Humanization-preventative-care-among-trends-driving-pet-owner-purchasing.htm" target="_blank" rel="noopener">Pet Food Institute – Innova 2025: humanizacja i profilaktyka</a></li>
+  <li><a href="https://www.nominus.com/blog/domain-name-for-the-science-of-brand-recall" target="_blank" rel="noopener">Nominus – przegląd badań nad zapamiętywaniem nazw (Current Psychology 2024/25, Psychology &amp; Marketing 2024, Motoki i in. 2022)</a></li>
+  <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5318481" target="_blank" rel="noopener">PMC – symbolika dźwięku a zapamiętywanie nazw marek</a></li>
+  <li><a href="https://orca.cardiff.ac.uk/27449" target="_blank" rel="noopener">Doyle &amp; Bottomley – sound symbolism in brand names (Cardiff)</a></li>
+  <li><a href="https://cordis.europa.eu/article/id/175272-whats-in-a-brand-name" target="_blank" rel="noopener">CORDIS / FLUENTBRAND – What's in a brand name</a></li>
+</ol>
+
+<footer>Przygotowane w listopadzie 2026. Przed rejestracją sprawdź znaki towarowe (EUIPO, UPRP) i dostępność domen. Ta lista tego nie zastępuje.</footer>
+</div>
+
+<script>
+const ICONS={
+ paw:'<circle cx="6" cy="9" r="2.2"/><circle cx="10" cy="5.5" r="2.2"/><circle cx="14" cy="5.5" r="2.2"/><circle cx="18" cy="9" r="2.2"/><path d="M12 10.5c-3.2 0-6 4.2-6 6.6 0 1.9 1.4 2.9 3 2.9 1.2 0 2-.6 3-.6s1.8.6 3 .6c1.6 0 3-1 3-2.9 0-2.4-2.8-6.6-6-6.6z"/>',
+ heart:'<path d="M12 21s-7.2-4.6-9.6-9.1A5.4 5.4 0 0 1 12 6.2a5.4 5.4 0 0 1 9.6 5.7C19.2 16.4 12 21 12 21z"/>',
+ home:'<path d="M3 11.2 12 3.5l9 7.7V21h-6v-6H9v6H3z"/>',
+ star:'<path d="M12 2.5l2.9 6.2 6.8.8-5 4.7 1.3 6.8L12 17.6 6 21l1.3-6.8-5-4.7 6.8-.8z"/>',
+ bone:'<rect x="6" y="10" width="12" height="4" rx="1"/><circle cx="5.5" cy="9.3" r="2.6"/><circle cx="5.5" cy="14.7" r="2.6"/><circle cx="18.5" cy="9.3" r="2.6"/><circle cx="18.5" cy="14.7" r="2.6"/>',
+ cat:'<path d="M4 21V8.5L6.5 3l3.6 4.2h3.8L17.5 3 20 8.5V21z"/>',
+ dog:'<path d="M6.5 4C3.5 4 2 8 2 12c0 2 .9 3 2 3l1-1v3.5C5 20.6 8 23 12 23s7-2.4 7-5.5V14l1 1c1.1 0 2-1 2-3 0-4-1.5-8-4.5-8-2 0-3.2 1-3.7 2h-3.6C9.7 5 8.5 4 6.5 4z"/>',
+ cloud:'<path d="M7 19a5 5 0 0 1-.6-9.96A6 6 0 0 1 18 8.3 4.5 4.5 0 0 1 17.5 19z"/>',
+ ball:'<circle cx="12" cy="12" r="9.5"/>',
+ bubble:'<path d="M3 4h18v12H9.5L4 20.5V16H3z"/>',
+ crown:'<path d="M3 18.5 2 7l5.2 4L12 4l4.8 7L22 7l-1 11.5z"/>',
+ bolt:'<path d="M13.5 2 4 14h7l-1.5 8L20 10h-7z"/>',
+ sun:'<circle cx="12" cy="12" r="5.5"/><path d="M11 1h2v4h-2zM11 19h2v4h-2zM1 11h4v2H1zM19 11h4v2h-4zM3.5 5 5 3.5 7.8 6.3 6.3 7.8zM16.2 17.7l1.5-1.5 2.8 2.8-1.5 1.5zM3.5 19l2.8-2.8 1.5 1.5L5 20.5zM16.2 6.3 19 3.5l1.5 1.5-2.8 2.8z"/>',
+ smile:'<path d="M12 2.5a9.5 9.5 0 1 0 0 19 9.5 9.5 0 0 0 0-19zM8.5 8a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm7 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM7 14h10a5 5 0 0 1-10 0z"/>',
+ gift:'<path d="M3 8h18v4H3zM4.5 12h15v9h-15z"/><path d="M12 8C10 4 6 4 7 7M12 8c2-4 6-4 5-1" stroke-width="1.6" fill="none" stroke="currentColor"/>'
+};
+const FONTS={f:"'Fredoka',sans-serif;font-weight:700",n:"'Nunito',sans-serif;font-weight:800",d:"'DM Serif Display',serif",p:"'Pacifico',cursive",o:"'Poppins',sans-serif;font-weight:800"};
+
+// [nazwa, wymowa, kategoria, [zrozumiałość, skojarzenie, zapamiętywalność, brzmienie, unikalność], ikona, font, [kolor1, tło], dlaczego, logo, slogan, ryzyko]
+const D=[
+["Woof & Meow","łuf end miau","Psy & koty",[8,10,9,8,7],"bubble","f",["#E8643C","#FFF1E8"],"Dwa najbardziej rozpoznawalne dźwięki zwierząt w jednej nazwie. Od razu obejmuje psy i koty, czyli większość polskich pupili. „Meow” brzmi prawie jak polskie „miau”, więc rozumie je każdy.","Dwa dymki z komiksu zachodzące na siebie: pomarańczowy „Woof” i miętowy „Meow”, w środku znak &.","Every woof. Every meow.","„Woof” jest mniej znane niż „hau”, ale uczy się go już w podstawówce przy odgłosach zwierząt."],
+["Kitty & Puppy","kiti end papi","Psy & koty",[10,9,8,8,7],"heart","f",["#D9467A","#FFEFF5"],"„Kitty” każdy zna z Hello Kitty, „puppy” to jedno z pierwszych słów na angielskim. Nazwa jest ciepła i urocza, świetna do ubranek i zabawek.","Kot i szczeniak siedzący tyłem, ogony tworzą serce. Pastelowy róż i kremowy.","Small paws, big love.","Sugeruje młode zwierzęta, więc dla „poważnej” elektroniki może brzmieć zbyt dziecinnie."],
+["Doggo & Kitty","dogo end kiti","Psy & koty",[8,10,9,8,8],"dog","f",["#3B6FD8","#EEF3FF"],"„Doggo” to język memów, który millenialsi i Gen Z (główni właściciele zwierząt) dobrze znają. Połączone z „Kitty” daje młody, internetowy ton z humorem.","Szeroki wordmark, w którym dwa „g” mają opadające psie uszy, a nad „K” stoją kocie uszka.","Made for doggos & kitties.","Starsi klienci mogą nie znać słowa „doggo”."],
+["Pet Joy","pet dżoj","Emocje",[9,8,8,9,7],"smile","f",["#F08A24","#FFF4E6"],"Pet (zwierzak) + joy (radość). Dwie krótkie sylaby, rytm tak–tak. „Joy” Polacy znają m.in. z nazwy magazynu. Pasuje do każdej kategorii produktów.","Kropka nad „j” zamieniona w odcisk łapki, uśmiech pod spodem jak w znaczku 🙂.","Every day, pet joy.","Słowo „joy” pojawia się w wielu markach, więc trzeba sprawdzić klasę 28 (zabawki)."],
+["Fluffy Club","flafi klab","Społeczność",[8,8,9,9,7],"cloud","f",["#7B61FF","#F3F0FF"],"„Fluffy” (puchaty) to słowo kultowe w internecie i dobrze znane młodszym Polakom. „Club” buduje społeczność i program lojalnościowy. Bardzo obrazowe.","Puchata chmurka z kocimi uszkami, liliowy na białym. Litery zaokrąglone jak futerko.","Join the fluffy side.","Dla właścicieli psów krótkowłosych lub gadów „fluffy” nie pasuje dosłownie."],
+["Pet Hug","pet hag","Emocje",[8,8,9,9,7],"heart","f",["#E14D5A","#FFF0F1"],"Krótko i ciepło. Przytulanie to sedno humanizacji zwierząt (APPA 2025). Pasuje szczególnie do legowisk, mat i ubranek.","Dwie łapki obejmujące serce, minimalistyczna kreska.","Every pet deserves a hug.","„Hug” zna większość, choć nie wszyscy. Dobrze zrozumiałe w połączeniu z grafiką."],
+["Pet Pals","pet pals","Społeczność",[7,8,9,9,6],"paw","n",["#2F7D6D","#E9F6F2"],"Aliteracja P–P bardzo ułatwia zapamiętanie. „Pal” znaczy kumpel. Przyjazna, kumpelska nazwa.","Dwie łapki „przybijające piątkę”, zieleń morska.","Your pet's best pals.","„Pal” jest mniej znane niż „friend”. Nazwa występuje w kilku krajach, sprawdź EUIPO."],
+["Happy Pet Club","hepi pet klab","Społeczność",[10,9,7,8,5],"smile","n",["#F2B705","#FFF8E1"],"Trzy najprostsze słowa, jakie zna każdy Polak. Gotowa nazwa programu lojalnościowego („Klub”).","Uśmiechnięta buzia w kształcie łapki, żółty jak słońce.","Happy pet, happy you.","Fraza „Happy Pet” jest popularna, więc łatwo o kolizję w Google. Trzeba mocnego logo."],
+["Pet Star","pet star","Pet +",[10,9,8,8,5],"star","o",["#F5A623","#1F2340"],"Każdy zwierzak to gwiazda. Krótko, dźwięcznie, świetnie wygląda jako domena i hashtag (#petstar).","Gwiazdka z pięcioma ramionami, w której jedno ramię ma kształt ogona. Złoto na granacie.","Every pet is a star.","Popularne słowo, mogą istnieć lokalne sklepy o tej nazwie."],
+["Hello Pet","helou pet","Pet +",[10,9,8,9,6],"bubble","f",["#00A6A6","#E6F8F8"],"„Hello” to pierwsze angielskie słowo, jakie zna każdy. Nazwa brzmi jak powitanie nowego członka rodziny.","Dymek z „hello”, w którym kropka nad „i” to nos psa.","Say hello to happy.","Bliskość do „Hello Kitty” to raczej plus skojarzeniowy, ale unikaj podobnej czcionki i kokardki."],
+["Pet Smile","pet smajl","Emocje",[10,8,8,8,6],"smile","n",["#FF7043","#FFF1EC"],"Prosty przekaz: produkty, które sprawiają, że zwierzę (i właściciel) się uśmiecha. „Smile” zna każdy.","Linia uśmiechu zakończona łapką zamiast kreski.","Made to make them smile.","Generyczne. Kluczowe będzie charakterystyczne logo."],
+["Pet Family","pet femili","Emocje",[10,8,6,7,5],"home","n",["#5B8C5A","#EEF5EC"],"Odwołuje się wprost do humanizacji: zwierzę jako członek rodziny. Zrozumiałe dla wszystkich pokoleń.","Domek, w którego dachu siedzą sylwetki psa, kota i człowieka.","Because they're family.","Długie (4 sylaby), mniej zapamiętywalne. Popularna fraza."],
+["Pet & Me","pet end mi","Emocje",[10,8,8,8,6],"heart","d",["#9C4F96","#F8EEF7"],"Relacja „ja i mój zwierzak” w trzech słowach. Elegancko i osobiście. Dobre do ubranek „twinning” (właściciel + pies).","Serif „Pet & Me”, gdzie & jest spleciony z ogonem kota.","Pet &amp; me, made to match.","Znak & bywa wymawiany różnie (end / and / i). W domenie: petandme."],
+["Cozy Pet","kołzi pet","Dom & komfort",[7,8,8,8,6],"cloud","f",["#B5651D","#FBF1E6"],"„Cozy” to modne słowo z trendu „cozy home”. Idealne dla legowisk, mat i ubranek, czyli najważniejszych kategorii.","Zwinięty w kłębek kot tworzący literę „C”, ciepły karmel.","Cozy is a lifestyle.","Słowo średnio znane starszym, pisownia „cozy”/„cosy” bywa myląca."],
+["Pet Nest","pet nest","Dom & komfort",[6,7,7,8,7],"home","d",["#6D5A4C","#F4EFEA"],"Gniazdo jako symbol bezpieczeństwa i domu. Krótko, zgrabnie, premium.","Okrągłe gniazdo z linii, w środku łapka.","Home starts here.","„Nest” znają nie wszyscy (Google Nest pomaga). Jest też marka Nest od Google, więc unikaj elektroniki pod tą nazwą."],
+["Pet Home","pet hołm","Dom & komfort",[10,8,6,7,3],"home","n",["#3D7A9E","#EAF4FA"],"Najbardziej czytelna nazwa ze wszystkich: dom dla zwierzaka. Dobra przy nacisku na legowiska i maty.","Dach domu jako odwrócona litera V nad łapką.","Everything for a pet at home.","Bardzo generyczne. Trudne do zastrzeżenia i do wypozycjonowania w Google."],
+["Lucky Pet","laki pet","Pet +",[9,8,8,8,6],"star","o",["#2E9E5B","#EAF7EF"],"„Lucky” zna każdy (Lucky Strike, Lucky Luke). Pozytywna energia: szczęśliwy ten, kto ma zwierzaka.","Czterolistna koniczyna z czterech serc ułożonych jak łapka.","Lucky to have you.","Możliwe istniejące sklepy „Lucky Pet” lokalnie."],
+["Pet Hero","pet hirou","Pet +",[9,8,8,8,6],"bolt","o",["#D7263D","#FDECEE"],"Zwierzak jako bohater. Mocna, energetyczna nazwa, dobra do zabawek i elektroniki (GPS, kamery).","Pies w pelerynie superbohatera, sylwetka w czerwieni.","Gear for everyday heroes.","Wymowa „hirou” bywa różna („hero” po polsku)."],
+["Pet Party","pet parti","Zabawa",[10,8,8,8,6],"gift","f",["#FF4FA3","#FFF0F8"],"Aliteracja P–P, czysta radość. Mocno pod zabawki, gadżety i urodziny pupili (trend z social mediów).","Konfetti w kształcie kostek i łapek, różowo-żółte.","Every day is a pet party.","Mniej pasuje do „poważnych” kategorii (elektronika, zdrowie)."],
+["Pet Spot","pet spot","Pet +",[9,7,8,8,6],"paw","o",["#1E88E5","#E8F3FD"],"Spot to miejsce, ale też klasyczne imię psa (Spot). Krótko i rytmicznie.","Kropla/łata jak na dalmatyńczyku z literami w środku.","Your pet's favorite spot.","„Spot” to też nazwa robota Boston Dynamics, ale to nie ta branża."],
+["Pet Land","pet lend","Pet +",[10,8,7,7,4],"sun","n",["#43A047","#EDF7EE"],"Kraina zwierzaków, sugeruje dużo asortymentu („wszystko w jednym”).","Pagórek ze słońcem, na którym biegną pies i kot.","A land of everything pets.","Wiele firm na świecie nosi tę nazwę."],
+["Pet Kingdom","pet kingdom","Pet +",[9,8,7,7,5],"crown","d",["#6A1B9A","#F4ECF8"],"Zwierzak jako król. Pasuje do koncepcji „wszystko dla zwierząt” jako dużego sklepu.","Korona z trzema zębami zakończonymi pazurkami.","Where every pet rules.","Dłuższe, 3 sylaby. Popularne wśród sklepów w UK i USA."],
+["Pet Story","pet stori","Pet +",[10,7,7,8,6],"bubble","d",["#8D6E63","#F5EFEC"],"„Story” kojarzy się z Instagram Stories, a każdy zwierzak ma swoją historię. Dobra pod content marketing.","Otwarta książka, której strony tworzą uszy psa.","Every pet has a story.","Słabsze natychmiastowe skojarzenie z produktami."],
+["Pet Style","pet stajl","Moda",[10,7,7,8,6],"star","d",["#212121","#F2F2F2"],"Mocno pod ubranka i akcesoria. „Style” jest dla Polaka jasne.","Elegancki serif, nad „y” mały wieszak w kształcie kości.","Style for every tail.","Sugeruje modę, ale nie elektronikę."],
+["Pet Mood","pet mud","Emocje",[8,7,8,8,7],"smile","o",["#00897B","#E6F5F3"],"„Mood” to słowo z języka internetu (mood, vibe). Nowoczesne, krótkie.","Trzy minki-łapki: zła, neutralna, uśmiechnięta (ta podświetlona).","Good mood for good pets.","Polacy mogą czytać „mod” zamiast „mud”."],
+["Pet Vibes","pet wajbs","Emocje",[8,7,8,8,7],"sun","f",["#FF8F00","#FFF5E5"],"„Vibes” to słowo Gen Z, kojarzy się z dobrą energią. Bardzo „instagramowe”.","Słoneczko, którego promienie to falujące ogony.","Only good pet vibes.","Może się szybko zestarzeć jak każdy slang."],
+["Pet Gang","pet geng","Społeczność",[8,7,8,7,7],"paw","o",["#37474F","#ECEFF1"],"Zabawny, młodzieżowy klimat: twój zwierzak i jego ekipa. Dobre do social mediów.","Trzy łapki ułożone jak plemienny symbol, czerń i neon.","Join the gang.","„Gang” ma też negatywne znaczenie, choć w tym kontekście żartobliwe."],
+["My Pet Life","maj pet lajf","Emocje",[10,8,6,7,6],"heart","n",["#C2185B","#FCEAF1"],"Bardzo prosty, osobisty komunikat. Rozumie każdy.","Napis odręczny, „i” w „Life” z serduszkiem.","Life is better with a pet.","Trzy słowa, trudniej zapamiętać i skrócić."],
+["Pet Go","pet goł","Zabawa",[9,7,8,8,6],"bolt","o",["#00ACC1","#E5F7FA"],"Ruch, spacer, aktywność. Pasuje do smyczy, szelek, GPS-ów i zabawek. Dwa krótkie słowa, mocna energia.","Strzałka „play” z łapką, dynamiczny turkus.","Ready, set, pet go!","„Pokémon GO” może dawać skojarzenia, raczej pozytywne."],
+["Pet Play","pet plej","Zabawa",[10,7,8,8,5],"ball","f",["#F4511E","#FEEFEA"],"Aliteracja P–P, jasny przekaz dla zabawek. „Play” jest dla każdego zrozumiałe.","Piłka tenisowa z logiem „play” (trójkąt).","Play more, worry less.","Istnieje amerykańska marka P.L.A.Y. (Pet Lifestyle and You). Sprawdź kolizję."],
+["Pet Cloud","pet klaud","Dom & komfort",[9,7,8,8,7],"cloud","f",["#5C9CE6","#EEF5FD"],"Miękkość jak chmurka, idealne pod legowiska i maty. „Cloud” znamy z technologii, więc pasuje też do elektroniki.","Chmurka z drzemiącym kotem w środku.","Sleep on a cloud.","„Cloud” może kojarzyć się bardziej z IT niż ze zwierzętami."],
+["Pet Dream","pet drim","Dom & komfort",[10,7,7,8,6],"star","d",["#3F51B5","#EEF0FA"],"Spokojny sen zwierzaka. Dobra nazwa przy legowiskach premium.","Księżyc, na którym śpi pies, granat i złoto.","Sweet pet dreams.","Słabiej pasuje do zabawek i elektroniki."],
+["Pet Magic","pet medżik","Pet +",[10,7,8,8,6],"star","p",["#8E24AA","#F6EAF8"],"Magia więzi ze zwierzęciem. Zabawne i bajkowe, dobre dla rodzin z dziećmi.","Różdżka z gwiazdką w kształcie łapki.","A little pet magic.","Może kojarzyć się z „magicznymi” obietnicami produktów."],
+["Pet Heart","pet hart","Emocje",[9,8,7,8,6],"heart","d",["#C62828","#FCEBEB"],"Serce dla zwierząt. Prosta, szczera emocja. Można łączyć z akcją charytatywną (np. 1% dla schroniska).","Serce z odciskiem łapki w środku.","Made with heart.","Mniej oryginalna. Kluczowa jest identyfikacja wizualna."],
+["Pet Wow","pet łał","Zabawa",[9,7,9,8,7],"star","f",["#FF6D00","#FFF3E6"],"„Wow” to uniwersalne słowo. Krótko, z wykrzyknikiem emocji. Dobrze wygląda w logo i na pudełkach.","„Wow” z dwoma „o” jako oczy psa, „w” jako uśmiech.","Pet. Wow.","Brzmi lekko, może mniej pasować do kategorii premium."],
+["Pet Pixel","pet piksel","Tech",[9,6,8,8,8],"bolt","o",["#00BFA5","#0F1E2A"],"Linia elektroniki: kamery, karmniki, GPS. „Pixel” Polak zna z ekranów. Dobrze rozdzielić tę markę od reszty asortymentu.","Łapka zbudowana z kwadratowych pikseli, neon na ciemnym tle.","Smart tech for smart pets.","Słabe skojarzenie z legowiskami i ubrankami. Google Pixel to inna branża."],
+["Smart Pet","smart pet","Tech",[10,8,7,8,4],"bolt","o",["#1565C0","#E9F1FB"],"„Smart” każdy zna ze smartfona. Jasno komunikuje elektronikę.","Łapka z sygnałem Wi-Fi nad nią.","Smarter care, happier pets.","Bardzo generyczne. Wiele produktów nosi tę nazwę."],
+["Pet Gadget","pet gedżet","Tech",[9,7,8,7,7],"gift","o",["#455A64","#ECEFF1"],"„Gadżet” to słowo, które Polacy używają na co dzień. Szerokie: od zabawek po elektronikę.","Kość jako pendrive/wtyczka, techniczny szary i pomarańczowy akcent.","Cool gadgets for cool pets.","Może sugerować drobne gadżety, a nie legowiska."],
+["Pet Daily","pet dejli","Pet +",[8,7,7,8,6],"sun","n",["#F9A825","#FFF9E3"],"Codzienne potrzeby zwierzaka. Pasuje do subskrypcji (np. miesięczne paczki).","Kalendarz z łapką zamiast daty.","For every pet, every day.","„Daily” nie każdy zna. Brzmi bardziej jak usługa niż marka."],
+["Pet Basket","pet basket","Dom & komfort",[9,7,7,7,7],"home","n",["#A1887F","#F6F1EE"],"Kosz kojarzy się z legowiskiem oraz z koszykiem zakupów, co pasuje do sklepu online.","Wiklinowy koszyk, z którego wystaje ogon.","Fill the basket with love.","„Basket” może kojarzyć się z koszykówką."],
+["Pet Bubble","pet babl","Zabawa",[9,6,8,8,7],"bubble","f",["#26C6DA","#E8F9FB"],"Lekka, zabawna nazwa, kojarzy się z bańkami mydlanymi i radością.","Bańki mydlane ułożone w kształt łapki.","Life's better in the pet bubble.","Słabsze natychmiastowe skojarzenie ze zwierzętami."],
+["Pet Cookie","pet kuki","Zabawa",[9,7,8,8,7],"smile","f",["#A0522D","#FBF0E8"],"Słodkie i ciepłe. „Cookie” jest bardzo znane (również z ciasteczek na stronach).","Ciastko z ugryzieniem w kształcie paszczy psa.","Sweet stuff for sweet pets.","Sugeruje przysmaki lub karmę, której nie masz w ofercie."],
+["Pet One","pet łan","Pet +",[10,7,7,8,5],"star","o",["#212121","#FFEB3B"],"Numer jeden. Krótko, prosto, brzmi jak duża sieć.","Cyfra 1 z ogonem, czarno-żółta.","Number one for your pet.","Mało emocji. Mogą istnieć podobne nazwy."],
+["Pet City","pet siti","Pet +",[10,7,7,7,5],"home","o",["#0277BD","#E7F2F9"],"Miasto zwierzaków, duży wybór. Dobra pod sklep online z dużym asortymentem.","Skyline z budynków, gdzie jeden ma kształt budy, a drugi drapaka.","Your city of everything pet.","Generyczne, kojarzy się ze sklepem stacjonarnym."],
+["Pet Street","pet strit","Pet +",[9,7,7,7,6],"home","o",["#546E7A","#EEF1F3"],"Ulica pełna sklepów dla zwierząt, sugeruje bogatą ofertę.","Tabliczka z nazwą ulicy, w której zamiast numeru jest łapka.","The street where pets shop.","Spółgłoski „str” bywają trudne do wymówienia na początku."],
+["Pet Wonder","pet łander","Pet +",[8,7,7,8,7],"star","d",["#5E35B1","#F1EDF9"],"Zachwyt nad zwierzęciem. Lekko bajkowe brzmienie.","Gwiazda spadająca z ogonem w kształcie psiego ogona.","Wonderful things for pets.","Polacy mogą wymawiać „wonder” różnie."],
+["Pet Republic","pet ripablik","Społeczność",[9,7,7,7,5],"crown","o",["#B71C1C","#FBECEC"],"Republika zwierzaków, mocna, „marka-ruch”. Dobra pod społeczność i kolekcje.","Herb/tarcza z łapką i dwiema kośćmi skrzyżowanymi.","Welcome to the Pet Republic.","Nazwa mogła być używana przez inne firmy, więc trzeba to sprawdzić."],
+["Pet Friends","pet frends","Społeczność",[10,8,6,7,4],"heart","n",["#43A047","#EDF7EE"],"„Friends” znane z serialu, każdy rozumie. Ciepło, przyjaźnie.","Dwie łapki tworzące serce.","Friends for life.","Bardzo popularna fraza. Trudno o unikalność."],
+["Dog & Cat Co.","dog end ket kołu","Psy & koty",[10,10,7,8,6],"paw","d",["#263238","#F3EFE8"],"Najprostsze możliwe słowa. „Co.” dodaje klasy jak w markach rzemieślniczych. Od razu wiadomo, dla kogo jest sklep.","Elegancki emblemat-pieczęć z psem i kotem plecami do siebie.","Goods for dogs &amp; cats.","Wykluczająca dla właścicieli królików czy ptaków, ale to mniejszość rynku."],
+["Cats & Dogs Club","kets end dogs klab","Psy & koty",[10,10,7,7,6],"star","o",["#00796B","#E6F4F2"],"Jasne jak słońce, plus element społeczności. Łatwo zrobić z tego program lojalnościowy.","Okrągły „klubowy” emblemat jak naszywka.","Members: cats &amp; dogs.","Długie, 4 słowa. Kolizja z tytułem filmu „Cats &amp; Dogs” raczej nieszkodliwa."],
+["Dog & Cat Story","dog end ket stori","Psy & koty",[10,9,6,7,7],"bubble","d",["#6D4C41","#F6F0EC"],"Opowieść o życiu z psem i kotem. Dobre pod markę, która mocno stawia na content.","Książeczka z psem i kotem na okładce.","Write your pet's story.","Długie, trudniejsze jako domena."],
+["Hey Doggy","hej dogi","Psy",[10,7,8,8,7],"dog","f",["#FB8C00","#FFF4E5"],"Jakby wołać psa na spacerze. Bardzo naturalnie i sympatycznie.","Pies wyglądający zza litery „H”, macha łapą.","Hey doggy, let's go!","Tylko psy. Koty zostają poza nazwą (można zrobić „Hey Kitty” jako sublinię)."],
+["Kitty Club","kiti klab","Koty",[10,7,8,8,6],"cat","f",["#EC407A","#FDEEF4"],"Na wypadek specjalizacji w kotach: klub kociarzy. „Kitty” zna każdy.","Kocie uszy nad słowem „Club”.","For cat people only.","Tylko koty. Może być linią produktową obok głównej marki."],
+["Puppy Club","papi klab","Psy",[10,7,8,8,6],"dog","f",["#FFA000","#FFF6E0"],"Klub szczeniaka. Świetne pod pierwsze zakupy po adopcji (zestawy startowe).","Szczeniak w czapce z daszkiem.","Welcome to the club, pup.","Sugeruje tylko szczenięta."],
+["Dog Day","dog dej","Psy",[9,6,8,8,6],"sun","o",["#FFB300","#FFF7E0"],"Każdy dzień to dzień psa. Krótkie, rytmiczne „d–d”.","Słońce z psim pyszczkiem.","Every day is a dog day.","„Dog days” w angielskim to też upalne dni, ale to neutralne. Tylko psy."],
+["Doggo","dogo","Psy",[8,7,9,8,6],"dog","f",["#6D4C41","#F7EFE9"],"Jedno słowo, memiczne i ciepłe. Bardzo zapamiętywalne dzięki powtórzeniu „g–g” i otwartemu „o”.","Wordmark, w którym dwa „o” to oczy psa, a „gg” to uszy.","Much doggo. Very wow.","Tylko psy. Slang może się zestarzeć."],
+["Woofy","łufi","Onomatopeje",[8,7,9,8,7],"dog","f",["#FF7043","#FFF0EB"],"„Woof” z ciepłą końcówką „-y” (jak kitty, puppy). Krótko, wesoło.","Dymek z „Woofy”, „y” zakończone ogonem.","Woof-approved.","Głównie psy. Sprawdź domenę."],
+["Meowly","miauli","Onomatopeje",[8,7,8,8,8],"cat","f",["#AB47BC","#F7EDF9"],"Kocia wersja: „meow” + „-ly”. Elegancko i lekko. Polacy czytają ją intuicyjnie jak „miau”.","Kot z ogonem tworzącym literę „y”.","Meow-ly perfect.","Tylko koty. Pisownia „meow” vs „miau” może mylić w wyszukiwarce."],
+["Woof Woof","łuf łuf","Onomatopeje",[8,7,9,7,6],"bubble","f",["#E53935","#FDECEC"],"Reduplikacja to jeden z najsilniejszych mechanizmów zapamiętywania. Brzmi jak szczekanie.","Dwa dymki komiksowe jeden za drugim.","Woof woof means thank you.","Tylko psy. Brzmi trochę dziecinnie."],
+["Woof Club","łuf klab","Onomatopeje",[8,7,8,8,7],"star","o",["#0D47A1","#EAF1FB"],"Klub psiarzy, krótko i z energią.","Emblemat jak z drużyny sportowej.","Bark louder.","Tylko psy."],
+["Meow Club","miau klab","Onomatopeje",[9,7,8,8,7],"cat","o",["#4A148C","#F2EBF8"],"Klub kociarzy, zrozumiały od razu, bo „meow” to prawie „miau”.","Kocie uszy z napisem w środku, fiolet i róż.","Cats rule here.","Tylko koty."],
+["Woof & Co.","łuf end kołu","Onomatopeje",[8,7,8,8,7],"paw","d",["#3E2723","#F5EFE9"],"Rzemieślniczy, premium ton (jak w markach kawowych). Dobre do akcesoriów ze skóry i legowisk.","Pieczęć jak w manufakturze, rok założenia pod nazwą.","Crafted for dogs.","Bardziej psia niż kocia."],
+["Purr & Woof","pyr end łuf","Onomatopeje",[6,9,8,7,8],"bubble","f",["#00897B","#E6F4F2"],"Mruczenie i szczekanie, czyli psy i koty w dźwiękach. Mniej oczywiste od „Woof & Meow”.","Fala dźwiękowa przechodząca w ogon.","Purrs and woofs welcome.","„Purr” zna mniej Polaków."],
+["Fluffy Love","flafi law","Emocje",[8,8,8,9,7],"heart","p",["#F06292","#FDEEF4"],"Puchata miłość. Bardzo emocjonalne, świetne do legowisk, ubranek i zabawek pluszowych.","Puchate serce z futerkiem po bokach, odręczny napis.","Love you fur-ever.","Mniej pasuje do elektroniki."],
+["Fluffy Paws","flafi pos","Paw",[7,9,8,7,6],"paw","f",["#8D6E63","#F7F0EC"],"Puchate łapki. Obrazowe i urocze.","Pluszowa łapka z puszystym konturem.","Soft paws, happy hearts.","„Paws” bywa źle wymawiane („pałs”)."],
+["Fluffy Home","flafi hołm","Dom & komfort",[8,8,7,8,7],"home","f",["#BCAAA4","#FAF6F4"],"Puchaty dom: legowiska, maty, koce. Bardzo dobrze opisuje kategorię komfortu.","Domek z dachem jak futerko.","Make home fluffy.","Słabsze przy zabawkach i elektronice."],
+["Little Paws","litl pos","Paw",[8,9,7,7,5],"paw","p",["#F48FB1","#FEF0F5"],"Małe łapki, czułe i urocze. Dobre dla małych ras i kotów.","Trzy małe łapki idące w górę.","Big love for little paws.","Popularna nazwa (żłobki, schroniska). Pomija duże psy."],
+["Happy Paw","hepi po","Paw",[8,9,8,6,5],"paw","f",["#FFB300","#FFF7E0"],"Szczęśliwa łapka, prosta i pozytywna.","Łapka z uśmiechem na środkowej poduszce.","Happy paws, happy home.","„Paw” = polski ptak/„puścić pawia”. Popularna fraza."],
+["Lucky Paw","laki po","Paw",[8,9,8,6,6],"paw","o",["#43A047","#EDF7EE"],"Łapka na szczęście, jak talizman.","Łapka w kształcie czterolistnej koniczyny.","Every paw is a lucky one.","Patrz ryzyko „paw”."],
+["Sunny Paws","sani pos","Paw",[8,9,7,7,7],"sun","f",["#FBC02D","#FFF9E1"],"Słoneczne łapki, ciepłe i letnie. Dobre pod akcesoria spacerowe.","Słońce z promieniami-pazurkami.","Walk on the sunny side.","Liczba mnoga „paws” jest łatwiejsza dla Polaka niż samo „paw”."],
+["Paw Pal","po pal","Paw",[7,9,9,6,6],"paw","f",["#26A69A","#E8F6F4"],"Aliteracja P–P, łapka-kumpel. Bardzo zapamiętywalne.","Dwie łapki podające sobie dłoń.","Your paw pal.","„Paw” po polsku = ptak/„paw”. Podobnie do Paw Patrol."],
+["Paw Star","po star","Paw",[7,9,8,6,6],"star","o",["#FFB300","#1B1F3B"],"Gwiazda z łapką, podobnie jak „Pet Star”, ale wyraźniej zwierzęca.","Łapka, której poduszki to gwiazdki.","Every paw is a star.","Ryzyko „paw” w wymowie."],
+["Paw Club","po klab","Paw",[7,9,8,6,6],"paw","o",["#5D4037","#F5EFEB"],"Klub łapek, krótko i społecznościowo.","Okrągła naszywka klubowa z łapką.","Members only: paws.","Ryzyko „paw”."],
+["Paw Town","po tałn","Paw",[7,8,8,6,7],"home","o",["#1E88E5","#E8F3FD"],"Miasteczko łapek, bajkowe, dobre pod dzieci i rodziny.","Domki z dachami jak uszy zwierząt.","Welcome to Paw Town.","Podobieństwo do Psiego Patrolu (Adventure Bay)."],
+["Paw Box","po boks","Paw",[7,8,8,6,5],"gift","o",["#E64A19","#FDEEE8"],"Pudełko z niespodziankami, idealne pod subskrypcję (miesięczne paczki).","Kartonowe pudełko, z którego wystaje łapka.","Joy in a box.","Wiele „boxów” na rynku (BarkBox itp.)."],
+["Pawsome","posam","Paw",[6,9,9,6,5],"paw","f",["#FF7043","#FFF0EB"],"Gra słów z „awesome”, kultowa w anglojęzycznym internecie. Młodzi Polacy ją złapią.","Napis odręczny, „o” jako łapka.","Simply pawsome.","Starsi nie zrozumieją gry słów. Popularne słowo, trudne do zastrzeżenia."],
+["Pawfect","pofekt","Paw",[6,9,9,6,5],"paw","p",["#D81B60","#FCEBF1"],"Gra słów z „perfect”, którą Polacy łatwo rozpoznają wzrokowo.","Napis ze znakiem ✓ zakończonym łapką.","Pawfect for your pet.","Popularne w branży, ryzyko kolizji. „Paw” w wymowie."],
+["Paw Heart","po hart","Paw",[7,9,7,6,7],"heart","d",["#C62828","#FCEBEB"],"Łapka i serce, czysta emocja.","Łapka, której główna poduszka jest sercem.","Paws &amp; hearts.","Ryzyko „paw”."],
+["Smart Paw","smart po","Tech",[8,8,8,6,6],"bolt","o",["#0288D1","#E6F3FA"],"Elektronika dla zwierząt: inteligentne karmniki, GPS, kamery.","Łapka z obwodem drukowanym w poduszce.","Smart care for every paw.","Ryzyko „paw”. Generyczne w tech."],
+["Magic Paw","medżik po","Paw",[8,8,8,6,6],"star","p",["#7B1FA2","#F4EAF8"],"Magiczna łapka, bajkowe i zabawne.","Łapka z iskierkami.","A little magic in every paw.","Ryzyko „paw”."],
+["Wonder Paws","łander pos","Paw",[7,8,7,7,7],"star","d",["#5E35B1","#F1EDF9"],"Cudowne łapki, nawiązanie do „Wonder Woman”.","Łapki z gwiazdkami jak na pelerynie.","Wonder for every paw.","Dłuższe. Wymowa „wonder” bywa różna."],
+["Tail & Co.","tejl end kołu","Premium",[7,9,8,8,6],"paw","d",["#3E2723","#F3EDE6"],"Ogon to symbol radości psa. „& Co.” daje rzemieślniczy, premium charakter.","Logo-pieczęć, w której „T” zakręca w ogon.","Wag-worthy goods.","„Tail” średnio znane (mylone z „tale”). Istnieją podobne nazwy."],
+["Happy Tail","hepi tejl","Emocje",[8,9,8,8,4],"paw","f",["#FF8F00","#FFF5E5"],"Merdający ogon = szczęśliwy pies. Natychmiastowy obraz.","Ogon w ruchu (trzy linie ruchu) tworzący uśmiech.","Wag more.","„Happy Tails” to bardzo popularna nazwa schronisk i hoteli dla zwierząt."],
+["Best Pet","best pet","Pet +",[10,8,7,8,4],"crown","o",["#1A237E","#ECEEF9"],"Najlepszy zwierzak, najlepsze produkty. Krótko i jasno.","Medal/rozeta z łapką.","Only the best for your best pet.","Generyczne. Trudne do zastrzeżenia samo w sobie."],
+["Good Pet","gud pet","Pet +",[10,8,7,8,5],"smile","n",["#388E3C","#EDF6EE"],"Nawiązanie do „good boy/good girl”, czyli pochwały, którą zna każdy właściciel.","Kciuk w górę z łapką.","Good things for good pets.","Bliskość do marki „Good Boy” (UK), ale to inna nazwa."],
+["True Pet","tru pet","Premium",[9,7,7,8,6],"heart","d",["#004D40","#E6F2F0"],"Prawdziwa, szczera troska. Spokojna, premium nazwa.","Minimalistyczny serif z łapką jako znakiem zgodności.","True care. True love.","Mało emocji. Może kojarzyć się z karmą (np. „True Instinct”)."],
+["Pet Buddy","pet badi","Społeczność",[8,8,8,8,5],"paw","f",["#F57C00","#FFF3E5"],"Buddy (kumpel) to popularne imię psa. Kumpelsko i ciepło.","Dwie postacie (człowiek i pies) przybijające piątkę.","Your pet's best buddy.","Popularne w branży."],
+["Buddy Box","badi boks","Zabawa",[8,7,9,8,6],"gift","f",["#6A1B9A","#F4ECF8"],"Aliteracja B–B. Idealne pod paczki-niespodzianki i subskrypcje zabawek.","Pudełko-prezent z kokardą w kształcie kości.","A box full of buddy love.","Mniej pasuje jako nazwa całego sklepu."],
+["Love My Pet","law maj pet","Emocje",[10,8,7,8,5],"heart","p",["#E91E63","#FDEBF2"],"Najprostsze wyznanie miłości. Rozumie każdy, od nastolatka po babcię.","„I ♥ my pet” jak na koszulkach z Nowego Jorku.","Because you do.","Trzy słowa, popularna fraza na gadżetach."],
+["Pet Forever","pet forewer","Emocje",[9,7,6,7,6],"heart","d",["#5D4037","#F5EFEB"],"Na zawsze razem. Emocjonalne, ale poważne.","Znak nieskończoności (∞) z łapką w pętli.","Together forever.","Może kojarzyć się z usługami pamiątkowymi po śmierci zwierzęcia."],
+["Petsy","petsi","Krótkie",[8,8,9,8,7],"paw","f",["#00897B","#E6F4F2"],"Krótkie, przyjazne zdrobnienie od „pets” (jak Etsy). Samogłoska „i” na końcu brzmi lekko i uroczo.","Wordmark z „y” zakończonym ogonem, kropka jako łapka.","All things pets.","Podobieństwo do Etsy może przyciągać, ale może też mylić."],
+["Petto","peto","Krótkie",[7,7,9,9,8],"paw","f",["#E64A19","#FDEEE8"],"Brzmi włosko i przyjaźnie. Dwie sylaby, łatwa wymowa dla Polaka. Dobry potencjał pod logo i domenę.","Dwa „t” jako uszy kota, „o” jako nos.","Petto – love for pets.","„Petto” po włosku to pierś. Skojarzenie ze zwierzętami słabsze niż w „Pet …”."],
+["Pawly","poli","Krótkie",[6,8,9,7,8],"paw","f",["#FF7043","#FFF0EB"],"Krótko, miękko, z końcówką „-ly”. Unikalność i łatwa domena.","Łapka, której jedna poduszka to kropka nad nazwą.","Pawly yours.","Nie każdy przeczyta „poli” (część powie „pawli”)."],
+["Pet Up","pet ap","Krótkie",[8,7,8,8,7],"bolt","o",["#00C853","#E8F9EF"],"Energia, poprawa życia zwierzaka („level up”). Krótko i dynamicznie.","Strzałka w górę zakończona łapką.","Level up your pet life.","Sens nie jest od razu jasny bez sloganu."],
+["Pet Bloom","pet blum","Premium",[7,6,7,8,8],"sun","d",["#7CB342","#F2F8EA"],"Rozkwit, zdrowie i natura. Ekologiczna linia (materiały z recyklingu, bawełna organiczna).","Kwiat z płatkami w kształcie poduszek łapki.","Let them bloom.","„Bloom” zna mniej osób. Słabsze skojarzenie zwierzęce."],
+["Sweet Paws","słit pos","Paw",[8,9,8,7,6],"heart","p",["#EC407A","#FDEEF4"],"Słodkie łapki, czułe i urocze. Dobre pod ubranka i akcesoria dla małych ras.","Odręczny napis, łapka z różowymi poduszkami.","Sweet stuff for sweet paws.","Bardzo słodkie. Dla dużych ras może nie pasować."],
+["Furry Friends","fyri frends","Społeczność",[7,9,7,7,4],"heart","f",["#8D6E63","#F7F0EC"],"Futrzani przyjaciele, ciepła fraza z anglojęzycznego świata zwierząt.","Dwa futrzane pyszczki obok siebie.","For your furry friends.","„Furry” ma też konotację subkultury, a fraza jest bardzo popularna."],
+["Pet Pillow","pet pilou","Dom & komfort",[7,7,8,8,7],"cloud","f",["#90A4AE","#F1F4F5"],"Aliteracja P–P. Mocno pod legowiska, czyli najważniejszą kategorię komfortu.","Poduszka ze śpiącym psem, który tworzy literę „P”.","Sleep like a pet.","Zawęża markę do spania."],
+["Pet Wish","pet łisz","Emocje",[8,7,8,8,7],"star","p",["#7E57C2","#F3EFFA"],"Spełnianie życzeń zwierzaka. Świetne pod prezenty i Gwiazdkę (święta napędzają rynek pet care).","Spadająca gwiazda z ogonem-smyczą.","Make a pet wish.","„Wish” to też nazwa taniej platformy zakupowej, co nie najlepiej się kojarzy."],
+["Bone & Ball","boun end bol","Zabawa",[8,8,8,8,7],"bone","f",["#6D4C41","#F7F0EB"],"Dwie ikony psiego szczęścia, aliteracja B–B.","Kość i piłka splecione w znak &.","Classic fun.","Wąsko psie, kojarzy się z zabawkami."]
+];
+
+const cats=["Wszystkie",...new Set(D.map(d=>d[2]))];
+const W=[.25,.25,.2,.15,.15];
+const data=D.map((d,i)=>({num:i+1,name:d[0],pron:d[1],cat:d[2],s:d[3],icon:d[4],font:d[5],col:d[6],why:d[7],logo:d[8],slogan:d[9],risk:d[10],score:Math.round(d[3].reduce((a,v,j)=>a+v*W[j],0)*10)}));
+const esc=s=>String(s).replace(/[<>]/g,c=>({'<':'&lt;','>':'&gt;'}[c]));
+function logoHTML(d,size){
+  const [c1,bg]=d.col;
+  return `<div class="logo" style="background:${bg}"><svg viewBox="0 0 24 24" fill="${c1}" aria-hidden="true" style="color:${c1}">${ICONS[d.icon]||ICONS.paw}</svg><span class="wm" style="font-family:${FONTS[d.font]};color:${c1}${size?';font-size:'+size+'px':''}">${esc(d.name)}</span></div>`;
+}
+const LB=["Zrozumiałość PL","Skojarzenie","Zapamiętywalność","Brzmienie","Unikalność"];
+function card(d){
+  return `<article class="card" id="n${d.num}">${logoHTML(d)}<div class="body">
+  <div class="top"><span class="num">#${d.num}</span><span class="cat">${d.cat}</span></div>
+  <div class="top"><div><h3 class="name">${esc(d.name)}</h3><div class="pron">czyt. „${d.pron}”</div></div><div class="score">${d.score}<small>/100</small></div></div>
+  <div class="meters">${d.s.map((v,i)=>`<span class="lbl">${LB[i]}</span><span class="bar"><i style="width:${v*10}%"></i></span><span>${v}</span>`).join("")}</div>
+  <p class="sec"><b>Dlaczego ta nazwa</b>${d.why}</p>
+  <p class="sec"><b>Pomysł na logo</b>${d.logo}</p>
+  <div class="sw"><span style="background:${d.col[0]}"></span><span style="background:${d.col[1]}"></span>${d.col[0]} · ${d.col[1]}</div>
+  <p class="sec slogan"><b>Slogan</b>${d.slogan}</p>
+  <p class="sec risk"><b>Ryzyko / uwaga</b>${d.risk}</p>
+  </div></article>`;
+}
+// top 10
+const top10=[...data].sort((a,b)=>b.score-a.score||a.num-b.num).slice(0,10);
+document.getElementById("podium").innerHTML=top10.map((d,i)=>`<div class="pod" data-n="${d.num}"><span class="rank">${i+1}.</span>${logoHTML(d,22)}<div style="margin-top:8px;font-weight:800">${esc(d.name)} <span style="color:var(--accent)">${d.score}</span></div><div style="font-size:13px;color:var(--muted)">${d.cat} · „${d.pron}”</div></div>`).join("");
+document.querySelectorAll(".pod").forEach(p=>p.onclick=()=>{state.cat="Wszystkie";state.q="";q.value="";render();document.getElementById("n"+p.dataset.n).scrollIntoView({behavior:"smooth",block:"center"})});
+
+const state={cat:"Wszystkie",q:"",sort:"score"};
+const chips=document.getElementById("chips"),q=document.getElementById("q"),sort=document.getElementById("sort");
+chips.innerHTML=cats.map(c=>`<button class="chipbtn" data-c="${c}">${c}</button>`).join("");
+chips.onclick=e=>{const b=e.target.closest("button");if(!b)return;state.cat=b.dataset.c;render()};
+q.oninput=()=>{state.q=q.value.toLowerCase();render()};
+sort.onchange=()=>{state.sort=sort.value;render()};
+function render(){
+  let r=data.filter(d=>(state.cat==="Wszystkie"||d.cat===state.cat)&&(!state.q||(d.name+" "+d.why+" "+d.cat).toLowerCase().includes(state.q)));
+  const k=state.sort;
+  r.sort((a,b)=>k==="num"?a.num-b.num:k==="az"?a.name.localeCompare(b.name):k==="c"?b.s[0]-a.s[0]||b.score-a.score:k==="m"?b.s[2]-a.s[2]||b.score-a.score:b.score-a.score||a.num-b.num);
+  document.getElementById("cards").innerHTML=r.map(card).join("");
+  document.getElementById("count").textContent=`${r.length} z ${data.length}`;
+  chips.querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.c===state.cat));
+}
+render();
+// theme toggle
+document.getElementById("themeBtn").onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark"};
+</script>
+</body>
+</html>
