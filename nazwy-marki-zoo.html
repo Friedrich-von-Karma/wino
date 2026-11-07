@@ -89,6 +89,15 @@ th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--mute
 .risk{font-size:13px;color:var(--warn)}
 .sw{display:flex;gap:4px;align-items:center;font-size:12px;color:var(--muted)}
 .sw span{width:16px;height:16px;border-radius:5px;border:1px solid var(--line)}
+.drow{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:3px 0;font-size:12.5px}
+.drow code{font-size:12.5px;margin-right:2px}
+.db{font-size:11.5px;padding:2px 7px;border-radius:999px;font-weight:700}
+.db.free{background:#DDF3E6;color:#1B6B3A}.db.taken{background:#FBE0DC;color:#A3261B}.db.unk{background:var(--surface2);color:var(--muted)}
+.tm{font-size:13px;margin-top:6px;padding:7px 9px;border-radius:10px;background:var(--surface2)}
+.tm a,.tml a{color:var(--accent2)}
+.tm.r-HIGH,.tm.r-MEDIUM-HIGH{background:#FBE0DC;color:#7A1D14}.tm.r-LOW{background:#DDF3E6;color:#174F2C}
+.tml{font-size:12px;color:var(--muted);margin-top:6px}
+.tog{font-size:13px;display:flex;gap:6px;align-items:center}
 footer{padding:30px 0 60px;color:var(--muted);font-size:14px}
 ol.src{padding-left:20px;font-size:14px}
 ol.src li{margin:4px 0}
@@ -187,9 +196,51 @@ ol.src a{color:var(--accent2);word-break:break-word}
 <tr><td><b>Kreatywność</b></td><td>20%</td><td>Czy nazwa ma efekt „aha!”: ukryte zwierzę w znanym słowie, gra słów, własny świat lub postać</td></tr>
 </table></div>
 
-<h2>4. Top 10 według oceny</h2>
-<p class="lead">Kliknij, żeby przejść do karty z pełnym opisem.</p>
+<h2>4. Top 10 po sprawdzeniu dostępności</h2>
+<p class="lead">Tylko nazwy z wolną domeną <b>.pl i .eu</b> oraz niskim ryzykiem kolizji we wstępnym sprawdzeniu. Kliknij, żeby przejść do karty.</p>
 <div class="grid podium" id="podium"></div>
+
+<h2>4a. Dostępność: domeny i kolizje</h2>
+<p class="lead">Sprawdzone 7 listopada 2026 r. Domeny dla wszystkich 100 nazw, wstępne sprawdzenie kolizji dla 30 nazw z czołówki.</p>
+<div class="grid rules">
+  <div class="rule"><h3>🌐 Domeny .pl</h3><p>Sprawdzone w oficjalnym rejestrze NASK (RDAP, rdap.dns.pl). Wynik „wolna” oznacza brak rejestracji w momencie sprawdzenia.</p></div>
+  <div class="rule"><h3>🇪🇺 Domeny .eu i .com</h3><p>Sprawdzone przez DNS (rekordy NS). Brak domeny w DNS prawie zawsze oznacza, że jest wolna, ale <b>przed zakupem potwierdź u rejestratora</b>: domena może być w kwarantannie albo zarejestrowana bez serwerów DNS.</p></div>
+  <div class="rule"><h3>⚖️ Znaki towarowe i firmy</h3><p>Rejestry EUIPO/TMview i UPRP blokują zapytania automatyczne, więc nie odpytywałem ich bezpośrednio. Zamiast tego było wyszukiwanie w sieci (2–3 zapytania na nazwę): istniejące sklepy i marki, firmy w Polsce oraz znaki widoczne w agregatorach. To <b>wstępne sprawdzenie, nie opinia prawna</b>. Przy każdej karcie są linki do ręcznego sprawdzenia.</p></div>
+</div>
+<div class="tablewrap" style="margin-top:14px"><table>
+<tr><th>Nazwa</th><th>.pl</th><th>.eu</th><th>.com</th><th>Ryzyko kolizji</th></tr>
+<tr><td><b>Home Sweet Zoo</b></td><td>✅</td><td>✅</td><td>✅</td><td>🟢 niskie</td></tr>
+<tr><td><b>Sir Fluffington</b></td><td>✅</td><td>✅</td><td>✅</td><td>🟢 niskie</td></tr>
+<tr><td><b>Fluffycorn</b></td><td>✅</td><td>✅</td><td>✅</td><td>🟢 niskie</td></tr>
+<tr><td><b>Pet'n'Roll</b></td><td>✅</td><td>✅</td><td>✅</td><td>🟢 niskie</td></tr>
+<tr><td><b>Sofa Jungle</b></td><td>✅</td><td>✅</td><td>✅</td><td>🟢 niskie</td></tr>
+<tr><td><b>Expetition</b></td><td>✅</td><td>✅</td><td>✅</td><td>🟢 niskie</td></tr>
+<tr><td><b>Zoopermarket</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟢 niskie</td></tr>
+<tr><td><b>Zoonami</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟢 niskie</td></tr>
+<tr><td><b>Petronaut</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟢 niskie</td></tr>
+<tr><td><b>Petlantis</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟢 niskie</td></tr>
+<tr><td><b>Fluffinity</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟢 niskie</td></tr>
+<tr><td><b>Zoo & You</b></td><td>✅</td><td>✅</td><td>✅</td><td>🟢🟡 niskie/średnie</td></tr>
+<tr><td><b>Zooperhero</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟢🟡 niskie/średnie</td></tr>
+<tr><td><b>Press Paws</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟢🟡 niskie/średnie</td></tr>
+<tr><td><b>Petmosphere</b></td><td>✅</td><td>❌</td><td>❌</td><td>🟢🟡 niskie/średnie</td></tr>
+<tr><td><b>Zoo La La</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Zoodiac</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Snoozoo</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Pet Gala</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Paws & Play</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Pet Detective</b></td><td>✅</td><td>?</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Zoologic</b></td><td>❌</td><td>❌</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Zoovenir</b></td><td>❌</td><td>❌</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Pet Project</b></td><td>❌</td><td>❌</td><td>❌</td><td>🟡 średnie</td></tr>
+<tr><td><b>Petvolution</b></td><td>✅</td><td>✅</td><td>❌</td><td>🟠 średnie/wysokie</td></tr>
+<tr><td><b>Peticure</b></td><td>❌</td><td>✅</td><td>❌</td><td>🟠 średnie/wysokie</td></tr>
+<tr><td><b>Petcetera</b></td><td>✅</td><td>?</td><td>❌</td><td>🔴 wysokie</td></tr>
+<tr><td><b>Pet Karma</b></td><td>❌</td><td>?</td><td>❌</td><td>🔴 wysokie</td></tr>
+<tr><td><b>Zoofari</b></td><td>❌</td><td>❌</td><td>❌</td><td>🔴 wysokie</td></tr>
+<tr><td><b>Petopia</b></td><td>❌</td><td>❌</td><td>❌</td><td>🔴 wysokie</td></tr>
+</table></div>
+<div class="note"><b>Rekomendacja:</b> najczystsze nazwy, czyli wolne .pl, .eu i .com oraz brak kolizji we wstępnym sprawdzeniu, to <b>Home Sweet Zoo</b>, <b>Sir Fluffington</b>, <b>Fluffycorn</b>, <b>Pet'n'Roll</b>, <b>Sofa Jungle</b> i <b>Expetition</b>. Bardzo mocne są też <b>Zoopermarket</b>, <b>Zoonami</b>, <b>Petronaut</b>, <b>Petlantis</b> i <b>Fluffinity</b> (wolne .pl i .eu, ale .com zajęta). <b>Odpadają:</b> Pet Karma (polski sklep PetKarma.pl), Zoofari (marka Lidla), Petcetera, Petopia, Peticure i Petvolution. Przed rejestracją zleć rzecznikowi patentowemu pełne badanie w TMview (UE + PL) w klasach 9, 18, 20, 21, 28 i 35. Koszt to zwykle kilkaset zł, a pozwala uniknąć sporu.</div>
 
 <h2>5. Wszystkie 100 propozycji</h2>
 <div class="controls">
@@ -201,6 +252,7 @@ ol.src a{color:var(--accent2);word-break:break-word}
     <option value="m">Sortuj: zapamiętywalność</option>
     <option value="az">Sortuj: A–Z</option>
   </select>
+  <label class="tog"><input type="checkbox" id="onlyfree"> tylko wolne .pl + .eu</label>
   <span class="count" id="count"></span>
   <div class="chips" id="chips"></div>
 </div>
@@ -282,7 +334,7 @@ ol.src a{color:var(--accent2);word-break:break-word}
   <li><a href="https://dallasexpress.com/national/pet-humanization-millennials-and-gen-z-turn-pets-into-family-fueling-pet-boom/" target="_blank" rel="noopener">Dallas Express – humanizacja, Gen Z</a></li>
 </ol>
 
-<footer>Przygotowane w listopadzie 2026. Przed rejestracją sprawdź znaki towarowe (EUIPO, UPRP) i dostępność domen. Ta lista tego nie zastępuje.</footer>
+<footer>Przygotowane w listopadzie 2026. Domeny sprawdzone 7.11.2026. Wstępne sprawdzenie kolizji nie zastępuje badania przez rzecznika patentowego.</footer>
 </div>
 
 <script>
@@ -409,6 +461,19 @@ const D=[
 ["Pet Rocket","pet roket","Postacie",[10,8,9,9,8,7],"bolt","o",["#E63946","#FDEEEF"],"Zwierzak jak rakieta, czyli energia i szybkość. Pod akcesoria aktywne.","Rakieta z uszami.","Fuel the zoomies.","Mało zaskakujące."]
 ];
 
+const DOM={"Petcetera": [{"slug": "petcetera", "pl": "free", "eu": "unknown", "com": "taken"}], "Zoopermarket": [{"slug": "zoopermarket", "pl": "free", "eu": "free", "com": "taken"}], "Home Sweet Zoo": [{"slug": "homesweetzoo", "pl": "free", "eu": "free", "com": "free"}], "Petopia": [{"slug": "petopia", "pl": "taken", "eu": "taken", "com": "taken"}], "Petronaut": [{"slug": "petronaut", "pl": "free", "eu": "free", "com": "taken"}], "Zoo La La": [{"slug": "zoolala", "pl": "free", "eu": "free", "com": "taken"}], "Zoonami": [{"slug": "zoonami", "pl": "free", "eu": "free", "com": "taken"}], "Zoodiac": [{"slug": "zoodiac", "pl": "free", "eu": "free", "com": "taken"}], "Zoofari": [{"slug": "zoofari", "pl": "taken", "eu": "taken", "com": "taken"}], "Zoovenir": [{"slug": "zoovenir", "pl": "taken", "eu": "taken", "com": "taken"}], "Snoozoo": [{"slug": "snoozoo", "pl": "free", "eu": "free", "com": "taken"}], "Zooperhero": [{"slug": "zooperhero", "pl": "free", "eu": "free", "com": "taken"}], "Zoologic": [{"slug": "zoologic", "pl": "taken", "eu": "taken", "com": "taken"}], "Zoo & You": [{"slug": "zooandyou", "pl": "free", "eu": "free", "com": "free"}, {"slug": "zooyou", "pl": "free", "eu": "free", "com": "taken"}], "Zoozy": [{"slug": "zoozy", "pl": "free", "eu": "free", "com": "taken"}], "Zoo Fighters": [{"slug": "zoofighters", "pl": "free", "eu": "free", "com": "free"}], "Pet Detective": [{"slug": "petdetective", "pl": "free", "eu": "unknown", "com": "taken"}], "Pet Gala": [{"slug": "petgala", "pl": "free", "eu": "free", "com": "taken"}], "Pet-a-Porter": [{"slug": "petaporter", "pl": "free", "eu": "taken", "com": "taken"}, {"slug": "pet-a-porter", "pl": "free", "eu": "free", "com": "taken"}], "Peticure": [{"slug": "peticure", "pl": "taken", "eu": "free", "com": "taken"}], "Expetition": [{"slug": "expetition", "pl": "free", "eu": "free", "com": "free"}], "Petvolution": [{"slug": "petvolution", "pl": "free", "eu": "free", "com": "taken"}], "Petfection": [{"slug": "petfection", "pl": "free", "eu": "taken", "com": "taken"}], "Petmosphere": [{"slug": "petmosphere", "pl": "free", "eu": "taken", "com": "taken"}], "Petropolis": [{"slug": "petropolis", "pl": "taken", "eu": "taken", "com": "taken"}], "Petlantis": [{"slug": "petlantis", "pl": "free", "eu": "free", "com": "taken"}], "Petabyte": [{"slug": "petabyte", "pl": "taken", "eu": "taken", "com": "taken"}], "Pet Project": [{"slug": "petproject", "pl": "taken", "eu": "taken", "com": "taken"}], "Teacher's Pet": [{"slug": "teacherspet", "pl": "free", "eu": "free", "com": "taken"}], "Pet Sounds": [{"slug": "petsounds", "pl": "free", "eu": "free", "com": "taken"}], "Pet Express": [{"slug": "petexpress", "pl": "taken", "eu": "taken", "com": "taken"}], "Pelfie": [{"slug": "pelfie", "pl": "free", "eu": "free", "com": "taken"}], "Petstival": [{"slug": "petstival", "pl": "free", "eu": "free", "com": "taken"}], "Pet Karma": [{"slug": "petkarma", "pl": "taken", "eu": "unknown", "com": "taken"}], "Pet Zen": [{"slug": "petzen", "pl": "free", "eu": "taken", "com": "taken"}], "Magic Carpet": [{"slug": "magiccarpet", "pl": "free", "eu": "taken", "com": "unknown"}], "Appetite": [{"slug": "appetite", "pl": "taken", "eu": "taken", "com": "taken"}], "FURniture": [{"slug": "furniture", "pl": "taken", "eu": "taken", "com": "taken"}], "Furmily": [{"slug": "furmily", "pl": "free", "eu": "free", "com": "taken"}], "Furry Tale": [{"slug": "furrytale", "pl": "free", "eu": "free", "com": "taken"}], "Fur Real": [{"slug": "furreal", "pl": "free", "eu": "free", "com": "taken"}], "Furst Class": [{"slug": "furstclass", "pl": "free", "eu": "free", "com": "taken"}], "Fur Sure": [{"slug": "fursure", "pl": "free", "eu": "free", "com": "taken"}], "Furry Godmother": [{"slug": "furrygodmother", "pl": "free", "eu": "free", "com": "taken"}], "Furtastic": [{"slug": "furtastic", "pl": "taken", "eu": "taken", "com": "taken"}], "Furmula": [{"slug": "furmula", "pl": "free", "eu": "free", "com": "taken"}], "Furever Young": [{"slug": "fureveryoung", "pl": "free", "eu": "free", "com": "taken"}], "Furry Fiesta": [{"slug": "furryfiesta", "pl": "taken", "eu": "free", "com": "taken"}], "What the Fluff": [{"slug": "whatthefluff", "pl": "free", "eu": "free", "com": "taken"}], "Fluff Daddy": [{"slug": "fluffdaddy", "pl": "free", "eu": "free", "com": "unknown"}], "Fluff & Stuff": [{"slug": "fluffandstuff", "pl": "free", "eu": "free", "com": "taken"}, {"slug": "fluffstuff", "pl": "taken", "eu": "free", "com": "taken"}], "Fluffomania": [{"slug": "fluffomania", "pl": "free", "eu": "free", "com": "free"}], "Sir Fluffington": [{"slug": "sirfluffington", "pl": "free", "eu": "free", "com": "free"}], "Fluffinity": [{"slug": "fluffinity", "pl": "free", "eu": "free", "com": "taken"}], "Captain Fluff": [{"slug": "captainfluff", "pl": "free", "eu": "free", "com": "taken"}], "Mr. Fluff": [{"slug": "mrfluff", "pl": "free", "eu": "free", "com": "taken"}], "Fluffycorn": [{"slug": "fluffycorn", "pl": "free", "eu": "free", "com": "free"}], "Fluffy Business": [{"slug": "fluffybusiness", "pl": "free", "eu": "free", "com": "taken"}], "Tailor Made": [{"slug": "tailormade", "pl": "taken", "eu": "taken", "com": "taken"}], "ReTail": [{"slug": "retail", "pl": "taken", "eu": "taken", "com": "taken"}], "Press Paws": [{"slug": "presspaws", "pl": "free", "eu": "free", "com": "taken"}], "Paws & Play": [{"slug": "pawsandplay", "pl": "free", "eu": "taken", "com": "taken"}, {"slug": "pawsplay", "pl": "free", "eu": "free", "com": "taken"}], "Pawsport": [{"slug": "pawsport", "pl": "free", "eu": "taken", "com": "taken"}], "Pawparazzi": [{"slug": "pawparazzi", "pl": "taken", "eu": "taken", "com": "taken"}], "Pawzzle": [{"slug": "pawzzle", "pl": "free", "eu": "free", "com": "taken"}], "Pawdcast": [{"slug": "pawdcast", "pl": "free", "eu": "free", "com": "taken"}], "Pawsitive": [{"slug": "pawsitive", "pl": "free", "eu": "taken", "com": "taken"}], "Pawradise": [{"slug": "pawradise", "pl": "free", "eu": "free", "com": "taken"}], "Santa Paws": [{"slug": "santapaws", "pl": "free", "eu": "free", "com": "taken"}], "Paws Button": [{"slug": "pawsbutton", "pl": "free", "eu": "free", "com": "taken"}], "Wild at Home": [{"slug": "wildathome", "pl": "free", "eu": "taken", "com": "taken"}], "Little Wild Things": [{"slug": "littlewildthings", "pl": "free", "eu": "free", "com": "taken"}], "Beastie Toys": [{"slug": "beastietoys", "pl": "free", "eu": "free", "com": "free"}], "Tiny Beasts": [{"slug": "tinybeasts", "pl": "free", "eu": "taken", "com": "taken"}], "Sofa Jungle": [{"slug": "sofajungle", "pl": "free", "eu": "free", "com": "free"}], "Zoomies": [{"slug": "zoomies", "pl": "taken", "eu": "taken", "com": "taken"}], "Noseprint": [{"slug": "noseprint", "pl": "free", "eu": "taken", "com": "unknown"}], "Boop!": [{"slug": "boop", "pl": "taken", "eu": "taken", "com": "taken"}], "Pet Pirates": [{"slug": "petpirates", "pl": "free", "eu": "free", "com": "taken"}], "Pet Ninja": [{"slug": "petninja", "pl": "free", "eu": "free", "com": "taken"}], "Fluff Squad": [{"slug": "fluffsquad", "pl": "free", "eu": "free", "com": "taken"}], "Pet Noir": [{"slug": "petnoir", "pl": "free", "eu": "free", "com": "taken"}], "Pop Pets": [{"slug": "poppets", "pl": "free", "eu": "free", "com": "taken"}], "Pet'n'Roll": [{"slug": "petnroll", "pl": "free", "eu": "free", "com": "free"}], "Pet Disco": [{"slug": "petdisco", "pl": "free", "eu": "free", "com": "taken"}], "Pawlace": [{"slug": "pawlace", "pl": "free", "eu": "free", "com": "taken"}], "Four Legs Club": [{"slug": "fourlegsclub", "pl": "free", "eu": "free", "com": "free"}], "Two Hearts Four Legs": [{"slug": "twoheartsfourlegs", "pl": "free", "eu": "free", "com": "free"}], "Pet Wonderland": [{"slug": "petwonderland", "pl": "free", "eu": "free", "com": "unknown"}], "Pet Matrix": [{"slug": "petmatrix", "pl": "free", "eu": "free", "com": "taken"}], "Pet-Fi": [{"slug": "petfi", "pl": "free", "eu": "free", "com": "taken"}, {"slug": "pet-fi", "pl": "free", "eu": "free", "com": "free"}], "Hello Fluff": [{"slug": "hellofluff", "pl": "free", "eu": "free", "com": "taken"}], "Fluffy Galaxy": [{"slug": "fluffygalaxy", "pl": "free", "eu": "free", "com": "taken"}], "Pet Shop Rebels": [{"slug": "petshoprebels", "pl": "free", "eu": "free", "com": "free"}], "Pet Cocktail": [{"slug": "petcocktail", "pl": "free", "eu": "free", "com": "free"}], "Furbaby Co.": [{"slug": "furbabyco", "pl": "free", "eu": "free", "com": "taken"}], "Snack Attack": [{"slug": "snackattack", "pl": "taken", "eu": "taken", "com": "taken"}], "Fur & Feather": [{"slug": "furandfeather", "pl": "free", "eu": "free", "com": "taken"}, {"slug": "furfeather", "pl": "free", "eu": "free", "com": "taken"}], "Pet Story Club": [{"slug": "petstoryclub", "pl": "free", "eu": "free", "com": "taken"}], "Pet Rocket": [{"slug": "petrocket", "pl": "free", "eu": "free", "com": "taken"}]};
+const TM={"Zoopermarket": ["LOW", "Jedyne użycie to książka dla dzieci „Supermarket Zoopermarket” (N. Sharratt). Nie znaleziono sklepu, firmy ani znaku.", "https://shop.scholastic.co.uk/products/1407"], "Home Sweet Zoo": ["LOW", "Jedynie książka z 1950 r. (C. Barnes Jr.). Nie znaleziono sklepu ani znaku.", "https://www.abaa.org/book/895526162"], "Petcetera": ["HIGH", "Brytyjska firma wysyłkowa z produktami dla psów działa ponad 50 lat (petcetera.co.uk). Dawniej też kanadyjska sieć zoologiczna. Nazwa jest zatłoczona.", "https://issuu.com/petcetera/docs/02024_petcetera_catalogue_2025_web"], "Zoo La La": ["MEDIUM", "W USA to nazwa imprez w zoo. W UE (Łotwa, aio.lv) działa marka ubranek dla psów „Lalazoo” z odwróconym szykiem.", "https://aio.lv/en/brand--lalazoo"], "Zoonami": ["LOW", "Jedynie dawne brytyjskie studio gier (1998–ok. 2010). Brak marki zoologicznej i znaku.", "https://en.wikipedia.org/wiki/Zoonami"], "Zoodiac": ["MEDIUM", "Brzmi niemal jak „ZODIAC”, marka środków na pchły (Ameryka Płn.). Liczne znaki „Zodiac” w innych branżach mogą być podstawą sprzeciwu.", "https://petvalu.ca/product/zodiac-powerspot-flea-tick-control-for-small-dogs/SCM07120"], "Sir Fluffington": ["LOW", "Tylko imię kota w powieści „Sorcery of Thorns”. Brak produktu, firmy i znaku.", ""], "Petronaut": ["LOW", "Nie znaleziono identycznego użycia. Do sprawdzenia podobny znak „CASTRONAUTS” (USA, koty).", "https://trademarkdir.com/trademark/castronauts-79409114"], "Snoozoo": ["MEDIUM", "„SnooZzoo” to marka śpiworów w kształcie zwierząt, sprzedawana też w UE. Podobne brzmią Snooza i Snoozer (legowiska).", "https://www.thegreenhead.com/2019/08/snoozzoo-polar-bear-sleeping-bag.php"], "Pet Karma": ["HIGH", "PetKarma.pl to działający polski sklep zoologiczny (od ok. 2013 r.). Bezpośrednia kolizja.", "https://www.petkarma.pl/"], "Zoofari": ["HIGH", "Zoofari to marka własna Lidla z akcesoriami dla zwierząt (legowiska, smycze, miski) w całej UE. Bezpośrednia kolizja.", "https://www.marktguru.de/b/zoofari"], "Zoologic": ["MEDIUM", "Znak ZOOLOGIC w USA (Pet-Ag, karma). Nazwa bliska polskiemu „zoologiczny”, więc słaba do rejestracji.", "https://markinton.com/trademark/zoologic-74358088"], "Zoo & You": ["LOW–MEDIUM", "Brak identycznej nazwy. W UE działają podobne „ZOO&ZO” (NL) i „Zoo & Co.” (DE). Schemat „Zoo &” jest zatłoczony.", "https://www.franchisedirect.co.uk/top500/zooco/469/"], "Pet Gala": ["MEDIUM", "W USA to nazwa pokazów mody dla zwierząt i programu CBS. Kolizja z linią ubranek, ale nie znaleziono znaku w UE.", "https://www.cbs.com/shows/dolly-partons-pet-gala/"], "Peticure": ["MEDIUM–HIGH", "PetiCure to znane urządzenie do pazurów, sprzedawane też w UE (eBay.de).", "https://www.ebay.de/itm/401511537400"], "Fluffycorn": ["LOW", "Nic istotnego nie znaleziono. Najbliżej są pluszaki-jednorożce innych marek (np. „Fluffie Stuffiez”).", ""], "Pet'n'Roll": ["LOW", "Brak identycznej nazwy. Są podobne zabawki: „Romp-n-Roll” (Jolly Pets) i „Moov N'Roll” (FR).", "https://www.zoomalia.com/animalerie/moov-n-roll-p-212750.html"], "Petopia": ["HIGH", "Wiele znaków PETOPIA w USA, zgłoszenie holenderskiej firmy w kl. 9/16/28/35 oraz serwis petopia.eu (Luksemburg).", "https://markinton.com/trademark/petopia-87773217"], "Zooperhero": ["LOW–MEDIUM", "Seria książek dla dzieci „Zooperhero Universe” (USA). Brak użycia w branży zoologicznej.", "https://blackwells.co.uk/bookshop/product/Zooperhero-Universe-by-Gregg-Schigiel-author-Gregg-Schigiel-illustrator/9780990521884"], "Pet Detective": ["MEDIUM", "Znak „THE PET DETECTIVE” (USA) na lokalizatory GPS dla zwierząt, czyli kolizja z linią elektroniki.", "https://trademark.justia.com/owners/telepet-inc-2047027"], "Petvolution": ["MEDIUM–HIGH", "Brzmi niemal jak „Pet Evolution”, amerykańska sieć sklepów zoologicznych ze znakami w USPTO.", "https://trademark.justia.com/owners/pet-evolution-franchising-llc-4711922"], "Petlantis": ["LOW", "Jedyny ślad to strona testowa usługi groomerskiej. Brak znaków i firm w UE/PL.", ""], "Fluffinity": ["LOW", "Nie znaleziono marki, firmy ani znaku.", ""], "Press Paws": ["LOW–MEDIUM", "Używane jako hasło (funkcja pilota Roku, kampania Mad Paws AU). Brak marki zoologicznej w UE. Nazwa słaba do ochrony.", "https://madpaws.com.au/blog/mad-paws-first-major-brand-campaign-press-paws"], "Paws & Play": ["MEDIUM", "Zgłoszenie „PAWS & PLAY” w USA (kl. 35, sprzedaż online produktów dla zwierząt), wiele hoteli dla psów. Nazwa opisowa.", "https://trademarks.justia.com/985/98/paws-98598672.html"], "Sofa Jungle": ["LOW", "Tylko opisy mebli w stylu dżungli. Brak marki i znaku.", ""], "Zoovenir": ["MEDIUM", "Nazwa sklepów z pamiątkami w zoo w UK/USA i znaki w USA (kl. 35).", "https://belfastcity.gov.uk/Zoo/Your-visit/Zoovenir-shop"], "Expetition": ["LOW", "Nic nie znaleziono dla tej pisowni.", ""], "Petmosphere": ["LOW–MEDIUM", "Mała amerykańska aplikacja Petmosphere (adopcje). Brak użycia w UE/PL.", "https://apps.apple.com/app/id1449364937"], "Pet Project": ["MEDIUM", "Zarejestrowany znak w Australii (przysmaki), kilka firm w USA. Popularny idiom, trudny do ochrony.", "https://search.ipaustralia.gov.au/trademarks/search/view/2505204/details"]};
+
+const okDom=n=>(DOM[n]||[]).some(e=>e.pl==='free'&&e.eu==='free');
+const RISKOK=r=>r==='LOW'||r==='LOW–MEDIUM';
+const badge=(t,s)=>`<span class="db ${s==='free'?'free':s==='taken'?'taken':'unk'}">.${t} ${s==='free'?'wolna':s==='taken'?'zajęta':'?'}</span>`;
+function avail(d){
+  const doms=(DOM[d.name]||[]).map(e=>`<div class="drow"><code>${e.slug}</code> ${badge('pl',e.pl)}${badge('eu',e.eu)}${badge('com',e.com)}</div>`).join('');
+  const tm=TM[d.name];
+  const q=encodeURIComponent(d.name);
+  const tmh=tm?`<div class="tm r-${tm[0].replace('–','-')}"><b>Kolizje (wstępnie): ${tm[0]==='LOW'?'niskie':tm[0]==='LOW–MEDIUM'?'niskie/średnie':tm[0]==='MEDIUM'?'średnie':tm[0]==='MEDIUM–HIGH'?'średnie/wysokie':'wysokie'}</b> ${tm[1]} ${tm[2]?`<a href="${tm[2]}" target="_blank" rel="noopener">źródło</a>`:''}</div>`:`<div class="tm r-NA"><b>Kolizje:</b> nie sprawdzano (poza top 30)</div>`;
+  return `<div class="sec"><b>Dostępność</b>${doms}${tmh}<div class="tml">Sprawdź ręcznie: <a href="https://www.tmdn.org/tmview/#/tmview/results?page=1&pageSize=30&criteria=C&basicSearch=${q}" target="_blank" rel="noopener">TMview (UE+PL)</a> · <a href="https://euipo.europa.eu/eSearch/#basic/1+1+1+1/100+100+100+100/${q}" target="_blank" rel="noopener">EUIPO</a> · <a href="https://ewyszukiwarka.pue.uprp.gov.pl/search/simple-search" target="_blank" rel="noopener">UPRP</a> · <a href="https://wyszukiwarka-krs.ms.gov.pl/" target="_blank" rel="noopener">KRS</a></div></div>`;
+}
 const INS={"Ukryty „pet”":"Gra słów na znanym słowie (badania nad paronomazją) + uniwersalna kotwica „pet”.","Zoo":"„Zoo” jest identyczne po polsku i angielsku, więc rozumie je każdy, i obejmuje wszystkie gatunki.","Postacie":"Potencjał maskotki i kolekcji (efekt Labubu, petfluencerzy).","Popkultura":"Odniesienie do popkultury, które ludzie chętnie udostępniają (wzór wiralowy z TikToka).","Moda":"Humanizacja: zwierzę ubierane jak członek rodziny (APPA, Harris).","Idiomy":"Znany idiom, czyli płynność przetwarzania i efekt „aha!”.","Futro":"„Fur” obejmuje każde futrzane zwierzę; humanizacja (fur baby, furmily).","Puch":"Miękkie brzmienie „fl-” (symbolika dźwięku) pasuje do legowisk i pluszów; estetyka „cute”.","Ogony":"Ukryte „tail” w znanym słowie, czyli gra słów dla nowej marki.","Łapki":"„Paws” obejmuje psy, koty i gryzonie; uwaga na polskie „paw”.","Dzikie":"Język właścicieli z internetu (zoomies, boop) i natura zwierzaka.","Tech":"Pet tech rośnie ok. 12% rocznie (GMI 2025)."};
 const cats=["Wszystkie",...new Set(D.map(d=>d[2]))];
 const W=[.2,.2,.2,.1,.1,.2];
@@ -430,10 +495,11 @@ function card(d){
   <p class="sec slogan"><b>Slogan</b>${d.slogan}</p>
   <p class="sec"><b>Na czym oparte</b>${INS[d.cat]||""}</p>
   <p class="sec risk"><b>Ryzyko / uwaga</b>${d.risk}</p>
+  ${avail(d)}
   </div></article>`;
 }
 // top 10
-const top10=[...data].sort((a,b)=>b.score-a.score||a.num-b.num).slice(0,10);
+const top10=[...data].filter(d=>okDom(d.name)&&TM[d.name]&&RISKOK(TM[d.name][0])).sort((a,b)=>b.score-a.score||a.num-b.num).slice(0,10);
 document.getElementById("podium").innerHTML=top10.map((d,i)=>`<div class="pod" data-n="${d.num}"><span class="rank">${i+1}.</span>${logoHTML(d,22)}<div style="margin-top:8px;font-weight:800">${esc(d.name)} <span style="color:var(--accent)">${d.score}</span></div><div style="font-size:13px;color:var(--muted)">${d.cat} · „${d.pron}”</div></div>`).join("");
 document.querySelectorAll(".pod").forEach(p=>p.onclick=()=>{state.cat="Wszystkie";state.q="";q.value="";render();document.getElementById("n"+p.dataset.n).scrollIntoView({behavior:"smooth",block:"center"})});
 
@@ -443,8 +509,9 @@ chips.innerHTML=cats.map(c=>`<button class="chipbtn" data-c="${c}">${c}</button>
 chips.onclick=e=>{const b=e.target.closest("button");if(!b)return;state.cat=b.dataset.c;render()};
 q.oninput=()=>{state.q=q.value.toLowerCase();render()};
 sort.onchange=()=>{state.sort=sort.value;render()};
+document.getElementById("onlyfree").onchange=e=>{state.free=e.target.checked;render()};
 function render(){
-  let r=data.filter(d=>(state.cat==="Wszystkie"||d.cat===state.cat)&&(!state.q||(d.name+" "+d.why+" "+d.cat).toLowerCase().includes(state.q)));
+  let r=data.filter(d=>(!state.free||okDom(d.name))&&(state.cat==="Wszystkie"||d.cat===state.cat)&&(!state.q||(d.name+" "+d.why+" "+d.cat).toLowerCase().includes(state.q)));
   const k=state.sort;
   r.sort((a,b)=>k==="num"?a.num-b.num:k==="az"?a.name.localeCompare(b.name):k==="c"?b.s[0]-a.s[0]||b.score-a.score:k==="m"?b.s[2]-a.s[2]||b.score-a.score:b.score-a.score||a.num-b.num);
   document.getElementById("cards").innerHTML=r.map(card).join("");
