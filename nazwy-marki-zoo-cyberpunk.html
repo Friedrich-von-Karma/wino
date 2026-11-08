@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neo-Warszawa 2077</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Audiowide&family=Pacifico&family=Bodoni+Moda:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07040F;--panel:#0E0A1C;--panel2:#150F2A;--text:#E8E6F0;--muted:#9A93B5;--line:#2A2248;--pink:#FF2A6D;--cyan:#05D9E8;--yellow:#F9F871;--green:#39FF14}
+:root[data-theme="light"]{--bg:#F3F1F8;--panel:#FFFFFF;--panel2:#ECE8F7;--text:#14102A;--muted:#5B5478;--line:#D7D0EA;--pink:#D0144E;--cyan:#007C8A;--yellow:#8A7A00;--green:#1A7A0A}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.5 Rajdhani,system-ui,sans-serif;background-image:linear-gradient(rgba(255,42,109,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(5,217,232,.04) 1px,transparent 1px);background-size:32px 32px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+a{color:var(--cyan)}
+header{padding:52px 0 26px;position:relative}
+.tag{font-family:'Share Tech Mono',monospace;color:var(--yellow);font-size:13px;letter-spacing:.12em}
+h1{font-family:Orbitron,sans-serif;font-weight:800;font-size:clamp(30px,6.5vw,62px);line-height:1.02;margin:10px 0 14px;text-transform:uppercase;color:var(--text);text-shadow:2px 0 var(--pink),-2px 0 var(--cyan)}
+h2{font-family:Orbitron,sans-serif;font-size:clamp(20px,3.6vw,30px);margin:46px 0 10px;text-transform:uppercase;letter-spacing:.04em}
+h2::before{content:"// ";color:var(--pink)}
+h3{margin:0 0 6px;font-family:Orbitron,sans-serif;font-size:15px;letter-spacing:.03em}
+.lead{font-size:19px;color:var(--muted);max-width:800px}
+.grid{display:grid;gap:14px}
+.two{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.box{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--pink);padding:14px 16px;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)}
+.box p{margin:4px 0 0;font-size:16px}
+.box .ex{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--cyan)}
+.note{background:var(--panel2);border:1px dashed var(--yellow);padding:12px 16px;margin-top:14px;font-size:16px}
+.tablewrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td,th{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted);text-transform:uppercase}
+.controls{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.controls input,.controls select{font:inherit;font-size:15px;padding:8px 12px;border:1px solid var(--line);background:var(--panel);color:var(--text)}
+.controls input{flex:1 1 200px;min-width:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;width:100%}
+.chipbtn{font:inherit;font-size:14px;padding:5px 11px;border:1px solid var(--line);background:var(--panel);color:var(--text);cursor:pointer;font-family:'Share Tech Mono',monospace}
+.chipbtn.on{background:var(--pink);border-color:var(--pink);color:#fff}
+.tog{font-size:14px;display:flex;gap:6px;align-items:center}
+.count{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--muted);margin-left:auto}
+.cards{grid-template-columns:repeat(auto-fill,minmax(320px,1fr));margin:18px 0 40px}
+.card{background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px))}
+.logo{height:140px;display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;text-align:center;position:relative;overflow:hidden}
+.logo::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.04) 0 1px,transparent 1px 3px);pointer-events:none}
+.logo svg{width:40px;height:40px;flex:none}
+.logo .wm{font-size:26px;line-height:1.05;word-break:break-word;text-transform:uppercase}
+.logo .serial{position:absolute;left:8px;bottom:6px;font-family:'Share Tech Mono',monospace;font-size:10.5px;opacity:.7}
+.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.num{font-family:'Share Tech Mono',monospace;color:var(--muted);font-size:13px}
+.cat{font-family:'Share Tech Mono',monospace;font-size:12px;border:1px solid var(--cyan);color:var(--cyan);padding:2px 8px;white-space:nowrap}
+.name{font-family:Orbitron,sans-serif;font-size:20px;margin:0}
+.pron{font-size:14px;color:var(--muted)}
+.score{font-family:Orbitron,sans-serif;font-size:22px;color:var(--pink)}
+.score small{font-size:12px;color:var(--muted)}
+.meters{display:grid;grid-template-columns:auto 1fr auto;gap:3px 8px;font-size:13px;align-items:center}
+.bar{height:5px;background:var(--panel2);overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--cyan))}
+.lbl{color:var(--muted)}
+.sec{font-size:16px;margin:0}
+.sec b{display:block;font-family:'Share Tech Mono',monospace;font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--yellow);margin-bottom:1px;font-weight:400}
+.slogan{font-style:italic}
+.risk{color:var(--muted);font-size:15px}
+.drow{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:3px 0;font-size:13px}
+.drow code{font-family:'Share Tech Mono',monospace;margin-right:2px}
+.db{font-family:'Share Tech Mono',monospace;font-size:11.5px;padding:1px 7px;border:1px solid}
+.db.free{color:var(--green);border-color:var(--green)}.db.taken{color:var(--pink);border-color:var(--pink)}.db.unk{color:var(--muted);border-color:var(--line)}
+.tml{font-size:13px;color:var(--muted);margin-top:4px}
+.podium{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.pod{background:var(--panel);border:1px solid var(--line);cursor:pointer;position:relative}
+.pod .rank{position:absolute;top:6px;right:10px;font-family:Orbitron;color:var(--yellow);z-index:2}
+.pod .lbx{padding:8px 12px 12px}
+ol.src{font-size:15px;padding-left:20px}
+footer{padding:30px 0 60px;color:var(--muted);font-size:15px}
+.theme{position:fixed;right:14px;bottom:14px;z-index:9;border:1px solid var(--line);background:var(--panel);color:var(--text);padding:8px 12px;font:inherit;font-size:14px;cursor:pointer}
+@media (max-width:520px){.controls{position:static}.cards{grid-template-columns:1fr}.logo .wm{font-size:22px}}
+</style>
+</head>
+<body>
+<button class="theme" id="themeBtn" aria-label="Zmień motyw">◐ motyw</button>
+<div class="wrap">
+<header>
+  <div class="tag">&gt; NEO-WARSZAWA_2077 // SEKTOR: ZOOLOGICZNY // STATUS: ONLINE</div>
+  <h1>100 korporacji zoologicznych z roku 2077</h1>
+  <p class="lead">Co by było, gdyby twoja marka działała w świecie cyberpunka? Oto 100 nazw firm „wszystko dla zwierząt” w stylu megakorporacji, neonowych marek i ulicznych sklepów. Akcja dzieje się w wymyślonym mieście <b>Neo-Warszawa 2077</b>. Żadna nazwa nie powtarza się z poprzednimi listami (sprawdzone automatycznie względem 476 wcześniejszych propozycji). Wszystkie są uniwersalne: pasują do każdego zwierzęcia, nie tylko do psa czy kota. <a href="nazwy-marki-zoo.html">Lista 1</a> · <a href="nazwy-marki-zoo-2.html">Lista 2</a> · <a href="nazwy-marki-zoo-3.html">Lista 3</a></p>
+</header>
+
+<h2>Jak nazywają się firmy w Cyberpunku</h2>
+<p class="lead">Przeanalizowałem nazwy korporacji i marek ze świata Cyberpunk 2077 / Red / 2020: Arasaka, Militech, Kang Tao, Kiroshi, Biotechnica, Petrochem, Zetatech, Night Corp, Trauma Team, Orbital Air, Budget Arms, Constitutional Arms, NiCola, ChroManticore, Cirrus Cola i Spunky Monkey. Wychodzi z tego 6 wzorców:</p>
+<div class="grid two">
+  <div class="box"><h3>01 · Azjatyckie nazwy rodowe</h3><p>Japońskie i chińskie nazwiska rodów korporacyjnych brzmią potężnie i z dystansem.</p><p class="ex">Arasaka · Kang Tao · Kiroshi</p><p>→ u mnie: słowa z japońskiego, chińskiego i koreańskiego oznaczające „zwierzę”, „puch” albo „anioła” (Dongwu, Kemono, Mofu, Tenshi).</p></div>
+  <div class="box"><h3>02 · Końcówki -tech / -chem / -tronics</h3><p>Zrost słowa-tematu z technologiczną końcówką.</p><p class="ex">Militech · Petrochem · Zetatech · Biotechnica</p><p>→ u mnie: Petware, Petronix, Petgenix, Furware, Zoogen.</p></div>
+  <div class="box"><h3>03 · Brutalnie dosłowne</h3><p>Nazwa mówi wprost, co robią, często cynicznie.</p><p class="ex">Trauma Team · Budget Arms · Orbital Air</p><p>→ u mnie: Rapid Pet Response, Budget Leash Co., Lost &amp; Found Inc., Zero Fleas.</p></div>
+  <div class="box"><h3>04 · Konsumenckie gry słów</h3><p>Dziwne wielkie litery i zrosty, slogan wbudowany w nazwę.</p><p class="ex">NiCola · ChroManticore · Spunky Monkey</p><p>→ u mnie: ZooBit, TailByte, Fluffcoin, Hyperhug.</p></div>
+  <div class="box"><h3>05 · Korporacyjny chłód</h3><p>Holdings, Industries, Dynamics, Systems, Group, czyli władza przez biurokrację.</p><p class="ex">Night Corp · Arasaka Corporation</p><p>→ u mnie: Kemono Dynamics, Dongwu Heavy Industries, Bureau of Pets.</p></div>
+  <div class="box"><h3>06 · Estetyka: chrom, neon, glitch</h3><p>Loga z ostrymi kątami, kodami kreskowymi, paskami ostrzegawczymi i neonową poświatą. Reklamy brzmią dystopijnie, np. „Death is optional”.</p><p>→ u mnie: Chromepet, Neonfur, Glitch Pets, Static Fur oraz slogany z ironią.</p></div>
+</div>
+<div class="note"><b>Ważne:</b> to inspiracja stylem, a nie kopia. Nie używam żadnej nazwy, logo ani miejsca z gry. Miasto Night City zastępuję wymyśloną Neo-Warszawą z dzielnicami: Mokotów Arcology, Żerań Free Zone, Vistula Docks, Praga Undercity, Śródmieście Spire. Projekt nie jest powiązany z CD PROJEKT RED.</div>
+
+<h2>Punktacja</h2>
+<div class="tablewrap"><table>
+<tr><th>Kryterium</th><th>Waga</th><th>Co mierzy</th></tr>
+<tr><td><b>Klimat 2077</b></td><td>20%</td><td>Czy brzmi jak firma z cyberpunkowego miasta</td></tr>
+<tr><td><b>Zrozumiałość PL</b></td><td>15%</td><td>Czy Polak rozumie słowa</td></tr>
+<tr><td><b>Skojarzenie ze zwierzętami</b></td><td>15%</td><td>Czy wiadomo, że to branża zoologiczna</td></tr>
+<tr><td><b>Zapamiętywalność</b></td><td>15%</td><td>Rytm, długość, obrazowość</td></tr>
+<tr><td><b>Realna użyteczność</b></td><td>20%</td><td>Czy nazwa zadziałałaby jako prawdziwa marka dziś (np. linia elektroniki)</td></tr>
+<tr><td><b>Kreatywność</b></td><td>15%</td><td>Efekt „aha!”, gra słów, lore</td></tr>
+</table></div>
+
+<h2>Top 10: klimat + realna użyteczność</h2>
+<p class="lead">Tylko nazwy z wolną domeną .pl i .eu. Kliknij, żeby przejść do karty.</p>
+<div class="grid podium" id="podium"></div>
+
+<h2>Wszystkie korporacje</h2>
+<div class="controls">
+  <input id="q" type="search" placeholder="&gt; szukaj korporacji…" aria-label="Szukaj">
+  <select id="sort" aria-label="Sortuj"><option value="score">Sortuj: ocena</option><option value="vibe">Sortuj: klimat 2077</option><option value="real">Sortuj: realna użyteczność</option><option value="num">Sortuj: numer</option><option value="az">Sortuj: A–Z</option></select>
+  <label class="tog"><input type="checkbox" id="onlyfree"> tylko wolne .pl + .eu</label>
+  <span class="count" id="count"></span>
+  <div class="chips" id="chips"></div>
+</div>
+<div class="grid cards" id="cards"></div>
+
+<h2>Źródła (konwencje nazw)</h2>
+<ol class="src">
+  <li><a href="https://www.cyberpunk.net/en/news/22070/cyberpunk-2077-e3-2018-trailer-frame-by-frame-ep11-corporations" target="_blank" rel="noopener">CD PROJEKT RED – Trailer Frame by Frame EP11: Corporations</a></li>
+  <li><a href="https://segmentnext.com/2018/07/26/cyberpunk-2077-corporations-cd-projekt-red/" target="_blank" rel="noopener">SegmentNext – Cyberpunk 2077 Corporations Detailed</a></li>
+  <li><a href="https://game8.co/games/Cyberpunk-2077/archives/Factions-Corporations" target="_blank" rel="noopener">Game8 – List of Corporations</a></li>
+  <li><a href="https://pupilswim.com/cyberpunk-2077-canon-and-lore/main-megacorps-in-2077" target="_blank" rel="noopener">Pupil Swim – The Main Megacorps in 2077</a></li>
+  <li><a href="https://www.neogaf.com/cyberpunk/corporations.html" target="_blank" rel="noopener">NeoGAF – The Corporations of Cyberpunk 2077</a></li>
+  <li><a href="https://cyberpunk.fandom.com/wiki/Corporation" target="_blank" rel="noopener">Cyberpunk Wiki – Corporation</a></li>
+  <li><a href="https://gamesradar.com/we-broke-down-20-ads-from-this-one-cyberpunk-2077-screenshot-to-learn-more-about-the-world" target="_blank" rel="noopener">GamesRadar – 20 ads from one Cyberpunk 2077 screenshot</a></li>
+  <li><a href="https://www.cyberpunk.net/en/news/21398/cyberpunk-2077-e3-2018-trailer-frame-by-frame-ep03" target="_blank" rel="noopener">CD PROJEKT RED – Trailer Frame by Frame EP03 (marki, automaty)</a></li>
+  <li><a href="https://gamerant.com/cyberpunk-2077-most-evil-corpos/" target="_blank" rel="noopener">GameRant – The 5 Most Evil Corporations</a></li>
+</ol>
+<footer>Domeny .pl sprawdzone w NASK (RDAP), .eu i .com przez DNS, 8.11.2026. Kolizji znaków towarowych dla tej listy nie sprawdzano. Przed realnym użyciem sprawdź TMview, EUIPO i UPRP (linki przy każdej karcie). Fikcyjny świat, prawdziwe pomysły.</footer>
+</div>
+<script>
+const ICONS={
+ paw:'<circle cx="6" cy="9" r="2.2"/><circle cx="10" cy="5.5" r="2.2"/><circle cx="14" cy="5.5" r="2.2"/><circle cx="18" cy="9" r="2.2"/><path d="M12 10.5c-3.2 0-6 4.2-6 6.6 0 1.9 1.4 2.9 3 2.9 1.2 0 2-.6 3-.6s1.8.6 3 .6c1.6 0 3-1 3-2.9 0-2.4-2.8-6.6-6-6.6z"/>',
+ heart:'<path d="M12 21s-7.2-4.6-9.6-9.1A5.4 5.4 0 0 1 12 6.2a5.4 5.4 0 0 1 9.6 5.7C19.2 16.4 12 21 12 21z"/>',
+ home:'<path d="M3 11.2 12 3.5l9 7.7V21h-6v-6H9v6H3z"/>',
+ star:'<path d="M12 2.5l2.9 6.2 6.8.8-5 4.7 1.3 6.8L12 17.6 6 21l1.3-6.8-5-4.7 6.8-.8z"/>',
+ cloud:'<path d="M7 19a5 5 0 0 1-.6-9.96A6 6 0 0 1 18 8.3 4.5 4.5 0 0 1 17.5 19z"/>',
+ ball:'<circle cx="12" cy="12" r="9.5"/>',
+ bubble:'<path d="M3 4h18v12H9.5L4 20.5V16H3z"/>',
+ crown:'<path d="M3 18.5 2 7l5.2 4L12 4l4.8 7L22 7l-1 11.5z"/>',
+ bolt:'<path d="M13.5 2 4 14h7l-1.5 8L20 10h-7z"/>',
+ sun:'<circle cx="12" cy="12" r="5.5"/>',
+ smile:'<circle cx="12" cy="12" r="9.5"/>',
+ gift:'<path d="M3 8h18v4H3zM4.5 12h15v9h-15z"/>'
+};
+const FONTS={o:"'Orbitron',sans-serif;font-weight:800",f:"'Audiowide',sans-serif",p:"'Pacifico',cursive",d:"'Bodoni Moda',serif;font-weight:600",m:"'Share Tech Mono',monospace"};
+// [nazwa, wymowa, frakcja, [klimat, zrozumiałość, skojarzenie, zapamiętywalność, realna użyteczność, kreatywność], ikona, font, [neon, tło], lore, logo, slogan, uwaga]
+const D=[
+["Dongwu Heavy Industries","dongu hewi industris","Megakorpo",[10,6,6,8,5,9],"crown","o",["#FF2A6D","#0D0221"],"„Dòngwù” (动物) to po chińsku „zwierzę”. Megakorporacja z Żerań Free Zone, która produkuje pancerne legowiska i miski z tytanu dla elity Neo-Warszawy. Trzyma monopol na karmniki w 40 arkologiach.","Czerwony heksagon z chińskim znakiem 动 i paskami ostrzegawczymi.","Strength for the ones you love.","Brzmi groźnie. W realnym świecie lepiej jako submarka premium."],
+["Kemono Dynamics","kemono dajnamiks","Megakorpo",[10,7,6,9,6,9],"bolt","o",["#05D9E8","#01012B"],"„Kemono” (獣) to po japońsku „bestia, zwierzę”. Japoński gigant robotyki zwierzęcej: interaktywne zabawki, smart obroże i autonomiczne karmniki.","Stylizowana litera K z neonowym okiem i kodem kreskowym.","Engineered to be adored.","„Kemono” to też nazwa subkultury anime, warto to sprawdzić."],
+["Mofu Systems","mofu sistems","Megakorpo",[9,7,7,10,8,10],"cloud","o",["#F9F871","#1A1A2E"],"„Mofumofu” to japońskie określenie czegoś puszystego i miękkiego. Korporacja produkująca najmiększe syntetyczne futra i legowiska w mieście.","Puchata kula z cyfrowym konturem i napisem w stylu terminala.","Softness. Optimized.","Jedna z najbardziej realnie użytecznych nazw: krótka, miękka i oryginalna."],
+["Dongmul Corp","dongmul korp","Megakorpo",[9,6,6,8,6,8],"crown","o",["#7B2FF7","#0B0B1F"],"„Dongmul” (동물) to po koreańsku „zwierzę”. Seulski konglomerat od akcesoriów smart: kamery, lokalizatory, dozowniki.","Okrągły emblemat z hangulem i liniami obwodów.","Your pet. Our network.","Mało znane w Polsce."],
+["Kaiju BioWorks","kajdżu bajołorks","Biotech",[10,7,7,9,6,9],"bolt","o",["#39FF14","#0A0F0A"],"Kaiju to wielkie potwory z japońskich filmów. Biotech z Vistula Docks, który obiecuje, że twój zwierzak urośnie zdrowy i silny jak kaiju. Suplementy i pielęgnacja.","Sylwetka potwora w zielonej poświacie i znak zagrożenia biologicznego.","Unleash the kaiju within.","Kaiju to gatunek filmowy, a nie znak, ale wizerunek Godzilli jest chroniony."],
+["Petsuki Holdings","petsuki holdings","Megakorpo",[9,8,8,9,8,9],"heart","o",["#FF6EC7","#140021"],"Pet + „suki” (好き, po japońsku „lubię, kocham”). Holding, który posiada połowę sklepów zoologicznych w mieście i pracuje nad modelem subskrypcji zwierzęcej miłości.","Różowe serce z japońskim zawijasem i neonowym podpisem.","We love what you love.","„Suki” po polsku brzmi jak wulgaryzm, więc ta nazwa jest ryzykowna w Polsce!"],
+["Yokai Labs","jokaj labs","Biotech",[10,7,6,9,7,9],"star","o",["#00F0FF","#0D0221"],"Yokai to japońskie duchy i stwory. Laboratorium tworzące świecące w ciemności obroże i zabawki, które jakby „żyją”.","Maska yokai z neonowymi oczami.","Spirits of play.","Mało oczywiste skojarzenie ze zwierzętami."],
+["Hoshi Orbital Pets","hoszi orbital pets","Megakorpo",[9,7,7,8,8,8],"star","o",["#FFD300","#090979"],"„Hoshi” (星) to „gwiazda”. Japońska linia transporterów i akcesoriów podróżnych klasy orbitalnej.","Gwiazda z orbitą i japońskim znakiem.","Your pet among the stars.","Długie."],
+["Tenshi Fur","tenszi fer","Megakorpo",[8,7,7,9,8,8],"heart","d",["#E0AAFF","#10002B"],"„Tenshi” (天使) to „anioł”. Luksusowe futrzane kolekcje dla korpo-zwierząt z wież Śródmieścia.","Anielskie skrzydła z futra, białe na fioletowym tle.","Heaven, upgraded.","Brzmi elegancko i może działać realnie."],
+["Ryujin Pet Systems","rjudżin pet sistems","Megakorpo",[10,7,7,8,7,9],"bolt","o",["#FF124F","#120458"],"Ryujin to smoczy bóg morza. Korporacja bezpieczeństwa: GPS, kamery, alarmy.","Wijący się neonowy smok wokół obroży.","Watched over. Always.","Długie."],
+["Kumo Petronics","kumo petroniks","Tech",[9,7,7,9,8,8],"cloud","o",["#4CC9F0","#03071E"],"„Kumo” (雲) to „chmura”. Elektronika z chmurą: aplikacje, monitoring zdrowia, smart karmniki.","Chmura z obwodami i diodą.","Your pet, in the cloud.","„Kumo” to też „pająk”, zależnie od zapisu."],
+["Hanabi Pet Corp","hanabi pet korp","Megakorpo",[9,8,8,10,8,8],"star","o",["#FF9E00","#1A0B2E"],"„Hanabi” (花火) to „fajerwerki”. Kolorowe, świecące zabawki i akcesoria, czyli neonowa rozrywka dla zwierząt.","Eksplodujący fajerwerk w kształcie łapki.","Every day is a festival.","Ładna, realnie użyteczna nazwa."],
+["Tianlong Pet","tienlung pet","Megakorpo",[9,7,7,8,7,8],"crown","o",["#D00000","#0B0000"],"„Tianlong” (天龙) to „niebiański smok”. Chiński producent masowy: wszystko dla zwierząt, tanio i szybko.","Złoty smok na czerwonym tle.","Everything. Everywhere. For every pet.","Słabe skojarzenie zwierzęce bez „Pet”."],
+["Sakura Synthpet","sakura syntpet","Megakorpo",[9,8,8,9,8,8],"heart","p",["#FFB7C5","#1B0A1F"],"Kwiat wiśni plus syntetyczne zwierzęta-roboty. Najbardziej urocza korporacja w mieście, która sprzedaje robo-zwierzaki dla mieszkańców bez miejsca na prawdziwe.","Kwiat wiśni z obwodami w płatkach.","Bloom, forever.","Robo-zwierzęta jako koncept mogą odstraszać miłośników zwierząt."],
+["Petware","petłer","Tech",[10,9,9,10,9,10],"bolt","o",["#00FFC6","#020024"],"Gra słów z „cyberware” (wszczepy z gry) i „software”. Cyberware dla zwierząt, czyli całe smart akcesoria. Krótko, czysto, idealnie.","Łapka z obwodu drukowanego, monospace.","Install happiness.","Jedna z najlepszych także do realnego użycia. Sprawdź znaki."],
+["Furware","ferłer","Tech",[10,8,8,9,8,9],"bolt","o",["#FF00A0","#0D0221"],"Fur + ware. Odzież techniczna dla zwierząt: podgrzewane kurtki i odblaskowe obroże.","Futro z siatki wireframe.","Wear the future.","„Fur” bywa różnie wymawiane."],
+["Synthpet","syntpet","Tech",[10,8,8,9,7,8],"bolt","o",["#7DF9FF","#03001C"],"Syntetyczne zwierzęta, czyli zabawki robotyczne i interaktywne. Krótko i mocno.","Wireframe zwierzaka w neonie.","Real love. Synthetic friend.","Może sugerować sztuczne zwierzęta."],
+["Nanopet","nanopet","Tech",[9,9,9,10,8,8],"bolt","o",["#F72585","#10002B"],"Nanotechnologia dla zwierząt: samoczyszczące miski, materiały antybakteryjne. „Nano” zna każdy.","Mała łapka z cząsteczkami wokół.","Tiny tech. Huge love.","„Nanopet” mogło być nazwą zabawek elektronicznych w latach 90."],
+["Neurofur","njurofer","Tech",[10,7,8,9,7,9],"bolt","o",["#9D4EDD","#0A0014"],"Neuro + fur. Zabawki rozwijające mózg i neurotechnologia rozumienia zwierzaka.","Mózg z futra z neuronami.","Understand them. Fully.","Może brzmieć niepokojąco (eksperymenty)."],
+["Datafur","dejtafer","Tech",[10,7,8,9,7,8],"bolt","o",["#00F5D4","#011627"],"Dane + futro, czyli monitoring zdrowia, aktywności i snu.","Futro złożone z kolumn danych.","Know your pet. In data.","Kojarzy się z inwigilacją."],
+["Cybertail","sajbertejl","Tech",[10,8,9,10,8,9],"bolt","o",["#FF2A6D","#05001A"],"Cyber + ogon, czyli elektronika i akcesoria tech. Bardzo „cyberpunkowe” i jednocześnie czytelne.","Neonowy ogon z kablem zamiast końcówki.","Wag into the future.","„Tail” średnio znane w Polsce."],
+["Chromepet","kromepet","Tech",[10,8,8,9,8,8],"star","o",["#C0C0C0","#0B0C10"],"Chrom to symbol cyberpunka. Chromowane, lśniące akcesoria premium.","Chromowany wordmark z odbiciami.","Polished to perfection.","Google Chrome może kojarzyć się z przeglądarką."],
+["Netpet Systems","netpet sistems","Tech",[9,8,8,9,7,7],"bolt","o",["#0AFF99","#001219"],"Sieć dla zwierząt: łączy wszystkie urządzenia pupila.","Siatka sieci z łapką w węźle.","Connected companions.","Generyczne."],
+["Petgenix","petdżeniks","Biotech",[9,8,8,9,7,8],"star","o",["#80FFDB","#03045E"],"Genetyka i zdrowie. Biotech od suplementów i pielęgnacji.","Helisa DNA z łapek.","Better by design.","Brzmi jak firma farmaceutyczna."],
+["Zoogen","zudżen","Biotech",[9,8,8,9,7,8],"star","o",["#B5FF00","#0B132B"],"Zoo + gen. Laboratorium wszystkiego dla zwierząt.","Litera Z z helisy DNA.","Life, refined.","Brzmi jak firma farmaceutyczna."],
+["Synthfur","syntfer","Biotech",[10,8,8,9,8,8],"cloud","o",["#FF6AD5","#1F0A2E"],"Syntetyczne futro, czyli ekologiczne, wegańskie materiały na legowiska i ubranka.","Pasmo neonowego futra.","Zero cruelty. Maximum soft.","Świetne pod komunikację „vegan”."],
+["Biopet Industries","bajopet industris","Biotech",[9,8,7,8,6,7],"star","o",["#39FF14","#081C15"],"Klasyczna megakorpo biotech: wszystko organiczne, wszystko patentowane.","Liść z obwodem.","Nature, patented.","„Biopet” może być już używane."],
+["Ferrotail","ferotejl","Tech",[10,7,8,9,8,9],"bolt","o",["#FF7B00","#1A1A1A"],"Ferro (żelazo) + ogon. Ciężki, przemysłowy design: niezniszczalne zabawki i obroże.","Żelazny ogon z nitami.","Built like iron.","Mniej ciepłe."],
+["Neonfur","neonfer","Estetyka",[10,8,9,10,8,8],"star","o",["#FE53BB","#09001A"],"Neon + futro. Świecące akcesoria i odblaski na nocne spacery po mieście.","Futrzana kula w neonowym konturze.","Glow in the dark side.","Realnie użyteczne."],
+["Petronix","petroniks","Tech",[9,8,8,9,7,7],"bolt","o",["#08F7FE","#0A0A0A"],"Klasyczna tech-korpo: elektronika dla zwierząt.","Kanciasty logotyp z kreską jak oscyloskop.","Electronics with a heartbeat.","„Petro” kojarzy się z ropą."],
+["Cyberfluff","sajberflaf","Tech",[10,8,9,10,8,9],"cloud","f",["#FF61D8","#13001F"],"Cyber + puch, czyli miękkość w świecie metalu. Ironiczny kontrast, idealny na merch.","Puchata chmura z kablami i diodami.","Soft in a hard world.","Realnie bardzo zabawne."],
+["Holopet","holopet","Tech",[10,8,9,10,8,8],"star","o",["#00E5FF","#001F3F"],"Hologramowe zwierzaki i projektory zabawek, czyli laserowe zabawki dla kotów i psów w wersji 2077.","Półprzezroczysta sylwetka zwierzaka w niebieskim świetle.","Play beyond reality.","Może sugerować wirtualne zwierzęta."],
+["Optipet","optipet","Tech",[9,8,8,9,8,7],"star","o",["#F0F","#000"],"Optyka, czyli kamery dla zwierząt („oczy” w domu).","Soczewka z łapką w środku.","See everything they see.","Generyczne."],
+["Petlink Neural","petlink njural","Tech",[10,7,7,8,6,8],"bolt","o",["#7FFF00","#011"],"Neurointerfejs łączący z pupilem, czyli fantazja 2077. Realnie: aplikacja i smart urządzenia.","Dwie fale mózgowe połączone łapką.","Feel what they feel.","Długie, a „neural” niepokoi."],
+["Wirefur","łajerfer","Tech",[10,7,8,9,7,8],"bolt","o",["#FFEA00","#111"],"Futro z kabli, czyli tech-odzież i obroże z diodami.","Futro z kabli w żółtym neonie.","Plugged-in comfort.","Brzmi szorstko."],
+["Pet.EXE","pet eks","Tech",[10,8,9,9,6,9],"bolt","o",["#00FF41","#0D0208"],"Plik wykonywalny, czyli zwierzak jako „program” uruchamiający radość. Hakerski humor.","Okno terminala z „Pet.EXE running…”.","Run happiness.","Kropka w nazwie jest problematyczna (domeny, wyszukiwarki)."],
+["PETOS","petos","Tech",[9,7,8,9,7,8],"bolt","o",["#0FF","#001"],"Pet OS, czyli system operacyjny dla zwierzaka: aplikacja i urządzenia w jednym ekosystemie.","Logo jak system operacyjny, okienko z łapką.","Boot up joy.","„Petos” może być czytane po hiszpańsku („pety”)."],
+["Kernel Pets","kernel pets","Tech",[9,7,8,9,7,8],"bolt","o",["#39FF14","#000"],"Kernel to jądro systemu. Rdzeń wszystkiego dla zwierząt.","Chip z łapką w środku.","The core of care.","Znane głównie programistom."],
+["Glitch Pets","glicz pets","Estetyka",[10,8,9,9,8,8],"bolt","o",["#FF0080","#0A0A0A"],"Estetyka glitchu, czyli efekty zakłóceń w neonach. Streetwearowe kolekcje.","Napis z przesunięciem kolorów RGB.","Perfectly imperfect.","„Glitch” = błąd, może się źle kojarzyć."],
+["Bytefur","bajtfer","Tech",[10,7,8,9,7,8],"bolt","o",["#00BFFF","#000814"],"Bajt + futro, czyli cyfrowe futro, smart materiały.","Futro z pikselowych bajtów.","Byte-size comfort.","Ładne, ale bliskie innym „-fur”."],
+["Voltpet","woltpet","Tech",[10,8,9,10,8,8],"bolt","o",["#FFE600","#0B0B0B"],"Wolt (energia elektryczna) + pet. Elektronika i energia. Krótkie, mocne, czytelne.","Błyskawica w kształcie łapki.","Charged with love.","Wolt to też aplikacja dostawcza w Polsce, więc możliwe skojarzenie."],
+["Plasmapet","plazmapet","Tech",[10,7,8,9,7,8],"bolt","o",["#C77DFF","#10002B"],"Plazma, czyli energia i świecenie. Lampy i podgrzewane legowiska.","Kula plazmowa z łapką.","Pure energy.","Mniej ciepłe."],
+["Quantum Fur","kłontum fer","Tech",[10,7,8,9,7,8],"star","o",["#00F5FF","#03001E"],"Kwantowe futro, czyli nauka przyszłości. Premium tech-materiały.","Atom z orbitami z futra.","Beyond physics.","Pretensjonalne."],
+["Cortex Pets","korteks pets","Tech",[9,7,8,9,7,7],"bolt","o",["#FF4D6D","#0D0221"],"Kora mózgowa, czyli zabawki inteligentne i edukacyjne.","Mózg z łapką.","Smarter play.","Medyczne skojarzenie."],
+["Synapse Pet Co.","synaps pet kołu","Tech",[9,7,8,9,8,8],"bolt","d",["#80FFEA","#011627"],"Synapsa to połączenie, czyli więź z pupilem.","Dwa neurony łączące się w łapkę.","Every connection matters.","Medyczne skojarzenie."],
+["Augmentail","ogmentejl","Tech",[9,8,9,9,8,10],"bolt","o",["#FF2079","#0A0014"],"Augment (wszczep cybernetyczny) + tail. Ulepszony ogon, czyli akcesoria „upgrade”. Gra słów w pełni cyberpunkowa.","Mechaniczny ogon z diodami.","Upgrade your companion.","„Augment” znają głównie gracze."],
+["Chrometail","kromtejl","Tech",[10,8,9,9,8,8],"star","o",["#D9D9D9","#0B0C10"],"Chromowany ogon. Lśniące obroże i smycze premium.","Chromowany ogon w lustrzanym odbiciu.","Shine on.","„Tail” średnio znane."],
+["Rapid Pet Response","repid pet rispons","Bezpieczeństwo",[10,9,8,8,6,8],"bolt","o",["#FF3C38","#0A0A0A"],"Szybkie reagowanie, czyli prywatna służba ratunkowa dla zwierząt z abonamentem platynowym. Realnie: apteczki, GPS, ubezpieczenia.","Krzyż z łapką i pasy ostrzegawcze.","We arrive before you call.","Długie. Brzmi jak usługa."],
+["Leash Authority","lisz otoriti","Bezpieczeństwo",[10,7,8,9,8,9],"crown","o",["#FFD500","#0B0B0B"],"Władza smyczy. Dystopijny „urząd” od smyczy i szelek. Ironiczne i zabawne.","Policyjna odznaka ze smyczą.","Order on every walk.","„Leash” średnio znane w Polsce."],
+["Bureau of Pets","bjuro of pets","Bezpieczeństwo",[10,8,8,9,8,8],"crown","d",["#7FDBFF","#001F3F"],"Biuro zwierząt, czyli biurokracja przyszłości, która dba o każdego pupila. Humor urzędniczy.","Pieczątka „APPROVED” z łapką.","Officially adorable.","Brzmi jak instytucja publiczna."],
+["Lost & Found Inc.","lost end faund ink","Bezpieczeństwo",[10,8,9,9,7,8],"star","o",["#FFB000","#0D0D0D"],"Biuro rzeczy znalezionych, czyli lokalizatory GPS i adresatki. Zgubiony zwierzak zawsze się znajdzie.","Znak zapytania przechodzący w łapkę.","Nothing stays lost.","Kojarzy się z biurem rzeczy znalezionych."],
+["Collar Control","kolar kontrol","Bezpieczeństwo",[10,7,8,9,7,8],"bolt","o",["#FF4365","#0B0B0B"],"Kontrola obroży, czyli smart obroże z lokalizacją i monitorowaniem.","Obroża z ekranem.","Total control. Total love.","„Control” brzmi dystopijnie."],
+["Total Pet Security","totl pet sekjuriti","Bezpieczeństwo",[10,9,7,8,7,7],"crown","o",["#00FF00","#000"],"Pełna ochrona, czyli kamery, GPS i alarmy.","Tarcza z kamerą.","Zero risk. Total love.","Generyczne."],
+["Budget Leash Co.","badżet lisz kołu","Bezpieczeństwo",[10,7,8,9,7,9],"star","o",["#FFE600","#1A1A1A"],"Tanie i brzydkie, ale działa. Ironiczna marka ekonomiczna w stylu ulicznym.","Tani napis na żółtej taśmie.","Cheap. Reliable. Yours.","Brzmi tanio, a o to chodzi."],
+["Zero Fleas","ziro flis","Bezpieczeństwo",[9,8,10,9,7,9],"bolt","o",["#00FFAB","#0B0B0B"],"Zero pcheł, czyli preparaty przeciw pchłom w stylu korporacyjnej obietnicy. Hasło i nazwa w jednym.","Przekreślona pchła w neonie.","Zero tolerance.","Wąsko (pielęgnacja)."],
+["Flea-X Corp","fli eks korp","Bezpieczeństwo",[9,7,9,9,6,8],"bolt","o",["#FF006E","#000"],"„X” jako eliminacja. Korporacja od walki z pasożytami.","Litera X z pchłą w krzyżu celownika.","Eliminated.","Brzmi militarnie."],
+["Ironleash","ajronlisz","Bezpieczeństwo",[10,7,8,9,8,8],"bolt","o",["#B0B0B0","#141414"],"Żelazna smycz, czyli wytrzymałe smycze i szelki.","Ogniwo łańcucha w kształcie łapki.","Unbreakable bond.","Brzmi ciężko."],
+["Steelcollar","stilkolar","Bezpieczeństwo",[10,7,8,9,8,8],"bolt","o",["#A8DADC","#1D3557"],"Stalowa obroża. Gra słów z „white collar” i „blue collar”.","Stalowa obroża z nitami.","Built for the streets.","Kojarzy się z kolczatkami."],
+["Blackbox Pets","blekboks pets","Bezpieczeństwo",[10,7,8,9,7,8],"bolt","o",["#FF9F1C","#000"],"Czarna skrzynka, czyli rejestrator aktywności zwierzaka (GPS, zdrowie).","Czarny sześcian z łapką.","Every moment recorded.","Kojarzy się z katastrofami lotniczymi."],
+["Shield & Fur","szild end fer","Bezpieczeństwo",[10,8,8,9,8,7],"crown","d",["#4CC9F0","#03071E"],"Tarcza i futro, czyli ochrona i miękkość.","Tarcza z futrzanym obszyciem.","Protect the soft ones.","Generyczne."],
+["Sentinel Pets","sentinel pets","Bezpieczeństwo",[10,7,8,9,7,7],"star","o",["#F72585","#1A0033"],"Strażnik, czyli kamery i czujniki.","Oko strażnika z łapką.","Always watching. Always caring.","„Always watching” brzmi dystopijnie, i dobrze."],
+["Guardian Grid","gardian grid","Bezpieczeństwo",[10,6,8,9,7,8],"bolt","o",["#00F5D4","#011627"],"Sieć strażników, czyli miejska sieć lokalizacji zwierząt.","Siatka z łapką w centrum.","No pet left behind.","Słabe skojarzenie zwierzęce."],
+["Helix Pets","heliks pets","Biotech",[9,8,8,9,7,7],"star","o",["#80FFDB","#03045E"],"Helisa DNA, czyli zdrowie i genetyka.","Helisa z łapek.","Wellness, decoded.","„Helix” to też nazwa firm IT."],
+["BioFluff Labs","bajoflaf labs","Biotech",[10,8,9,9,7,8],"cloud","o",["#B9FBC0","#0B132B"],"Laboratorium puchu, czyli bio-materiały na legowiska.","Kolba z puchatą chmurką.","Engineered softness.","Długie."],
+["Vitalpet Biotech","wajtalpet bajotek","Biotech",[9,8,7,8,7,7],"heart","o",["#00FF87","#002B1A"],"Witalność, czyli suplementy i zdrowie.","Serce z linią EKG.","Life signs: excellent.","Brzmi jak apteka."],
+["Lazarus Pet Labs","lazarus pet labs","Biotech",[10,6,8,9,4,8],"star","d",["#FF0054","#0A0A0A"],"Łazarz, czyli wskrzeszenie. Mroczna korporacja, która obiecuje wieczne życie zwierząt. Typowo dystopijna.","Czaszka z kwiatem i łapką.","Death is optional.","Mroczne. Nie nadaje się do realnego użycia."],
+["ZooBit","zubit","Marki",[9,8,9,10,8,8],"bolt","o",["#00FFFF","#000"],"Zoo + bit. Krótkie, cyfrowe, łatwe.","Pikselowe „Z” z łapką.","Every bit counts.","Mało treści."],
+["TailByte","tejlbajt","Marki",[9,7,9,9,8,8],"bolt","o",["#FF00FF","#0A0A0A"],"Ogon + bajt. Cyfrowe zabawki i gadżety.","Ogon z bitów.","Bite-size fun.","„Byte”/„bite” mogą się mylić."],
+["Snooze.Net","snuz net","Marki",[8,7,9,9,7,9],"cloud","o",["#7B68EE","#0D0221"],"Sieć drzemki. Legowiska, które „łączą się z siecią snu”.","Chmurka z Wi-Fi i „Zzz”.","Log off. Sleep on.","Kropka w nazwie jest problematyczna."],
+["Fluffcoin","flafkojn","Marki",[10,7,9,10,8,9],"star","o",["#FFD60A","#1A1A1A"],"Kryptowaluta puchu, czyli program lojalnościowy, w którym zbierasz Fluffcoiny za zakupy.","Moneta z puchatym zwierzakiem.","Invest in softness.","Krypto ma złą reputację."],
+["Petcoin","petkojn","Marki",[10,8,9,10,7,8],"star","o",["#F7931A","#111"],"Waluta zwierzaków, czyli punkty lojalnościowe.","Moneta z łapką jak bitcoin.","Currency of love.","Mogą istnieć kryptowaluty o tej nazwie."],
+["Hyperhug","hajperhag","Marki",[8,8,9,10,9,9],"heart","f",["#FF4DA6","#1B0021"],"Hiper-przytulas, czyli ultra-miękkie legowiska i pluszaki.","Dwa ramiona w neonie obejmujące serce.","Hug, maximized.","„Hug” nie wszyscy znają."],
+["Midnight Fluff","midnajt flaf","Marki",[9,7,9,10,8,8],"cloud","p",["#B8B8FF","#0B0033"],"Puch o północy, czyli kolekcje nocne: piżamy, legowiska, lampki.","Księżyc z futra nad miastem.","After dark, stay soft.","Mało jasne bez kontekstu."],
+["Chrome Bowl","krom boul","Marki",[9,8,9,9,8,8],"star","o",["#E5E5E5","#14213D"],"Chromowana miska, czyli metalowe miski premium.","Lśniąca miska z odbiciem neonu.","Dine in chrome.","Zawęża do misek."],
+["Static Fur","statik fer","Marki",[9,8,9,9,9,9],"bolt","o",["#00F0FF","#020024"],"Elektryczność statyczna futra, czyli żart, który zna każdy właściciel. Szczotki antystatyczne i pielęgnacja.","Futro z iskierkami.","Zap-free grooming.","Wąsko."],
+["Velvet Voltage","welwet woltydż","Marki",[8,6,9,9,9,9],"bolt","d",["#D4A5FF","#1A0033"],"Aksamit i napięcie, czyli kontrast miękkości i energii. Luksusowe akcesoria.","Aksamitna wstęga z błyskawicą.","Soft power.","Słabe skojarzenie zwierzęce."],
+["Lo-Fi Pets","loł faj pets","Marki",[9,8,9,9,8,9],"bubble","o",["#F4A261","#2B2D42"],"Lo-fi beats to relax/study to to kultowy stream z rysunkowym kotem. Spokojne legowiska i zabawki relaksacyjne.","Słuchawki na uszach zwierzaka i fale dźwięku.","Chill beats, chill pets.","Myślnik w nazwie jest problematyczny w domenach."],
+["Synthwave Pets","syntłejw pets","Marki",[9,8,8,9,8,8],"sun","o",["#FF71CE","#2D00F7"],"Synthwave (estetyka lat 80.: zachód słońca i siatka) to kolorowe kolekcje retro-futurystyczne.","Słońce w paski nad siatką z łapką.","Back to the future of play.","Estetyka niszowa."],
+["Retrofur","retrofer","Marki",[9,8,9,9,8,8],"star","o",["#FFBE0B","#3A0CA3"],"Retro + futro, czyli vintage design w świecie 2077.","Logotyp w stylu lat 80. z chromem.","Old school. New pets.","Bliskie innym „-fur”."],
+["Vaporpet","wejporpet","Marki",[8,7,9,9,8,9],"cloud","o",["#01CDFE","#FF71CE"],"Vaporwave, czyli pastelowe neony i estetyka internetu.","Grecka rzeźba z uszami w pastelach.","A E S T H E T I C pets.","„Vapor” kojarzy się z e-papierosami."],
+["Glow Collar Co.","glou kolar kołu","Marki",[9,8,8,9,8,7],"star","o",["#39FF14","#000"],"Świecące obroże na nocne spacery.","Obroża z diodami.","Be seen.","Wąsko."],
+["LED Leash","el i di lisz","Marki",[9,7,8,9,8,7],"bolt","o",["#00FFFF","#0A0A0A"],"Smycz z diodami LED. Opisowa i jasna.","Smycz jako świecąca linia.","Light every walk.","Opisowa, trudna do zastrzeżenia."],
+["Hypertail","hajpertejl","Marki",[9,8,9,9,8,8],"bolt","o",["#FF006E","#0A0014"],"Hiper-ogon, czyli energia i zabawki aktywne.","Ogon z liniami prędkości.","Max speed. Max wag.","„Tail” średnio znane."],
+["Gutter Fluff","gater flaf","Ulica",[10,7,9,9,6,9],"cloud","o",["#FF9F1C","#111"],"Puch z rynsztoka, czyli marka uliczna, punkowa, dla przygarniętych zwierzaków. Część zysku idzie na schroniska.","Graffiti z puchatym zwierzakiem.","Born on the streets. Loved anyway.","„Gutter” znaczy rynsztok, więc odważne."],
+["Rooftop Pets","ruftop pets","Ulica",[10,8,8,9,8,8],"home","o",["#FFD000","#14213D"],"Dachy miasta, czyli zwierzaki z wolnością widoku. Akcesoria balkonowe i siatki.","Sylwetka zwierzaka na dachu z neonami w tle.","Above the noise.","Słabe skojarzenie z produktami."],
+["Underground Zoo","andergraund zu","Ulica",[10,8,9,9,8,8],"star","o",["#E63946","#0B090A"],"Podziemie, czyli niezależna marka uliczna z limitowanymi dropami.","Logo jak szablon graffiti.","Not for the mainstream.","Brzmi nielegalnie."],
+["Junkyard Fluff","dżankjard flaf","Ulica",[10,7,9,9,7,9],"cloud","o",["#ADB5BD","#212529"],"Złomowisko i puch, czyli upcykling: produkty z recyklingu.","Puchaty zwierzak na stercie złomu.","Recycled with love.","Słowo „junk” jest negatywne."],
+["Rust & Fur","rast end fer","Ulica",[10,7,8,9,8,8],"star","d",["#C1440E","#1A1A1A"],"Rdza i futro, czyli industrialny, surowy styl. Skórzane obroże i smycze.","Zardzewiała blacha z wyciętą łapką.","Raw. Real. Loyal.","Rdza to negatywne skojarzenie."],
+["Neon Strays","neon strejs","Ulica",[10,8,9,9,8,8],"star","o",["#FF2A6D","#05001A"],"Neonowe bezdomniaki, czyli marka z misją adopcyjną.","Sylwetka przybłędy w neonowym świetle.","Every stray deserves to shine.","Zgodne z misją adopcyjną."],
+["Platinum Pet Tower","platinum pet tałer","Korpo luksus",[10,8,8,8,6,8],"crown","d",["#E5E4E2","#0B0C10"],"Wieża platynowa, czyli luksusowy dom handlowy dla zwierząt korpo-elity.","Wieżowiec z łapką na szczycie.","Above everyone else.","Długie."],
+["Executive Fur","egzekjutiw fer","Korpo luksus",[10,7,8,9,7,8],"crown","d",["#D4AF37","#0B0B0B"],"Futro dla zarządu, czyli luksusowe akcesoria w korporacyjnym stylu.","Złota łapka w krawacie.","For pets in the C-suite.","„Fur” w luksusie kojarzy się z futrami naturalnymi."],
+["Arcology Pets","arkolodżi pets","Korpo luksus",[9,7,8,8,8,8],"home","o",["#00F5D4","#011627"],"Arkologia to samowystarczalne miasto-wieżowiec, typowe dla cyberpunka. Pełen ekosystem zwierzęcy.","Piramidowa wieża z łapką.","Everything under one roof.","Mało znane słowo."],
+["Skyline Pets","skajlajn pets","Korpo luksus",[10,8,8,9,7,7],"home","o",["#4CC9F0","#03071E"],"Panorama miasta. Nowoczesna, miejska marka.","Skyline z łapką jak księżyc.","City life, pet style.","Generyczne."],
+["Zenith Pet Group","zenit pet grup","Korpo luksus",[9,7,8,9,7,7],"star","d",["#FFD60A","#000814"],"Zenit to szczyt. Grupa premium.","Łapka na szczycie trójkąta.","At the top.","Zenith to marka zegarków."],
+["Chrome & Velvet","krom end welwet","Korpo luksus",[9,6,9,9,8,9],"star","d",["#C0C0C0","#3C096C"],"Chrom i aksamit, czyli cyberpunkowy luksus.","Chromowane C na aksamitnym tle.","Hard tech. Soft love.","Brak skojarzenia zwierzęcego."],
+["Pet Megacorp","pet megakorp","Korpo luksus",[10,8,9,9,7,8],"crown","o",["#FF0054","#0B0B0B"],"Autoironia: megakorporacja od zwierząt. Śmieszne na merch.","Logo jak z korporacyjnego budynku.","Too big to fail. Too cute to hate.","Ironia może nie zostać zrozumiana."],
+["Corporate Fluff","korporejt flaf","Korpo luksus",[10,7,9,9,8,9],"cloud","o",["#8338EC","#0B0B1F"],"Korporacyjny puch, czyli satyra na korpo-mowę, a jednocześnie luksusowe legowiska.","Puchata kulka w garniturze.","Synergy. Softness. Shareholder value.","Ironia."],
+["Hoverpet","howerpet","Transport",[10,8,9,9,8,8],"bolt","o",["#00E5FF","#001F3F"],"Hover (unoszący się), czyli transportery na kółkach i futurystyczne torby.","Transporter unoszący się nad ziemią.","Float in style.","Myli się z hoverboardem."],
+["Mag-Leash","meg lisz","Transport",[9,7,8,9,7,9],"bolt","o",["#FF3864","#1A1A2E"],"Maglev (pociąg magnetyczny) + smycz. Magnetyczne zapięcia i smycze premium.","Smycz z magnesem w kształcie łapki.","Click. Lock. Walk.","Myślnik w nazwie."],
+["Neo-Warsaw Pet Co.","neo łorsoł pet kołu","Korpo luksus",[10,8,8,8,7,9],"crown","o",["#FF2A6D","#0D0221"],"Lokalny patriotyzm 2077: korporacja zrodzona w Neo-Warszawie. Polska marka z cyberpunkową tożsamością.","Syrenka w wersji cyborg z łapką na tarczy.","Made in Neo-Warsaw.","Wizerunek Syrenki to herb Warszawy i nie wolno go dowolnie używać."]
+];
+const DOM={"Dongwu Heavy Industries": [{"slug": "dongwuheavyindustries", "pl": "free", "eu": "free", "com": "free"}], "Kemono Dynamics": [{"slug": "kemonodynamics", "pl": "free", "eu": "free", "com": "free"}], "Mofu Systems": [{"slug": "mofusystems", "pl": "free", "eu": "free", "com": "free"}], "Dongmul Corp": [{"slug": "dongmulcorp", "pl": "free", "eu": "free", "com": "free"}], "Kaiju BioWorks": [{"slug": "kaijubioworks", "pl": "free", "eu": "free", "com": "free"}], "Petsuki Holdings": [{"slug": "petsukiholdings", "pl": "free", "eu": "free", "com": "free"}], "Yokai Labs": [{"slug": "yokailabs", "pl": "free", "eu": "free", "com": "taken"}], "Hoshi Orbital Pets": [{"slug": "hoshiorbitalpets", "pl": "free", "eu": "free", "com": "free"}], "Tenshi Fur": [{"slug": "tenshifur", "pl": "free", "eu": "free", "com": "free"}], "Ryujin Pet Systems": [{"slug": "ryujinpetsystems", "pl": "free", "eu": "free", "com": "free"}], "Kumo Petronics": [{"slug": "kumopetronics", "pl": "free", "eu": "free", "com": "free"}], "Hanabi Pet Corp": [{"slug": "hanabipetcorp", "pl": "free", "eu": "free", "com": "free"}], "Tianlong Pet": [{"slug": "tianlongpet", "pl": "free", "eu": "free", "com": "free"}], "Sakura Synthpet": [{"slug": "sakurasynthpet", "pl": "free", "eu": "free", "com": "free"}], "Petware": [{"slug": "petware", "pl": "free", "eu": "taken", "com": "taken"}], "Furware": [{"slug": "furware", "pl": "free", "eu": "free", "com": "taken"}], "Synthpet": [{"slug": "synthpet", "pl": "free", "eu": "free", "com": "taken"}], "Nanopet": [{"slug": "nanopet", "pl": "free", "eu": "taken", "com": "taken"}], "Neurofur": [{"slug": "neurofur", "pl": "free", "eu": "free", "com": "free"}], "Datafur": [{"slug": "datafur", "pl": "free", "eu": "free", "com": "free"}], "Cybertail": [{"slug": "cybertail", "pl": "free", "eu": "taken", "com": "unknown"}], "Chromepet": [{"slug": "chromepet", "pl": "free", "eu": "free", "com": "taken"}], "Netpet Systems": [{"slug": "netpetsystems", "pl": "free", "eu": "free", "com": "free"}], "Petgenix": [{"slug": "petgenix", "pl": "free", "eu": "free", "com": "taken"}], "Zoogen": [{"slug": "zoogen", "pl": "free", "eu": "taken", "com": "taken"}], "Synthfur": [{"slug": "synthfur", "pl": "free", "eu": "free", "com": "free"}], "Biopet Industries": [{"slug": "biopetindustries", "pl": "free", "eu": "free", "com": "free"}], "Ferrotail": [{"slug": "ferrotail", "pl": "free", "eu": "free", "com": "free"}], "Neonfur": [{"slug": "neonfur", "pl": "free", "eu": "free", "com": "taken"}], "Petronix": [{"slug": "petronix", "pl": "free", "eu": "taken", "com": "taken"}], "Cyberfluff": [{"slug": "cyberfluff", "pl": "free", "eu": "free", "com": "taken"}], "Holopet": [{"slug": "holopet", "pl": "taken", "eu": "taken", "com": "unknown"}], "Optipet": [{"slug": "optipet", "pl": "free", "eu": "free", "com": "taken"}], "Petlink Neural": [{"slug": "petlinkneural", "pl": "free", "eu": "free", "com": "free"}], "Wirefur": [{"slug": "wirefur", "pl": "free", "eu": "free", "com": "free"}], "Pet.EXE": [{"slug": "petexe", "pl": "free", "eu": "free", "com": "free"}], "PETOS": [{"slug": "petos", "pl": "free", "eu": "taken", "com": "taken"}], "Kernel Pets": [{"slug": "kernelpets", "pl": "free", "eu": "free", "com": "taken"}], "Glitch Pets": [{"slug": "glitchpets", "pl": "free", "eu": "free", "com": "taken"}], "Bytefur": [{"slug": "bytefur", "pl": "free", "eu": "free", "com": "free"}], "Voltpet": [{"slug": "voltpet", "pl": "free", "eu": "free", "com": "taken"}], "Plasmapet": [{"slug": "plasmapet", "pl": "free", "eu": "free", "com": "free"}], "Quantum Fur": [{"slug": "quantumfur", "pl": "free", "eu": "free", "com": "free"}], "Cortex Pets": [{"slug": "cortexpets", "pl": "free", "eu": "free", "com": "free"}], "Synapse Pet Co.": [{"slug": "synapsepetco", "pl": "free", "eu": "free", "com": "free"}], "Augmentail": [{"slug": "augmentail", "pl": "free", "eu": "free", "com": "free"}], "Chrometail": [{"slug": "chrometail", "pl": "free", "eu": "free", "com": "taken"}], "Rapid Pet Response": [{"slug": "rapidpetresponse", "pl": "free", "eu": "free", "com": "free"}], "Leash Authority": [{"slug": "leashauthority", "pl": "free", "eu": "free", "com": "free"}], "Bureau of Pets": [{"slug": "bureauofpets", "pl": "free", "eu": "free", "com": "free"}], "Lost & Found Inc.": [{"slug": "lostandfoundinc", "pl": "free", "eu": "free", "com": "taken"}, {"slug": "lostfoundinc", "pl": "free", "eu": "free", "com": "free"}], "Collar Control": [{"slug": "collarcontrol", "pl": "free", "eu": "free", "com": "taken"}], "Total Pet Security": [{"slug": "totalpetsecurity", "pl": "free", "eu": "free", "com": "free"}], "Budget Leash Co.": [{"slug": "budgetleashco", "pl": "free", "eu": "free", "com": "free"}], "Zero Fleas": [{"slug": "zerofleas", "pl": "free", "eu": "free", "com": "free"}], "Flea-X Corp": [{"slug": "fleaxcorp", "pl": "free", "eu": "free", "com": "free"}, {"slug": "flea-x-corp", "pl": "free", "eu": "free", "com": "free"}], "Ironleash": [{"slug": "ironleash", "pl": "free", "eu": "free", "com": "free"}], "Steelcollar": [{"slug": "steelcollar", "pl": "free", "eu": "free", "com": "taken"}], "Blackbox Pets": [{"slug": "blackboxpets", "pl": "free", "eu": "free", "com": "free"}], "Shield & Fur": [{"slug": "shieldandfur", "pl": "free", "eu": "free", "com": "free"}, {"slug": "shieldfur", "pl": "free", "eu": "free", "com": "free"}], "Sentinel Pets": [{"slug": "sentinelpets", "pl": "free", "eu": "free", "com": "unknown"}], "Guardian Grid": [{"slug": "guardiangrid", "pl": "free", "eu": "taken", "com": "taken"}], "Helix Pets": [{"slug": "helixpets", "pl": "free", "eu": "free", "com": "taken"}], "BioFluff Labs": [{"slug": "bioflufflabs", "pl": "free", "eu": "free", "com": "free"}], "Vitalpet Biotech": [{"slug": "vitalpetbiotech", "pl": "free", "eu": "free", "com": "free"}], "Lazarus Pet Labs": [{"slug": "lazaruspetlabs", "pl": "free", "eu": "free", "com": "free"}], "ZooBit": [{"slug": "zoobit", "pl": "free", "eu": "free", "com": "taken"}], "TailByte": [{"slug": "tailbyte", "pl": "free", "eu": "free", "com": "taken"}], "Snooze.Net": [{"slug": "snoozenet", "pl": "free", "eu": "free", "com": "free"}], "Fluffcoin": [{"slug": "fluffcoin", "pl": "free", "eu": "free", "com": "taken"}], "Petcoin": [{"slug": "petcoin", "pl": "taken", "eu": "free", "com": "taken"}], "Hyperhug": [{"slug": "hyperhug", "pl": "free", "eu": "taken", "com": "taken"}], "Midnight Fluff": [{"slug": "midnightfluff", "pl": "free", "eu": "free", "com": "free"}], "Chrome Bowl": [{"slug": "chromebowl", "pl": "free", "eu": "free", "com": "free"}], "Static Fur": [{"slug": "staticfur", "pl": "free", "eu": "free", "com": "free"}], "Velvet Voltage": [{"slug": "velvetvoltage", "pl": "free", "eu": "free", "com": "unknown"}], "Lo-Fi Pets": [{"slug": "lofipets", "pl": "free", "eu": "free", "com": "taken"}, {"slug": "lo-fi-pets", "pl": "free", "eu": "free", "com": "free"}], "Synthwave Pets": [{"slug": "synthwavepets", "pl": "free", "eu": "free", "com": "free"}], "Retrofur": [{"slug": "retrofur", "pl": "free", "eu": "free", "com": "free"}], "Vaporpet": [{"slug": "vaporpet", "pl": "free", "eu": "free", "com": "free"}], "Glow Collar Co.": [{"slug": "glowcollarco", "pl": "free", "eu": "free", "com": "free"}], "LED Leash": [{"slug": "ledleash", "pl": "free", "eu": "free", "com": "taken"}], "Hypertail": [{"slug": "hypertail", "pl": "free", "eu": "free", "com": "taken"}], "Gutter Fluff": [{"slug": "gutterfluff", "pl": "free", "eu": "free", "com": "taken"}], "Rooftop Pets": [{"slug": "rooftoppets", "pl": "free", "eu": "free", "com": "free"}], "Underground Zoo": [{"slug": "undergroundzoo", "pl": "free", "eu": "free", "com": "taken"}], "Junkyard Fluff": [{"slug": "junkyardfluff", "pl": "free", "eu": "free", "com": "free"}], "Rust & Fur": [{"slug": "rustandfur", "pl": "free", "eu": "free", "com": "free"}, {"slug": "rustfur", "pl": "free", "eu": "free", "com": "free"}], "Neon Strays": [{"slug": "neonstrays", "pl": "free", "eu": "free", "com": "taken"}], "Platinum Pet Tower": [{"slug": "platinumpettower", "pl": "free", "eu": "free", "com": "free"}], "Executive Fur": [{"slug": "executivefur", "pl": "free", "eu": "free", "com": "free"}], "Arcology Pets": [{"slug": "arcologypets", "pl": "free", "eu": "free", "com": "free"}], "Skyline Pets": [{"slug": "skylinepets", "pl": "free", "eu": "free", "com": "taken"}], "Zenith Pet Group": [{"slug": "zenithpetgroup", "pl": "free", "eu": "free", "com": "free"}], "Chrome & Velvet": [{"slug": "chromeandvelvet", "pl": "free", "eu": "free", "com": "free"}, {"slug": "chromevelvet", "pl": "free", "eu": "free", "com": "free"}], "Pet Megacorp": [{"slug": "petmegacorp", "pl": "free", "eu": "free", "com": "free"}], "Corporate Fluff": [{"slug": "corporatefluff", "pl": "free", "eu": "free", "com": "taken"}], "Hoverpet": [{"slug": "hoverpet", "pl": "free", "eu": "free", "com": "taken"}], "Mag-Leash": [{"slug": "magleash", "pl": "free", "eu": "free", "com": "unknown"}, {"slug": "mag-leash", "pl": "free", "eu": "free", "com": "free"}], "Neo-Warsaw Pet Co.": [{"slug": "neowarsawpetco", "pl": "free", "eu": "free", "com": "free"}, {"slug": "neo-warsaw-pet-co", "pl": "free", "eu": "free", "com": "free"}]};
+const W=[.2,.15,.15,.15,.2,.15];
+const LB=["Klimat 2077","Zrozumiałość PL","Skojarzenie","Zapamiętywalność","Realna użyteczność","Kreatywność"];
+const data=D.map((d,i)=>({num:i+1,name:d[0],pron:d[1],cat:d[2],s:d[3],icon:d[4],font:d[5],col:d[6],why:d[7],logo:d[8],slogan:d[9],risk:d[10],score:Math.round(d[3].reduce((a,v,j)=>a+v*W[j],0)*10)}));
+const esc=s=>String(s).replace(/[<>]/g,c=>({'<':'&lt;','>':'&gt;'}[c]));
+const okDom=n=>(DOM[n]||[]).some(e=>e.pl==='free'&&e.eu==='free');
+const badge=(t,s)=>`<span class="db ${s==='free'?'free':s==='taken'?'taken':'unk'}">.${t} ${s==='free'?'wolna':s==='taken'?'zajęta':'?'}</span>`;
+function logoHTML(d,size){const [c,bg]=d.col;return `<div class="logo" style="background:${bg}"><svg viewBox="0 0 24 24" fill="${c}" style="filter:drop-shadow(0 0 6px ${c})">${ICONS[d.icon]||ICONS.paw}</svg><span class="wm" style="font-family:${FONTS[d.font]||FONTS.o};color:${c};text-shadow:0 0 8px ${c},0 0 18px ${c}${size?';font-size:'+size+'px':''}">${esc(d.name)}</span><span class="serial" style="color:${c}">NW-2077-${String(d.num).padStart(3,'0')}</span></div>`}
+function avail(d){const q=encodeURIComponent(d.name);return `<div class="sec"><b>Dostępność</b>${(DOM[d.name]||[]).map(e=>`<div class="drow"><code>${e.slug}</code> ${badge('pl',e.pl)}${badge('eu',e.eu)}${badge('com',e.com)}</div>`).join('')}<div class="tml">Znaki: <a href="https://www.tmdn.org/tmview/#/tmview/results?page=1&pageSize=30&criteria=C&basicSearch=${q}" target="_blank" rel="noopener">TMview</a> · <a href="https://euipo.europa.eu/eSearch/#basic/1+1+1+1/100+100+100+100/${q}" target="_blank" rel="noopener">EUIPO</a> · <a href="https://ewyszukiwarka.pue.uprp.gov.pl/search/simple-search" target="_blank" rel="noopener">UPRP</a></div></div>`}
+function card(d){return `<article class="card" id="n${d.num}">${logoHTML(d)}<div class="body">
+<div class="top"><span class="num">#${String(d.num).padStart(3,'0')}</span><span class="cat">${d.cat}</span></div>
+<div class="top"><div><h3 class="name">${esc(d.name)}</h3><div class="pron">czyt. „${d.pron}”</div></div><div class="score">${d.score}<small>/100</small></div></div>
+<div class="meters">${d.s.map((v,i)=>`<span class="lbl">${LB[i]}</span><span class="bar"><i style="width:${v*10}%"></i></span><span>${v}</span>`).join('')}</div>
+<p class="sec"><b>Lore / dlaczego</b>${d.why}</p>
+<p class="sec"><b>Logo</b>${d.logo}</p>
+<p class="sec slogan"><b>Reklama</b>„${d.slogan}”</p>
+<p class="sec risk"><b>W prawdziwym świecie</b>${d.risk}</p>
+${avail(d)}</div></article>`}
+const top10=[...data].filter(d=>okDom(d.name)).sort((a,b)=>(b.s[0]+b.s[4])-(a.s[0]+a.s[4])||b.score-a.score).slice(0,10);
+document.getElementById('podium').innerHTML=top10.map((d,i)=>`<div class="pod" data-n="${d.num}"><span class="rank">${i+1}</span>${logoHTML(d,18)}<div class="lbx"><b>${esc(d.name)}</b> <span style="color:var(--pink)">${d.score}</span><div style="font-size:14px;color:var(--muted)">${d.cat}</div></div></div>`).join('');
+const state={cat:'Wszystkie',q:'',sort:'score',free:false};
+const chips=document.getElementById('chips'),q=document.getElementById('q'),sort=document.getElementById('sort');
+const cats=['Wszystkie',...new Set(data.map(d=>d.cat))];
+chips.innerHTML=cats.map(c=>`<button class="chipbtn" data-c="${c}">${c}</button>`).join('');
+chips.onclick=e=>{const b=e.target.closest('button');if(!b)return;state.cat=b.dataset.c;render()};
+q.oninput=()=>{state.q=q.value.toLowerCase();render()};
+sort.onchange=()=>{state.sort=sort.value;render()};
+document.getElementById('onlyfree').onchange=e=>{state.free=e.target.checked;render()};
+document.querySelectorAll('.pod').forEach(p=>p.onclick=()=>{state.cat='Wszystkie';state.q='';state.free=false;q.value='';document.getElementById('onlyfree').checked=false;render();document.getElementById('n'+p.dataset.n).scrollIntoView({behavior:'smooth',block:'center'})});
+function render(){let r=data.filter(d=>(!state.free||okDom(d.name))&&(state.cat==='Wszystkie'||d.cat===state.cat)&&(!state.q||(d.name+' '+d.why).toLowerCase().includes(state.q)));const k=state.sort;
+r.sort((a,b)=>k==='num'?a.num-b.num:k==='az'?a.name.localeCompare(b.name):k==='vibe'?b.s[0]-a.s[0]||b.score-a.score:k==='real'?b.s[4]-a.s[4]||b.score-a.score:b.score-a.score||a.num-b.num);
+document.getElementById('cards').innerHTML=r.map(card).join('');document.getElementById('count').textContent=`${r.length} / ${data.length}`;chips.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.c===state.cat))}
+render();
+document.getElementById('themeBtn').onclick=()=>{const r=document.documentElement;r.dataset.theme=r.dataset.theme==='light'?'dark':'light'};
+</script>
+</body>
+</html>
