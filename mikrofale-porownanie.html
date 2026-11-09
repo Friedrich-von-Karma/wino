@@ -136,6 +136,7 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
   <div class="brand"><b>Amica</b><br>Polska marka, tanio, serwis i części szybko dostępne. Wykonanie przeciętne, ale wystarczające.</div>
   <div class="brand"><b>Bosch</b><br>Solidnie zrobione, ale za samą markę dopłacasz — w biurze rzadko się to opłaca.</div>
   <div class="brand"><b>Whirlpool</b><br>Średnia półka, ok jakość; ceny często zawyżone względem konkurencji.</div>
+  <div class="brand"><b>Xiaomi</b><br>Ładny design i sterowanie z telefonu, ale tylko 700 W, mniej opinii o trwałości, a elektronika „smart” to więcej rzeczy do zepsucia. W biurze aplikacja nic nie daje.</div>
   <div class="brand"><b>Beko</b><br>Najtańsze z rozsądnych. Proste, mechaniczne — mało co może się zepsuć.</div>
 </div>
 
@@ -173,6 +174,7 @@ const data = [
   ["Samsung MG23K3515AK", 497, "23 l / 800 W", "Elektroniczne, grill, emalia ceramiczna", 5, 8, 8, [["Allegro",A("samsung mg23k3515ak")],["Ceneo","https://www.ceneo.pl/72376351"]]],
   ["Whirlpool MWP 203 M", 409, "20 l / 700 W", "Elektroniczne, grill", 5, 7, 7, [["Allegro",A("whirlpool mwp 203 m")],["Ceneo","https://www.ceneo.pl/84883654"]]],
   ["Gorenje MO20E1W", 313, "20 l / 800 W", "Elektroniczne, solo", 7, 6, 6, [["Allegro",A("gorenje mo20e1w")],["Ceneo (Gorenje)","https://www.ceneo.pl/Kuchenki_mikrofalowe/p:Gorenje.htm"]]],
+  ["Xiaomi Microwave Oven (Mijia)", 348, "20 l / 700 W", "Elektroniczne, aplikacja Mi Home, solo", 7, 7, 6, [["Allegro",A("xiaomi microwave oven")],["Ceneo","https://www.ceneo.pl/168197428"],["Sklep Xiaomi","https://www.mi.com/pl/"]]],
   ["Bosch FFL020MW0 (Serie 2)", 526, "20 l / 800 W", "Mechaniczne, solo", 3, 8, 9, [["Allegro",A("bosch ffl020mw0")],["Ceneo","https://www.ceneo.pl/137453488"]]],
 ];
 const rows = data.map(d => ({d, score: +(0.4*d[4] + 0.3*d[5] + 0.3*d[6]).toFixed(1)}));
