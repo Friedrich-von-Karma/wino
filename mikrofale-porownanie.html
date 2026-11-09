@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mikrofala do biura</title>
+<style>
+:root{
+  --bg:#f6f5f2;--card:#fff;--ink:#1d1d1f;--muted:#6b6b70;--line:#e3e1dc;
+  --accent:#0f6e5a;--accent-soft:#e3f2ee;--warn:#9a5b00;--warn-soft:#fff3df;--bad:#a23b2c;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141414;--card:#1f1f1f;--ink:#f0f0f0;--muted:#a3a3a3;--line:#333;
+    --accent:#4fc3a1;--accent-soft:#1d332d;--warn:#f0b25a;--warn-soft:#352915;--bad:#ff8a7a;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+h1{font-size:28px;margin:0 0 4px}
+h2{font-size:20px;margin:36px 0 12px}
+.sub{color:var(--muted);margin:0 0 20px}
+.note{background:var(--warn-soft);border-left:4px solid var(--warn);padding:10px 14px;border-radius:6px;font-size:14px}
+.picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.pick{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.pick.top{border:2px solid var(--accent)}
+.tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:99px}
+.pick h3{margin:8px 0 2px;font-size:18px}
+.price{font-size:22px;font-weight:700}
+.pick p{margin:6px 0;font-size:14px}
+.btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+a.btn{display:inline-block;padding:6px 10px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;border:1px solid var(--line);color:var(--ink);background:var(--bg)}
+a.btn.al{background:#ff5a00;color:#fff;border-color:#ff5a00}
+a.btn:hover{filter:brightness(.95)}
+.tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:860px;font-size:14px}
+th,td{padding:10px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);cursor:pointer;white-space:nowrap;position:sticky;top:0;background:var(--card)}
+th:hover{color:var(--ink)}
+tr:last-child td{border-bottom:none}
+td.num{white-space:nowrap;font-variant-numeric:tabular-nums}
+.score{font-weight:700}
+.bar{height:6px;background:var(--line);border-radius:3px;margin-top:4px;width:70px}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.model{font-weight:600}
+.small{font-size:12px;color:var(--muted)}
+.links a{display:block;font-size:13px;color:var(--accent);white-space:nowrap}
+ul.tips{padding-left:20px}
+ul.tips li{margin:6px 0}
+.brands{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.brand{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14px}
+.brand b{font-size:15px}
+footer{margin-top:40px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<main>
+
+<h1>Mikrofala do biura — analiza porównawcza</h1>
+<p class="sub">Kryteria: cena (40%), jakość wykonania i wygoda (30%), niezawodność marki i modelu (30%). Stan cen: listopad 2026.</p>
+
+<p class="note"><b>Ważne:</b> ceny zebrałem z Ceneo, Allegro, Okazje.info i sklepów (RTV Euro AGD, Media Expert, Morele). Zmieniają się codziennie, więc to widełki orientacyjne. Przyciski „Allegro” otwierają wyniki <b>posortowane od najtańszych</b>, a „Ceneo” pokazuje aktualnie najtańszy sklep i historię ceny. <b>Black Friday wypada 27.11.2026</b> — jeśli zakup nie jest pilny, warto poczekać ~2 tygodnie.</p>
+
+<h2>Rekomendacje</h2>
+<div class="picks">
+  <div class="pick top">
+    <span class="tag">Najlepszy wybór do biura</span>
+    <h3>Samsung MS23K3513AW</h3>
+    <div class="price">ok. 380–470 zł</div>
+    <p>23 l, 800 W, wnętrze z <b>emalii ceramicznej</b> (łatwo się myje — ważne przy wielu użytkownikach). Bardzo popularny, dużo dobrych opinii, Samsung ma szeroką sieć serwisową.</p>
+    <div class="btns">
+      <a class="btn al" href="https://allegro.pl/listing?string=samsung%20ms23k3513aw&order=p" target="_blank" rel="noopener">Allegro (najtaniej)</a>
+      <a class="btn" href="https://www.ceneo.pl/72587875" target="_blank" rel="noopener">Ceneo</a>
+    </div>
+  </div>
+  <div class="pick">
+    <span class="tag">Najlepsza cena/jakość</span>
+    <h3>Amica AMGF20E1GB</h3>
+    <div class="price">ok. 270–350 zł</div>
+    <p>20 l, 700 W + grill. Nr 1 w rankingu Ceneo (listopad 2026). Polska marka — szybki serwis i części w kraju.</p>
+    <div class="btns">
+      <a class="btn al" href="https://allegro.pl/listing?string=amica%20amgf20e1gb&order=p" target="_blank" rel="noopener">Allegro (najtaniej)</a>
+      <a class="btn" href="https://www.ceneo.pl/49353755" target="_blank" rel="noopener">Ceneo</a>
+    </div>
+  </div>
+  <div class="pick">
+    <span class="tag">Najtańsza sensowna</span>
+    <h3>Beko MOC20100WFB</h3>
+    <div class="price">ok. 220–295 zł</div>
+    <p>20 l, 700 W, proste pokrętła (mechanika = mniej rzeczy do zepsucia). Na podgrzewanie obiadów w zupełności wystarczy.</p>
+    <div class="btns">
+      <a class="btn al" href="https://allegro.pl/listing?string=beko%20moc20100wfb&order=p" target="_blank" rel="noopener">Allegro (najtaniej)</a>
+      <a class="btn" href="https://www.okazje.info.pl/szukaj/beko-moc20100wfb-mikrofalowka/ceny.html" target="_blank" rel="noopener">Okazje.info</a>
+    </div>
+  </div>
+  <div class="pick">
+    <span class="tag">Premium / niezawodność</span>
+    <h3>Panasonic NN-E22JMMEPG</h3>
+    <div class="price">ok. 425–470 zł</div>
+    <p>20 l, 800 W. Panasonic ma opinię jednej z najtrwalszych marek mikrofal. Dobra opcja, jeśli liczy się wieloletnia praca.</p>
+    <div class="btns">
+      <a class="btn al" href="https://allegro.pl/listing?string=panasonic%20nn-e22jmmepg&order=p" target="_blank" rel="noopener">Allegro (najtaniej)</a>
+      <a class="btn" href="https://e-katalog.pl/PANASONIC-NN-E22JMMEPG.htm" target="_blank" rel="noopener">E-katalog</a>
+    </div>
+  </div>
+</div>
+
+<h2>Pełne porównanie <span class="small">(kliknij nagłówek, aby posortować)</span></h2>
+<div class="tablewrap">
+<table id="t">
+<thead>
+<tr>
+  <th data-k="0">Model</th>
+  <th data-k="1" data-n>Cena od (zł)</th>
+  <th data-k="2">Pojemność / moc</th>
+  <th data-k="3">Sterowanie / funkcje</th>
+  <th data-k="4" data-n>Cena</th>
+  <th data-k="5" data-n>Jakość</th>
+  <th data-k="6" data-n>Niezawodność</th>
+  <th data-k="7" data-n>Wynik</th>
+  <th>Gdzie kupić</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+<p class="small">Oceny 1–10. Wynik = 0,4 × cena + 0,3 × jakość + 0,3 × niezawodność. „Cena od” to najniższa znaleziona cena nowego produktu u sprawdzonego sprzedawcy.</p>
+
+<h2>Marki w skrócie</h2>
+<div class="brands">
+  <div class="brand"><b>Panasonic</b><br>Najlepsza opinia o trwałości magnetronów, solidna mechanika. Drożej.</div>
+  <div class="brand"><b>Samsung</b><br>Emalia ceramiczna we wnętrzu, dużo opinii, łatwy serwis. Dobry balans.</div>
+  <div class="brand"><b>Sharp</b><br>Pionier mikrofal, prosta konstrukcja R-242 sprzedawana od lat — sprawdzony model.</div>
+  <div class="brand"><b>LG</b><br>Model z inwerterem (NeoChef) grzeje równiej; tańsze modele solo są proste i tanie.</div>
+  <div class="brand"><b>Amica</b><br>Polska marka, tanio, serwis i części szybko dostępne. Wykonanie przeciętne, ale wystarczające.</div>
+  <div class="brand"><b>Bosch</b><br>Solidnie zrobione, ale za samą markę dopłacasz — w biurze rzadko się to opłaca.</div>
+  <div class="brand"><b>Whirlpool</b><br>Średnia półka, ok jakość; ceny często zawyżone względem konkurencji.</div>
+  <div class="brand"><b>Beko</b><br>Najtańsze z rozsądnych. Proste, mechaniczne — mało co może się zepsuć.</div>
+</div>
+
+<h2>Na co zwrócić uwagę w biurze</h2>
+<ul class="tips">
+  <li><b>Moc 800 W lub więcej</b> — w porze lunchu tworzy się kolejka; szybsze grzanie to realna różnica.</li>
+  <li><b>20–23 l wystarczy</b> — większe pojemności nic nie dają przy podgrzewaniu pojemników z obiadem.</li>
+  <li><b>Wnętrze emaliowane/ceramiczne</b> zamiast malowanego — łatwiej utrzymać czystość, nie rdzewieje po zachlapaniach.</li>
+  <li><b>Proste sterowanie</b> (pokrętła lub kilka przycisków) — mniej awarii elektroniki i każdy od razu wie, jak jej używać.</li>
+  <li><b>Grill jest zbędny</b> w biurze — nie dopłacaj za niego, chyba że jest w tej samej cenie.</li>
+  <li><b>Faktura VAT</b> — na Allegro zaznacz filtr „Faktura VAT” i kupuj od firm z wysoką oceną (Allegro Smart = darmowa dostawa). Przy zakupie na firmę gwarancja 24 mies. obowiązuje normalnie.</li>
+  <li><b>Promocje</b> — sprawdź historię ceny na Ceneo (wykres przy produkcie); kody rabatowe Media Expert/RTV Euro AGD i Allegro „Strefa Okazji” często obniżają cenę o 10–20%.</li>
+</ul>
+
+<footer>
+Źródła cen i rankingów: <a href="https://www.ceneo.pl/rankingi/ranking-mikrofalowek">Ceneo — ranking mikrofalówek 11/2026</a>,
+<a href="https://www.okazje.info.pl/">Okazje.info</a>, <a href="https://allegro.pl">Allegro</a>, <a href="https://www.euro.com.pl/kuchenki-mikrofalowe.bhtml">RTV Euro AGD</a>,
+<a href="https://monitorpromocji.pl">Monitor Promocji</a>, <a href="https://e-katalog.pl">E-katalog</a>, <a href="https://rankingiagd.pl/ranking/najlepsze-mikrofalowki-ranking/">Rankingi AGD</a>,
+<a href="https://www.expertrankingowy.pl/ranking-mikrofalowek/">Expert Rankingowy</a>, <a href="https://www.elektroda.pl/rtvforum/topic645213.html">Elektroda (opinie o awaryjności)</a>.
+Nie ma publicznych statystyk awaryjności mikrofal w Polsce — ocena niezawodności opiera się na opiniach użytkowników, forach serwisowych i reputacji marek.
+</footer>
+</main>
+
+<script>
+const A = s => "https://allegro.pl/listing?string=" + encodeURIComponent(s) + "&order=p";
+const data = [
+  // model, cena od, pojemnosc/moc, funkcje, ocena ceny, jakosc, niezawodnosc, linki
+  ["Samsung MS23K3513AW", 381, "23 l / 800 W", "Elektroniczne, emalia ceramiczna, solo", 7, 8, 8, [["Allegro",A("samsung ms23k3513aw")],["Ceneo","https://www.ceneo.pl/72587875"]]],
+  ["Amica AMGF20E1GB", 276, "20 l / 700 W", "Elektroniczne, grill", 9, 6, 7, [["Allegro",A("amica amgf20e1gb")],["Ceneo","https://www.ceneo.pl/49353755"]]],
+  ["Beko MOC20100WFB", 220, "20 l / 700 W", "Mechaniczne (pokrętła), solo", 10, 5, 7, [["Allegro",A("beko moc20100wfb")],["Okazje.info","https://www.okazje.info.pl/szukaj/beko-moc20100wfb-mikrofalowka/ceny.html"]]],
+  ["Sharp R-242 (WE/BKW/INW)", 260, "20 l / 800 W", "Mechaniczne, solo", 8, 6, 8, [["Allegro",A("sharp r-242")],["Ceneo (R242WE)","https://www.ceneo.pl/16739303"],["Ceneo (R242INW)","https://www.ceneo.pl/18021539"]]],
+  ["LG MS2042DW", 299, "20 l / 700 W", "Elektroniczne, solo", 8, 6, 7, [["Allegro",A("lg ms2042")],["Ceneo","https://www.ceneo.pl/22416326"]]],
+  ["Panasonic NN-E22JMMEPG", 426, "20 l / 800 W", "Elektroniczne, solo", 6, 8, 9, [["Allegro",A("panasonic nn-e22jmmepg")],["E-katalog","https://e-katalog.pl/PANASONIC-NN-E22JMMEPG.htm"]]],
+  ["LG NeoChef MS23NECBW", 376, "23 l / 1000 W", "Elektroniczne, inwerter, solo", 6, 9, 8, [["Allegro",A("lg ms23necbw")],["Ceneo","https://www.ceneo.pl/73512363"],["Okazje.info","https://www.okazje.info.pl/szukaj/lg-ms23necbw-mikrofalowka/ceny.html"]]],
+  ["Samsung MG23K3515AK", 497, "23 l / 800 W", "Elektroniczne, grill, emalia ceramiczna", 5, 8, 8, [["Allegro",A("samsung mg23k3515ak")],["Ceneo","https://www.ceneo.pl/72376351"]]],
+  ["Whirlpool MWP 203 M", 409, "20 l / 700 W", "Elektroniczne, grill", 5, 7, 7, [["Allegro",A("whirlpool mwp 203 m")],["Ceneo","https://www.ceneo.pl/84883654"]]],
+  ["Gorenje MO20E1W", 313, "20 l / 800 W", "Elektroniczne, solo", 7, 6, 6, [["Allegro",A("gorenje mo20e1w")],["Ceneo (Gorenje)","https://www.ceneo.pl/Kuchenki_mikrofalowe/p:Gorenje.htm"]]],
+  ["Bosch FFL020MW0 (Serie 2)", 526, "20 l / 800 W", "Mechaniczne, solo", 3, 8, 9, [["Allegro",A("bosch ffl020mw0")],["Ceneo","https://www.ceneo.pl/137453488"]]],
+];
+const rows = data.map(d => ({d, score: +(0.4*d[4] + 0.3*d[5] + 0.3*d[6]).toFixed(1)}));
+const bar = v => `<div class="bar"><i style="width:${v*10}%"></i></div>`;
+const tb = document.querySelector("#t tbody");
+function render(list){
+  tb.innerHTML = list.map(({d,score}) => `<tr>
+    <td class="model">${d[0]}</td>
+    <td class="num">${d[1]} zł</td>
+    <td class="num">${d[2]}</td>
+    <td>${d[3]}</td>
+    <td class="num">${d[4]}${bar(d[4])}</td>
+    <td class="num">${d[5]}${bar(d[5])}</td>
+    <td class="num">${d[6]}${bar(d[6])}</td>
+    <td class="num score">${score}</td>
+    <td class="links">${d[7].map(([n,u]) => `<a href="${u}" target="_blank" rel="noopener">${n} →</a>`).join("")}</td>
+  </tr>`).join("");
+}
+let sorted = [...rows].sort((a,b) => b.score - a.score);
+render(sorted);
+let lastK = 7, dir = -1;
+document.querySelectorAll("th[data-k]").forEach(th => th.addEventListener("click", () => {
+  const k = +th.dataset.k, num = th.hasAttribute("data-n");
+  dir = (k === lastK) ? -dir : (num && k !== 1 ? -1 : 1); lastK = k;
+  const val = r => k === 7 ? r.score : r.d[k];
+  render([...rows].sort((a,b) => num ? (val(a)-val(b))*dir : String(val(a)).localeCompare(String(val(b)))*dir));
+}));
+</script>
+</body>
+</html>
