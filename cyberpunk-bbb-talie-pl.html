@@ -1,0 +1,2215 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Talie BBB</title>
+<style>
+:root{
+  --bg:#0b0c10; --panel:#14161d; --panel2:#1b1e27; --line:#2a2f3c;
+  --text:#e7e9ee; --muted:#9aa3b2; --yellow:#f3e600; --cyan:#00e5ff; --red:#ff3b5c; --green:#3ee08f;
+  --blue:#4c8dff; --orange:#ff8a3b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:clamp(26px,5vw,40px);margin:0 0 4px;letter-spacing:.5px;color:var(--yellow);text-transform:uppercase}
+h1 span{color:var(--cyan)}
+.sub{color:var(--muted);margin:0 0 24px}
+h2{color:var(--yellow);text-transform:uppercase;font-size:20px;letter-spacing:1px;margin:40px 0 12px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{margin:2px 0 0;font-size:21px}
+h4{margin:0 0 6px}
+a{color:var(--cyan)}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.threat{border-left:4px solid var(--red)}
+.threat h4{color:var(--red);text-transform:uppercase;font-size:14px;letter-spacing:1px}
+.threat ul,.card ul{margin:6px 0 0;padding-left:18px}
+.tbl{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--cyan);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
+td.stars{color:var(--yellow);white-space:nowrap;letter-spacing:1px}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.filters button{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}
+.filters button.on{border-color:var(--yellow);color:var(--yellow)}
+.deck{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:22px 0;overflow:hidden;scroll-margin-top:12px}
+.deck-head{padding:16px 18px;background:linear-gradient(90deg,rgba(243,230,0,.12),transparent);border-bottom:1px solid var(--line)}
+.deck-head .num{color:var(--cyan);font-weight:700;font-size:13px;letter-spacing:2px}
+.deck-head p{margin:6px 0 0;color:var(--muted)}
+.rating{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.pill{font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);background:var(--panel2)}
+.pill b{color:var(--yellow);margin-left:4px;letter-spacing:1px}
+.legends{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.legend{background:var(--panel2);border:1px solid var(--blue);color:#cfe0ff;border-radius:6px;padding:4px 10px;font-size:13px}
+.deck-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr)}
+@media(max-width:820px){.deck-body{grid-template-columns:1fr}}
+.col{padding:16px 18px;min-width:0}
+.col+.col{border-left:1px solid var(--line)}
+@media(max-width:820px){.col+.col{border-left:0;border-top:1px solid var(--line)}}
+.sect{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan);margin:14px 0 4px;display:flex;justify-content:space-between}
+.sect:first-child{margin-top:0}
+.list{list-style:none;margin:0;padding:0}
+.list li{display:flex;gap:10px;padding:3px 0;border-bottom:1px dashed #222733;font-size:14px}
+.list .q{color:var(--yellow);font-weight:700;width:24px;flex:none}
+.list .c{color:var(--muted);margin-left:auto;font-size:12px;white-space:nowrap}
+.total{margin-top:10px;font-weight:700;color:var(--green);font-size:14px}
+.total.bad{color:var(--red)}
+.curve{display:flex;align-items:flex-end;gap:4px;height:60px;margin-top:12px}
+.curve div{flex:1;background:var(--cyan);opacity:.75;border-radius:3px 3px 0 0;position:relative;min-height:2px}
+.curve span{position:absolute;bottom:-18px;left:0;right:0;text-align:center;font-size:11px;color:var(--muted)}
+.curve i{position:absolute;top:-16px;left:0;right:0;text-align:center;font-size:11px;font-style:normal;color:var(--text)}
+.curvewrap{margin-bottom:22px}
+.side{background:var(--panel2);border-radius:8px;padding:10px 12px;margin-top:14px;font-size:14px}
+.side b{color:var(--yellow)}
+.st h5{margin:16px 0 4px;font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan)}
+.st h5:first-child{margin-top:0}
+.st p{margin:0 0 6px}
+.st ul,.st ol{margin:0 0 6px;padding-left:20px}
+.st li{margin:3px 0}
+.turns{display:grid;gap:8px}
+.turn{background:var(--panel2);border-radius:8px;padding:8px 12px}
+.turn b{color:var(--yellow);font-size:12px;text-transform:uppercase;letter-spacing:1px;display:block}
+.combo{border-left:3px solid var(--cyan);padding-left:10px;margin:6px 0}
+.combo b{color:var(--cyan)}
+.mu{margin:0 0 10px;padding:8px 12px;border-radius:8px;background:var(--panel2)}
+.mu b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:1px}
+.mu.bbg b{color:var(--green)} .mu.johnny b{color:var(--red)} .mu.adam b{color:var(--orange)}
+.mu p{margin:2px 0 0}
+.note{color:var(--muted);font-size:13px}
+.warn{border-left:4px solid var(--yellow)}
+.swap{margin-top:12px;background:rgba(0,229,255,.07);border:1px solid rgba(0,229,255,.35);border-radius:8px;padding:8px 12px;font-size:14px}
+.swap>b:first-child{color:var(--cyan)}
+.up{color:var(--green);font-size:12px;margin-left:4px}
+.top{font-size:13px;display:inline-block;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>BBB <span>Counter-Netrun</span></h1>
+  <p class="sub">15 mononiebieskich talii (po 3 niebieskie Legendy) do Cyberpunk TCG – <i>Welcome to Night City</i>. Każda jest zbudowana, żeby wygrywać z <b>BBG (Alt / Hanako / Jackie)</b>, z <b>Johnny Silverhand: Never Stop Fighting</b> i z Legendą <b>Adam Smasher</b>. Każda talia to 40 kart plus 7-kartowy sideboard, maks. 3 kopie karty, z pełnym planem gry, poradnikiem do mulligana, zagraniami tura po turze, kluczowymi combosami i notatkami do matchupów. <a href="cyberpunk-bbb-top5-pl.html">Top 5 talii →</a></p>
+
+  <h2>Poznaj wroga</h2>
+  <div class="grid3">
+    <div class="card threat">
+      <h4>BBG – Alt / Hanako / Jackie</h4>
+      <div>Kontrola na Programach, talia nr 2 w mecie. Zwykle 26–28 Programów i 10–14 Jednostek.</div>
+      <ul>
+        <li><b>Pyramid Song</b> daje -4 siły, a z min d4 dodatkowo wkłada na spód talii Jednostkę z siłą 0.</li>
+        <li><b>Towerfall</b> daje -5 wszystkim twoim Jednostkom i może też włożyć na spód talii wszystko z siłą 0.</li>
+        <li><b>Les Élémens</b> wkłada na spód talii twoją Jednostkę o <i>najniższej sile</i>.</li>
+        <li>Ich groźne Jednostki to Lizzy Wizzy, Maman Brigitte i Placide.</li>
+      </ul>
+      <p class="note"><b>Ogólny plan:</b> unikaj Jednostek z siłą 0, trzymaj na stole tanią Jednostkę-wabik pod Les Élémens, graj ciała z siłą 6+ i nie wykładaj więcej niż 3 Jednostek naraz pod możliwy Towerfall.</p>
+    </div>
+    <div class="card threat">
+      <h4>Johnny Silverhand – Never Stop Fighting</h4>
+      <div>Czerwona Jednostka, koszt 6, siła 8. <i>„The first time this Unit wins a fight each turn, ready it.” „This Unit wins all fights against CORPO Units.”</i> (Za pierwszym razem w turze, gdy wygra walkę, staje się gotowa. Wygrywa każdą walkę z Jednostkami CORPO.)</div>
+      <ul>
+        <li>Nigdy nie blokuj go Jednostką CORPO (Hacked Corpo, V: Corporate Exile po Go Solo).</li>
+        <li>Staje się gotowy tylko po <i>wygranej walce</i>. Niezablokowany zostaje zużyty, a to włącza <b>Unlikely Bond</b>.</li>
+        <li>Odpowiedz na niego Maman Brigitte <i>zanim</i> dostanie Mantis Blades (albo inny Sprzęt).</li>
+        <li>Spraw, żeby <i>przegrał</i> walkę: zablokuj, potem Pyramid Song (-4) / Rogue (-4) / Floor It (-1).</li>
+      </ul>
+    </div>
+    <div class="card threat">
+      <h4>Adam Smasher – Ender of Legends</h4>
+      <div>Czerwona Legenda. Go Solo za 9, siła 9, może atakować w turze wejścia, Play: <i>pokonaj Jednostkę rywala</i>. Jeśli opuści pole, zostaje <b>usunięty z gry</b>.</div>
+      <ul>
+        <li>Każde <b>włożenie na spód talii</b> kasuje go do końca gry: Unlikely Bond (po jego ataku), atak Placide, Maman Brigitte (jeśli nie ma Sprzętu), Les Élémens (jeśli jest ich najmniejszą Jednostką).</li>
+        <li>Chrome Reverie / Nocturne („nie może atakować”) marnuje jego 9 Eddies.</li>
+        <li>Trzymaj na stole tanią Jednostkę, która przyjmie jego efekt Play.</li>
+        <li>Kosztuje 9 Eddies, więc niech je wydadzą, kiedy ty już prowadzisz na Gigach.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Wyszukiwarka talii</h2>
+  <p class="note">Oceny to moje szacunki w skali 1–5 na podstawie interakcji kart, nie wyniki turniejowe. Kliknij nazwę talii, żeby do niej przejść. Call Wakako działa tylko raz, więc każda talia została oceniona od nowa, a w 8 taliach, które ją grały, zamieniono ją na niebieską Legendę, która najbardziej podniosła ocenę. Zielona liczba pokazuje zysk względem poprawionej wersji z Wakako.</p>
+  <div class="tbl"><table id="finder"><thead><tr><th>#</th><th>Talia</th><th>Styl</th><th>vs BBG</th><th>vs Johnny</th><th>vs Smasher</th><th>Suma</th><th>Trudność</th></tr></thead><tbody></tbody></table></div>
+
+  <h2>15 talii</h2>
+  <div class="filters" id="filters"></div>
+  <div id="decks"></div>
+
+  <h2>Ściągawka: kluczowe niebieskie odpowiedzi</h2>
+  <div class="tbl">
+  <table>
+    <thead><tr><th>Karta</th><th>Koszt / RAM</th><th>Co robi</th><th>Najlepsza na</th></tr></thead>
+    <tbody>
+      <tr><td>Unlikely Bond</td><td>4 / 2</td><td>Włóż na spód talii swoją gotową Jednostkę, potem włóż na spód talii <b>zużytą</b> Jednostkę rywala</td><td>Smasher (usuwa go z gry), Johnny po niezablokowanej kradzieży</td></tr>
+      <tr><td>Maman Brigitte</td><td>5 / 4</td><td>Play: odrzuć 2 Programy → włóż na spód talii Jednostkę rywala <b>bez Sprzętu</b></td><td>Johnny przed Sprzętem, Smasher, Placide z BBG</td></tr>
+      <tr><td>Placide – Voodoo Sentinel</td><td>8 / 2</td><td>Siła 10. Attack: odrzuć 1 Program → włóż na spód talii Jednostkę rywala</td><td>Wszystko. Przeżywa Towerfall z siłą 5</td></tr>
+      <tr><td>Pyramid Song</td><td>3 / 3</td><td>-4 siły, a z min d4 także włożenie na spód talii Jednostki z siłą 0</td><td>Walki z Johnnym, małe Jednostki BBG</td></tr>
+      <tr><td>Towerfall</td><td>6 / 4</td><td>Wszystkie Jednostki rywala -5, a jeśli przegrywasz na Street Cred, także spód talii dla siły 0</td><td>Szerokie czerwone stoły</td></tr>
+      <tr><td>Les Élémens</td><td>5 / 4</td><td>Włóż na spód talii Jednostkę rywala o najniższej sile</td><td>BBG (mało Jednostek), samotny Smasher</td></tr>
+      <tr><td>Chrome Reverie</td><td>3 / 1</td><td>Jednostka rywala nie może atakować do twojej następnej tury, plus darmowy Call przy min Gigu</td><td>Tura Go Solo Smashera, Johnny</td></tr>
+      <tr><td>Nocturne OP55 N1</td><td>3 (1) / 2</td><td>Dobierz 2 ALBO Jednostka nie może atakować ALBO Go Solo o 2 taniej. Kosztuje 1 przy pustej strefie fixera</td><td>Uniwersalna</td></tr>
+      <tr><td>Reboot Optics</td><td>2 / 2</td><td>Quick: następna Jednostka rywala walcząca w tej turze nie pokonuje twojej Jednostki</td><td>Blokowanie Johnny'ego / Smashera bez utraty blokera</td></tr>
+      <tr><td>Floor It</td><td>1 / 1</td><td>Quick: -1 siły i dobierz 1</td><td>Przechylenie walki, cycling</td></tr>
+      <tr><td>Rogue Amendiares</td><td>5 / 2</td><td>Quick, 2€$ + Spend: Jednostka rywala traci 4 siły. Do tego silnik Eddies</td><td>Trik bojowy na Johnny'ego (8 → 4)</td></tr>
+      <tr><td>Westbrook Netrunner</td><td>4 / 2</td><td>Siła 5. Legendy rywala nie mogą kraść niskich Gigów do twojej następnej tury</td><td>Smasher na Go Solo, Legendy Sasha / V</td></tr>
+      <tr><td>Mox Inciters / Rita Wheeler / Lizzy Wizzy</td><td>3–5</td><td>Blocker: zamienia kradzież w walkę</td><td>Johnny (z Reboot Optics), aggro</td></tr>
+      <tr><td>Modded Kusanagi</td><td>6 / 2</td><td>Siła 8, atakuje w turze zagrania, na koniec tury wraca na rękę</td><td>Unika removalu w tempie sorcery i efektu Play Smashera</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Zanim zakoszulkujesz</h2>
+  <div class="card warn">
+    <ul>
+      <li><b>RAM:</b> trzy niebieskie Legendy dają 6 niebieskiego RAM, więc każda niebieska karta jest legalna. Najwyższy niebieski RAM ma Judy Álvarez: Nothing to Doubt (5).</li>
+      <li><b>Call Legend:</b> efekt Call Legendy działa tylko w turze, w której ją odwracasz, więc -2 / dobranie Wakako to jedno użycie na grę. Dlatego zamieniono ją we wszystkich 8 taliach, które ją grały, na Judy, Alt, Evelyn albo Jackie, zależnie od tego, która najbardziej podniosła ocenę danej talii. Każda zamiana jest opisana przy talii.</li>
+      <li><b>Sell Tagi:</b> nie udało mi się potwierdzić, które karty mają Sell Tag. Policz swoje i celuj w <b>co najmniej 30%</b> (12 lub więcej z 40), żeby co turę mieć Eddies. Jeśli brakuje, wymień pojedynczą kartę na kartę z Sell Tagiem.</li>
+      <li><b>Numery tur</b> w planach zakładają, że sprzedajesz jedną kartę na turę i masz swoje Eddies. Dostosuj, jeśli jesteś w tyle.</li>
+      <li><b>Tekstu Hanako</b> nie sprawdzałem. Przeczytaj go przed grami z BBG.</li>
+      <li>Teksty kart pochodzą z ripperdeck.gg, dane o mecie z ripperdeck/exburst (listopad 2026). Wszystko, co zaskakuje, sprawdź w oficjalnej bazie na cyberpunktcg.com.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+/* Card costs, used for the curve and the list */
+const COST = {
+ "Delamain: Rideshare AI":3,"Delamain Cab":4,"Evelyn Parker: Scheming Siren":2,"Jacked-In Voodoo Boy":2,
+ "Judy Álvarez: Nothing to Doubt":6,"Lizzy Wizzy: Delicate Weapon":5,"Maman Brigitte: Spirit of Death":5,
+ "Misty Olszewski: Mender of Broken Spirits":3,"Modded Kusanagi":6,"Modded Muramasa":5,"Mox Inciters":3,
+ "Placide: Voodoo Sentinel":8,"Psycho Squad":4,"Rita Wheeler: No Stupid Questions":4,
+ "Rogue Amendiares: Queen of the Afterlife":5,"Westbrook Netrunner":4,
+ "Chrome Reverie":3,"Floor It":1,"Les Élémens":5,"Nocturne OP55 N1":3,"Pyramid Song":3,"Reboot Optics":2,
+ "Three Mouths, One Desire":2,"Towerfall":6,"Trust No One":1,"Unlikely Bond":4,
+ "Dying Night: V's Pistol":2,"NetWatch Netdriver":3,"Tetratronic Rippler":1
+};
+const L = {
+ alt:"Alt Cunningham: Soulkiller Architect", jackie:"Jackie Welles: Pour One Out For Me", wakako:"Wakako Okada: Peace and Harmony",
+ evelyn:"Evelyn Parker: Beautiful Enigma", judy:"Judy Alvarez: Braindance Maestro", sasha:"Sasha Yakovleva: Won't Let You Down",
+ v:"V: Corporate Exile"
+};
+const U = {maman:"Maman Brigitte: Spirit of Death",placide:"Placide: Voodoo Sentinel",lizzy:"Lizzy Wizzy: Delicate Weapon",jvb:"Jacked-In Voodoo Boy",rita:"Rita Wheeler: No Stupid Questions",mox:"Mox Inciters",west:"Westbrook Netrunner",psycho:"Psycho Squad",rogue:"Rogue Amendiares: Queen of the Afterlife",kus:"Modded Kusanagi",mura:"Modded Muramasa",cab:"Delamain Cab",dela:"Delamain: Rideshare AI",siren:"Evelyn Parker: Scheming Siren",misty:"Misty Olszewski: Mender of Broken Spirits",judyU:"Judy Álvarez: Nothing to Doubt"};
+const P = {pyr:"Pyramid Song",tow:"Towerfall",les:"Les Élémens",bond:"Unlikely Bond",chrome:"Chrome Reverie",noc:"Nocturne OP55 N1",tno:"Trust No One",floor:"Floor It",three:"Three Mouths, One Desire",reboot:"Reboot Optics"};
+const G = {dn:"Dying Night: V's Pistol",net:"NetWatch Netdriver",rip:"Tetratronic Rippler"};
+
+const DECKS = [
+ {
+  "name": "Abyss Protocol",
+  "style": "Kontrola",
+  "diff": "Trudna",
+  "r": [
+   5,
+   4,
+   5
+  ],
+  "blurb": "Kontrola oparta na wkładaniu na spód talii. Lista z największą gęstością removalu: każde duże zagrożenie ląduje na spodzie talii, a Smasher znika na dobre. Alt zagrywa ponownie twoją najlepszą odpowiedź z kosza.",
+  "legends": [
+   "Alt Cunningham: Soulkiller Architect",
+   "Jackie Welles: Pour One Out For Me",
+   "Judy Alvarez: Braindance Maestro"
+  ],
+  "units": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Placide: Voodoo Sentinel"
+   ],
+   [
+    3,
+    "Lizzy Wizzy: Delicate Weapon"
+   ],
+   [
+    3,
+    "Jacked-In Voodoo Boy"
+   ],
+   [
+    2,
+    "Rita Wheeler: No Stupid Questions"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    2,
+    "Towerfall"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Three Mouths, One Desire"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ]
+  ],
+  "gear": [],
+  "side": [
+   [
+    2,
+    "Rogue Amendiares: Queen of the Afterlife"
+   ],
+   [
+    2,
+    "Westbrook Netrunner"
+   ],
+   [
+    2,
+    "Psycho Squad"
+   ],
+   [
+    1,
+    "Mox Inciters"
+   ]
+  ],
+  "win": "Odpowiadaj na każde zagrożenie jeden za jeden (albo lepiej, dzięki rekursji z Alt), trzymaj czysty stół, a potem wygraj Placide'em lub Lizzy i Jednostkami, które przetrwały. Długą grę wygrywasz przewagą kart z Three Mouths, Nocturne, Floor It i Spend Judy (wrzuć wierzchnią kartę do kosza, a jeśli to Program, zatrzymaj go).",
+  "mull": "Zostaw: co najmniej jedno tanie zagranie (Jacked-In Voodoo Boy, Trust No One, Floor It) plus jedną odpowiedź (Pyramid Song, Chrome Reverie lub Unlikely Bond). Mulliganuj ręce z dwiema lub więcej kartami za 5–6 i bez zagrania w 2. turze.",
+  "early": "Tury 1–3: Trust No One, żeby przygotować min Gig. Jackie też obniża przyjazny Gig i dobiera kartę, gdy zagrywasz pierwszą niebieską Jednostkę w turze. Jacked-In Voodoo Boy w 2. turze, Three Mouths do dopracowania ręki. Floor It trzymaj na ich walkę. Używaj Spend Judy w każdej turze, w której nie potrzebujesz jej do niczego innego.",
+  "mid": "Tury 4–6: Trzymaj w gotowości Pyramid Song i Chrome Reverie zamiast wydawać wszystko. Maman Brigitte na ich pierwsze poważne zagrożenie (odrzucaj nadmiarowe Programy, później staną się celami dla Alt). Lizzy zagrywa ponownie Program za 3 z kosza: najlepsze są Pyramid Song lub Chrome Reverie.",
+  "late": "Tury 7+: Alt (1 + Spend) zagrywa ponownie Les Élémens lub Towerfall z kosza. Placide atakuje, odrzuca zbędny Program i wkłada ich najlepszą Jednostkę na spód talii. Domykaj Gigi, gdy ich ręka jest pusta.",
+  "combos": [
+   [
+    "Lizzy → Pyramid Song",
+    "Lizzy Wizzy zagrywa Pyramid Song z kosza za darmo: 2 za 1, czyli ciało plus -4 albo włożenie na spód talii."
+   ],
+   [
+    "Przynęta → Unlikely Bond",
+    "Zostaw Jacked-In Voodoo Boy gotowego. Gdy ich duża Jednostka zaatakuje i będzie zużyta, Bond: twoja karta za 2 za ich kartę za 6–9."
+   ],
+   [
+    "Trust No One + min Gig",
+    "Min Gig włącza podwójny tryb Pyramid Song, darmowe Call z Chrome Reverie, dodatkową kartę z Three Mouths i zniżkę Alt."
+   ],
+   [
+    "Bloki z Braindance",
+    "Każdy Program Braindance (Pyramid, Towerfall, Chrome, Trust No One, Three Mouths) daje przyjaznej Jednostce +1 do siły w tej turze. Pyramid Song na Johnny'ego plus +1 od Judy na Ritę: Rita 5 kontra Johnny 4."
+   ]
+  ],
+  "tips": "Nie odpalaj Pyramid Song w pierwszą Jednostkę, jaką zobaczysz; trzymaj go na zagrożenia rozmiaru Johnny'ego/Smashera. Licz Programy przeciwnika kontra BBG: gdy skończą im się Towerfalle, zacznij wystawiać Jednostki.",
+  "mu": {
+   "bbg": "Masz ich odpowiedzi plus 3 Unlikely Bond i więcej Jednostek. Trzymaj Jacked-In Voodoo Boy na stole jako wabik na Les Élémens i zachowaj Pyramid Song na ich Placide'a/Maman. Spend Judy daje ci dodatkowy Program niemal w każdej turze, więc wygrywasz na karty.",
+   "johnny": "Chrome Reverie w turze, w której by zaatakował, potem Maman Brigitte, zanim wejdą Mantis Blades. Jeśli ukradnie bez bloku, zostaje zużyty, więc daj mu Unlikely Bond. Blok Ritą + Reboot Optics utrzymuje twojego blokującego przy życiu.",
+   "adam": "Pozwól mu wejść w Go Solo na Jacked-In Voodoo Boy (tania Jednostka do pokonania przez jego Play). W następnej turze Unlikely Bond na zużytego Smashera i jest usunięty z gry. Alt może ponownie zagrać Les Élémens, jeśli to ich jedyna Jednostka."
+  },
+  "sideNote": "Przeciw Czerwonym: -2 Three Mouths, -2 Floor It, -1 Reboot Optics → +2 Psycho Squad, +2 Rogue, +1 Mox Inciters. Przeciw BBG: -2 Rita → +2 Westbrook.",
+  "prev": [
+   3,
+   4,
+   5
+  ],
+  "swap": "Wakako → <b>Judy Alvarez: Braindance Maestro</b>. Talia ma 14 Programów Braindance, więc Judy niemal w każdej turze wzmacnia blokującego, a przy 27 Programach jej Spend w większości tur daje ci darmową kartę. Ten powtarzalny dobór kart zastępuje jednorazowe dobranie Wakako i wygrywa lustro kontroli. Te same Legendy co w Braindance Overload, ale to wersja nastawiona na removal."
+ },
+ {
+  "name": "Ice Wall",
+  "style": "Tempo na Blockerach",
+  "diff": "Średnia",
+  "r": [
+   3,
+   5,
+   4
+  ],
+  "blurb": "Zbudowana na czerwone aggro. Zmuś ich dużą Jednostkę do ataku w Blockery, przegraj im walkę dzięki Reboot Optics albo sztuczkom z -siłą i odbijaj Gigi średnimi ciałami.",
+  "legends": [
+   "Jackie Welles: Pour One Out For Me",
+   "Alt Cunningham: Soulkiller Architect",
+   "Evelyn Parker: Beautiful Enigma"
+  ],
+  "units": [
+   [
+    3,
+    "Mox Inciters"
+   ],
+   [
+    3,
+    "Rita Wheeler: No Stupid Questions"
+   ],
+   [
+    3,
+    "Lizzy Wizzy: Delicate Weapon"
+   ],
+   [
+    3,
+    "Westbrook Netrunner"
+   ],
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    2,
+    "Rogue Amendiares: Queen of the Afterlife"
+   ],
+   [
+    2,
+    "Placide: Voodoo Sentinel"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Reboot Optics"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ]
+  ],
+  "gear": [
+   [
+    3,
+    "NetWatch Netdriver"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ],
+   [
+    2,
+    "Towerfall"
+   ]
+  ],
+  "win": "Każdy atak na ciebie zamienia się w walkę, którą wygrywasz. Ich atakujący giną albo lądują na spodzie talii, a Psycho Squad i Westbrook kradną Gigi bez oporu.",
+  "mull": "Zostaw: Blockera (Mox Inciters / Rita) plus Reboot Optics lub Floor It. Netdriver z Ritą to świetna ręka. Mulliganuj ręce bez Jednostek tańszych niż 5.",
+  "early": "Tury 1–3: Mox Inciters w 3. turze to twoje kluczowe zagranie: zmusza ich najlepszą Jednostkę do ataku w twoje Blockery w następnej turze. Trust No One obniża Gig, napędzając dobieranie z Jackie.",
+  "mid": "Tury 4–6: Rita + Netdriver: każdy blok zużywa Ritę i dobiera kartę, a Rita dodatkowo filtruje rękę. Psycho Squad i Westbrook naciskają na Gigi. Rogue daje wielokrotne -4 na ich atakującego.",
+  "late": "Tury 7+: Placide lub Lizzy kończą grę. Spend Evelyn zmusza zablokowanego przeciwnika do kolejnego ataku w twój mur, a Alt (1 + Spend) zagrywa ponownie Pyramid Song lub Unlikely Bond z kosza na następne zagrożenie.",
+  "combos": [
+   [
+    "Wymuś → Zablokuj → Zmniejsz",
+    "Spend Evelyn lub Mox Inciters wymusza atak, Rita blokuje, Pyramid Song -4 / Rogue -4 sprawia, że przegrywają walkę."
+   ],
+   [
+    "Wymuś → Unlikely Bond",
+    "Zmuszony do ataku przeciwnik kończy zużyty, więc w swojej turze pozbądź się go Bondem za tanią gotową Jednostkę."
+   ],
+   [
+    "Rita + Netdriver",
+    "Każdy blok dobiera 1, a pierwsze zużycie Rity w turze filtruje rękę."
+   ],
+   [
+    "Powtórka z Alt",
+    "Pyramid Song lub Unlikely Bond, które już wykorzystałeś, wraca z kosza dzięki Alt: dwa removale z jednej karty."
+   ]
+  ],
+  "tips": "Blockery działają tylko, gdy są gotowe, więc nie atakuj Ritą/Mox w turach, w których spodziewasz się dużej kontry. Zawsze zostawiaj 2 Eddies na Reboot Optics przeciw Johnny'emu.",
+  "mu": {
+   "bbg": "Twój najsłabszy matchup, więc wrzucaj sideboard. Psycho Squad (6) i Westbrook (5) przeżywają -4 z Pyramid, a nie grasz Jednostek z siłą 0. Naciskaj na Gigi wcześnie, zanim Towerfall wejdzie do gry.",
+   "johnny": "Spend Evelyn lub Mox Inciters zmuszają Johnny'ego do ataku. Zablokuj Ritą, potem Pyramid Song (-4) + Floor It (-1) lub Rogue (-4) i przegrywa walkę. Reboot Optics ratuje twojego blokującego, jeśli rachunek jest na styk.",
+   "adam": "Westbrook w ich turze Go Solo nie pozwala ich Legendom kraść twoich niskich Gigów. Rozłóż kilka Jednostek o sile 4–5, żeby pokonanie przez jego Play cię nie sparaliżowało, a potem Unlikely Bond na niego, gdy będzie zużyty."
+  },
+  "sideNote": "Przeciw BBG: -3 Reboot Optics, -2 Mox Inciters, -2 Rita → +3 Maman Brigitte, +2 Les Élémens, +2 Towerfall.",
+  "prev": [
+   2,
+   4,
+   4
+  ],
+  "swap": "Wakako → <b>Alt Cunningham: Soulkiller Architect</b>. Alt zagrywa ponownie Pyramid Song, Reboot Optics lub Unlikely Bond z kosza i obniża koszt Programów przy min Gigu, co daje powtarzalną odpowiedź zamiast jednorazowego -2. Evelyn dodatkowo przygotowuje Eddie za każdym razem, gdy Ganger kradnie: Rita, Mox Inciters i Placide to Gangerzy."
+ },
+ {
+  "name": "Chrome Giants",
+  "style": "Duży midrange",
+  "diff": "Łatwa",
+  "r": [
+   5,
+   3,
+   4
+  ],
+  "blurb": "Za duże na removal BBG. Każda Jednostka ma 4–10 siły, więc Pyramid Song i Towerfall ich nie dobijają. Modded Kusanagi uderza za 8 i wraca na rękę, unikając Play Smashera i removalu sorcery-speed.",
+  "legends": [
+   "Jackie Welles: Pour One Out For Me",
+   "Judy Alvarez: Braindance Maestro",
+   "Sasha Yakovleva: Won't Let You Down"
+  ],
+  "units": [
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    3,
+    "Westbrook Netrunner"
+   ],
+   [
+    3,
+    "Modded Kusanagi"
+   ],
+   [
+    2,
+    "Placide: Voodoo Sentinel"
+   ],
+   [
+    2,
+    "Judy Álvarez: Nothing to Doubt"
+   ],
+   [
+    2,
+    "Delamain Cab"
+   ],
+   [
+    2,
+    "Rita Wheeler: No Stupid Questions"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Nocturne OP55 N1"
+   ],
+   [
+    2,
+    "Towerfall"
+   ]
+  ],
+  "gear": [
+   [
+    2,
+    "NetWatch Netdriver"
+   ],
+   [
+    2,
+    "Dying Night: V's Pistol"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ]
+  ],
+  "win": "Wejdź na krzywą kartami za 4, które kradną Gigi, a potem przytłocz przeciwnika ciałami o sile 6–10, których nie da się efektywnie usunąć.",
+  "mull": "Zostaw: dwie karty za 4 (Psycho Squad, Westbrook, Delamain Cab, Rita) i tani Program. Mulliganuj rękę złożoną wyłącznie z kart za 6+.",
+  "early": "Tury 1–3: Trust No One / Dying Night do obniżania Gigów, żeby twoje Jednostki o sile 4 dobrze kradły. Sasha może później wejść w Go Solo za 5; nie spiesz się z nią.",
+  "mid": "Tury 4–6: Psycho Squad / Westbrook w każdej turze. Tura 6: Kusanagi atakuje od razu, kradnie i wraca na rękę (zagrywaj go co turę). Trigger Judy daje +1, gdy zagrywasz Chrome Reverie, Pyramid Song, Trust No One lub Towerfall.",
+  "late": "Tury 7+: Placide przy każdym ataku wkłada ich najlepszą Jednostkę na spód talii. Judy: Nothing to Doubt odkrywa darmową kartę w każdej turze. Towerfall czyści blokujących przed ostatnimi kradzieżami.",
+  "combos": [
+   [
+    "Pętla Kusanagi",
+    "Zagrywaj Kusanagi co turę: atakujący z siłą 8 i haste, którego nigdy nie ma na stole w turze przeciwnika."
+   ],
+   [
+    "Pompa Braindance",
+    "Legenda Judy: zagraj Pyramid Song na ich blokującego (-4) i dostań +1 na swojego atakującego."
+   ],
+   [
+    "Sasha Go Solo",
+    "Sasha atakuje, odkrywa wierzchnią kartę i zyskuje siłę równą jej kosztowi. Z Placide'em/Kusanagi na wierzchu uderza potężnie."
+   ]
+  ],
+  "tips": "Nie zakładaj Sprzętu na Kusanagi (wraca na rękę). Netdrivera dawaj na Westbrooka lub Ritę.",
+  "mu": {
+   "bbg": "Twój najlepszy matchup. Ich efekty -4/-5 nie zabijają siły 6+, a nie masz celów z siłą 0. Kusanagi wraca na rękę, więc ich removal sorcery-speed nigdy go nie dosięga.",
+   "johnny": "Kusanagi (8) wymienia się po równo z Johnnym bez Sprzętu, a Placide (10) bije go bez dyskusji. Chrome Reverie lub Nocturne kupują turę. Unlikely Bond odpowiada na niego, gdy już jest wyposażony.",
+   "adam": "Kusanagi wracający na rękę sprawia, że jego Play często nie ma czego sensownego pokonać. Atak Placide'a wkłada go na spód talii (usunięty z gry). Trigger Sashy przy pokonaniu zmusza ich do odrzucenia karty."
+  },
+  "sideNote": "Przeciw Czerwonym: -2 Dying Night, -2 Nocturne → +2 Reboot Optics, +2 Maman Brigitte. Przeciw BBG: -2 Rita → +2 Les Élémens.",
+  "prev": [
+   5,
+   3,
+   4
+  ]
+ },
+ {
+  "name": "Ghost in the Trash",
+  "style": "Kontrola na rekursji",
+  "diff": "Trudna",
+  "r": [
+   4,
+   4,
+   4
+  ],
+  "blurb": "Silnik wartości. Lizzy Wizzy i Alt zagrywają ponownie Pyramid Song, Chrome Reverie, Les Élémens i Towerfall z kosza, a Judy co turę kopie w poszukiwaniu Programów.",
+  "legends": [
+   "Alt Cunningham: Soulkiller Architect",
+   "Judy Alvarez: Braindance Maestro",
+   "Evelyn Parker: Beautiful Enigma"
+  ],
+  "units": [
+   [
+    3,
+    "Lizzy Wizzy: Delicate Weapon"
+   ],
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    3,
+    "Jacked-In Voodoo Boy"
+   ],
+   [
+    2,
+    "Misty Olszewski: Mender of Broken Spirits"
+   ],
+   [
+    2,
+    "Rita Wheeler: No Stupid Questions"
+   ],
+   [
+    1,
+    "Placide: Voodoo Sentinel"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Three Mouths, One Desire"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ],
+   [
+    2,
+    "Towerfall"
+   ],
+   [
+    1,
+    "Reboot Optics"
+   ]
+  ],
+  "gear": [],
+  "side": [
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    2,
+    "Westbrook Netrunner"
+   ],
+   [
+    2,
+    "Rogue Amendiares: Queen of the Afterlife"
+   ]
+  ],
+  "win": "Zagraj każdy Program dwa razy. Kosz to druga ręka: wygrywasz na karty, aż przeciwnik nie będzie w stanie odpowiedzieć na Lizzy, Maman czy Placide'a.",
+  "mull": "Zostaw: Trust No One / Three Mouths plus jedną odpowiedź. Możesz zostawiać ręce z niską krzywą. Mulliganuj ręce bez Programu tańszego niż 3.",
+  "early": "Tury 1–3: Spend Judy wrzuca wierzchnią kartę do kosza i zatrzymuje Program, co zapełnia kosz. Trust No One na min Gig (tańszy Alt). Jacked-In Voodoo Boy atakuje tylko w turach, w których zagrywasz Program.",
+  "mid": "Tury 4–6: Lizzy to twoja najlepsza karta: darmowe Pyramid Song / Chrome Reverie z kosza. Odrzucenie 2 Programów przez Maman to zaleta, bo stają się celami dla Alt.",
+  "late": "Tury 7+: Alt (1 + Spend) zagrywa ponownie Towerfall lub Les Élémens. Placide łańcuchowo wkłada karty na spód talii. Misty daje kartę i Eddie w każdej turze.",
+  "combos": [
+   [
+    "Chrome lock",
+    "Zagraj Chrome Reverie z ręki → Lizzy zagrywa go ponownie → Alt zagrywa go ponownie: ich najlepsza Jednostka nie może atakować przez trzy tury."
+   ],
+   [
+    "Paliwo z Maman",
+    "Maman odrzuca 2 Programy (wybierz Towerfall + Les Élémens) → Alt zagrywa je ponownie z kosza."
+   ],
+   [
+    "Kopanie z Judy",
+    "Każdy Program Braindance (Pyramid, Chrome, Three Mouths, Trust No One, Towerfall) daje +1 do siły na turę."
+   ],
+   [
+    "Wymuś → Bond",
+    "Evelyn wymusza atak, Jednostka kończy zużyta, Unlikely Bond wkłada ją na spód talii. Alt zagrywa Bond ponownie później na następną."
+   ]
+  ],
+  "tips": "Lizzy i Alt wkładają ponownie zagrany Program na spód talii, więc nie marnuj ostatniego Pyramid Song na małą Jednostkę.",
+  "mu": {
+   "bbg": "Wygrywasz długą grę. Alt + Lizzy pozwalają zagrać dwa Programy z jednej karty. Wyrzuć z talii Misty (siła 0, łatwy cel dla Pyramid Song na spód talii).",
+   "johnny": "Chrome Reverie nie pozwala mu atakować: zagraj go z ręki, potem Lizzy i Alt zagrywają go ponownie. Albo odwróć plan: Spend Evelyn, żeby go wciągnąć do ataku, zablokuj Ritą + Pyramid Song, albo pozwól mu ukraść i daj mu Unlikely Bond w następnej turze. Maman przed Mantis Blades.",
+   "adam": "Spend Evelyn, żeby Smasher zaatakował i skończył zużyty. W swojej turze Unlikely Bond na niego (koszt: gotowy Jacked-In Voodoo Boy) i jest usunięty z gry. Chrome Reverie w jego turze Go Solo, jeśli jeszcze nie jesteś gotowy."
+  },
+  "sideNote": "Przeciw BBG: -2 Misty, -1 Reboot Optics → +3 Psycho Squad. Przeciw Czerwonym: -2 Three Mouths → +2 Rogue Amendiares.",
+  "prev": [
+   4,
+   3,
+   3
+  ],
+  "swap": "Wakako → <b>Evelyn Parker: Beautiful Enigma</b>. Spend Evelyn zmusza ich bombę do ataku, kiedy ty jesteś gotowy, więc kończy zużyta pod Unlikely Bond albo wchodzi prosto w twoje Blockery. Rita i Placide to Gangerzy, więc ich kradzieże przygotowują Eddies na kolejną rekursję. Nie wymuszaj ataku i nie blokuj Chrome tej samej Jednostki."
+ },
+ {
+  "name": "Neon Sprint",
+  "style": "Rush na Gigi / aggro",
+  "diff": "Średnia",
+  "r": [
+   3,
+   4,
+   4
+  ],
+  "blurb": "Ścigaj się z nimi. Obniżaj Gigi przez Trust No One i Dying Night, kradnij szybko średnimi Jednostkami i Kusanagi, a tanie efekty spowalniające trzymaj na turę, w której pojawi się Smasher lub Towerfall.",
+  "legends": [
+   "Jackie Welles: Pour One Out For Me",
+   "Sasha Yakovleva: Won't Let You Down",
+   "Judy Alvarez: Braindance Maestro"
+  ],
+  "units": [
+   [
+    3,
+    "Jacked-In Voodoo Boy"
+   ],
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    3,
+    "Delamain Cab"
+   ],
+   [
+    2,
+    "Modded Muramasa"
+   ],
+   [
+    3,
+    "Westbrook Netrunner"
+   ],
+   [
+    3,
+    "Modded Kusanagi"
+   ],
+   [
+    2,
+    "Rogue Amendiares: Queen of the Afterlife"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ]
+  ],
+  "gear": [
+   [
+    3,
+    "Dying Night: V's Pistol"
+   ],
+   [
+    3,
+    "NetWatch Netdriver"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ]
+  ],
+  "win": "Zdobądź 7 Gigów, zanim bomby przeciwnika za 6–9 zaczną mieć znaczenie. W każdej turze coś atakuje.",
+  "mull": "Zostaw: Jacked-In Voodoo Boy lub Dying Night, plus Trust No One/Floor It, plus kartę za 4. Mulliganuj każdą rękę bez zagrania przed 3. turą.",
+  "early": "Tury 1–3: Dying Night na Jednostkę (lub odkrytą Legendę), a jej atak obniża Gig o 2. Jacked-In Voodoo Boy atakuje po Trust No One/Floor It. Delamain Cab przygotowuje Eddie, gdy kradnie.",
+  "mid": "Tury 4–6: Psycho Squad i Westbrook w każdej turze. Kusanagi w 6. turze to kradzież z siłą 8 i haste. Modded Muramasa staje się gotowy na koniec tury, jeśli przegrywasz na Street Cred, więc też blokuje.",
+  "late": "Tury 7+: Chrome Reverie / Nocturne na ich jedynego dużego blokującego lub atakującego i atakuj wszystkim. Sasha Go Solo jako finisher.",
+  "combos": [
+   [
+    "Trust No One → kradzież",
+    "Obniż Gig o 3, a potem ukradnij go Jednostką z siłą 2–4. Rogue przygotowuje wtedy 2 Eddies."
+   ],
+   [
+    "Bank z Delamain Cab",
+    "Cab kradnie → przygotuj 1 Eddie na koniec tury, żeby opłacić Floor It/Reboot w turze przeciwnika."
+   ],
+   [
+    "Chrome na blokującego",
+    "Chrome Reverie na ich największą Jednostkę przed twoją turą all-in."
+   ],
+   [
+    "Pchnięcie Braindance",
+    "Zagraj Trust No One przed atakiem: obniż Gig ORAZ daj +1 do siły atakującemu."
+   ]
+  ],
+  "tips": "Licz ich i swoje Gigi w każdej turze. Jeśli zaraz zagrają Towerfall (6 Eddies), nie wystawiaj 4. Jednostki.",
+  "mu": {
+   "bbg": "BBG jest wolne i opiera się na min Gigach. Wejdź na stół w turach 2–3, graj pod Towerfall, nie wystawiając więcej niż 3 Jednostek, i używaj „nie może atakować” z Nocturne na ich Placide'a lub Lizzy.",
+   "johnny": "Nie walcz z nim; ścigaj się. Chrome Reverie lub Nocturne w jego turze ataku. Kusanagi + dowolny Program Braindance to atakujący z siłą 9, który go bije. Pyramid Song (-4) + Rogue (-4), gdy musi blokować.",
+   "adam": "Smasher potrzebuje 9 Eddies. Celuj w to, żeby być 1–2 Gigi od wygranej, zanim wejdzie, a potem Chrome Reverie na niego. Westbrook nie pozwala ich Legendom kraść twoich niskich Gigów. Wrzuć z sideboardu Unlikely Bond."
+  },
+  "sideNote": "Przeciw Smasherowi: -2 Muramasa, -1 Floor It → +3 Unlikely Bond. Przeciw Johnny'emu: -2 Dying Night → +2 Reboot Optics. Przeciw BBG: -2 Rogue → +2 Maman Brigitte.",
+  "prev": [
+   3,
+   3,
+   4
+  ],
+  "swap": "Wakako → <b>Judy Alvarez: Braindance Maestro</b>. Trust No One, Chrome Reverie i Pyramid Song dają atakującemu +1, więc Kusanagi bije Johnny'ego bez Sprzętu 9 kontra 8. Jej Spend uzupełnia rękę aggro, której kończą się karty."
+ },
+ {
+  "name": "Braindance Overload",
+  "style": "Tempo na Programach",
+  "diff": "Średnia",
+  "r": [
+   4,
+   3,
+   3
+  ],
+  "blurb": "Sprawdzona lista BBB (Alt / Jackie / Judy), dostrojona pod rolę kontry. Każdy Program Braindance wzmacnia twojego atakującego dzięki Judy, a Alt zapewnia ich stały dopływ.",
+  "legends": [
+   "Alt Cunningham: Soulkiller Architect",
+   "Judy Alvarez: Braindance Maestro",
+   "Jackie Welles: Pour One Out For Me"
+  ],
+  "units": [
+   [
+    3,
+    "Jacked-In Voodoo Boy"
+   ],
+   [
+    3,
+    "Rita Wheeler: No Stupid Questions"
+   ],
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    3,
+    "Lizzy Wizzy: Delicate Weapon"
+   ],
+   [
+    2,
+    "Judy Álvarez: Nothing to Doubt"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Three Mouths, One Desire"
+   ],
+   [
+    3,
+    "Towerfall"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ]
+  ],
+  "gear": [],
+  "side": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Westbrook Netrunner"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ]
+  ],
+  "win": "Zagrywaj 1–2 Programy na turę; każdy z nich osłabia albo zatrzymuje Jednostkę rywala, a przy okazji wzmacnia twoją (Judy +1). Twoje Jednostki kradną przez planszę, z której przeciwnik nie potrafi zrobić użytku.",
+  "mull": "Zostaw: 2+ tanie Programy (Trust No One, Floor It, Three Mouths) plus Jednostkę. Jacked-In Voodoo Boy + Trust No One to wymarzony start.",
+  "early": "Tury 1–3: Trust No One → min Gig → bonusy Jackie/Alt. Jacked-In Voodoo Boy atakuje w turach, w których zagrywasz Program (w turach z Braindance dostaje +1 od Judy).",
+  "mid": "Tury 4–6: Psycho Squad + Program Braindance w każdej turze. Lizzy za darmo zagrywa ponownie Pyramid Song albo Chrome Reverie. Trzymaj Floor It/Reboot Optics na turę przeciwnika.",
+  "late": "Tury 7+: Towerfall (oba tryby, jeśli przegrywasz na Street Cred), żeby wyczyścić jego blokujące Jednostki, a potem atak. Alt zagrywa Towerfall ponownie z kosza na drugie czyszczenie planszy.",
+  "combos": [
+   [
+    "Podwójny Towerfall",
+    "Towerfall, a później Alt (1 + Spend) zagrywa go ponownie z kosza. Dwa jednostronne czyszczenia planszy."
+   ],
+   [
+    "Program + Voodoo Boy",
+    "Dowolny Program odblokowuje atak Jacked-In Voodoo Boy, a Program Braindance daje dodatkowo +1 przez Judy."
+   ],
+   [
+    "Judy: Nothing to Doubt",
+    "1 Eddie + Spend: odkryj wierzchnią kartę i zagraj ją za darmo. Towerfall na wierzchu to darmowe czyszczenie planszy."
+   ]
+  ],
+  "tips": "Zagrywaj Programy Braindance przed walką, żeby +1 od Judy trafiło na tego atakującego, którego potrzebujesz.",
+  "mu": {
+   "bbg": "Matchup niemal lustrzany, w którym liczą się twoje dodatkowe Jednostki. Trzymaj Psycho Squad (6) na stole; przeżywa Pyramid. Zachowaj Chrome Reverie na jego Placide.",
+   "johnny": "Co turę rzucaj na niego Chrome Reverie / Nocturne, a w międzyczasie kradnij. Blokuj zestawem Rita + Pyramid Song. Unlikely Bond, gdy tylko będzie zużyty.",
+   "adam": "Towerfall go nie zabija (9 → 4), ale sprawia, że przegra każdą walkę. Sprowokuj jego Play za pomocą Jacked-In Voodoo Boy, a potem zagraj na niego Bond."
+  },
+  "sideNote": "Vs czerwone: -3 Three Mouths → +3 Maman Brigitte. Vs BBG: -2 Reboot Optics → +2 Les Élémens.",
+  "prev": [
+   4,
+   3,
+   3
+  ]
+ },
+ {
+  "name": "Puppet Strings",
+  "style": "Kontrola przez wymuszone ataki",
+  "diff": "Trudna",
+  "r": [
+   4,
+   5,
+   5
+  ],
+  "blurb": "Najlepsza talia przeciw czerwonym w tym zestawieniu. Evelyn i Mox Inciters zmuszają ich bombę do ataku w twoje Blockery, a potem Unlikely Bond i Maman ją usuwają. Smasher zmuszony do wpadnięcia na blok to martwy Smasher.",
+  "legends": [
+   "Alt Cunningham: Soulkiller Architect",
+   "Evelyn Parker: Beautiful Enigma",
+   "Jackie Welles: Pour One Out For Me"
+  ],
+  "units": [
+   [
+    3,
+    "Mox Inciters"
+   ],
+   [
+    3,
+    "Rita Wheeler: No Stupid Questions"
+   ],
+   [
+    3,
+    "Lizzy Wizzy: Delicate Weapon"
+   ],
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Placide: Voodoo Sentinel"
+   ],
+   [
+    2,
+    "Westbrook Netrunner"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    3,
+    "Reboot Optics"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ],
+   [
+    1,
+    "Towerfall"
+   ]
+  ],
+  "gear": [
+   [
+    3,
+    "NetWatch Netdriver"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    2,
+    "Psycho Squad"
+   ],
+   [
+    2,
+    "Rogue Amendiares: Queen of the Afterlife"
+   ]
+  ],
+  "win": "To ty decydujesz, kiedy przeciwnik atakuje. Każdy wymuszony atak kończy się tym, że jego Jednostka zostaje pokonana (przegrana walka) albo zużyta (cel dla Unlikely Bond). Gdy jego plansza zniknie, Placide i Westbrook dokradają do wygranej.",
+  "mull": "Zostaw: Mox Inciters albo Rita, plus Unlikely Bond albo Reboot Optics. Mulliganuj ręce z samymi Programami i bez Blockera.",
+  "early": "Tury 1–3: Trust No One / Floor It do przekopywania talii. Twoja pierwsza niebieska Jednostka w każdej turze aktywuje Jackie: obniż przyjazny Gig o 2 i dobierz kartę, jeśli dojdzie do min. Mox Inciters w 3. turze: wybierz jego najlepszą Jednostkę, która zostanie zmuszona do ataku w twój mur.",
+  "mid": "Tury 4–6: Rita + Netdriver do blokowania i dobierania. Evelyn (1 + Spend) zmusza jego najnowszą dużą Jednostkę do ataku w następnej turze. W swojej turze zagraj Unlikely Bond na zużytego atakującego.",
+  "late": "Tury 7+: Maman wkłada na spód talii to, co zostało, Placide atakuje i znów wkłada coś na spód talii. Alt zagrywa ponownie Les Élémens.",
+  "combos": [
+   [
+    "Evelyn → Blok → Pyramid",
+    "Wymuś atak Johnny, zablokuj Rita, Pyramid Song -4: Johnny (4) vs Rita (4)… dorzuć Floor It -1, a on przegrywa walkę i zostaje pokonany."
+   ],
+   [
+    "Wymuszenie → Bond",
+    "Wymuszony atakujący jest zużyty w twojej turze. Usuń go Bondem za pomocą taniej, gotowej Jednostki. Na Smasher to rozwiązanie na stałe."
+   ],
+   [
+    "Reboot Optics",
+    "Gdy rachunek nie wychodzi, Reboot Optics i tak utrzymuje twojego blokującego przy życiu."
+   ]
+  ],
+  "tips": "Wymuszenie ataku pomaga tylko wtedy, gdy masz gotowego Blockera i odpowiedź na ręce. Nie wymuszaj ataku w turach, w których wydałeś już wszystko.",
+  "mu": {
+   "bbg": "Średnio. Mają mało Jednostek do zmuszania, więc to gra na wartość. Wrzuć z sideboardu Chrome Reverie i Psycho Squad i graj jak midrange.",
+   "johnny": "Twój najlepszy matchup. Zmuś go do ataku w Rita + Pyramid/Floor It, żeby przegrał walkę, albo pozwól mu wygrać i zagraj na niego Unlikely Bond (staje się gotowy tylko po wygranej walce; planuj z tym w głowie).",
+   "adam": "Evelyn zmusza Smasher do ataku w Blockera. Albo przegra walkę przez Pyramid Song + Floor It, albo zostanie zużyty i trafi go Bond: usunięty z gry."
+  },
+  "sideNote": "Vs BBG: -3 Mox Inciters, -1 Towerfall, -3 Reboot Optics → +3 Chrome Reverie, +2 Psycho Squad, +2 Rogue.",
+  "prev": [
+   3,
+   5,
+   5
+  ],
+  "swap": "Wakako → <b>Jackie Welles: Pour One Out For Me</b>. Przy 16 niebieskich Jednostkach Jackie obniża przyjazny Gig i dobiera kartę niemal w każdej turze. To utrzymuje min Gig, który napędza zniżkę Alt i podwójny tryb Pyramid Song, a dodatkowe karty bardzo pomagają przeciw BBG."
+ },
+ {
+  "name": "Doll House",
+  "style": "Midrange na przewadze kart",
+  "diff": "Średnia",
+  "r": [
+   3,
+   3,
+   3
+  ],
+  "blurb": "Dobieraj więcej kart niż przeciwnik. Evelyn Siren, Rita i Netdriver co turę przesiewają talię, Delamain dobiera 2, a ty znajdujesz potrzebne odpowiedzi dokładnie wtedy, gdy ich potrzebujesz.",
+  "legends": [
+   "Judy Alvarez: Braindance Maestro",
+   "Evelyn Parker: Beautiful Enigma",
+   "Sasha Yakovleva: Won't Let You Down"
+  ],
+  "units": [
+   [
+    3,
+    "Evelyn Parker: Scheming Siren"
+   ],
+   [
+    2,
+    "Delamain: Rideshare AI"
+   ],
+   [
+    3,
+    "Rita Wheeler: No Stupid Questions"
+   ],
+   [
+    3,
+    "Westbrook Netrunner"
+   ],
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    2,
+    "Placide: Voodoo Sentinel"
+   ],
+   [
+    2,
+    "Judy Álvarez: Nothing to Doubt"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Three Mouths, One Desire"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ]
+  ],
+  "gear": [
+   [
+    2,
+    "NetWatch Netdriver"
+   ],
+   [
+    2,
+    "Tetratronic Rippler"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ],
+   [
+    2,
+    "Towerfall"
+   ]
+  ],
+  "win": "Przebij przeciwnika w dobieraniu i selekcji. Widzisz większą część talii, więc zawsze znajdziesz Bond na Smasher, Pyramid na Johnny i duże ciała przeciw BBG.",
+  "mull": "Zostaw: każdą rękę z Evelyn Siren albo Delamain plus jedna odpowiedź. Łatwe decyzje; talia sama się wygładza.",
+  "early": "Tury 1–3: Evelyn Siren w 2. turze (atakuje, żeby dobrać, może odrzucić). Rippler na Jednostce pozwala oczyścić wierzch talii. Three Mouths po najlepszą kartę.",
+  "mid": "Tury 4–6: Rita + Netdriver, Westbrook, Psycho Squad. Delamain dobiera 2, ale ma siłę 0, więc zagrywaj go tylko wtedy, gdy przeciwnik nie gra BBG.",
+  "late": "Tury 7+: Judy: Nothing to Doubt i Placide przejmują grę. Sasha Go Solo, gdy wiesz, że wierzchnia karta jest droga (przygotuj to za pomocą Rippler).",
+  "combos": [
+   [
+    "Rippler + Sasha",
+    "Rippler pozwala sprawdzić i zostawić drogą kartę na wierzchu, więc Sasha zyskuje przy ataku dużo siły."
+   ],
+   [
+    "Netdriver na Blockerze",
+    "Każdy blok dobiera 1, czyli przewaga kart i obrona w jednym."
+   ],
+   [
+    "Three Mouths + min Gig",
+    "Przy Gigach na min Three Mouths bierze 2–3 karty zamiast 1."
+   ]
+  ],
+  "tips": "Jednostki z siłą 0 (Siren, Delamain) to cele do włożenia na spód talii dla Pyramid/Towerfall od BBG. W tym matchupie wyrzuć je do sideboardu.",
+  "mu": {
+   "bbg": "Wyrzuć do sideboardu Jednostki z siłą 0. Wtedy jesteś midrange'em z dużymi ciałami i lepszym dobieraniem niż przeciwnik.",
+   "johnny": "Kop po Pyramid Song + bloki Rita. Chrome Reverie, żeby kupić turę, Unlikely Bond na dobicie.",
+   "adam": "Trzymaj Unlikely Bond; przy takim dobieraniu na pewno go znajdziesz. Westbrook chroni twoje niskie Gigi."
+  },
+  "sideNote": "Vs BBG: -3 Evelyn Siren, -2 Delamain → +3 Maman, +2 Towerfall. Vs Johnny: -2 Rippler → +2 Reboot Optics.",
+  "prev": [
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "name": "Kusanagi Blitz",
+  "style": "Aggro typu uderz i uciekaj",
+  "diff": "Łatwa",
+  "r": [
+   3,
+   4,
+   4
+  ],
+  "blurb": "Pojazdy, które uderzają i znikają. Kusanagi i Muramasa atakują raz za razem, unikając removalu, a Sasha może wcześnie wejść przez Go Solo, dokładając presji.",
+  "legends": [
+   "Sasha Yakovleva: Won't Let You Down",
+   "Judy Alvarez: Braindance Maestro",
+   "Evelyn Parker: Beautiful Enigma"
+  ],
+  "units": [
+   [
+    3,
+    "Modded Kusanagi"
+   ],
+   [
+    3,
+    "Modded Muramasa"
+   ],
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    3,
+    "Jacked-In Voodoo Boy"
+   ],
+   [
+    3,
+    "Delamain Cab"
+   ],
+   [
+    2,
+    "Rita Wheeler: No Stupid Questions"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    1,
+    "Reboot Optics"
+   ]
+  ],
+  "gear": [
+   [
+    3,
+    "Dying Night: V's Pistol"
+   ],
+   [
+    2,
+    "NetWatch Netdriver"
+   ],
+   [
+    2,
+    "Tetratronic Rippler"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Westbrook Netrunner"
+   ]
+  ],
+  "win": "Regularna kradzież Gigów Jednostkami, które trudno ukarać. Kusanagi nigdy nie ma na planszy w turze przeciwnika, więc jego removal i Play od Smasher nie mają dobrych celów.",
+  "mull": "Zostaw: kartę za 2 plus kartę za 4 plus tani Program. Mulliganuj ręce bez wczesnych zagrań.",
+  "early": "Tury 1–3: Jacked-In Voodoo Boy + Trust No One. Dying Night obniża Gigi przy ataku. Spend od Judy: wyrzuć wierzchnią kartę do kosza i zatrzymaj ją, jeśli to Program.",
+  "mid": "Tury 4–6: Psycho Squad / Delamain Cab. Muramasa (5) staje się gotowa na koniec tury, jeśli przegrywasz na Street Cred, więc atakuje i wciąż może blokować.",
+  "late": "Tury 6+: Kusanagi w każdej turze (8 siły z haste). Sasha Go Solo 5 jako niespodziewany atakujący. Chrome Reverie na jego najlepszego blokującego w ostatniej turze.",
+  "combos": [
+   [
+    "Kusanagi + Floor It",
+    "Kusanagi 8 atakuje, Floor It -1 na jego blokującego. Wygrywasz walki ze wszystkim poniżej 9."
+   ],
+   [
+    "Obrona Muramasa",
+    "Przegrywasz na Street Cred → Muramasa staje się gotowa na koniec tury: atakujący i blokujący w jednym."
+   ],
+   [
+    "Pompa Braindance",
+    "Trust No One / Chrome Reverie / Pyramid Song przed walką: Judy daje +1, więc Kusanagi uderza jako 9."
+   ]
+  ],
+  "tips": "Zakładaj Sprzęt na Psycho Squad/Muramasa, nigdy na Kusanagi (wraca na rękę).",
+  "mu": {
+   "bbg": "Dobry. Ich removal z prędkością sorcery zwykle pudłuje na Kusanagi. Przeciw Towerfall trzymaj na planszy maks. 2–3 Jednostki.",
+   "johnny": "Wyścig. Kusanagi wymienia się z Johnny po równo (8 vs 8), więc dorzuć Floor It, Pyramid Song albo +1 Braindance od Judy, żeby wygrać walkę. Chrome Reverie w turze jego ataku.",
+   "adam": "Play od Smasher nie trafi Kusanagi (w turze przeciwnika jest na ręce). Wrzuć z sideboardu Unlikely Bond na zużytego Smasher."
+  },
+  "sideNote": "Vs Smasher/Johnny: -2 Rippler, -1 Reboot Optics → +3 Unlikely Bond. Vs BBG: -2 Rita → +2 Westbrook.",
+  "prev": [
+   3,
+   3,
+   4
+  ],
+  "swap": "Wakako → <b>Judy Alvarez: Braindance Maestro</b>. Trust No One, Chrome Reverie i Pyramid Song dają atakującemu +1, co zamienia Kusanagi w 9, która wygrywa z Johnny, a jej Spend zapewnia stały dopływ kart."
+ },
+ {
+  "name": "Netrunner Ascension",
+  "style": "Midrange na wartość",
+  "diff": "Średnia",
+  "r": [
+   4,
+   4,
+   4
+  ],
+  "blurb": "Voodoo Boys i Netrunnerzy. Maman, Placide i Westbrook tworzą mocny rdzeń removalu na ciele, wspierany rekursją Alt i dobieraniem z Netdriver.",
+  "legends": [
+   "Alt Cunningham: Soulkiller Architect",
+   "Sasha Yakovleva: Won't Let You Down",
+   "Judy Alvarez: Braindance Maestro"
+  ],
+  "units": [
+   [
+    3,
+    "Jacked-In Voodoo Boy"
+   ],
+   [
+    3,
+    "Westbrook Netrunner"
+   ],
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    3,
+    "Placide: Voodoo Sentinel"
+   ],
+   [
+    2,
+    "Rita Wheeler: No Stupid Questions"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    3,
+    "Three Mouths, One Desire"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ]
+  ],
+  "gear": [
+   [
+    3,
+    "NetWatch Netdriver"
+   ],
+   [
+    2,
+    "Tetratronic Rippler"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ],
+   [
+    2,
+    "Towerfall"
+   ]
+  ],
+  "win": "Każda duża Jednostka, którą zagrywasz, usuwa jedną z jego (Maman przy Play, Placide przy każdym ataku), więc plansza pozostaje jednostronna, a Westbrook i Placide kradną.",
+  "mull": "Zostaw: Jacked-In Voodoo Boy albo Rita, plus tani Program, plus Maman albo Unlikely Bond.",
+  "early": "Tury 1–3: Jacked-In Voodoo Boy + Trust No One. Netdriver na Voodoo Boy: każdy atak (zużycie) dobiera kartę.",
+  "mid": "Tury 4–6: Westbrook w turach, w których przeciwnik kradnie Legendą. Maman przy Play (odrzuć 2 Programy, które są paliwem dla Alt) wkłada na spód talii jego najlepszą Jednostkę bez Sprzętu.",
+  "late": "Tury 8+: Placide przy każdym ataku: odrzuć 1 Program, włóż Jednostkę rywala na spód talii. Alt zagrywa ponownie odrzucone Programy.",
+  "combos": [
+   [
+    "Maman → Alt",
+    "Odrzuć Pyramid + Chrome do Maman, a później Alt zagra je ponownie z kosza."
+   ],
+   [
+    "Silnik Placide",
+    "Każdy atak Placide: odrzuć 1 Program → włóż Jednostkę na spód talii. Dwie tury, dwa usunięcia."
+   ],
+   [
+    "Netdriver Voodoo Boy",
+    "Karta za 2, która dobiera kartę przy każdym ataku."
+   ]
+  ],
+  "tips": "Używaj Nocturne wcześnie w trybie 'dobierz 2' (za 1 Eddie, jeśli twoja strefa fixerów jest pusta), żeby zgromadzić Programy dla Maman i Placide.",
+  "mu": {
+   "bbg": "Mocny. Placide (10) przeżywa wszystko, co mają, poza Les Élémens na pustej planszy, więc trzymaj obok niego kartę za 2.",
+   "johnny": "Maman Brigitte, zanim pojawią się Mantis Blades. W przeciwnym razie Chrome Reverie / Pyramid. Placide wygrywa z nim walkę 10 vs 8.",
+   "adam": "Atak Placide albo Maman wkłada Smasher na spód talii = usunięty z gry. Trzymaj na stole Voodoo Boy jako przynętę dla pokonania przez Play."
+  },
+  "sideNote": "Vs BBG: -2 Rippler → +2 Les Élémens. Vs czerwone go-wide: -3 Three Mouths → +3 Psycho Squad.",
+  "prev": [
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "name": "Afterlife Bank",
+  "style": "Midrange z rampą",
+  "diff": "Średnia",
+  "r": [
+   4,
+   3,
+   4
+  ],
+  "blurb": "Generuj Eddies szybciej niż przeciwnik. Rogue, Delamain Cab i Misty dają dodatkowe gotowe Eddies, a to pozwala wcześniej zagrywać Placide, Towerfall i Judy: Nothing to Doubt.",
+  "legends": [
+   "Jackie Welles: Pour One Out For Me",
+   "Judy Alvarez: Braindance Maestro",
+   "Alt Cunningham: Soulkiller Architect"
+  ],
+  "units": [
+   [
+    3,
+    "Rogue Amendiares: Queen of the Afterlife"
+   ],
+   [
+    3,
+    "Delamain Cab"
+   ],
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    2,
+    "Westbrook Netrunner"
+   ],
+   [
+    2,
+    "Misty Olszewski: Mender of Broken Spirits"
+   ],
+   [
+    2,
+    "Judy Álvarez: Nothing to Doubt"
+   ],
+   [
+    2,
+    "Placide: Voodoo Sentinel"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    2,
+    "Towerfall"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Three Mouths, One Desire"
+   ]
+  ],
+  "gear": [
+   [
+    2,
+    "Dying Night: V's Pistol"
+   ],
+   [
+    2,
+    "NetWatch Netdriver"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ]
+  ],
+  "win": "Rozpędź się do największych zagrożeń w niebieskim turę lub dwie, zanim przeciwnik zdąży na nie odpowiedzieć, a potem wygrywaj na przewagę darmowymi kartami z Judy: Nothing to Doubt.",
+  "mull": "Zostaw: Delamain Cab lub Misty plus Trust No One. Rogue + tani atakujący to ideał.",
+  "early": "Tury 1–3: Trust No One obniża Gigi, żeby Twoje Jednostki kradły Gigi warte mniej niż ich siła (potrzebne pod Rogue'a). Dying Night też obniża Gigi.",
+  "mid": "Tury 4–6: Cab kradnie → 1 Eddie staje się gotowy. Rogue: gdy inna Jednostka ukradnie Gig wart mniej niż jej siła, 2 Eddies stają się gotowe. W praktyce możesz zagrać 2 czary na turę.",
+  "late": "Tury 6–7: Placide lub Towerfall pełną turę wcześniej. Judy: Nothing to Doubt odkrywa darmowe karty co turę. Alt (1 + Spend) zagrywa ponownie Towerfall lub Unlikely Bond z kosza.",
+  "combos": [
+   [
+    "Trust No One → Rogue",
+    "Obniż Gig, ukradnij go większą Jednostką → Rogue daje 2 gotowe Eddies."
+   ],
+   [
+    "Cab + Rogue",
+    "Kradzież Caba odpala oba efekty: +3 Eddies w jednej turze."
+   ],
+   [
+    "Rogue jako trik",
+    "Quick: 2 Eddies + Spend, Jednostka rywala traci 4 siły podczas jego ataku."
+   ],
+   [
+    "Bank → Alt",
+    "Eddies z Rogue'a/Caba opłacają Alt zagrywającą ponownie Towerfall z kosza: dwa wipe'y."
+   ]
+  ],
+  "tips": "Misty: nazwij typ karty, którego najwięcej zostało Ci w talii (zwykle Program).",
+  "mu": {
+   "bbg": "Średnio. Wyrzuć z talii Misty (siła 0). Twoja przewaga to Placide wyrzucony turę wcześniej dzięki rampie.",
+   "johnny": "-4 od Rogue'a podczas jego ataku plus blok sprawiają, że Johnny przegrywa. Chrome Reverie, żeby przeciągnąć grę do Placide.",
+   "adam": "Będziesz mieć Eddies na Bond + kolejny czar w tej samej turze. Bonduj zużytego Smashera."
+  },
+  "sideNote": "Vs BBG: -2 Misty, -2 Three Mouths → +2 Les Élémens, +2 Maman. Vs czerwone: -2 Dying Night → +2 Reboot Optics.",
+  "prev": [
+   3,
+   3,
+   3
+  ],
+  "swap": "Wakako → <b>Alt Cunningham: Soulkiller Architect</b>. Dodatkowe Eddies opłacają ponowne zagrania Alt z kosza: drugi Towerfall albo Unlikely Bond. Trust No One, Dying Night i Jackie nadal obniżają Gigi pod trigger Rogue'a na Eddies."
+ },
+ {
+  "name": "Last Stand",
+  "style": "Kontrola z wipe'ami",
+  "diff": "Trudna",
+  "r": [
+   3,
+   4,
+   4
+  ],
+  "blurb": "Przetrwaj, a potem wyczyść stół. Ściana Blockerów i Reboot Optics trzyma wczesną fazę gry, potem trzy Towerfalle i trzy Les Élémens czyszczą wszystko, a Alt zagrywa je ponownie.",
+  "legends": [
+   "Alt Cunningham: Soulkiller Architect",
+   "Jackie Welles: Pour One Out For Me",
+   "Sasha Yakovleva: Won't Let You Down"
+  ],
+  "units": [
+   [
+    3,
+    "Rita Wheeler: No Stupid Questions"
+   ],
+   [
+    3,
+    "Mox Inciters"
+   ],
+   [
+    3,
+    "Lizzy Wizzy: Delicate Weapon"
+   ],
+   [
+    3,
+    "Placide: Voodoo Sentinel"
+   ],
+   [
+    2,
+    "Misty Olszewski: Mender of Broken Spirits"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Towerfall"
+   ],
+   [
+    3,
+    "Les Élémens"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Three Mouths, One Desire"
+   ],
+   [
+    2,
+    "Floor It"
+   ],
+   [
+    3,
+    "Reboot Optics"
+   ]
+  ],
+  "gear": [],
+  "side": [
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Psycho Squad"
+   ],
+   [
+    2,
+    "Westbrook Netrunner"
+   ]
+  ],
+  "win": "Wytrzymaj do tury 6, potem Towerfall (oba tryby, gdy przegrywasz na Street Cred, a będziesz przegrywać) czyści stół przeciwnika. Placide kończy grę.",
+  "mull": "Zostaw: Blocker plus Reboot Optics/Pyramid Song. Odsyłaj ręce z trzema kartami za 5–6.",
+  "early": "Tury 1–3: Trust No One, Three Mouths. Mox Inciters zmusza przeciwnika do ataku prosto w blok. Nie ścigaj się; chcesz przegrywać na Street Cred pod Towerfall.",
+  "mid": "Tury 4–6: Rita/Lizzy blokują. Reboot Optics ratuje blockerów. Tura 6: Towerfall → wszystkie Jednostki rywala -5 ORAZ wszystkie z siłą 0 na spód talii.",
+  "late": "Tury 7+: Les Élémens / Towerfall zagrany ponownie przez Alt na resztki. Placide co turę kradnie i wkłada na spód talii.",
+  "combos": [
+   [
+    "Towerfall w obu trybach",
+    "Gdy przegrywasz na Street Cred: -5 dla wszystkich, potem wszystkie z siłą 0 na spód talii. Wszystko z siłą 5 lub mniej znika na stałe."
+   ],
+   [
+    "Pyramid + Towerfall",
+    "Najpierw Pyramid -4, potem Towerfall: wszystko do 9 siły (Johnny, Smasher) spada do 0 i ląduje na spodzie talii."
+   ],
+   [
+    "Powtórka z Alt",
+    "Alt (1 + Spend) zagrywa ponownie Towerfall z kosza."
+   ]
+  ],
+  "tips": "Trzymaj Towerfall, dopóki przeciwnik nie wystawi 2+ Jednostek. Na 1 dużą Jednostkę użyj Pyramid + Towerfall albo dołóż z sideboardu Unlikely Bond.",
+  "mu": {
+   "bbg": "Średnio: mają mało Jednostek, więc Towerfall jest słaby. Dołóż z sideboardu Psycho Squad / Westbrook jako zagrożenia.",
+   "johnny": "Pyramid Song (-4) + Towerfall (-5) = Johnny na 0 i na spodzie talii. Do tego czasu Blockery + Reboot Optics.",
+   "adam": "Tak samo: Pyramid + Towerfall wkłada 9-siłowego Smashera na spód talii, usuwając go z gry. Les Élémens, jeśli jest sam."
+  },
+  "sideNote": "Vs BBG: -3 Mox Inciters, -2 Misty, -2 Reboot Optics → +3 Unlikely Bond, +2 Psycho Squad, +2 Westbrook.",
+  "prev": [
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "name": "Vehicle Garage",
+  "style": "Aggro midrange",
+  "diff": "Łatwa",
+  "r": [
+   4,
+   3,
+   3
+  ],
+  "blurb": "Flota Delamaina. Caby generujące Eddies, Kusanagi atakujące z zaskoczenia i Muramasa, która się odświeża, wspierane przez wzmocnienia z Braindance Judy i wymuszone ataki Evelyn.",
+  "legends": [
+   "Jackie Welles: Pour One Out For Me",
+   "Evelyn Parker: Beautiful Enigma",
+   "Judy Alvarez: Braindance Maestro"
+  ],
+  "units": [
+   [
+    3,
+    "Delamain Cab"
+   ],
+   [
+    2,
+    "Delamain: Rideshare AI"
+   ],
+   [
+    3,
+    "Modded Kusanagi"
+   ],
+   [
+    3,
+    "Modded Muramasa"
+   ],
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    2,
+    "Rita Wheeler: No Stupid Questions"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    2,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Three Mouths, One Desire"
+   ]
+  ],
+  "gear": [
+   [
+    3,
+    "Dying Night: V's Pistol"
+   ],
+   [
+    2,
+    "NetWatch Netdriver"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Westbrook Netrunner"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ]
+  ],
+  "win": "Stała presja Jednostkami, które generują Eddies (Cab) albo unikają removalu (Kusanagi). Kradnij Gigi co turę i przechylaj walki tanimi Programami.",
+  "mull": "Zostaw: Delamain Cab lub Psycho Squad plus Trust No One / Dying Night.",
+  "early": "Tury 1–3: Dying Night na Legendę/Jednostkę, Trust No One. Delamain dobiera 2 karty w turze 3 (nie przeciw BBG).",
+  "mid": "Tury 4–6: Cab + Psycho Squad kradną. Muramasa staje się gotowa, gdy przegrywasz. Kusanagi od tury 6.",
+  "late": "Tury 7+: Evelyn zmusza najlepszego blockera przeciwnika do ataku w Twój stół, oczyszczając drogę. Chrome Reverie na ostatniego atakującego, który mógłby Cię wyprzedzić w wyścigu.",
+  "combos": [
+   [
+    "Ekonomia Caba",
+    "Cab kradnie → +1 Eddie, który opłaca Floor It/Reboot w turze przeciwnika."
+   ],
+   [
+    "Kusanagi + Braindance",
+    "Zagraj Pyramid Song na blockera przeciwnika, Judy daje Kusanagi +1: 9 vs (jego siła -4)."
+   ],
+   [
+    "Czystka z Evelyn",
+    "Zmuś Blockera przeciwnika do ataku w Twój stół, żeby w Twojej turze był zużyty i nie mógł blokować."
+   ]
+  ],
+  "tips": "Delamain to silnik dobierania z siłą 0, więc nie wystawiaj go przeciw BBG i używaj go przeciw czerwonym.",
+  "mu": {
+   "bbg": "Dobrze, po wyrzuceniu Delamaina do sideboardu. Kusanagi całkowicie unika ich removalu w tempie sorcery.",
+   "johnny": "Chrome Reverie/Nocturne kupują tury, a pojazdy kradną. Kusanagi + dowolne -siły wygrywa walkę.",
+   "adam": "Kusanagi nie ma na stole w momencie jego Play. Dołóż z sideboardu Maman; Unlikely Bond na zużytego Smashera."
+  },
+  "sideNote": "Vs BBG: -2 Delamain, -2 Three Mouths → +2 Westbrook, +2 Maman. Vs czerwone: -2 Dying Night → +2 Reboot Optics.",
+  "prev": [
+   4,
+   3,
+   3
+  ]
+ },
+ {
+  "name": "Exile's Gambit",
+  "style": "Tempo z Go Solo",
+  "diff": "Średnia",
+  "r": [
+   4,
+   2,
+   3
+  ],
+  "blurb": "V: Corporate Exile wchodzi przez Go Solo za 3 dzięki Nocturne jako atakujący z 8 siły w turze 3–4. Dying Night na V daje 2 gotowe Eddies co turę. Świetny przeciw BBG; <b>słaby przeciw Johnny'emu</b> (V to CORPO). Graj nim, gdy w metagame dominuje BBG.",
+  "legends": [
+   "V: Corporate Exile",
+   "Jackie Welles: Pour One Out For Me",
+   "Evelyn Parker: Beautiful Enigma"
+  ],
+  "units": [
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    3,
+    "Westbrook Netrunner"
+   ],
+   [
+    3,
+    "Rita Wheeler: No Stupid Questions"
+   ],
+   [
+    2,
+    "Rogue Amendiares: Queen of the Afterlife"
+   ],
+   [
+    2,
+    "Modded Kusanagi"
+   ],
+   [
+    3,
+    "Jacked-In Voodoo Boy"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    2,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ]
+  ],
+  "gear": [
+   [
+    3,
+    "Dying Night: V's Pistol"
+   ],
+   [
+    2,
+    "NetWatch Netdriver"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Towerfall"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ]
+  ],
+  "win": "Wczesny V z 8 siły plus Dying Night to szybkie Gigi i +2 Eddies co turę. Przytłocz BBG, zanim Towerfall zacznie mieć znaczenie.",
+  "mull": "Zostaw: Nocturne (zniżka na Go Solo) albo dość Eddies na V do tury 5, plus Dying Night.",
+  "early": "Tury 1–3: Jacked-In Voodoo Boy, Trust No One. Przy pustej strefie fixera Nocturne kosztuje 1: wybierz 'Go Solo za -2' i V wchodzi za 3.",
+  "mid": "Tury 4–6: Załóż Dying Night na V: ataki obniżają Gig o 2, a na koniec tury 2 Eddies stają się gotowe (karta nazywa się V). Potem Psycho Squad / Westbrook.",
+  "late": "Tury 7+: Kusanagi i Rogue przepychają obrażenia. Chrome Reverie na ostatniego blockera.",
+  "combos": [
+   [
+    "Nocturne → V",
+    "Nocturne za 1 (pusta strefa fixera), Go Solo -2: V z 8 siły za 3 Eddies."
+   ],
+   [
+    "Dying Night na V",
+    "+2 Eddies co turę i -2 dla Gigu przy każdym ataku."
+   ],
+   [
+    "V + Westbrook",
+    "Westbrook nie pozwala Legendom przeciwnika kraść Twoich niskich Gigów, gdy V się ściga."
+   ],
+   [
+    "V + Evelyn",
+    "V kradnie → Evelyn daje 1 gotowego Eddie, plus 2 z Dying Night na koniec tury: do 3 dodatkowych Eddies na turę."
+   ]
+  ],
+  "tips": "Gdy V opuszcza pole, zostaje usunięty z gry (zasada Go Solo), więc chroń V przez Reboot Optics i Floor It.",
+  "mu": {
+   "bbg": "Bardzo dobrze: V z 8 siły przeżywa Pyramid Song, a po Towerfall (-5) wciąż ma 3.",
+   "johnny": "Nadal słaby punkt. Johnny wygrywa każdą walkę z V (CORPO). Użyj Spend Evelyn, żeby najpierw wepchnąć go w Ritę + Pyramid Song, i wystawiaj V przez Go Solo dopiero, gdy Johnny'ego nie ma.",
+   "adam": "Średnio. Play Smashera pokona V, więc najpierw zrób przynętę z Psycho Squad albo trzymaj V, aż Smasher będzie zużyty, i daj mu Bond."
+  },
+  "sideNote": "Vs Johnny: -3 Dying Night → +3 Maman (zagrywaj V dopiero, gdy Johnny'ego nie ma). Vs BBG: -2 Reboot Optics → +2 Les Élémens.",
+  "prev": [
+   4,
+   1,
+   3
+  ],
+  "swap": "Wakako → <b>Evelyn Parker: Beautiful Enigma</b>. V to CORPO, a Rita to Ganger, więc każdy Gig, który ukradną, daje gotowego Eddie przez Evelyn, oprócz 2 z Dying Night. Jej Spend może też zmusić Johnny'ego do ataku w Ritę, zanim wyślesz V."
+ },
+ {
+  "name": "Shrink Ray",
+  "style": "Kontrola na -siłę",
+  "diff": "Średnia",
+  "r": [
+   3,
+   5,
+   4
+  ],
+  "blurb": "Nakładaj -siłę, aż ich bomba spadnie do 0 i trafi na spód talii. Floor It -1, Pyramid -4, Rogue -4, Towerfall -5, a Evelyn zmusza ich bombę do ataku prosto w to wszystko. Johnny nigdy tu nie wygrywa walki.",
+  "legends": [
+   "Judy Alvarez: Braindance Maestro",
+   "Sasha Yakovleva: Won't Let You Down",
+   "Evelyn Parker: Beautiful Enigma"
+  ],
+  "units": [
+   [
+    3,
+    "Rogue Amendiares: Queen of the Afterlife"
+   ],
+   [
+    3,
+    "Rita Wheeler: No Stupid Questions"
+   ],
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    3,
+    "Westbrook Netrunner"
+   ],
+   [
+    2,
+    "Lizzy Wizzy: Delicate Weapon"
+   ],
+   [
+    1,
+    "Placide: Voodoo Sentinel"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Towerfall"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Nocturne OP55 N1"
+   ]
+  ],
+  "gear": [
+   [
+    3,
+    "NetWatch Netdriver"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ],
+   [
+    2,
+    "Mox Inciters"
+   ]
+  ],
+  "win": "Każda walka idzie po Twojej myśli: co turę zmniejszaj ich atakującego albo blockera. Ich Jednostki z siłą 0 lądują na spodzie talii przez Pyramid Song / Towerfall.",
+  "mull": "Zostaw: Floor It lub Pyramid Song plus kartę za 4. Rogue to świetny powód, by zostawić rękę.",
+  "early": "Tury 1–3: Trust No One ustawia min Gig d4 (podwójny tryb Pyramid). Spend Evelyn (1 Eddie) sprawia, że ich najlepsza Jednostka zaatakuje w następnej turze, prosto w Twoje Blockery i efekty zmniejszające.",
+  "mid": "Tury 4–6: Rita/Westbrook/Psycho Squad na stole. Rogue: 2 Eddies + Spend za -4 na dowolną Jednostkę, w tempie Quick podczas ich ataku.",
+  "late": "Tury 6+: Towerfall (-5 dla wszystkich, oba tryby, gdy przegrywasz na Street Cred). W połączeniu z wcześniejszymi zmniejszeniami ich stół ląduje na spodzie talii.",
+  "combos": [
+   [
+    "Podwójny tryb Pyramid",
+    "Przy min d4: -4 na Jednostkę, potem Jednostka z siłą 0 na spód talii. Pyramid -4 + Rogue -4 = Johnny z 8 siły na 0 i po nim."
+   ],
+   [
+    "Evelyn → Blok → Zmniejszenie",
+    "Użyj Spend Evelyn, żeby zmusić ich bombę do ataku, zablokuj Ritą, potem Rogue -4 + Floor It -1: przegrywa walkę na Twoich warunkach."
+   ],
+   [
+    "Dobicie Towerfallem",
+    "Po -4 z Pyramid, -5 z Towerfall sprowadza 9-siłowego Smashera do 0 i wkłada go na spód talii."
+   ]
+  ],
+  "tips": "Efekty zmniejszające działają tylko do końca tury. Używaj ich w trakcie walki (Quick: Floor It, Rogue) albo tuż przed efektem wkładającym na spód talii.",
+  "mu": {
+   "bbg": "Średnio. Mają mało Jednostek, więc Twoje -siły są tu słabsze. Dołóż z sideboardu Maman i Les Élémens i wygrywaj Psycho Squad/Westbrookiem.",
+   "johnny": "Świetnie. On atakuje, Ty blokujesz Ritą, Rogue -4 + Floor It -1: Johnny 3 vs Rita 4. Przegrywa, zostaje pokonany i nigdy nie staje się gotowy.",
+   "adam": "Dobrze. Pyramid -4 + Towerfall -5 = Smasher 0 → na spód talii → usunięty z gry. Albo po prostu spraw, żeby przegrał blok."
+  },
+  "sideNote": "Vs BBG: -2 Reboot Optics, -2 Nocturne, -3 Floor It → +3 Maman, +2 Les Élémens, +2 Mox Inciters.",
+  "prev": [
+   3,
+   5,
+   4
+  ]
+ }
+];
+
+/* ---------- render ---------- */
+const sum = a => a.reduce((s,x)=>s+x[0],0);
+const sum3 = a => a[0]+a[1]+a[2];
+const chg = d => { const x=sum3(d.r)-sum3(d.prev); return x>0?`<span class="up">(+${x})</span>`:""; };
+const stars = n => "★".repeat(n)+"☆".repeat(5-n);
+const esc = s => s;
+const listHTML = (title, arr) => !arr.length ? "" :
+  `<div class="sect"><span>${title}</span><span>${sum(arr)}</span></div><ul class="list">` +
+  arr.map(([q,n])=>`<li><span class="q">${q}×</span><span>${n}</span><span class="c">€$${COST[n]??"?"}</span></li>`).join("") + `</ul>`;
+
+function curveHTML(main){
+  const b=[0,0,0,0,0,0,0]; // 1,2,3,4,5,6,7+
+  main.forEach(([q,n])=>{const c=COST[n]; b[Math.min(Math.max(c,1),7)-1]+=q;});
+  const max=Math.max(...b);
+  return `<div class="sect"><span>Krzywa kosztów</span></div><div class="curvewrap"><div class="curve">`+
+    b.map((v,i)=>`<div style="height:${max?v/max*100:0}%"><i>${v||""}</i><span>${i===6?"7+":i+1}</span></div>`).join("")+`</div></div>`;
+}
+
+const root=document.getElementById("decks");
+const fb=document.querySelector("#finder tbody");
+DECKS.forEach((d,i)=>{
+  const id="deck-"+(i+1);
+  const main=[...d.units,...d.programs,...d.gear];
+  const total=sum(main);
+  const counts={};
+  [...main,...d.side].forEach(([q,n])=>counts[n]=(counts[n]||0)+q);
+  const over=Object.entries(counts).filter(([,q])=>q>3).map(([n])=>n);
+  const ok=total>=40&&total<=50&&sum(d.side)===7&&!over.length&&new Set(d.legends).size===3;
+  d._ok=ok;
+
+  fb.insertAdjacentHTML("beforeend",`<tr><td>${i+1}</td><td><a href="#${id}">${d.name}</a></td><td>${d.style}</td><td class="stars">${stars(d.r[0])}</td><td class="stars">${stars(d.r[1])}</td><td class="stars">${stars(d.r[2])}</td><td><b>${sum3(d.r)}/15</b>${chg(d)}</td><td>${d.diff}</td></tr>`);
+
+  const sec=document.createElement("section");
+  sec.className="deck"; sec.id=id; sec.dataset.r=JSON.stringify(d.r);
+  sec.innerHTML=`
+   <div class="deck-head">
+     <div class="num">TALIA ${String(i+1).padStart(2,"0")} · BBB · ${d.style.toUpperCase()} · ${d.diff.toUpperCase()}</div>
+     <h3>${d.name}</h3>
+     <p>${d.blurb}</p>
+     <div class="legends">${d.legends.map(l=>`<span class="legend">◆ ${l}</span>`).join("")}</div>
+     <div class="rating"><span class="pill">vs BBG<b>${stars(d.r[0])}</b></span><span class="pill">vs Johnny<b>${stars(d.r[1])}</b></span><span class="pill">vs Smasher<b>${stars(d.r[2])}</b></span></div>
+     ${d.swap?`<div class="swap"><b>Zamiana Legendy:</b> ${d.swap}<br><span class="note">Ocena z Wakako (Call jednorazowy): ${d.prev.join(" / ")} = ${sum3(d.prev)}/15 → teraz ${d.r.join(" / ")} = ${sum3(d.r)}/15</span></div>`:""}
+   </div>
+   <div class="deck-body">
+     <div class="col">
+       ${listHTML("Jednostki",d.units)}
+       ${listHTML("Programy",d.programs)}
+       ${listHTML("Sprzęt",d.gear)}
+       <div class="total ${ok?"":"bad"}">Main deck: ${total} kart ${ok?"✓ legalna":"⚠ sprawdź listę"+(over.length?" – ponad 3: "+over.join(", "):"")}</div>
+       ${curveHTML(main)}
+       <div class="side"><b>Sideboard (7):</b> ${d.side.map(([q,n])=>`${q}× ${n}`).join(", ")}<br><span class="note">${d.sideNote}</span></div>
+     </div>
+     <div class="col st">
+       <h5>Plan gry / warunek zwycięstwa</h5><p>${d.win}</p>
+       <h5>Mulligan</h5><p>${d.mull}</p>
+       <h5>Tura po turze</h5>
+       <div class="turns">
+         <div class="turn"><b>Wczesna gra</b>${d.early}</div>
+         <div class="turn"><b>Środek gry</b>${d.mid}</div>
+         <div class="turn"><b>Późna gra</b>${d.late}</div>
+       </div>
+       <h5>Kluczowe zagrania i combosy</h5>
+       ${d.combos.map(([t,x])=>`<div class="combo"><b>${t}:</b> ${x}</div>`).join("")}
+       <h5>Rada pro</h5><p>${d.tips}</p>
+       <h5>Matchupy</h5>
+       <div class="mu bbg"><b>vs BBG (Alt / Hanako / Jackie)</b><p>${d.mu.bbg}</p></div>
+       <div class="mu johnny"><b>vs Johnny Silverhand</b><p>${d.mu.johnny}</p></div>
+       <div class="mu adam"><b>vs Adam Smasher</b><p>${d.mu.adam}</p></div>
+       <a class="top" href="#finder">↑ Wróć do wyszukiwarki</a>
+     </div>
+   </div>`;
+  root.appendChild(sec);
+});
+
+/* filters */
+const F=[["Wszystkie",null],["Najlepsze vs BBG",0],["Najlepsze vs Johnny",1],["Najlepsze vs Smasher",2]];
+const fwrap=document.getElementById("filters");
+F.forEach(([label,idx],k)=>{
+  const b=document.createElement("button"); b.textContent=label; if(!k) b.className="on";
+  b.onclick=()=>{
+    fwrap.querySelectorAll("button").forEach(x=>x.className=""); b.className="on";
+    const secs=[...root.children];
+    if(idx===null){ secs.sort((a,c)=>+a.id.split("-")[1]-+c.id.split("-")[1]); }
+    else secs.sort((a,c)=>JSON.parse(c.dataset.r)[idx]-JSON.parse(a.dataset.r)[idx]);
+    secs.forEach(s=>root.appendChild(s));
+  };
+  fwrap.appendChild(b);
+});
+</script>
+</body>
+</html>
