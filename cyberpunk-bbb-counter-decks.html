@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BBB Counter Decks</title>
+<style>
+:root{
+  --bg:#0b0c10; --panel:#14161d; --panel2:#1b1e27; --line:#2a2f3c;
+  --text:#e7e9ee; --muted:#9aa3b2; --yellow:#f3e600; --cyan:#00e5ff; --red:#ff3b5c; --green:#3ee08f;
+  --blue:#4c8dff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:clamp(26px,5vw,40px);margin:0 0 4px;letter-spacing:.5px;color:var(--yellow);text-transform:uppercase}
+h1 span{color:var(--cyan)}
+.sub{color:var(--muted);margin:0 0 24px}
+h2{color:var(--yellow);text-transform:uppercase;font-size:20px;letter-spacing:1px;margin:36px 0 12px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{margin:0;font-size:20px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.threat{border-left:4px solid var(--red)}
+.threat h4{margin:0 0 6px;color:var(--red);text-transform:uppercase;font-size:14px;letter-spacing:1px}
+.threat ul{margin:6px 0 0;padding-left:18px}
+.tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin:2px 4px 2px 0}
+.tag.b{border-color:var(--blue);color:var(--blue)}
+.deck{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:22px 0;overflow:hidden}
+.deck-head{padding:16px 18px;background:linear-gradient(90deg,rgba(243,230,0,.12),transparent);border-bottom:1px solid var(--line)}
+.deck-head .num{color:var(--cyan);font-weight:700;font-size:13px;letter-spacing:2px}
+.deck-head p{margin:6px 0 0;color:var(--muted)}
+.deck-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0}
+@media(max-width:760px){.deck-body{grid-template-columns:1fr}}
+.col{padding:16px 18px}
+.col+.col{border-left:1px solid var(--line)}
+@media(max-width:760px){.col+.col{border-left:0;border-top:1px solid var(--line)}}
+.legends{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.legend{background:var(--panel2);border:1px solid var(--blue);color:#cfe0ff;border-radius:6px;padding:4px 10px;font-size:13px}
+.sect{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan);margin:14px 0 4px;display:flex;justify-content:space-between}
+.sect:first-child{margin-top:0}
+.list{list-style:none;margin:0;padding:0}
+.list li{display:flex;gap:10px;padding:3px 0;border-bottom:1px dashed #222733}
+.list .q{color:var(--yellow);font-weight:700;width:24px;flex:none}
+.list .c{color:var(--muted);margin-left:auto;font-size:12px;white-space:nowrap}
+.total{margin-top:10px;font-weight:700;color:var(--green)}
+.total.bad{color:var(--red)}
+.mu{margin:0 0 12px}
+.mu b{display:block;font-size:13px;text-transform:uppercase;letter-spacing:1px}
+.mu.bbg b{color:var(--green)} .mu.johnny b{color:var(--red)} .mu.adam b{color:#ff8a3b}
+.mu p{margin:2px 0 0}
+.side{background:var(--panel2);border-radius:8px;padding:10px 12px;margin-top:10px;font-size:14px}
+.side b{color:var(--yellow)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--cyan);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:1px}
+.tbl{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.note{color:var(--muted);font-size:13px}
+.warn{border-left:4px solid var(--yellow)}
+code{color:var(--yellow)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>BBB <span>Counter-Netrun</span></h1>
+  <p class="sub">Five mono-Blue (3 Blue Legends) decks for Cyberpunk TCG – <i>Welcome to Night City</i>, built to beat <b>BBG (Alt / Hanako / Jackie)</b>, <b>Johnny Silverhand: Never Stop Fighting</b> and <b>Adam Smasher: Ender of Legends</b>. Each is 40 cards plus an optional 7-card sideboard, max 3 copies per card counting the sideboard.</p>
+
+  <h2>Know your enemy</h2>
+  <div class="grid3">
+    <div class="card threat">
+      <h4>BBG – Alt / Hanako / Jackie</h4>
+      <div>Program control, the #2 deck in the meta. Usually 26–28 Programs and 10–14 Units.</div>
+      <ul>
+        <li><b>Pyramid Song</b> gives -4 power, and with a min d4 it also bottom-decks power-0 Units.</li>
+        <li><b>Towerfall</b> gives -5 to all of your Units, and can also bottom-deck everything at power 0.</li>
+        <li><b>Les Élémens</b> bottom-decks your <i>lowest-power</i> Unit.</li>
+        <li>Lizzy Wizzy, Maman Brigitte and Placide are their Unit threats.</li>
+      </ul>
+      <p class="note"><b>Plan:</b> avoid power-0 Units, keep a cheap decoy Unit out to soak up Les Élémens, and play a few bodies with 6+ power. Their removal runs at sorcery speed.</p>
+    </div>
+    <div class="card threat">
+      <h4>Johnny Silverhand – Never Stop Fighting</h4>
+      <div>Red Unit, cost 6, power 8. <i>"The first time this Unit wins a fight each turn, ready it." "This Unit wins all fights against CORPO Units."</i></div>
+      <ul>
+        <li>Never block him with a CORPO Unit. Leave out <b>Hacked Corpo</b>, and don't take <b>V: Corporate Exile</b> as a Legend.</li>
+        <li>He only readies after <i>winning a fight</i>. If he steals unblocked, he stays spent, which turns on <b>Unlikely Bond</b>.</li>
+        <li>Smasher lists put Mantis Blades on him. Use <b>Maman Brigitte</b> (unequipped Units only) <i>before</i> the Gear lands.</li>
+      </ul>
+    </div>
+    <div class="card threat">
+      <h4>Adam Smasher – Ender of Legends</h4>
+      <div>Red Legend. Go Solo for 9, power 9, can attack the turn he arrives, Play: <i>defeat a rival Unit</i>. If he leaves the field, he is <b>removed from the game</b>.</div>
+      <ul>
+        <li>Any <b>bottom-deck</b> effect deletes him for the whole game: Unlikely Bond (after he attacks), Placide's attack, Maman Brigitte (if unequipped).</li>
+        <li><b>Chrome Reverie / Nocturne</b> ("can't attack") wastes his 9 Eddies.</li>
+        <li>His Play defeats one Unit. Don't put all your power into a single body; keep 2–3 mid-size Units out.</li>
+        <li>He costs 9 Eddies, so make them spend it while you're already ahead on Gigs.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>The 5 decks</h2>
+  <div id="decks"></div>
+
+  <h2>Key Blue answers cheat-sheet</h2>
+  <div class="tbl">
+  <table>
+    <thead><tr><th>Card</th><th>Cost / RAM</th><th>What it does</th><th>Best vs</th></tr></thead>
+    <tbody>
+      <tr><td>Unlikely Bond</td><td>4 / 2</td><td>Bottom-deck your ready Unit, then bottom-deck a <b>spent</b> rival Unit</td><td>Smasher (exiles him), Johnny after an unblocked steal</td></tr>
+      <tr><td>Maman Brigitte</td><td>5 / 4</td><td>Play: discard 2 Programs → bottom-deck a rival <b>unequipped</b> Unit</td><td>Johnny before Gear, Smasher, BBG's Placide</td></tr>
+      <tr><td>Placide – Voodoo Sentinel</td><td>8 / 2</td><td>10 power. Attack: discard 1 Program → bottom-deck a rival Unit</td><td>Everything. Survives Towerfall at 5 power</td></tr>
+      <tr><td>Pyramid Song</td><td>3 / 3</td><td>-4 power, and with a min d4 also bottom-deck a power-0 Unit</td><td>Johnny fights, BBG's small Units</td></tr>
+      <tr><td>Towerfall</td><td>6 / 4</td><td>All rival Units -5, and if you're behind on Street Cred also bottom-deck power 0</td><td>Wide Red boards, Johnny + friends</td></tr>
+      <tr><td>Les Élémens</td><td>5 / 4</td><td>Bottom-deck the rival's lowest-power Unit</td><td>BBG (low Unit count), Smasher if he's alone</td></tr>
+      <tr><td>Chrome Reverie</td><td>3 / 1</td><td>A rival Unit can't attack until your next turn, plus a free Call with a min Gig</td><td>Smasher's Go Solo turn, Johnny</td></tr>
+      <tr><td>Nocturne OP55 N1</td><td>3 (1) / 2</td><td>Draw 2, OR a Unit can't attack, OR Go Solo for 2 less</td><td>Flexible: draws vs BBG, stops attacks vs Red</td></tr>
+      <tr><td>Reboot Optics</td><td>2 / 2</td><td>Quick: the next rival Unit to fight this turn doesn't defeat your Unit</td><td>Blocking Johnny / Smasher and keeping your blocker</td></tr>
+      <tr><td>Rogue Amendiares</td><td>5 / 2</td><td>Quick, 2€$ + Spend: a rival Unit loses 4 power</td><td>Combat trick vs Johnny (8 → 4)</td></tr>
+      <tr><td>Westbrook Netrunner</td><td>4 / 2</td><td>5 power. Rival Legends can't steal low Gigs until your next turn</td><td>Smasher on Go Solo, Sasha/V Legends</td></tr>
+      <tr><td>Mox Inciters / Rita Wheeler / Lizzy Wizzy</td><td>3–5</td><td>Blocker: turn a Steal into a Fight</td><td>Johnny (with Reboot Optics), aggro</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Before you sleeve up</h2>
+  <div class="card warn">
+    <ul>
+      <li><b>RAM:</b> three Blue Legends give 6 Blue RAM, so every Blue card is legal. The highest Blue RAM is Judy Álvarez: Nothing to Doubt at 5.</li>
+      <li><b>Sell Tags:</b> I couldn't confirm which cards carry a Sell Tag. Count yours and aim for <b>at least 30%</b> (12 or more of 40) so you hit your Eddies. If you're short, swap a 1-of for a Sell Tag card.</li>
+      <li><b>Hanako's text</b> wasn't checked. Read it before your BBG games and adjust your Gig plan.</li>
+      <li>Card text comes from ripperdeck.gg and the meta data from ripperdeck/exburst (Nov 2026). Double-check anything surprising against the official database at cyberpunktcg.com.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+const DECKS = [
+{
+  name:"Abyss Protocol – Bottom-Deck Control",
+  blurb:"Out-control the control deck. The most removal-dense list: every big threat gets sent to the bottom, and Smasher is gone for good. Alt replays your best answer from the trash.",
+  legends:["Alt Cunningham: Soulkiller Architect","Jackie Welles: Pour One Out For Me","Wakako Okada: Peace and Harmony"],
+  units:[[3,"Maman Brigitte: Spirit of Death",5],[2,"Placide: Voodoo Sentinel",8],[3,"Lizzy Wizzy: Delicate Weapon",5],[3,"Jacked-In Voodoo Boy",2],[2,"Rita Wheeler: No Stupid Questions",4]],
+  programs:[[3,"Pyramid Song",3],[2,"Towerfall",6],[2,"Les Élémens",5],[3,"Unlikely Bond",4],[3,"Chrome Reverie",3],[3,"Nocturne OP55 N1",3],[3,"Trust No One",1],[3,"Floor It",1],[3,"Three Mouths, One Desire",2],[2,"Reboot Optics",2]],
+  gear:[],
+  side:[[2,"Rogue Amendiares: Queen of the Afterlife"],[2,"Westbrook Netrunner"],[2,"Psycho Squad"],[1,"Mox Inciters"]],
+  mu:{
+    bbg:"You have the same answers plus 3 Unlikely Bond and more Units. Keep Jacked-In Voodoo Boy out as the Les Élémens decoy and hold Pyramid Song for their Placide/Maman. Wakako's Call (draw 1) wins the long game.",
+    johnny:"Chrome Reverie on the turn he'd attack, then Maman Brigitte before Mantis Blades lands. If he steals unblocked he stays spent, so Unlikely Bond him. Blocking with Rita + Reboot Optics keeps your blocker alive.",
+    adam:"Let him Go Solo into a Jacked-In Voodoo Boy (cheap Unit for his Play to defeat). Next turn, Unlikely Bond the spent Smasher and he's removed from the game. Alt can replay Les Élémens from the trash if he's their only Unit."
+  },
+  sideNote:"Vs Red: -2 Three Mouths, -2 Floor It, -1 Reboot Optics → +2 Psycho Squad, +2 Rogue, +1 Mox Inciters. Vs BBG: +2 Westbrook for -2 Rita."
+},
+{
+  name:"Ice Wall – Blocker Tempo",
+  blurb:"Built for Red aggro. Force their big Unit to attack into Blockers, make the fight lose with Reboot Optics or -power tricks, and steal Gigs back with mid-size bodies.",
+  legends:["Jackie Welles: Pour One Out For Me","Wakako Okada: Peace and Harmony","Evelyn Parker: Beautiful Enigma"],
+  units:[[3,"Mox Inciters",3],[3,"Rita Wheeler: No Stupid Questions",4],[3,"Lizzy Wizzy: Delicate Weapon",5],[3,"Westbrook Netrunner",4],[3,"Psycho Squad",4],[2,"Rogue Amendiares: Queen of the Afterlife",5],[2,"Placide: Voodoo Sentinel",8]],
+  programs:[[3,"Reboot Optics",2],[3,"Floor It",1],[3,"Unlikely Bond",4],[3,"Pyramid Song",3],[3,"Trust No One",1],[3,"Chrome Reverie",3]],
+  gear:[[3,"NetWatch Netdriver",3]],
+  side:[[3,"Maman Brigitte: Spirit of Death"],[2,"Les Élémens"],[2,"Towerfall"]],
+  mu:{
+    bbg:"Your weakest matchup, so sideboard in. Psycho Squad (6) and Westbrook (5) survive Pyramid's -4, and you run no power-0 Units. Pressure Gigs early before Towerfall comes online.",
+    johnny:"Evelyn's Spend or Mox Inciters forces Johnny to attack. Block with Rita, then Pyramid Song (-4) + Floor It (-1) or Rogue (-4) and he loses the fight and is defeated. Reboot Optics keeps your blocker if the math is close.",
+    adam:"Westbrook on their Go Solo turn stops their Legends stealing your low Gigs. Spread out several 4–5 power Units so his Play defeat doesn't cripple you, then Unlikely Bond him once he's spent."
+  },
+  sideNote:"Vs BBG: -3 Reboot Optics, -2 Mox Inciters, -2 Rita → +3 Maman Brigitte, +2 Les Élémens, +2 Towerfall."
+},
+{
+  name:"Chrome Giants – Big Blue Midrange",
+  blurb:"Too big for BBG's removal. Every Unit is 4–10 power, so Pyramid Song and Towerfall don't finish them. Modded Kusanagi hits for 8 and goes back to hand at end of turn, dodging Smasher's Play and sorcery-speed removal.",
+  legends:["Jackie Welles: Pour One Out For Me","Judy Alvarez: Braindance Maestro","Sasha Yakovleva: Won't Let You Down"],
+  units:[[3,"Psycho Squad",4],[3,"Westbrook Netrunner",4],[3,"Modded Kusanagi",6],[2,"Placide: Voodoo Sentinel",8],[2,"Judy Álvarez: Nothing to Doubt",6],[2,"Delamain Cab",4],[2,"Rita Wheeler: No Stupid Questions",4]],
+  programs:[[3,"Trust No One",1],[3,"Chrome Reverie",3],[3,"Pyramid Song",3],[3,"Floor It",1],[3,"Unlikely Bond",4],[2,"Nocturne OP55 N1",3],[2,"Towerfall",6]],
+  gear:[[2,"NetWatch Netdriver",3],[2,"Dying Night: V's Pistol",2]],
+  side:[[3,"Maman Brigitte: Spirit of Death"],[2,"Reboot Optics"],[2,"Les Élémens"]],
+  mu:{
+    bbg:"Your best matchup. Their -4/-5 effects don't kill 6+ power, and you have no power-0 targets. Kusanagi attacks the turn it lands and returns to hand, so their sorcery removal never sees it. Judy's Braindance trigger (+1 power) pushes through Pyramid Song.",
+    johnny:"Kusanagi (8) trades evenly with an unequipped Johnny, and Placide (10) beats him outright. Chrome Reverie or Nocturne buys a turn, and Unlikely Bond answers him once he's equipped.",
+    adam:"Bounce-back Kusanagi means his Play often has nothing good to defeat. Placide's attack bottom-decks him (removed from game). Sasha's defeat trigger makes them discard if he kills her."
+  },
+  sideNote:"Vs Red: -2 Dying Night, -2 Nocturne → +2 Reboot Optics, +2 Maman Brigitte. Vs BBG: -2 Rita → +2 Les Élémens."
+},
+{
+  name:"Ghost in the Trash – Program Recursion",
+  blurb:"The value engine. Lizzy Wizzy and Alt replay Pyramid Song, Chrome Reverie, Les Élémens and Towerfall from the trash, and Judy digs for Programs every turn. Grinds BBG out of answers.",
+  legends:["Alt Cunningham: Soulkiller Architect","Judy Alvarez: Braindance Maestro","Wakako Okada: Peace and Harmony"],
+  units:[[3,"Lizzy Wizzy: Delicate Weapon",5],[3,"Maman Brigitte: Spirit of Death",5],[3,"Jacked-In Voodoo Boy",2],[2,"Misty Olszewski: Mender of Broken Spirits",3],[2,"Rita Wheeler: No Stupid Questions",4],[1,"Placide: Voodoo Sentinel",8]],
+  programs:[[3,"Pyramid Song",3],[3,"Chrome Reverie",3],[3,"Three Mouths, One Desire",2],[3,"Trust No One",1],[3,"Floor It",1],[3,"Nocturne OP55 N1",3],[3,"Unlikely Bond",4],[2,"Les Élémens",5],[2,"Towerfall",6],[1,"Reboot Optics",2]],
+  gear:[],
+  side:[[3,"Psycho Squad"],[2,"Westbrook Netrunner"],[2,"Rogue Amendiares: Queen of the Afterlife"]],
+  mu:{
+    bbg:"You win the long game. Alt + Lizzy let you play two Programs per card. Board out Misty (power 0, an easy Pyramid Song bottom-deck) for Psycho Squad.",
+    johnny:"Chrome Reverie stops him attacking every turn: hard-cast it, then Lizzy and Alt replay it from the trash. Maman Brigitte discarding 2 Programs is fine because they're fuel for Alt anyway.",
+    adam:"Hold Unlikely Bond and keep a ready Jacked-In Voodoo Boy as the cost. Chrome Reverie on his Go Solo turn makes him spend 9 Eddies for nothing."
+  },
+  sideNote:"Vs BBG: -2 Misty, -1 Reboot Optics → +3 Psycho Squad. Vs Red: -2 Three Mouths → +2 Rogue Amendiares."
+},
+{
+  name:"Neon Sprint – Gig Rush",
+  blurb:"Race them. Lower Gigs with Trust No One and Dying Night, steal fast with mid-size Units and Kusanagi, and keep cheap stall effects to cover the turn Smasher or Towerfall shows up.",
+  legends:["Jackie Welles: Pour One Out For Me","Sasha Yakovleva: Won't Let You Down","Wakako Okada: Peace and Harmony"],
+  units:[[3,"Jacked-In Voodoo Boy",2],[3,"Psycho Squad",4],[3,"Delamain Cab",4],[2,"Modded Muramasa",5],[3,"Westbrook Netrunner",4],[3,"Modded Kusanagi",6],[2,"Rogue Amendiares: Queen of the Afterlife",5]],
+  programs:[[3,"Trust No One",1],[3,"Floor It",1],[3,"Chrome Reverie",3],[3,"Nocturne OP55 N1",3],[3,"Pyramid Song",3]],
+  gear:[[3,"Dying Night: V's Pistol",2],[3,"NetWatch Netdriver",3]],
+  side:[[3,"Unlikely Bond"],[2,"Maman Brigitte: Spirit of Death"],[2,"Reboot Optics"]],
+  mu:{
+    bbg:"BBG is slow and leans on min Gigs. Get on board turns 2–3, play around Towerfall by not overextending past 3 Units, and use Nocturne's 'can't attack' on their Placide or Lizzy.",
+    johnny:"Don't fight him; race. Chrome Reverie or Nocturne on his attack turn, and Pyramid Song (-4) + Rogue (-4) when he has to block. Kusanagi steals the turn it lands.",
+    adam:"Smasher needs 9 Eddies. Aim to be 1–2 Gigs from winning before he arrives, then Chrome Reverie him. Westbrook stops their Legends stealing your low Gigs. Side in Unlikely Bond."
+  },
+  sideNote:"Vs Smasher: -2 Muramasa, -1 Floor It → +3 Unlikely Bond. Vs Johnny: -2 Dying Night → +2 Reboot Optics. Vs BBG: -2 Rogue → +2 Maman Brigitte."
+}];
+
+const el = (t,c,h)=>{const e=document.createElement(t); if(c) e.className=c; if(h!=null) e.innerHTML=h; return e;};
+const sum = a => a.reduce((s,x)=>s+x[0],0);
+const listHTML = (title, arr) => !arr.length ? "" :
+  `<div class="sect"><span>${title}</span><span>${sum(arr)}</span></div><ul class="list">` +
+  arr.map(([q,n,c])=>`<li><span class="q">${q}×</span><span>${n}</span>${c!=null?`<span class="c">€$${c}</span>`:""}</li>`).join("") + `</ul>`;
+
+const root = document.getElementById("decks");
+DECKS.forEach((d,i)=>{
+  const main = [...d.units,...d.programs,...d.gear];
+  const total = sum(main);
+  // copy-limit check (main + side)
+  const counts = {};
+  [...main,...d.side].forEach(([q,n])=>counts[n]=(counts[n]||0)+q);
+  const over = Object.entries(counts).filter(([,q])=>q>3).map(([n])=>n);
+  const ok = total>=40 && total<=50 && sum(d.side)===7 && !over.length;
+  const deck = el("section","deck");
+  deck.innerHTML = `
+    <div class="deck-head">
+      <div class="num">DECK 0${i+1} · BBB</div>
+      <h3>${d.name}</h3>
+      <p>${d.blurb}</p>
+      <div class="legends">${d.legends.map(l=>`<span class="legend">◆ ${l}</span>`).join("")}</div>
+    </div>
+    <div class="deck-body">
+      <div class="col">
+        ${listHTML("Units",d.units)}
+        ${listHTML("Programs",d.programs)}
+        ${listHTML("Gear",d.gear)}
+        <div class="total ${ok?"":"bad"}">Main deck: ${total} cards ${ok?"✓ legal (40 + 7 side, max 3 copies)":"⚠ check list"+(over.length?" – over 3: "+over.join(", "):"")}</div>
+      </div>
+      <div class="col">
+        <div class="mu bbg"><b>vs BBG</b><p>${d.mu.bbg}</p></div>
+        <div class="mu johnny"><b>vs Johnny Silverhand</b><p>${d.mu.johnny}</p></div>
+        <div class="mu adam"><b>vs Adam Smasher</b><p>${d.mu.adam}</p></div>
+        <div class="side"><b>Sideboard (7):</b> ${d.side.map(([q,n])=>`${q}× ${n}`).join(", ")}<br><span class="note">${d.sideNote}</span></div>
+      </div>
+    </div>`;
+  root.appendChild(deck);
+});
+</script>
+</body>
+</html>
