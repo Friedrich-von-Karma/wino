@@ -79,6 +79,9 @@ td.stars{color:var(--yellow);white-space:nowrap;letter-spacing:1px}
 .mu p{margin:2px 0 0}
 .note{color:var(--muted);font-size:13px}
 .warn{border-left:4px solid var(--yellow)}
+.swap{margin-top:12px;background:rgba(0,229,255,.07);border:1px solid rgba(0,229,255,.35);border-radius:8px;padding:8px 12px;font-size:14px}
+.swap>b:first-child{color:var(--cyan)}
+.up{color:var(--green);font-size:12px;margin-left:4px}
 .top{font-size:13px;display:inline-block;margin-top:8px}
 </style>
 </head>
@@ -156,7 +159,7 @@ td.stars{color:var(--yellow);white-space:nowrap;letter-spacing:1px}
   <div class="card warn">
     <ul>
       <li><b>RAM:</b> three Blue Legends give 6 Blue RAM, so every Blue card is legal. The highest Blue RAM is Judy Álvarez: Nothing to Doubt at 5.</li>
-      <li><b>Calling Legends:</b> a Legend's Call effect only happens on the turn you flip it, so Wakako's -2 / draw is one use per game. Her repeatable value is her Spend (lower a Gig by 2), which keeps your min-Gig cards switched on.</li>
+      <li><b>Calling Legends:</b> a Legend's Call effect only happens on the turn you flip it, so Wakako's -2 / draw is only one use per game. Because of that she was swapped out of all 8 decks that ran her, for Judy, Alt, Evelyn or Jackie, whichever raised that deck's rating most. Each swap is explained on its deck.</li>
       <li><b>Sell Tags:</b> I couldn't confirm which cards carry a Sell Tag. Count yours and aim for <b>at least 30%</b> (12 or more of 40) so you hit your Eddies every turn. If you're short, swap a 1-of for a Sell Tag card.</li>
       <li><b>Turn numbers</b> in the plans assume you sell one card a turn and hit your Eddies. Adjust if you're behind.</li>
       <li><b>Hanako's text</b> wasn't checked. Read it before your BBG games.</li>
@@ -187,415 +190,1941 @@ const P = {pyr:"Pyramid Song",tow:"Towerfall",les:"Les Élémens",bond:"Unlikely
 const G = {dn:"Dying Night: V's Pistol",net:"NetWatch Netdriver",rip:"Tetratronic Rippler"};
 
 const DECKS = [
-/* ---------------- 1 ---------------- */
-{
- name:"Abyss Protocol", style:"Control", diff:"Hard", r:[4,4,5],
- blurb:"Bottom-deck control. The most removal-dense list: every big threat gets sent to the bottom, and Smasher is gone for good. Alt replays your best answer from the trash.",
- legends:[L.alt,L.jackie,L.wakako],
- units:[[3,U.maman],[2,U.placide],[3,U.lizzy],[3,U.jvb],[2,U.rita]],
- programs:[[3,P.pyr],[2,P.tow],[2,P.les],[3,P.bond],[3,P.chrome],[3,P.noc],[3,P.tno],[3,P.floor],[3,P.three],[2,P.reboot]],
- gear:[],
- side:[[2,U.rogue],[2,U.west],[2,U.psycho],[1,U.mox]],
- win:"Answer every threat one-for-one (or better with Alt recursion), keep the board clear, then win with Placide or Lizzy plus whatever Units survive. You win the long game through card advantage from Three Mouths, Nocturne, Floor It, plus Wakako's Spend setting up a min Gig every turn.",
- mull:"Keep: at least one cheap play (Jacked-In Voodoo Boy, Trust No One, Floor It) plus one answer (Pyramid Song, Chrome Reverie or Unlikely Bond). Ship hands with two or more 5–6 drops and no turn-2 play.",
- early:"Turns 1–3: Trust No One to set up a min Gig (Jackie draws when you make a min Gig after a Blue Unit), Jacked-In Voodoo Boy on turn 2, Three Mouths to sculpt your hand. Save Floor It for their combat. When you flip Wakako, take the draw unless a fight needs her one-time -2. After that, Spend her every turn to drop a Gig to min.",
- mid:"Turns 4–6: Hold Pyramid Song and Chrome Reverie up instead of tapping out. Maman Brigitte their first real threat (discard extra Programs, which become Alt targets later). Lizzy replays a 3-cost Program from trash: Pyramid Song or Chrome Reverie are best.",
- late:"Turns 7+: Alt (1 + Spend) recasts Les Élémens or Towerfall from the trash. Placide attacks, discards a spare Program, bottom-decks their best Unit. Close out Gigs once their hand is empty.",
- combos:[
-  ["Lizzy → Pyramid Song","Lizzy Wizzy plays Pyramid Song from the trash for free: a 2-for-1 body plus -4 or a bottom-deck."],
-  ["Bait → Unlikely Bond","Leave Jacked-In Voodoo Boy ready. When their big Unit attacks and is spent, Bond: your 2-drop for their 6–9 drop."],
-  ["Trust No One + min Gig","A min Gig turns on Pyramid Song's double mode, Chrome Reverie's free Call, Three Mouths' extra card and Alt's discount."]
- ],
- tips:"Don't fire Pyramid Song at the first Unit you see; keep it for Johnny/Smasher-sized threats. Count their Programs vs BBG: once their Towerfalls are gone, start deploying Units.",
- mu:{
-  bbg:"You have their answers plus 3 Unlikely Bond and more Units. Keep Jacked-In Voodoo Boy out as the Les Élémens decoy and hold Pyramid Song for their Placide/Maman. Wakako's Spend keeps a min Gig every turn, so Pyramid Song, Three Mouths and Alt always run at full power.",
-  johnny:"Chrome Reverie on the turn he'd attack, then Maman Brigitte before Mantis Blades lands. If he steals unblocked he stays spent, so Unlikely Bond him. Blocking with Rita + Reboot Optics keeps your blocker alive.",
-  adam:"Let him Go Solo into a Jacked-In Voodoo Boy (cheap Unit for his Play to defeat). Next turn, Unlikely Bond the spent Smasher and he's removed from the game. Alt can replay Les Élémens if he's their only Unit."
+ {
+  "name": "Abyss Protocol",
+  "style": "Control",
+  "diff": "Hard",
+  "r": [
+   5,
+   4,
+   5
+  ],
+  "blurb": "Bottom-deck control. The most removal-dense list: every big threat gets sent to the bottom, and Smasher is gone for good. Alt replays your best answer from the trash.",
+  "legends": [
+   "Alt Cunningham: Soulkiller Architect",
+   "Jackie Welles: Pour One Out For Me",
+   "Judy Alvarez: Braindance Maestro"
+  ],
+  "units": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Placide: Voodoo Sentinel"
+   ],
+   [
+    3,
+    "Lizzy Wizzy: Delicate Weapon"
+   ],
+   [
+    3,
+    "Jacked-In Voodoo Boy"
+   ],
+   [
+    2,
+    "Rita Wheeler: No Stupid Questions"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    2,
+    "Towerfall"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Three Mouths, One Desire"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ]
+  ],
+  "gear": [],
+  "side": [
+   [
+    2,
+    "Rogue Amendiares: Queen of the Afterlife"
+   ],
+   [
+    2,
+    "Westbrook Netrunner"
+   ],
+   [
+    2,
+    "Psycho Squad"
+   ],
+   [
+    1,
+    "Mox Inciters"
+   ]
+  ],
+  "win": "Answer every threat one-for-one (or better with Alt recursion), keep the board clear, then win with Placide or Lizzy plus whatever Units survive. You win the long game on card advantage from Three Mouths, Nocturne, Floor It and Judy's Spend (trash the top card, keep it if it's a Program).",
+  "mull": "Keep: at least one cheap play (Jacked-In Voodoo Boy, Trust No One, Floor It) plus one answer (Pyramid Song, Chrome Reverie or Unlikely Bond). Ship hands with two or more 5–6 drops and no turn-2 play.",
+  "early": "Turns 1–3: Trust No One to set up a min Gig. Jackie also lowers a friendly Gig and draws when you play your first Blue Unit each turn. Jacked-In Voodoo Boy on turn 2, Three Mouths to sculpt your hand. Save Floor It for their combat. Spend Judy every turn you don't need her for anything else.",
+  "mid": "Turns 4–6: Hold Pyramid Song and Chrome Reverie up instead of tapping out. Maman Brigitte their first real threat (discard extra Programs, which become Alt targets later). Lizzy replays a 3-cost Program from trash: Pyramid Song or Chrome Reverie are best.",
+  "late": "Turns 7+: Alt (1 + Spend) recasts Les Élémens or Towerfall from the trash. Placide attacks, discards a spare Program, bottom-decks their best Unit. Close out Gigs once their hand is empty.",
+  "combos": [
+   [
+    "Lizzy → Pyramid Song",
+    "Lizzy Wizzy plays Pyramid Song from the trash for free: a 2-for-1 body plus -4 or a bottom-deck."
+   ],
+   [
+    "Bait → Unlikely Bond",
+    "Leave Jacked-In Voodoo Boy ready. When their big Unit attacks and is spent, Bond: your 2-drop for their 6–9 drop."
+   ],
+   [
+    "Trust No One + min Gig",
+    "A min Gig turns on Pyramid Song's double mode, Chrome Reverie's free Call, Three Mouths' extra card and Alt's discount."
+   ],
+   [
+    "Braindance blocks",
+    "Every Braindance Program (Pyramid, Towerfall, Chrome, Trust No One, Three Mouths) gives a friendly Unit +1 power this turn. Pyramid Song on Johnny plus Judy's +1 on Rita: Rita 5 vs Johnny 4."
+   ]
+  ],
+  "tips": "Don't fire Pyramid Song at the first Unit you see; keep it for Johnny/Smasher-sized threats. Count their Programs vs BBG: once their Towerfalls are gone, start deploying Units.",
+  "mu": {
+   "bbg": "You have their answers plus 3 Unlikely Bond and more Units. Keep Jacked-In Voodoo Boy out as the Les Élémens decoy and hold Pyramid Song for their Placide/Maman. Judy's Spend gives you an extra Program almost every turn, so you out-card them.",
+   "johnny": "Chrome Reverie on the turn he'd attack, then Maman Brigitte before Mantis Blades lands. If he steals unblocked he stays spent, so Unlikely Bond him. Blocking with Rita + Reboot Optics keeps your blocker alive.",
+   "adam": "Let him Go Solo into a Jacked-In Voodoo Boy (cheap Unit for his Play to defeat). Next turn, Unlikely Bond the spent Smasher and he's removed from the game. Alt can replay Les Élémens if he's their only Unit."
+  },
+  "sideNote": "Vs Red: -2 Three Mouths, -2 Floor It, -1 Reboot Optics → +2 Psycho Squad, +2 Rogue, +1 Mox Inciters. Vs BBG: -2 Rita → +2 Westbrook.",
+  "prev": [
+   3,
+   4,
+   5
+  ],
+  "swap": "Wakako → <b>Judy Alvarez: Braindance Maestro</b>. The deck runs 14 Braindance Programs, so Judy pumps a blocker almost every turn, and with 27 Programs her Spend hands you a free card most turns. That repeatable card draw replaces Wakako's one-time draw and wins the control mirror. Same Legends as Braindance Overload, but this is the removal-heavy version."
  },
- sideNote:"Vs Red: -2 Three Mouths, -2 Floor It, -1 Reboot Optics → +2 Psycho Squad, +2 Rogue, +1 Mox Inciters. Vs BBG: -2 Rita → +2 Westbrook."
-},
-/* ---------------- 2 ---------------- */
-{
- name:"Ice Wall", style:"Blocker tempo", diff:"Medium", r:[2,5,4],
- blurb:"Built for Red aggro. Force their big Unit to attack into Blockers, make the fight lose with Reboot Optics or -power tricks, and steal Gigs back with mid-size bodies.",
- legends:[L.jackie,L.wakako,L.evelyn],
- units:[[3,U.mox],[3,U.rita],[3,U.lizzy],[3,U.west],[3,U.psycho],[2,U.rogue],[2,U.placide]],
- programs:[[3,P.reboot],[3,P.floor],[3,P.bond],[3,P.pyr],[3,P.tno],[3,P.chrome]],
- gear:[[3,G.net]],
- side:[[3,U.maman],[2,P.les],[2,P.tow]],
- win:"Every attack against you becomes a fight you win. Their attackers die or get bottom-decked, while Psycho Squad and Westbrook steal Gigs uncontested.",
- mull:"Keep: a Blocker (Mox Inciters / Rita) plus Reboot Optics or Floor It. Netdriver on Rita is a great keep. Ship hands with no Units under 5.",
- early:"Turns 1–3: Mox Inciters on turn 3 is your key play: it forces their best Unit to attack into your Blockers next turn. Trust No One lowers a Gig to fuel Jackie draws.",
- mid:"Turns 4–6: Rita + Netdriver: each block spends Rita and draws, and Rita also loots. Psycho Squad and Westbrook pressure Gigs. Rogue gives a reusable -4 on their attacker.",
- late:"Turns 7+: Placide or Lizzy close it. Evelyn's Spend forces a stalled opponent to attack into your wall again.",
- combos:[
-  ["Force → Block → Shrink","Evelyn Spend or Mox Inciters forces an attack, Rita blocks, Pyramid Song -4 / Rogue -4 makes them lose the fight."],
-  ["Force → Unlikely Bond","Forced attacker ends spent, so on your turn Bond it away for a cheap ready Unit."],
-  ["Rita + Netdriver","Every block draws 1, and Rita's first spend each turn loots."]
- ],
- tips:"Blockers only work while ready, so don't attack with Rita/Mox on turns you expect a big swing back. Always leave 2 Eddies up for Reboot Optics vs Johnny.",
- mu:{
-  bbg:"Your weakest matchup, so sideboard in. Psycho Squad (6) and Westbrook (5) survive Pyramid's -4, and you run no power-0 Units. Pressure Gigs early before Towerfall comes online.",
-  johnny:"Evelyn's Spend or Mox Inciters forces Johnny to attack. Block with Rita, then Pyramid Song (-4) + Floor It (-1) or Rogue (-4) and he loses the fight. Reboot Optics keeps your blocker if the math is close.",
-  adam:"Westbrook on their Go Solo turn stops their Legends stealing your low Gigs. Spread out several 4–5 power Units so his Play defeat doesn't cripple you, then Unlikely Bond him once he's spent."
+ {
+  "name": "Ice Wall",
+  "style": "Blocker tempo",
+  "diff": "Medium",
+  "r": [
+   3,
+   5,
+   4
+  ],
+  "blurb": "Built for Red aggro. Force their big Unit to attack into Blockers, make the fight lose with Reboot Optics or -power tricks, and steal Gigs back with mid-size bodies.",
+  "legends": [
+   "Jackie Welles: Pour One Out For Me",
+   "Alt Cunningham: Soulkiller Architect",
+   "Evelyn Parker: Beautiful Enigma"
+  ],
+  "units": [
+   [
+    3,
+    "Mox Inciters"
+   ],
+   [
+    3,
+    "Rita Wheeler: No Stupid Questions"
+   ],
+   [
+    3,
+    "Lizzy Wizzy: Delicate Weapon"
+   ],
+   [
+    3,
+    "Westbrook Netrunner"
+   ],
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    2,
+    "Rogue Amendiares: Queen of the Afterlife"
+   ],
+   [
+    2,
+    "Placide: Voodoo Sentinel"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Reboot Optics"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ]
+  ],
+  "gear": [
+   [
+    3,
+    "NetWatch Netdriver"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ],
+   [
+    2,
+    "Towerfall"
+   ]
+  ],
+  "win": "Every attack against you becomes a fight you win. Their attackers die or get bottom-decked, while Psycho Squad and Westbrook steal Gigs uncontested.",
+  "mull": "Keep: a Blocker (Mox Inciters / Rita) plus Reboot Optics or Floor It. Netdriver on Rita is a great keep. Ship hands with no Units under 5.",
+  "early": "Turns 1–3: Mox Inciters on turn 3 is your key play: it forces their best Unit to attack into your Blockers next turn. Trust No One lowers a Gig to fuel Jackie draws.",
+  "mid": "Turns 4–6: Rita + Netdriver: each block spends Rita and draws, and Rita also loots. Psycho Squad and Westbrook pressure Gigs. Rogue gives a reusable -4 on their attacker.",
+  "late": "Turns 7+: Placide or Lizzy close it. Evelyn's Spend forces a stalled opponent to attack into your wall again, and Alt (1 + Spend) replays Pyramid Song or Unlikely Bond from the trash for the next threat.",
+  "combos": [
+   [
+    "Force → Block → Shrink",
+    "Evelyn Spend or Mox Inciters forces an attack, Rita blocks, Pyramid Song -4 / Rogue -4 makes them lose the fight."
+   ],
+   [
+    "Force → Unlikely Bond",
+    "Forced attacker ends spent, so on your turn Bond it away for a cheap ready Unit."
+   ],
+   [
+    "Rita + Netdriver",
+    "Every block draws 1, and Rita's first spend each turn loots."
+   ],
+   [
+    "Alt replay",
+    "Pyramid Song or Unlikely Bond you already used comes back from the trash with Alt: two removal spells from one card."
+   ]
+  ],
+  "tips": "Blockers only work while ready, so don't attack with Rita/Mox on turns you expect a big swing back. Always leave 2 Eddies up for Reboot Optics vs Johnny.",
+  "mu": {
+   "bbg": "Your weakest matchup, so sideboard in. Psycho Squad (6) and Westbrook (5) survive Pyramid's -4, and you run no power-0 Units. Pressure Gigs early before Towerfall comes online.",
+   "johnny": "Evelyn's Spend or Mox Inciters forces Johnny to attack. Block with Rita, then Pyramid Song (-4) + Floor It (-1) or Rogue (-4) and he loses the fight. Reboot Optics keeps your blocker if the math is close.",
+   "adam": "Westbrook on their Go Solo turn stops their Legends stealing your low Gigs. Spread out several 4–5 power Units so his Play defeat doesn't cripple you, then Unlikely Bond him once he's spent."
+  },
+  "sideNote": "Vs BBG: -3 Reboot Optics, -2 Mox Inciters, -2 Rita → +3 Maman Brigitte, +2 Les Élémens, +2 Towerfall.",
+  "prev": [
+   2,
+   4,
+   4
+  ],
+  "swap": "Wakako → <b>Alt Cunningham: Soulkiller Architect</b>. Alt replays Pyramid Song, Reboot Optics or Unlikely Bond from the trash and makes Programs cheaper with a min Gig, which is a repeatable answer instead of a one-time -2. Evelyn also readies an Eddie whenever a Ganger steals: Rita, Mox Inciters and Placide are all Gangers."
  },
- sideNote:"Vs BBG: -3 Reboot Optics, -2 Mox Inciters, -2 Rita → +3 Maman Brigitte, +2 Les Élémens, +2 Towerfall."
-},
-/* ---------------- 3 ---------------- */
-{
- name:"Chrome Giants", style:"Big midrange", diff:"Easy", r:[5,3,4],
- blurb:"Too big for BBG's removal. Every Unit is 4–10 power, so Pyramid Song and Towerfall don't finish them. Modded Kusanagi hits for 8 and returns to hand, dodging Smasher's Play and sorcery removal.",
- legends:[L.jackie,L.judy,L.sasha],
- units:[[3,U.psycho],[3,U.west],[3,U.kus],[2,U.placide],[2,U.judyU],[2,U.cab],[2,U.rita]],
- programs:[[3,P.tno],[3,P.chrome],[3,P.pyr],[3,P.floor],[3,P.bond],[2,P.noc],[2,P.tow]],
- gear:[[2,G.net],[2,G.dn]],
- side:[[3,U.maman],[2,P.reboot],[2,P.les]],
- win:"Curve out with 4-drops that steal Gigs, then overwhelm with 6–10 power bodies the opponent can't remove efficiently.",
- mull:"Keep: two 4-drops (Psycho Squad, Westbrook, Delamain Cab, Rita) and a cheap Program. Ship a hand of only 6+ cost cards.",
- early:"Turns 1–3: Trust No One / Dying Night to lower Gigs so your 4-power Units steal well. Sasha can Go Solo for 5 later; don't rush her.",
- mid:"Turns 4–6: Psycho Squad / Westbrook every turn. Turn 6: Kusanagi attacks immediately, steals, and returns to hand (replay every turn). Judy's trigger gives +1 when you cast Chrome Reverie, Pyramid Song, Trust No One or Towerfall.",
- late:"Turns 7+: Placide bottom-decks their best Unit on each attack. Judy: Nothing to Doubt flips a free card every turn. Towerfall clears blockers before the final steals.",
- combos:[
-  ["Kusanagi loop","Replay Kusanagi each turn: 8-power haste attacker that's never on board during their turn."],
-  ["Braindance pump","Judy Legend: cast Pyramid Song on their blocker (-4) and get +1 on your attacker."],
-  ["Sasha Go Solo","Sasha attacks, reveals the top card and gains power equal to its cost. With Placide/Kusanagi on top, she hits huge."]
- ],
- tips:"Don't put Gear on Kusanagi (it goes back to hand). Put Netdriver on Westbrook or Rita.",
- mu:{
-  bbg:"Your best matchup. Their -4/-5 effects don't kill 6+ power, and you have no power-0 targets. Kusanagi returns to hand, so their sorcery removal never sees it.",
-  johnny:"Kusanagi (8) trades evenly with an unequipped Johnny, and Placide (10) beats him outright. Chrome Reverie or Nocturne buys a turn. Unlikely Bond answers him once he's equipped.",
-  adam:"Bounce-back Kusanagi means his Play often has nothing good to defeat. Placide's attack bottom-decks him (removed from game). Sasha's defeat trigger makes them discard."
+ {
+  "name": "Chrome Giants",
+  "style": "Big midrange",
+  "diff": "Easy",
+  "r": [
+   5,
+   3,
+   4
+  ],
+  "blurb": "Too big for BBG's removal. Every Unit is 4–10 power, so Pyramid Song and Towerfall don't finish them. Modded Kusanagi hits for 8 and returns to hand, dodging Smasher's Play and sorcery removal.",
+  "legends": [
+   "Jackie Welles: Pour One Out For Me",
+   "Judy Alvarez: Braindance Maestro",
+   "Sasha Yakovleva: Won't Let You Down"
+  ],
+  "units": [
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    3,
+    "Westbrook Netrunner"
+   ],
+   [
+    3,
+    "Modded Kusanagi"
+   ],
+   [
+    2,
+    "Placide: Voodoo Sentinel"
+   ],
+   [
+    2,
+    "Judy Álvarez: Nothing to Doubt"
+   ],
+   [
+    2,
+    "Delamain Cab"
+   ],
+   [
+    2,
+    "Rita Wheeler: No Stupid Questions"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Nocturne OP55 N1"
+   ],
+   [
+    2,
+    "Towerfall"
+   ]
+  ],
+  "gear": [
+   [
+    2,
+    "NetWatch Netdriver"
+   ],
+   [
+    2,
+    "Dying Night: V's Pistol"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ]
+  ],
+  "win": "Curve out with 4-drops that steal Gigs, then overwhelm with 6–10 power bodies the opponent can't remove efficiently.",
+  "mull": "Keep: two 4-drops (Psycho Squad, Westbrook, Delamain Cab, Rita) and a cheap Program. Ship a hand of only 6+ cost cards.",
+  "early": "Turns 1–3: Trust No One / Dying Night to lower Gigs so your 4-power Units steal well. Sasha can Go Solo for 5 later; don't rush her.",
+  "mid": "Turns 4–6: Psycho Squad / Westbrook every turn. Turn 6: Kusanagi attacks immediately, steals, and returns to hand (replay every turn). Judy's trigger gives +1 when you cast Chrome Reverie, Pyramid Song, Trust No One or Towerfall.",
+  "late": "Turns 7+: Placide bottom-decks their best Unit on each attack. Judy: Nothing to Doubt flips a free card every turn. Towerfall clears blockers before the final steals.",
+  "combos": [
+   [
+    "Kusanagi loop",
+    "Replay Kusanagi each turn: 8-power haste attacker that's never on board during their turn."
+   ],
+   [
+    "Braindance pump",
+    "Judy Legend: cast Pyramid Song on their blocker (-4) and get +1 on your attacker."
+   ],
+   [
+    "Sasha Go Solo",
+    "Sasha attacks, reveals the top card and gains power equal to its cost. With Placide/Kusanagi on top, she hits huge."
+   ]
+  ],
+  "tips": "Don't put Gear on Kusanagi (it goes back to hand). Put Netdriver on Westbrook or Rita.",
+  "mu": {
+   "bbg": "Your best matchup. Their -4/-5 effects don't kill 6+ power, and you have no power-0 targets. Kusanagi returns to hand, so their sorcery removal never sees it.",
+   "johnny": "Kusanagi (8) trades evenly with an unequipped Johnny, and Placide (10) beats him outright. Chrome Reverie or Nocturne buys a turn. Unlikely Bond answers him once he's equipped.",
+   "adam": "Bounce-back Kusanagi means his Play often has nothing good to defeat. Placide's attack bottom-decks him (removed from game). Sasha's defeat trigger makes them discard."
+  },
+  "sideNote": "Vs Red: -2 Dying Night, -2 Nocturne → +2 Reboot Optics, +2 Maman Brigitte. Vs BBG: -2 Rita → +2 Les Élémens.",
+  "prev": [
+   5,
+   3,
+   4
+  ]
  },
- sideNote:"Vs Red: -2 Dying Night, -2 Nocturne → +2 Reboot Optics, +2 Maman Brigitte. Vs BBG: -2 Rita → +2 Les Élémens."
-},
-/* ---------------- 4 ---------------- */
-{
- name:"Ghost in the Trash", style:"Recursion control", diff:"Hard", r:[4,4,3],
- blurb:"The value engine. Lizzy Wizzy and Alt replay Pyramid Song, Chrome Reverie, Les Élémens and Towerfall from the trash, and Judy digs for Programs every turn.",
- legends:[L.alt,L.judy,L.wakako],
- units:[[3,U.lizzy],[3,U.maman],[3,U.jvb],[2,U.misty],[2,U.rita],[1,U.placide]],
- programs:[[3,P.pyr],[3,P.chrome],[3,P.three],[3,P.tno],[3,P.floor],[3,P.noc],[3,P.bond],[2,P.les],[2,P.tow],[1,P.reboot]],
- gear:[],
- side:[[3,U.psycho],[2,U.west],[2,U.rogue]],
- win:"Play every Program twice. The trash is a second hand: you out-card the opponent until they can't answer Lizzy, Maman or Placide.",
- mull:"Keep: Trust No One / Three Mouths plus one answer. You can keep land-light (low curve) hands. Ship hands with no Program under 3.",
- early:"Turns 1–3: Judy's Spend mills the top card and keeps a Program, which fills the trash. Trust No One for a min Gig (makes Alt cheaper). Jacked-In Voodoo Boy attacks only on turns you cast a Program.",
- mid:"Turns 4–6: Lizzy is your best card: free Pyramid Song / Chrome Reverie from the trash. Maman discarding 2 Programs is a benefit, since they become Alt targets.",
- late:"Turns 7+: Alt (1 + Spend) recasts Towerfall or Les Élémens. Placide chains bottom-decks. Misty adds a card and an Eddie every turn.",
- combos:[
-  ["Chrome lock","Hard-cast Chrome Reverie → Lizzy replays it → Alt replays it: their best Unit can't attack for three turns."],
-  ["Maman fuel","Maman discards 2 Programs (pick Towerfall + Les Élémens) → Alt replays them from the trash."],
-  ["Judy dig","Every Braindance Program (Pyramid, Chrome, Three Mouths, Trust No One, Towerfall) gives +1 power for the turn."]
- ],
- tips:"Lizzy and Alt both bottom-deck the replayed Program, so don't burn your last Pyramid Song on a small Unit.",
- mu:{
-  bbg:"You win the long game. Alt + Lizzy let you play two Programs per card. Board out Misty (power 0, an easy Pyramid Song bottom-deck).",
-  johnny:"Chrome Reverie stops him attacking every turn: hard-cast it, then Lizzy and Alt replay it. Maman Brigitte discarding 2 Programs is fine because they're fuel for Alt anyway.",
-  adam:"Hold Unlikely Bond with a ready Jacked-In Voodoo Boy as the cost. Chrome Reverie on his Go Solo turn makes him spend 9 Eddies for nothing."
+ {
+  "name": "Ghost in the Trash",
+  "style": "Recursion control",
+  "diff": "Hard",
+  "r": [
+   4,
+   4,
+   4
+  ],
+  "blurb": "The value engine. Lizzy Wizzy and Alt replay Pyramid Song, Chrome Reverie, Les Élémens and Towerfall from the trash, and Judy digs for Programs every turn.",
+  "legends": [
+   "Alt Cunningham: Soulkiller Architect",
+   "Judy Alvarez: Braindance Maestro",
+   "Evelyn Parker: Beautiful Enigma"
+  ],
+  "units": [
+   [
+    3,
+    "Lizzy Wizzy: Delicate Weapon"
+   ],
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    3,
+    "Jacked-In Voodoo Boy"
+   ],
+   [
+    2,
+    "Misty Olszewski: Mender of Broken Spirits"
+   ],
+   [
+    2,
+    "Rita Wheeler: No Stupid Questions"
+   ],
+   [
+    1,
+    "Placide: Voodoo Sentinel"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Three Mouths, One Desire"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ],
+   [
+    2,
+    "Towerfall"
+   ],
+   [
+    1,
+    "Reboot Optics"
+   ]
+  ],
+  "gear": [],
+  "side": [
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    2,
+    "Westbrook Netrunner"
+   ],
+   [
+    2,
+    "Rogue Amendiares: Queen of the Afterlife"
+   ]
+  ],
+  "win": "Play every Program twice. The trash is a second hand: you out-card the opponent until they can't answer Lizzy, Maman or Placide.",
+  "mull": "Keep: Trust No One / Three Mouths plus one answer. You can keep land-light (low curve) hands. Ship hands with no Program under 3.",
+  "early": "Turns 1–3: Judy's Spend mills the top card and keeps a Program, which fills the trash. Trust No One for a min Gig (makes Alt cheaper). Jacked-In Voodoo Boy attacks only on turns you cast a Program.",
+  "mid": "Turns 4–6: Lizzy is your best card: free Pyramid Song / Chrome Reverie from the trash. Maman discarding 2 Programs is a benefit, since they become Alt targets.",
+  "late": "Turns 7+: Alt (1 + Spend) recasts Towerfall or Les Élémens. Placide chains bottom-decks. Misty adds a card and an Eddie every turn.",
+  "combos": [
+   [
+    "Chrome lock",
+    "Hard-cast Chrome Reverie → Lizzy replays it → Alt replays it: their best Unit can't attack for three turns."
+   ],
+   [
+    "Maman fuel",
+    "Maman discards 2 Programs (pick Towerfall + Les Élémens) → Alt replays them from the trash."
+   ],
+   [
+    "Judy dig",
+    "Every Braindance Program (Pyramid, Chrome, Three Mouths, Trust No One, Towerfall) gives +1 power for the turn."
+   ],
+   [
+    "Force → Bond",
+    "Evelyn forces the attack, the Unit ends spent, Unlikely Bond bottom-decks it. Alt replays Bond later for the next one."
+   ]
+  ],
+  "tips": "Lizzy and Alt both bottom-deck the replayed Program, so don't burn your last Pyramid Song on a small Unit.",
+  "mu": {
+   "bbg": "You win the long game. Alt + Lizzy let you play two Programs per card. Board out Misty (power 0, an easy Pyramid Song bottom-deck).",
+   "johnny": "Chrome Reverie stops him attacking: hard-cast it, then Lizzy and Alt replay it. Or flip the plan: Spend Evelyn to force him in, block with Rita + Pyramid Song, or let him steal and Unlikely Bond him next turn. Maman before Mantis Blades.",
+   "adam": "Spend Evelyn to make Smasher attack, so he ends spent. On your turn Unlikely Bond him (cost: a ready Jacked-In Voodoo Boy) and he's removed from the game. Chrome Reverie on his Go Solo turn if you're not ready yet."
+  },
+  "sideNote": "Vs BBG: -2 Misty, -1 Reboot Optics → +3 Psycho Squad. Vs Red: -2 Three Mouths → +2 Rogue Amendiares.",
+  "prev": [
+   4,
+   3,
+   3
+  ],
+  "swap": "Wakako → <b>Evelyn Parker: Beautiful Enigma</b>. Evelyn's Spend forces their bomb to attack when you're ready, so it's spent for Unlikely Bond or walks into your Blockers. Rita and Placide are Gangers, so their steals ready Eddies for more recursion. Don't force and Chrome-lock the same Unit."
  },
- sideNote:"Vs BBG: -2 Misty, -1 Reboot Optics → +3 Psycho Squad. Vs Red: -2 Three Mouths → +2 Rogue Amendiares."
-},
-/* ---------------- 5 ---------------- */
-{
- name:"Neon Sprint", style:"Gig rush / aggro", diff:"Medium", r:[3,3,4],
- blurb:"Race them. Lower Gigs with Trust No One and Dying Night, steal fast with mid-size Units and Kusanagi, and keep cheap stall effects to cover the turn Smasher or Towerfall shows up.",
- legends:[L.jackie,L.sasha,L.wakako],
- units:[[3,U.jvb],[3,U.psycho],[3,U.cab],[2,U.mura],[3,U.west],[3,U.kus],[2,U.rogue]],
- programs:[[3,P.tno],[3,P.floor],[3,P.chrome],[3,P.noc],[3,P.pyr]],
- gear:[[3,G.dn],[3,G.net]],
- side:[[3,P.bond],[2,U.maman],[2,P.reboot]],
- win:"Hit 7 Gigs before the opponent's 6–9 cost bombs matter. Every turn something attacks.",
- mull:"Keep: Jacked-In Voodoo Boy or Dying Night, plus Trust No One/Floor It, plus a 4-drop. Mulligan any hand without a play before turn 3.",
- early:"Turns 1–3: Dying Night on a Unit (or a face-up Legend), and its attack lowers a Gig by 2. Jacked-In Voodoo Boy attacks after Trust No One/Floor It. Delamain Cab readies an Eddie when it steals.",
- mid:"Turns 4–6: Psycho Squad and Westbrook every turn. Kusanagi on turn 6 is an 8-power haste steal. Modded Muramasa readies at end of turn if you're behind on Street Cred, so it blocks too.",
- late:"Turns 7+: Chrome Reverie / Nocturne their one big blocker or attacker and swing with everything. Sasha Go Solo as a finisher.",
- combos:[
-  ["Trust No One → steal","Drop a Gig by 3, then steal it with a 2–4 power Unit. Rogue readies 2 Eddies when that happens."],
-  ["Delamain Cab bank","Cab steals → ready 1 Eddie at end of turn, paying for Floor It/Reboot on their turn."],
-  ["Chrome the blocker","Chrome Reverie on their biggest Unit before your all-in turn."]
- ],
- tips:"Count their Gigs and yours every turn. If they're about to drop Towerfall (6 Eddies), don't play a 4th Unit.",
- mu:{
-  bbg:"BBG is slow and leans on min Gigs. Get on board turns 2–3, play around Towerfall by not overextending past 3 Units, and use Nocturne's 'can't attack' on their Placide or Lizzy.",
-  johnny:"Don't fight him; race. Chrome Reverie or Nocturne on his attack turn, and Pyramid Song (-4) + Rogue (-4) when he has to block. Kusanagi steals the turn it lands.",
-  adam:"Smasher needs 9 Eddies. Aim to be 1–2 Gigs from winning before he arrives, then Chrome Reverie him. Westbrook stops their Legends stealing your low Gigs. Side in Unlikely Bond."
+ {
+  "name": "Neon Sprint",
+  "style": "Gig rush / aggro",
+  "diff": "Medium",
+  "r": [
+   3,
+   4,
+   4
+  ],
+  "blurb": "Race them. Lower Gigs with Trust No One and Dying Night, steal fast with mid-size Units and Kusanagi, and keep cheap stall effects to cover the turn Smasher or Towerfall shows up.",
+  "legends": [
+   "Jackie Welles: Pour One Out For Me",
+   "Sasha Yakovleva: Won't Let You Down",
+   "Judy Alvarez: Braindance Maestro"
+  ],
+  "units": [
+   [
+    3,
+    "Jacked-In Voodoo Boy"
+   ],
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    3,
+    "Delamain Cab"
+   ],
+   [
+    2,
+    "Modded Muramasa"
+   ],
+   [
+    3,
+    "Westbrook Netrunner"
+   ],
+   [
+    3,
+    "Modded Kusanagi"
+   ],
+   [
+    2,
+    "Rogue Amendiares: Queen of the Afterlife"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ]
+  ],
+  "gear": [
+   [
+    3,
+    "Dying Night: V's Pistol"
+   ],
+   [
+    3,
+    "NetWatch Netdriver"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ]
+  ],
+  "win": "Hit 7 Gigs before the opponent's 6–9 cost bombs matter. Every turn something attacks.",
+  "mull": "Keep: Jacked-In Voodoo Boy or Dying Night, plus Trust No One/Floor It, plus a 4-drop. Mulligan any hand without a play before turn 3.",
+  "early": "Turns 1–3: Dying Night on a Unit (or a face-up Legend), and its attack lowers a Gig by 2. Jacked-In Voodoo Boy attacks after Trust No One/Floor It. Delamain Cab readies an Eddie when it steals.",
+  "mid": "Turns 4–6: Psycho Squad and Westbrook every turn. Kusanagi on turn 6 is an 8-power haste steal. Modded Muramasa readies at end of turn if you're behind on Street Cred, so it blocks too.",
+  "late": "Turns 7+: Chrome Reverie / Nocturne their one big blocker or attacker and swing with everything. Sasha Go Solo as a finisher.",
+  "combos": [
+   [
+    "Trust No One → steal",
+    "Drop a Gig by 3, then steal it with a 2–4 power Unit. Rogue readies 2 Eddies when that happens."
+   ],
+   [
+    "Delamain Cab bank",
+    "Cab steals → ready 1 Eddie at end of turn, paying for Floor It/Reboot on their turn."
+   ],
+   [
+    "Chrome the blocker",
+    "Chrome Reverie on their biggest Unit before your all-in turn."
+   ],
+   [
+    "Braindance push",
+    "Cast Trust No One before attacking: lower a Gig AND +1 power on your attacker."
+   ]
+  ],
+  "tips": "Count their Gigs and yours every turn. If they're about to drop Towerfall (6 Eddies), don't play a 4th Unit.",
+  "mu": {
+   "bbg": "BBG is slow and leans on min Gigs. Get on board turns 2–3, play around Towerfall by not overextending past 3 Units, and use Nocturne's 'can't attack' on their Placide or Lizzy.",
+   "johnny": "Don't fight him; race. Chrome Reverie or Nocturne on his attack turn. Kusanagi + any Braindance Program is a 9-power attacker that beats him. Pyramid Song (-4) + Rogue (-4) when he has to block.",
+   "adam": "Smasher needs 9 Eddies. Aim to be 1–2 Gigs from winning before he arrives, then Chrome Reverie him. Westbrook stops their Legends stealing your low Gigs. Side in Unlikely Bond."
+  },
+  "sideNote": "Vs Smasher: -2 Muramasa, -1 Floor It → +3 Unlikely Bond. Vs Johnny: -2 Dying Night → +2 Reboot Optics. Vs BBG: -2 Rogue → +2 Maman Brigitte.",
+  "prev": [
+   3,
+   3,
+   4
+  ],
+  "swap": "Wakako → <b>Judy Alvarez: Braindance Maestro</b>. Trust No One, Chrome Reverie and Pyramid Song all give an attacker +1, so Kusanagi beats an unequipped Johnny 9 vs 8. Her Spend refuels an aggro hand that runs out of cards."
  },
- sideNote:"Vs Smasher: -2 Muramasa, -1 Floor It → +3 Unlikely Bond. Vs Johnny: -2 Dying Night → +2 Reboot Optics. Vs BBG: -2 Rogue → +2 Maman Brigitte."
-},
-/* ---------------- 6 ---------------- */
-{
- name:"Braindance Overload", style:"Program tempo", diff:"Medium", r:[4,3,3],
- blurb:"The established BBB list (Alt / Jackie / Judy), tuned for the counter role. Every Braindance Program pumps your attacker through Judy, and Alt keeps them coming.",
- legends:[L.alt,L.judy,L.jackie],
- units:[[3,U.jvb],[3,U.rita],[3,U.psycho],[3,U.lizzy],[2,U.judyU]],
- programs:[[3,P.tno],[3,P.chrome],[3,P.pyr],[3,P.three],[3,P.tow],[3,P.floor],[3,P.noc],[3,P.bond],[2,P.reboot]],
- gear:[],
- side:[[3,U.maman],[2,U.west],[2,P.les]],
- win:"Cast 1–2 Programs a turn; each one shrinks or stops a rival Unit while pumping yours (Judy +1). Your Units steal through a board they can't use.",
- mull:"Keep: 2+ cheap Programs (Trust No One, Floor It, Three Mouths) plus a Unit. Jacked-In Voodoo Boy + Trust No One is the dream start.",
- early:"Turns 1–3: Trust No One → min Gig → Jackie/Alt bonuses. Jacked-In Voodoo Boy attacks on turns you cast a Program (it gets +1 from Judy on Braindance turns).",
- mid:"Turns 4–6: Psycho Squad + a Braindance Program each turn. Lizzy replays Pyramid Song or Chrome Reverie for free. Hold Floor It/Reboot Optics on their turn.",
- late:"Turns 7+: Towerfall (both modes if you're behind on Street Cred) to wipe their blockers, then swing. Alt replays Towerfall from the trash for a second wipe.",
- combos:[
-  ["Double Towerfall","Towerfall, then later Alt (1 + Spend) plays it again from the trash. Two one-sided wipes."],
-  ["Program + Voodoo Boy","Any Program unlocks Jacked-In Voodoo Boy's attack, and a Braindance one also gives +1 via Judy."],
-  ["Judy: Nothing to Doubt","1 Eddie + Spend: reveal the top card and play it free. Towerfall on top is a free wipe."]
- ],
- tips:"Sequence Braindance Programs before combat so Judy's +1 applies to the attacker you need.",
- mu:{
-  bbg:"A mirror-ish matchup where your extra Units matter. Keep Psycho Squad (6) out; it survives Pyramid. Save Chrome Reverie for their Placide.",
-  johnny:"Chrome Reverie / Nocturne him each turn while you steal. Block with Rita + Pyramid Song. Unlikely Bond once he's spent.",
-  adam:"Towerfall doesn't kill him (9 → 4), but makes him lose any fight. Bait his Play with Jacked-In Voodoo Boy, then Bond him."
+ {
+  "name": "Braindance Overload",
+  "style": "Program tempo",
+  "diff": "Medium",
+  "r": [
+   4,
+   3,
+   3
+  ],
+  "blurb": "The established BBB list (Alt / Jackie / Judy), tuned for the counter role. Every Braindance Program pumps your attacker through Judy, and Alt keeps them coming.",
+  "legends": [
+   "Alt Cunningham: Soulkiller Architect",
+   "Judy Alvarez: Braindance Maestro",
+   "Jackie Welles: Pour One Out For Me"
+  ],
+  "units": [
+   [
+    3,
+    "Jacked-In Voodoo Boy"
+   ],
+   [
+    3,
+    "Rita Wheeler: No Stupid Questions"
+   ],
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    3,
+    "Lizzy Wizzy: Delicate Weapon"
+   ],
+   [
+    2,
+    "Judy Álvarez: Nothing to Doubt"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Three Mouths, One Desire"
+   ],
+   [
+    3,
+    "Towerfall"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ]
+  ],
+  "gear": [],
+  "side": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Westbrook Netrunner"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ]
+  ],
+  "win": "Cast 1–2 Programs a turn; each one shrinks or stops a rival Unit while pumping yours (Judy +1). Your Units steal through a board they can't use.",
+  "mull": "Keep: 2+ cheap Programs (Trust No One, Floor It, Three Mouths) plus a Unit. Jacked-In Voodoo Boy + Trust No One is the dream start.",
+  "early": "Turns 1–3: Trust No One → min Gig → Jackie/Alt bonuses. Jacked-In Voodoo Boy attacks on turns you cast a Program (it gets +1 from Judy on Braindance turns).",
+  "mid": "Turns 4–6: Psycho Squad + a Braindance Program each turn. Lizzy replays Pyramid Song or Chrome Reverie for free. Hold Floor It/Reboot Optics on their turn.",
+  "late": "Turns 7+: Towerfall (both modes if you're behind on Street Cred) to wipe their blockers, then swing. Alt replays Towerfall from the trash for a second wipe.",
+  "combos": [
+   [
+    "Double Towerfall",
+    "Towerfall, then later Alt (1 + Spend) plays it again from the trash. Two one-sided wipes."
+   ],
+   [
+    "Program + Voodoo Boy",
+    "Any Program unlocks Jacked-In Voodoo Boy's attack, and a Braindance one also gives +1 via Judy."
+   ],
+   [
+    "Judy: Nothing to Doubt",
+    "1 Eddie + Spend: reveal the top card and play it free. Towerfall on top is a free wipe."
+   ]
+  ],
+  "tips": "Sequence Braindance Programs before combat so Judy's +1 applies to the attacker you need.",
+  "mu": {
+   "bbg": "A mirror-ish matchup where your extra Units matter. Keep Psycho Squad (6) out; it survives Pyramid. Save Chrome Reverie for their Placide.",
+   "johnny": "Chrome Reverie / Nocturne him each turn while you steal. Block with Rita + Pyramid Song. Unlikely Bond once he's spent.",
+   "adam": "Towerfall doesn't kill him (9 → 4), but makes him lose any fight. Bait his Play with Jacked-In Voodoo Boy, then Bond him."
+  },
+  "sideNote": "Vs Red: -3 Three Mouths → +3 Maman Brigitte. Vs BBG: -2 Reboot Optics → +2 Les Élémens.",
+  "prev": [
+   4,
+   3,
+   3
+  ]
  },
- sideNote:"Vs Red: -3 Three Mouths → +3 Maman Brigitte. Vs BBG: -2 Reboot Optics → +2 Les Élémens."
-},
-/* ---------------- 7 ---------------- */
-{
- name:"Puppet Strings", style:"Forced-attack control", diff:"Hard", r:[3,5,5],
- blurb:"The best anti-Red deck here. Evelyn and Mox Inciters force their bomb to attack into your Blockers, then Unlikely Bond and Maman delete it. Smasher forced into a block is a dead Smasher.",
- legends:[L.alt,L.evelyn,L.wakako],
- units:[[3,U.mox],[3,U.rita],[3,U.lizzy],[3,U.maman],[2,U.placide],[2,U.west]],
- programs:[[3,P.bond],[3,P.reboot],[3,P.pyr],[3,P.floor],[3,P.tno],[3,P.noc],[2,P.les],[1,P.tow]],
- gear:[[3,G.net]],
- side:[[3,P.chrome],[2,U.psycho],[2,U.rogue]],
- win:"You control when they attack. Every forced attack ends with their Unit defeated (lost fight) or spent (Unlikely Bond target). Once their board is gone, Placide and Westbrook steal out.",
- mull:"Keep: Mox Inciters or Rita, plus Unlikely Bond or Reboot Optics. Ship hands with only Programs and no Blocker.",
- early:"Turns 1–3: Trust No One / Floor It to cycle. Mox Inciters turn 3: pick their best Unit to be forced into your wall.",
- mid:"Turns 4–6: Rita + Netdriver to block and draw. Evelyn (1 + Spend) forces their newest big Unit to attack next turn. On your turn, Unlikely Bond the spent attacker.",
- late:"Turns 7+: Maman bottom-decks whatever's left, Placide attacks and bottom-decks again. Alt replays Les Élémens.",
- combos:[
-  ["Evelyn → Block → Pyramid","Force Johnny in, block with Rita, Pyramid Song -4: Johnny (4) vs Rita (4)… add Floor It -1 and he loses and is defeated."],
-  ["Force → Bond","Forced attacker is spent at your turn. Bond it away with a cheap ready Unit. On Smasher, that's permanent."],
-  ["Reboot Optics","When the math is short, Reboot Optics keeps your blocker alive anyway."]
- ],
- tips:"Forcing an attack only helps if you have a Blocker ready and an answer in hand. Don't force on turns you're tapped out.",
- mu:{
-  bbg:"Medium. They have few Units to force, so this is a value game. Side in Chrome Reverie for Psycho Squad and play it as midrange.",
-  johnny:"Your best matchup. Force him into Rita + Pyramid/Floor It so he loses the fight, or let him win and Unlikely Bond him (he readies only on a win; plan accordingly).",
-  adam:"Evelyn forces Smasher to attack into a Blocker. Either he loses to Pyramid Song + Floor It (or Wakako's one-time -2 if you save her flip for it), or he's spent and gets Bonded: removed from the game."
+ {
+  "name": "Puppet Strings",
+  "style": "Forced-attack control",
+  "diff": "Hard",
+  "r": [
+   4,
+   5,
+   5
+  ],
+  "blurb": "The best anti-Red deck here. Evelyn and Mox Inciters force their bomb to attack into your Blockers, then Unlikely Bond and Maman delete it. Smasher forced into a block is a dead Smasher.",
+  "legends": [
+   "Alt Cunningham: Soulkiller Architect",
+   "Evelyn Parker: Beautiful Enigma",
+   "Jackie Welles: Pour One Out For Me"
+  ],
+  "units": [
+   [
+    3,
+    "Mox Inciters"
+   ],
+   [
+    3,
+    "Rita Wheeler: No Stupid Questions"
+   ],
+   [
+    3,
+    "Lizzy Wizzy: Delicate Weapon"
+   ],
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Placide: Voodoo Sentinel"
+   ],
+   [
+    2,
+    "Westbrook Netrunner"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    3,
+    "Reboot Optics"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ],
+   [
+    1,
+    "Towerfall"
+   ]
+  ],
+  "gear": [
+   [
+    3,
+    "NetWatch Netdriver"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    2,
+    "Psycho Squad"
+   ],
+   [
+    2,
+    "Rogue Amendiares: Queen of the Afterlife"
+   ]
+  ],
+  "win": "You control when they attack. Every forced attack ends with their Unit defeated (lost fight) or spent (Unlikely Bond target). Once their board is gone, Placide and Westbrook steal out.",
+  "mull": "Keep: Mox Inciters or Rita, plus Unlikely Bond or Reboot Optics. Ship hands with only Programs and no Blocker.",
+  "early": "Turns 1–3: Trust No One / Floor It to cycle. Your first Blue Unit each turn triggers Jackie: lower a friendly Gig by 2, draw if it hits min. Mox Inciters turn 3: pick their best Unit to be forced into your wall.",
+  "mid": "Turns 4–6: Rita + Netdriver to block and draw. Evelyn (1 + Spend) forces their newest big Unit to attack next turn. On your turn, Unlikely Bond the spent attacker.",
+  "late": "Turns 7+: Maman bottom-decks whatever's left, Placide attacks and bottom-decks again. Alt replays Les Élémens.",
+  "combos": [
+   [
+    "Evelyn → Block → Pyramid",
+    "Force Johnny in, block with Rita, Pyramid Song -4: Johnny (4) vs Rita (4)… add Floor It -1 and he loses and is defeated."
+   ],
+   [
+    "Force → Bond",
+    "Forced attacker is spent at your turn. Bond it away with a cheap ready Unit. On Smasher, that's permanent."
+   ],
+   [
+    "Reboot Optics",
+    "When the math is short, Reboot Optics keeps your blocker alive anyway."
+   ]
+  ],
+  "tips": "Forcing an attack only helps if you have a Blocker ready and an answer in hand. Don't force on turns you're tapped out.",
+  "mu": {
+   "bbg": "Medium. They have few Units to force, so this is a value game. Side in Chrome Reverie for Psycho Squad and play it as midrange.",
+   "johnny": "Your best matchup. Force him into Rita + Pyramid/Floor It so he loses the fight, or let him win and Unlikely Bond him (he readies only on a win; plan accordingly).",
+   "adam": "Evelyn forces Smasher to attack into a Blocker. Either he loses to Pyramid Song + Floor It, or he's spent and gets Bonded: removed from the game."
+  },
+  "sideNote": "Vs BBG: -3 Mox Inciters, -1 Towerfall, -3 Reboot Optics → +3 Chrome Reverie, +2 Psycho Squad, +2 Rogue.",
+  "prev": [
+   3,
+   5,
+   5
+  ],
+  "swap": "Wakako → <b>Jackie Welles: Pour One Out For Me</b>. With 16 Blue Units, Jackie lowers a friendly Gig and draws almost every turn. That keeps the min Gig that powers Alt's discount and Pyramid Song's double mode, and the extra cards help a lot vs BBG."
  },
- sideNote:"Vs BBG: -3 Mox Inciters, -1 Towerfall, -3 Reboot Optics → +3 Chrome Reverie, +2 Psycho Squad, +2 Rogue."
-},
-/* ---------------- 8 ---------------- */
-{
- name:"Doll House", style:"Card-advantage midrange", diff:"Medium", r:[3,3,3],
- blurb:"Draw more cards than they do. Evelyn Siren, Rita and Netdriver loot every turn, Delamain draws 2, and you hit with the answers you need exactly when you need them.",
- legends:[L.judy,L.evelyn,L.sasha],
- units:[[3,U.siren],[2,U.dela],[3,U.rita],[3,U.west],[3,U.psycho],[2,U.placide],[2,U.judyU]],
- programs:[[3,P.three],[3,P.pyr],[3,P.chrome],[3,P.floor],[3,P.tno],[3,P.bond]],
- gear:[[2,G.net],[2,G.rip]],
- side:[[3,U.maman],[2,P.reboot],[2,P.tow]],
- win:"Out-draw and out-select them. You see more of your deck, so you always find Bond for Smasher, Pyramid for Johnny and big bodies vs BBG.",
- mull:"Keep: any hand with Evelyn Siren or Delamain plus one answer. Easy keeps; the deck smooths itself.",
- early:"Turns 1–3: Evelyn Siren turn 2 (attacks to draw, may discard). Rippler on a Unit lets you clean up your top card. Three Mouths for the best card.",
- mid:"Turns 4–6: Rita + Netdriver, Westbrook, Psycho Squad. Delamain draws 2 but is power 0, so play it only when the opponent isn't BBG.",
- late:"Turns 7+: Judy: Nothing to Doubt and Placide take over. Sasha Go Solo when you know the top card is expensive (set it up with Rippler).",
- combos:[
-  ["Rippler + Sasha","Rippler lets you check and keep an expensive top card, so Sasha's attack gains big power."],
-  ["Netdriver on a Blocker","Each block draws 1, so card advantage and defense in one."],
-  ["Three Mouths + min Gig","With min Gigs, Three Mouths takes 2–3 cards instead of 1."]
- ],
- tips:"Power-0 Units (Siren, Delamain) are bottom-deck targets for BBG's Pyramid/Towerfall. Side them out in that matchup.",
- mu:{
-  bbg:"Side out the power-0 Units. Then you're a big-body midrange deck with more draw than them.",
-  johnny:"Dig for Pyramid Song + Rita blocks. Chrome Reverie to buy a turn, Unlikely Bond to finish.",
-  adam:"Hold Unlikely Bond; you'll find it with all the draw. Westbrook protects your low Gigs."
+ {
+  "name": "Doll House",
+  "style": "Card-advantage midrange",
+  "diff": "Medium",
+  "r": [
+   3,
+   3,
+   3
+  ],
+  "blurb": "Draw more cards than they do. Evelyn Siren, Rita and Netdriver loot every turn, Delamain draws 2, and you hit with the answers you need exactly when you need them.",
+  "legends": [
+   "Judy Alvarez: Braindance Maestro",
+   "Evelyn Parker: Beautiful Enigma",
+   "Sasha Yakovleva: Won't Let You Down"
+  ],
+  "units": [
+   [
+    3,
+    "Evelyn Parker: Scheming Siren"
+   ],
+   [
+    2,
+    "Delamain: Rideshare AI"
+   ],
+   [
+    3,
+    "Rita Wheeler: No Stupid Questions"
+   ],
+   [
+    3,
+    "Westbrook Netrunner"
+   ],
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    2,
+    "Placide: Voodoo Sentinel"
+   ],
+   [
+    2,
+    "Judy Álvarez: Nothing to Doubt"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Three Mouths, One Desire"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ]
+  ],
+  "gear": [
+   [
+    2,
+    "NetWatch Netdriver"
+   ],
+   [
+    2,
+    "Tetratronic Rippler"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ],
+   [
+    2,
+    "Towerfall"
+   ]
+  ],
+  "win": "Out-draw and out-select them. You see more of your deck, so you always find Bond for Smasher, Pyramid for Johnny and big bodies vs BBG.",
+  "mull": "Keep: any hand with Evelyn Siren or Delamain plus one answer. Easy keeps; the deck smooths itself.",
+  "early": "Turns 1–3: Evelyn Siren turn 2 (attacks to draw, may discard). Rippler on a Unit lets you clean up your top card. Three Mouths for the best card.",
+  "mid": "Turns 4–6: Rita + Netdriver, Westbrook, Psycho Squad. Delamain draws 2 but is power 0, so play it only when the opponent isn't BBG.",
+  "late": "Turns 7+: Judy: Nothing to Doubt and Placide take over. Sasha Go Solo when you know the top card is expensive (set it up with Rippler).",
+  "combos": [
+   [
+    "Rippler + Sasha",
+    "Rippler lets you check and keep an expensive top card, so Sasha's attack gains big power."
+   ],
+   [
+    "Netdriver on a Blocker",
+    "Each block draws 1, so card advantage and defense in one."
+   ],
+   [
+    "Three Mouths + min Gig",
+    "With min Gigs, Three Mouths takes 2–3 cards instead of 1."
+   ]
+  ],
+  "tips": "Power-0 Units (Siren, Delamain) are bottom-deck targets for BBG's Pyramid/Towerfall. Side them out in that matchup.",
+  "mu": {
+   "bbg": "Side out the power-0 Units. Then you're a big-body midrange deck with more draw than them.",
+   "johnny": "Dig for Pyramid Song + Rita blocks. Chrome Reverie to buy a turn, Unlikely Bond to finish.",
+   "adam": "Hold Unlikely Bond; you'll find it with all the draw. Westbrook protects your low Gigs."
+  },
+  "sideNote": "Vs BBG: -3 Evelyn Siren, -2 Delamain → +3 Maman, +2 Towerfall. Vs Johnny: -2 Rippler → +2 Reboot Optics.",
+  "prev": [
+   3,
+   3,
+   3
+  ]
  },
- sideNote:"Vs BBG: -3 Evelyn Siren, -2 Delamain → +3 Maman, +2 Towerfall. Vs Johnny: -2 Rippler → +2 Reboot Optics."
-},
-/* ---------------- 9 ---------------- */
-{
- name:"Kusanagi Blitz", style:"Hit-and-run aggro", diff:"Easy", r:[3,3,4],
- blurb:"Vehicles that hit and leave. Kusanagi and Muramasa keep attacking while dodging removal, and Sasha can Go Solo early for extra pressure.",
- legends:[L.sasha,L.wakako,L.evelyn],
- units:[[3,U.kus],[3,U.mura],[3,U.psycho],[3,U.jvb],[3,U.cab],[2,U.rita]],
- programs:[[3,P.tno],[3,P.floor],[3,P.chrome],[3,P.pyr],[3,P.noc],[1,P.reboot]],
- gear:[[3,G.dn],[2,G.net],[2,G.rip]],
- side:[[3,P.bond],[2,U.maman],[2,U.west]],
- win:"Steady Gig theft with Units that are hard to punish. Kusanagi is never on the board during their turn, so their removal and Smasher's Play have bad targets.",
- mull:"Keep: a 2-drop plus a 4-drop plus a cheap Program. Ship hands without early plays.",
- early:"Turns 1–3: Jacked-In Voodoo Boy + Trust No One. Dying Night lowers Gigs on attack. Wakako's Spend lowers a Gig by 2 so your small Units can steal it.",
- mid:"Turns 4–6: Psycho Squad / Delamain Cab. Muramasa (5) readies at end of turn if behind on Street Cred, so it attacks and still blocks.",
- late:"Turns 6+: Kusanagi every turn (8-power haste). Sasha Go Solo 5 for a surprise attacker. Chrome Reverie their best blocker on the final turn.",
- combos:[
-  ["Kusanagi + Floor It","Kusanagi 8 attacks, Floor It -1 their blocker. You win fights against anything under 9."],
-  ["Muramasa defense","Behind on Street Cred → Muramasa readies at end of turn: attacker and blocker in one."],
-  ["Wakako Gig-drop","Spend every turn: lower a Gig by 2 so 4-power Units steal Gigs they couldn't before. Save her flip (one-time -2) for the turn a big fight needs it."]
- ],
- tips:"Equip Gear to Psycho Squad/Muramasa, never Kusanagi (it returns to hand).",
- mu:{
-  bbg:"Good. Their sorcery-speed removal mostly whiffs on Kusanagi. Keep 2–3 Units on board max vs Towerfall.",
-  johnny:"Race. Kusanagi trades evenly with Johnny (8 vs 8), so add Floor It or Pyramid Song to win the fight. Chrome Reverie on his attack turn.",
-  adam:"Smasher's Play can't hit Kusanagi (in hand on their turn). Side in Unlikely Bond for the spent Smasher."
+ {
+  "name": "Kusanagi Blitz",
+  "style": "Hit-and-run aggro",
+  "diff": "Easy",
+  "r": [
+   3,
+   4,
+   4
+  ],
+  "blurb": "Vehicles that hit and leave. Kusanagi and Muramasa keep attacking while dodging removal, and Sasha can Go Solo early for extra pressure.",
+  "legends": [
+   "Sasha Yakovleva: Won't Let You Down",
+   "Judy Alvarez: Braindance Maestro",
+   "Evelyn Parker: Beautiful Enigma"
+  ],
+  "units": [
+   [
+    3,
+    "Modded Kusanagi"
+   ],
+   [
+    3,
+    "Modded Muramasa"
+   ],
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    3,
+    "Jacked-In Voodoo Boy"
+   ],
+   [
+    3,
+    "Delamain Cab"
+   ],
+   [
+    2,
+    "Rita Wheeler: No Stupid Questions"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    1,
+    "Reboot Optics"
+   ]
+  ],
+  "gear": [
+   [
+    3,
+    "Dying Night: V's Pistol"
+   ],
+   [
+    2,
+    "NetWatch Netdriver"
+   ],
+   [
+    2,
+    "Tetratronic Rippler"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Westbrook Netrunner"
+   ]
+  ],
+  "win": "Steady Gig theft with Units that are hard to punish. Kusanagi is never on the board during their turn, so their removal and Smasher's Play have bad targets.",
+  "mull": "Keep: a 2-drop plus a 4-drop plus a cheap Program. Ship hands without early plays.",
+  "early": "Turns 1–3: Jacked-In Voodoo Boy + Trust No One. Dying Night lowers Gigs on attack. Judy's Spend: trash the top card, keep it if it's a Program.",
+  "mid": "Turns 4–6: Psycho Squad / Delamain Cab. Muramasa (5) readies at end of turn if behind on Street Cred, so it attacks and still blocks.",
+  "late": "Turns 6+: Kusanagi every turn (8-power haste). Sasha Go Solo 5 for a surprise attacker. Chrome Reverie their best blocker on the final turn.",
+  "combos": [
+   [
+    "Kusanagi + Floor It",
+    "Kusanagi 8 attacks, Floor It -1 their blocker. You win fights against anything under 9."
+   ],
+   [
+    "Muramasa defense",
+    "Behind on Street Cred → Muramasa readies at end of turn: attacker and blocker in one."
+   ],
+   [
+    "Braindance pump",
+    "Trust No One / Chrome Reverie / Pyramid Song before combat: Judy gives +1, so Kusanagi hits as a 9."
+   ]
+  ],
+  "tips": "Equip Gear to Psycho Squad/Muramasa, never Kusanagi (it returns to hand).",
+  "mu": {
+   "bbg": "Good. Their sorcery-speed removal mostly whiffs on Kusanagi. Keep 2–3 Units on board max vs Towerfall.",
+   "johnny": "Race. Kusanagi trades evenly with Johnny (8 vs 8), so add Floor It, Pyramid Song or Judy's Braindance +1 to win the fight. Chrome Reverie on his attack turn.",
+   "adam": "Smasher's Play can't hit Kusanagi (in hand on their turn). Side in Unlikely Bond for the spent Smasher."
+  },
+  "sideNote": "Vs Smasher/Johnny: -2 Rippler, -1 Reboot Optics → +3 Unlikely Bond. Vs BBG: -2 Rita → +2 Westbrook.",
+  "prev": [
+   3,
+   3,
+   4
+  ],
+  "swap": "Wakako → <b>Judy Alvarez: Braindance Maestro</b>. Trust No One, Chrome Reverie and Pyramid Song pump an attacker +1, which turns Kusanagi into a 9 that beats Johnny, and her Spend keeps cards flowing."
  },
- sideNote:"Vs Smasher/Johnny: -2 Rippler, -1 Reboot Optics → +3 Unlikely Bond. Vs BBG: -2 Rita → +2 Westbrook."
-},
-/* ---------------- 10 ---------------- */
-{
- name:"Netrunner Ascension", style:"Midrange value", diff:"Medium", r:[4,4,4],
- blurb:"Voodoo Boys and Netrunners. Maman, Placide and Westbrook form a strong removal-on-a-body core, backed by Alt's recursion and Netdriver draw.",
- legends:[L.alt,L.sasha,L.judy],
- units:[[3,U.jvb],[3,U.west],[3,U.maman],[3,U.placide],[2,U.rita]],
- programs:[[3,P.floor],[3,P.tno],[3,P.pyr],[3,P.chrome],[3,P.noc],[3,P.three],[3,P.bond]],
- gear:[[3,G.net],[2,G.rip]],
- side:[[3,U.psycho],[2,P.les],[2,P.tow]],
- win:"Every big Unit you play removes one of theirs (Maman on Play, Placide on every attack), so the board stays one-sided while Westbrook and Placide steal.",
- mull:"Keep: Jacked-In Voodoo Boy or Rita, plus a cheap Program, plus Maman or Unlikely Bond.",
- early:"Turns 1–3: Jacked-In Voodoo Boy + Trust No One. Netdriver on Voodoo Boy: each attack (spend) draws.",
- mid:"Turns 4–6: Westbrook on their Legend-steal turns. Maman on Play (discard 2 Programs, which are Alt fuel) bottom-decks their best unequipped Unit.",
- late:"Turns 8+: Placide every attack: discard 1 Program, bottom-deck a rival Unit. Alt replays the Programs you discarded.",
- combos:[
-  ["Maman → Alt","Discard Pyramid + Chrome to Maman, then Alt recasts them from the trash later."],
-  ["Placide engine","Each Placide attack: discard 1 Program → bottom-deck a Unit. Two turns, two removals."],
-  ["Netdriver Voodoo Boy","A 2-drop that draws a card every attack."]
- ],
- tips:"Use Nocturne in 'draw 2' mode early (for 1 Eddie if your fixer area is empty) to stockpile Programs for Maman and Placide.",
- mu:{
-  bbg:"Strong. Placide (10) survives everything they have but Les Élémens on an empty board, so keep a 2-drop alongside it.",
-  johnny:"Maman Brigitte before Mantis Blades. Chrome Reverie / Pyramid otherwise. Placide beats him in a fight 10 vs 8.",
-  adam:"Placide's attack or Maman bottom-decks Smasher = removed from game. Keep a Voodoo Boy out as the Play-defeat decoy."
+ {
+  "name": "Netrunner Ascension",
+  "style": "Midrange value",
+  "diff": "Medium",
+  "r": [
+   4,
+   4,
+   4
+  ],
+  "blurb": "Voodoo Boys and Netrunners. Maman, Placide and Westbrook form a strong removal-on-a-body core, backed by Alt's recursion and Netdriver draw.",
+  "legends": [
+   "Alt Cunningham: Soulkiller Architect",
+   "Sasha Yakovleva: Won't Let You Down",
+   "Judy Alvarez: Braindance Maestro"
+  ],
+  "units": [
+   [
+    3,
+    "Jacked-In Voodoo Boy"
+   ],
+   [
+    3,
+    "Westbrook Netrunner"
+   ],
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    3,
+    "Placide: Voodoo Sentinel"
+   ],
+   [
+    2,
+    "Rita Wheeler: No Stupid Questions"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    3,
+    "Three Mouths, One Desire"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ]
+  ],
+  "gear": [
+   [
+    3,
+    "NetWatch Netdriver"
+   ],
+   [
+    2,
+    "Tetratronic Rippler"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ],
+   [
+    2,
+    "Towerfall"
+   ]
+  ],
+  "win": "Every big Unit you play removes one of theirs (Maman on Play, Placide on every attack), so the board stays one-sided while Westbrook and Placide steal.",
+  "mull": "Keep: Jacked-In Voodoo Boy or Rita, plus a cheap Program, plus Maman or Unlikely Bond.",
+  "early": "Turns 1–3: Jacked-In Voodoo Boy + Trust No One. Netdriver on Voodoo Boy: each attack (spend) draws.",
+  "mid": "Turns 4–6: Westbrook on their Legend-steal turns. Maman on Play (discard 2 Programs, which are Alt fuel) bottom-decks their best unequipped Unit.",
+  "late": "Turns 8+: Placide every attack: discard 1 Program, bottom-deck a rival Unit. Alt replays the Programs you discarded.",
+  "combos": [
+   [
+    "Maman → Alt",
+    "Discard Pyramid + Chrome to Maman, then Alt recasts them from the trash later."
+   ],
+   [
+    "Placide engine",
+    "Each Placide attack: discard 1 Program → bottom-deck a Unit. Two turns, two removals."
+   ],
+   [
+    "Netdriver Voodoo Boy",
+    "A 2-drop that draws a card every attack."
+   ]
+  ],
+  "tips": "Use Nocturne in 'draw 2' mode early (for 1 Eddie if your fixer area is empty) to stockpile Programs for Maman and Placide.",
+  "mu": {
+   "bbg": "Strong. Placide (10) survives everything they have but Les Élémens on an empty board, so keep a 2-drop alongside it.",
+   "johnny": "Maman Brigitte before Mantis Blades. Chrome Reverie / Pyramid otherwise. Placide beats him in a fight 10 vs 8.",
+   "adam": "Placide's attack or Maman bottom-decks Smasher = removed from game. Keep a Voodoo Boy out as the Play-defeat decoy."
+  },
+  "sideNote": "Vs BBG: -2 Rippler → +2 Les Élémens. Vs Red go-wide: -3 Three Mouths → +3 Psycho Squad.",
+  "prev": [
+   4,
+   4,
+   4
+  ]
  },
- sideNote:"Vs BBG: -2 Rippler → +2 Les Élémens. Vs Red go-wide: -3 Three Mouths → +3 Psycho Squad."
-},
-/* ---------------- 11 ---------------- */
-{
- name:"Afterlife Bank", style:"Ramp midrange", diff:"Medium", r:[3,3,3],
- blurb:"Make Eddies faster than they do. Rogue, Delamain Cab and Misty ready extra Eddies, and that funds Placide, Towerfall and Judy: Nothing to Doubt turns early.",
- legends:[L.jackie,L.judy,L.wakako],
- units:[[3,U.rogue],[3,U.cab],[3,U.psycho],[2,U.west],[2,U.misty],[2,U.judyU],[2,U.placide]],
- programs:[[3,P.tno],[3,P.floor],[3,P.pyr],[3,P.chrome],[2,P.tow],[3,P.bond],[2,P.three]],
- gear:[[2,G.dn],[2,G.net]],
- side:[[3,U.maman],[2,P.reboot],[2,P.les]],
- win:"Ramp into the biggest threats in Blue a turn or two before they can answer them, then grind with Judy: Nothing to Doubt's free cards.",
- mull:"Keep: Delamain Cab or Misty plus Trust No One. Rogue + a cheap attacker is ideal.",
- early:"Turns 1–3: Trust No One lowers Gigs so your Units steal ones worth less than their power (needed for Rogue). Dying Night also lowers Gigs.",
- mid:"Turns 4–6: Cab steals → ready 1 Eddie. Rogue: when another Unit steals a Gig worth less than its power, ready 2 Eddies. You can effectively cast 2 spells a turn.",
- late:"Turns 6–7: Placide or Towerfall a full turn early. Judy: Nothing to Doubt flips free cards every turn.",
- combos:[
-  ["Trust No One → Rogue","Lower a Gig, steal it with a bigger Unit → Rogue readies 2 Eddies."],
-  ["Cab + Rogue","Cab steal triggers both: +3 Eddies in one turn."],
-  ["Rogue as a trick","Quick: 2 Eddies + Spend, a rival Unit loses 4 power during their attack."]
- ],
- tips:"Misty: name the card type you have most of left in the deck (usually Program).",
- mu:{
-  bbg:"Medium. Side out Misty (power 0). Ramping Placide out a turn early is your edge.",
-  johnny:"Rogue's -4 on his attack plus a block makes him lose. Chrome Reverie to stall until Placide.",
-  adam:"You'll have Eddies for Bond + another spell on the same turn. Bond the spent Smasher."
+ {
+  "name": "Afterlife Bank",
+  "style": "Ramp midrange",
+  "diff": "Medium",
+  "r": [
+   4,
+   3,
+   4
+  ],
+  "blurb": "Make Eddies faster than they do. Rogue, Delamain Cab and Misty ready extra Eddies, and that funds Placide, Towerfall and Judy: Nothing to Doubt turns early.",
+  "legends": [
+   "Jackie Welles: Pour One Out For Me",
+   "Judy Alvarez: Braindance Maestro",
+   "Alt Cunningham: Soulkiller Architect"
+  ],
+  "units": [
+   [
+    3,
+    "Rogue Amendiares: Queen of the Afterlife"
+   ],
+   [
+    3,
+    "Delamain Cab"
+   ],
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    2,
+    "Westbrook Netrunner"
+   ],
+   [
+    2,
+    "Misty Olszewski: Mender of Broken Spirits"
+   ],
+   [
+    2,
+    "Judy Álvarez: Nothing to Doubt"
+   ],
+   [
+    2,
+    "Placide: Voodoo Sentinel"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    2,
+    "Towerfall"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Three Mouths, One Desire"
+   ]
+  ],
+  "gear": [
+   [
+    2,
+    "Dying Night: V's Pistol"
+   ],
+   [
+    2,
+    "NetWatch Netdriver"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ]
+  ],
+  "win": "Ramp into the biggest threats in Blue a turn or two before they can answer them, then grind with Judy: Nothing to Doubt's free cards.",
+  "mull": "Keep: Delamain Cab or Misty plus Trust No One. Rogue + a cheap attacker is ideal.",
+  "early": "Turns 1–3: Trust No One lowers Gigs so your Units steal ones worth less than their power (needed for Rogue). Dying Night also lowers Gigs.",
+  "mid": "Turns 4–6: Cab steals → ready 1 Eddie. Rogue: when another Unit steals a Gig worth less than its power, ready 2 Eddies. You can effectively cast 2 spells a turn.",
+  "late": "Turns 6–7: Placide or Towerfall a full turn early. Judy: Nothing to Doubt flips free cards every turn. Alt (1 + Spend) replays Towerfall or Unlikely Bond from the trash.",
+  "combos": [
+   [
+    "Trust No One → Rogue",
+    "Lower a Gig, steal it with a bigger Unit → Rogue readies 2 Eddies."
+   ],
+   [
+    "Cab + Rogue",
+    "Cab steal triggers both: +3 Eddies in one turn."
+   ],
+   [
+    "Rogue as a trick",
+    "Quick: 2 Eddies + Spend, a rival Unit loses 4 power during their attack."
+   ],
+   [
+    "Bank → Alt",
+    "Rogue/Cab Eddies pay for Alt replaying Towerfall from the trash: two wipes."
+   ]
+  ],
+  "tips": "Misty: name the card type you have most of left in the deck (usually Program).",
+  "mu": {
+   "bbg": "Medium. Side out Misty (power 0). Ramping Placide out a turn early is your edge.",
+   "johnny": "Rogue's -4 on his attack plus a block makes him lose. Chrome Reverie to stall until Placide.",
+   "adam": "You'll have Eddies for Bond + another spell on the same turn. Bond the spent Smasher."
+  },
+  "sideNote": "Vs BBG: -2 Misty, -2 Three Mouths → +2 Les Élémens, +2 Maman. Vs Red: -2 Dying Night → +2 Reboot Optics.",
+  "prev": [
+   3,
+   3,
+   3
+  ],
+  "swap": "Wakako → <b>Alt Cunningham: Soulkiller Architect</b>. Your extra Eddies pay for Alt's trash replays: a second Towerfall or Unlikely Bond. Trust No One, Dying Night and Jackie still lower Gigs for Rogue's Eddie trigger."
  },
- sideNote:"Vs BBG: -2 Misty, -2 Three Mouths → +2 Les Élémens, +2 Maman. Vs Red: -2 Dying Night → +2 Reboot Optics."
-},
-/* ---------------- 12 ---------------- */
-{
- name:"Last Stand", style:"Wipe control", diff:"Hard", r:[3,4,4],
- blurb:"Survive, then wipe. A wall of Blockers and Reboot Optics holds the early game, then three Towerfalls and three Les Élémens clear everything, and Alt plays them again.",
- legends:[L.alt,L.jackie,L.sasha],
- units:[[3,U.rita],[3,U.mox],[3,U.lizzy],[3,U.placide],[2,U.misty]],
- programs:[[3,P.tow],[3,P.les],[3,P.pyr],[3,P.chrome],[3,P.noc],[3,P.tno],[3,P.three],[2,P.floor],[3,P.reboot]],
- gear:[],
- side:[[3,P.bond],[2,U.psycho],[2,U.west]],
- win:"Hold until turn 6, then Towerfall (both modes when you're behind on Street Cred, which you will be) wipes their board. Placide finishes.",
- mull:"Keep: a Blocker plus Reboot Optics/Pyramid Song. Ship hands with three 5–6 drops.",
- early:"Turns 1–3: Trust No One, Three Mouths. Mox Inciters forces their attack into a block. Don't race; you want to be behind on Street Cred for Towerfall.",
- mid:"Turns 4–6: Rita/Lizzy block. Reboot Optics saves blockers. Turn 6: Towerfall → all rival Units -5 AND bottom-deck all at 0.",
- late:"Turns 7+: Les Élémens / Alt-replayed Towerfall for the leftovers. Placide steals and bottom-decks each turn.",
- combos:[
-  ["Towerfall double mode","Behind on Street Cred: -5 to all, then bottom-deck all at power 0. Everything 5 or less is gone permanently."],
-  ["Pyramid + Towerfall","Pyramid -4 first, then Towerfall: anything up to 9 power (Johnny, Smasher) hits 0 and is bottom-decked."],
-  ["Alt replay","Alt (1 + Spend) plays Towerfall again from the trash."]
- ],
- tips:"Hold Towerfall until they commit 2+ Units. Against 1 big Unit, use Pyramid + Towerfall or side in Unlikely Bond.",
- mu:{
-  bbg:"Medium: they have few Units, so Towerfall is weak. Side in Psycho Squad / Westbrook as threats.",
-  johnny:"Pyramid Song (-4) + Towerfall (-5) = Johnny at 0 and bottom-decked. Blockers + Reboot Optics until then.",
-  adam:"Same: Pyramid + Towerfall bottom-decks a 9-power Smasher, removing him from the game. Les Élémens if he's alone."
+ {
+  "name": "Last Stand",
+  "style": "Wipe control",
+  "diff": "Hard",
+  "r": [
+   3,
+   4,
+   4
+  ],
+  "blurb": "Survive, then wipe. A wall of Blockers and Reboot Optics holds the early game, then three Towerfalls and three Les Élémens clear everything, and Alt plays them again.",
+  "legends": [
+   "Alt Cunningham: Soulkiller Architect",
+   "Jackie Welles: Pour One Out For Me",
+   "Sasha Yakovleva: Won't Let You Down"
+  ],
+  "units": [
+   [
+    3,
+    "Rita Wheeler: No Stupid Questions"
+   ],
+   [
+    3,
+    "Mox Inciters"
+   ],
+   [
+    3,
+    "Lizzy Wizzy: Delicate Weapon"
+   ],
+   [
+    3,
+    "Placide: Voodoo Sentinel"
+   ],
+   [
+    2,
+    "Misty Olszewski: Mender of Broken Spirits"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Towerfall"
+   ],
+   [
+    3,
+    "Les Élémens"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Three Mouths, One Desire"
+   ],
+   [
+    2,
+    "Floor It"
+   ],
+   [
+    3,
+    "Reboot Optics"
+   ]
+  ],
+  "gear": [],
+  "side": [
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Psycho Squad"
+   ],
+   [
+    2,
+    "Westbrook Netrunner"
+   ]
+  ],
+  "win": "Hold until turn 6, then Towerfall (both modes when you're behind on Street Cred, which you will be) wipes their board. Placide finishes.",
+  "mull": "Keep: a Blocker plus Reboot Optics/Pyramid Song. Ship hands with three 5–6 drops.",
+  "early": "Turns 1–3: Trust No One, Three Mouths. Mox Inciters forces their attack into a block. Don't race; you want to be behind on Street Cred for Towerfall.",
+  "mid": "Turns 4–6: Rita/Lizzy block. Reboot Optics saves blockers. Turn 6: Towerfall → all rival Units -5 AND bottom-deck all at 0.",
+  "late": "Turns 7+: Les Élémens / Alt-replayed Towerfall for the leftovers. Placide steals and bottom-decks each turn.",
+  "combos": [
+   [
+    "Towerfall double mode",
+    "Behind on Street Cred: -5 to all, then bottom-deck all at power 0. Everything 5 or less is gone permanently."
+   ],
+   [
+    "Pyramid + Towerfall",
+    "Pyramid -4 first, then Towerfall: anything up to 9 power (Johnny, Smasher) hits 0 and is bottom-decked."
+   ],
+   [
+    "Alt replay",
+    "Alt (1 + Spend) plays Towerfall again from the trash."
+   ]
+  ],
+  "tips": "Hold Towerfall until they commit 2+ Units. Against 1 big Unit, use Pyramid + Towerfall or side in Unlikely Bond.",
+  "mu": {
+   "bbg": "Medium: they have few Units, so Towerfall is weak. Side in Psycho Squad / Westbrook as threats.",
+   "johnny": "Pyramid Song (-4) + Towerfall (-5) = Johnny at 0 and bottom-decked. Blockers + Reboot Optics until then.",
+   "adam": "Same: Pyramid + Towerfall bottom-decks a 9-power Smasher, removing him from the game. Les Élémens if he's alone."
+  },
+  "sideNote": "Vs BBG: -3 Mox Inciters, -2 Misty, -2 Reboot Optics → +3 Unlikely Bond, +2 Psycho Squad, +2 Westbrook.",
+  "prev": [
+   3,
+   4,
+   4
+  ]
  },
- sideNote:"Vs BBG: -3 Mox Inciters, -2 Misty, -2 Reboot Optics → +3 Unlikely Bond, +2 Psycho Squad, +2 Westbrook."
-},
-/* ---------------- 13 ---------------- */
-{
- name:"Vehicle Garage", style:"Midrange aggro", diff:"Easy", r:[4,3,3],
- blurb:"Delamain's fleet. Cabs that make Eddies, Kusanagi hit-and-runs, and Muramasa that untaps, backed by Judy's Braindance pumps and Evelyn's forced attacks.",
- legends:[L.jackie,L.evelyn,L.judy],
- units:[[3,U.cab],[2,U.dela],[3,U.kus],[3,U.mura],[3,U.psycho],[2,U.rita]],
- programs:[[3,P.tno],[3,P.floor],[3,P.chrome],[3,P.pyr],[3,P.noc],[2,P.bond],[2,P.three]],
- gear:[[3,G.dn],[2,G.net]],
- side:[[3,U.maman],[2,U.west],[2,P.reboot]],
- win:"Constant pressure from Units that make Eddies (Cab) or dodge removal (Kusanagi). Steal Gigs every turn and use cheap Programs to tip fights.",
- mull:"Keep: Delamain Cab or Psycho Squad plus Trust No One / Dying Night.",
- early:"Turns 1–3: Dying Night on a Legend/Unit, Trust No One. Delamain draws 2 on turn 3 (not vs BBG).",
- mid:"Turns 4–6: Cab + Psycho Squad steal. Muramasa readies when behind. Kusanagi from turn 6 on.",
- late:"Turns 7+: Evelyn forces their best blocker to attack into your board, clearing the way. Chrome Reverie the last attacker that could race you.",
- combos:[
-  ["Cab economy","Cab steals → +1 Eddie, which pays for Floor It/Reboot on their turn."],
-  ["Kusanagi + Braindance","Cast Pyramid Song on their blocker, Judy gives Kusanagi +1: 9 vs (their power -4)."],
-  ["Evelyn clear-out","Force their Blocker to attack into your board, so it's spent on your turn and can't block."]
- ],
- tips:"Delamain is a power-0 card draw engine, so keep it away from BBG and use it vs Red.",
- mu:{
-  bbg:"Good once Delamain is sided out. Kusanagi dodges their sorcery removal entirely.",
-  johnny:"Chrome Reverie/Nocturne buys turns while vehicles steal. Kusanagi + any -power wins the fight.",
-  adam:"Kusanagi isn't on board for his Play. Side in Maman; Unlikely Bond the spent Smasher."
+ {
+  "name": "Vehicle Garage",
+  "style": "Midrange aggro",
+  "diff": "Easy",
+  "r": [
+   4,
+   3,
+   3
+  ],
+  "blurb": "Delamain's fleet. Cabs that make Eddies, Kusanagi hit-and-runs, and Muramasa that untaps, backed by Judy's Braindance pumps and Evelyn's forced attacks.",
+  "legends": [
+   "Jackie Welles: Pour One Out For Me",
+   "Evelyn Parker: Beautiful Enigma",
+   "Judy Alvarez: Braindance Maestro"
+  ],
+  "units": [
+   [
+    3,
+    "Delamain Cab"
+   ],
+   [
+    2,
+    "Delamain: Rideshare AI"
+   ],
+   [
+    3,
+    "Modded Kusanagi"
+   ],
+   [
+    3,
+    "Modded Muramasa"
+   ],
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    2,
+    "Rita Wheeler: No Stupid Questions"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    2,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Three Mouths, One Desire"
+   ]
+  ],
+  "gear": [
+   [
+    3,
+    "Dying Night: V's Pistol"
+   ],
+   [
+    2,
+    "NetWatch Netdriver"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Westbrook Netrunner"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ]
+  ],
+  "win": "Constant pressure from Units that make Eddies (Cab) or dodge removal (Kusanagi). Steal Gigs every turn and use cheap Programs to tip fights.",
+  "mull": "Keep: Delamain Cab or Psycho Squad plus Trust No One / Dying Night.",
+  "early": "Turns 1–3: Dying Night on a Legend/Unit, Trust No One. Delamain draws 2 on turn 3 (not vs BBG).",
+  "mid": "Turns 4–6: Cab + Psycho Squad steal. Muramasa readies when behind. Kusanagi from turn 6 on.",
+  "late": "Turns 7+: Evelyn forces their best blocker to attack into your board, clearing the way. Chrome Reverie the last attacker that could race you.",
+  "combos": [
+   [
+    "Cab economy",
+    "Cab steals → +1 Eddie, which pays for Floor It/Reboot on their turn."
+   ],
+   [
+    "Kusanagi + Braindance",
+    "Cast Pyramid Song on their blocker, Judy gives Kusanagi +1: 9 vs (their power -4)."
+   ],
+   [
+    "Evelyn clear-out",
+    "Force their Blocker to attack into your board, so it's spent on your turn and can't block."
+   ]
+  ],
+  "tips": "Delamain is a power-0 card draw engine, so keep it away from BBG and use it vs Red.",
+  "mu": {
+   "bbg": "Good once Delamain is sided out. Kusanagi dodges their sorcery removal entirely.",
+   "johnny": "Chrome Reverie/Nocturne buys turns while vehicles steal. Kusanagi + any -power wins the fight.",
+   "adam": "Kusanagi isn't on board for his Play. Side in Maman; Unlikely Bond the spent Smasher."
+  },
+  "sideNote": "Vs BBG: -2 Delamain, -2 Three Mouths → +2 Westbrook, +2 Maman. Vs Red: -2 Dying Night → +2 Reboot Optics.",
+  "prev": [
+   4,
+   3,
+   3
+  ]
  },
- sideNote:"Vs BBG: -2 Delamain, -2 Three Mouths → +2 Westbrook, +2 Maman. Vs Red: -2 Dying Night → +2 Reboot Optics."
-},
-/* ---------------- 14 ---------------- */
-{
- name:"Exile's Gambit", style:"Go Solo tempo", diff:"Medium", r:[4,1,3],
- blurb:"V: Corporate Exile goes solo for 3 with Nocturne as an 8-power attacker on turn 3–4. Dying Night on V readies 2 Eddies a turn. Excellent vs BBG; <b>bad vs Johnny</b> (V is CORPO). Play it in a BBG-heavy field.",
- legends:[L.v,L.jackie,L.wakako],
- units:[[3,U.psycho],[3,U.west],[3,U.rita],[2,U.rogue],[2,U.kus],[3,U.jvb]],
- programs:[[3,P.noc],[3,P.tno],[3,P.floor],[3,P.chrome],[3,P.pyr],[2,P.bond],[2,P.reboot]],
- gear:[[3,G.dn],[2,G.net]],
- side:[[3,U.maman],[2,P.tow],[2,P.les]],
- win:"Early 8-power V plus Dying Night means fast Gigs and +2 Eddies every turn. Overpower BBG before Towerfall matters.",
- mull:"Keep: Nocturne (the Go Solo discount) or enough Eddies for V by turn 5, plus Dying Night.",
- early:"Turns 1–3: Jacked-In Voodoo Boy, Trust No One. With an empty fixer area, Nocturne costs 1: choose 'Go Solo for -2' and V comes in for 3.",
- mid:"Turns 4–6: Equip Dying Night to V: attacks lower a Gig by 2, and at end of turn ready 2 Eddies (it's named V). Psycho Squad / Westbrook follow.",
- late:"Turns 7+: Kusanagi and Rogue push through. Chrome Reverie the last blocker.",
- combos:[
-  ["Nocturne → V","Nocturne for 1 (empty fixer area), Go Solo -2: an 8-power V for 3 Eddies."],
-  ["Dying Night on V","+2 Eddies every turn and -2 to a Gig on each attack."],
-  ["V + Westbrook","Westbrook stops their Legends stealing your low Gigs while V races."]
- ],
- tips:"V leaving the field removes it from the game (Go Solo rule), so protect V with Reboot Optics and Floor It.",
- mu:{
-  bbg:"Very good: an 8-power V survives Pyramid Song, and Towerfall (-5) still leaves it at 3.",
-  johnny:"Bad. Johnny wins every fight against V (CORPO). Don't Go Solo V into a board with Johnny; Chrome Reverie him first, or side into Maman and keep V face-down.",
-  adam:"Medium. Smasher's Play will defeat V, so bait with Psycho Squad first or hold V until Smasher is spent and Bond him."
+ {
+  "name": "Exile's Gambit",
+  "style": "Go Solo tempo",
+  "diff": "Medium",
+  "r": [
+   4,
+   2,
+   3
+  ],
+  "blurb": "V: Corporate Exile goes solo for 3 with Nocturne as an 8-power attacker on turn 3–4. Dying Night on V readies 2 Eddies a turn. Excellent vs BBG; <b>bad vs Johnny</b> (V is CORPO). Play it in a BBG-heavy field.",
+  "legends": [
+   "V: Corporate Exile",
+   "Jackie Welles: Pour One Out For Me",
+   "Evelyn Parker: Beautiful Enigma"
+  ],
+  "units": [
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    3,
+    "Westbrook Netrunner"
+   ],
+   [
+    3,
+    "Rita Wheeler: No Stupid Questions"
+   ],
+   [
+    2,
+    "Rogue Amendiares: Queen of the Afterlife"
+   ],
+   [
+    2,
+    "Modded Kusanagi"
+   ],
+   [
+    3,
+    "Jacked-In Voodoo Boy"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Nocturne OP55 N1"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    2,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ]
+  ],
+  "gear": [
+   [
+    3,
+    "Dying Night: V's Pistol"
+   ],
+   [
+    2,
+    "NetWatch Netdriver"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Towerfall"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ]
+  ],
+  "win": "Early 8-power V plus Dying Night means fast Gigs and +2 Eddies every turn. Overpower BBG before Towerfall matters.",
+  "mull": "Keep: Nocturne (the Go Solo discount) or enough Eddies for V by turn 5, plus Dying Night.",
+  "early": "Turns 1–3: Jacked-In Voodoo Boy, Trust No One. With an empty fixer area, Nocturne costs 1: choose 'Go Solo for -2' and V comes in for 3.",
+  "mid": "Turns 4–6: Equip Dying Night to V: attacks lower a Gig by 2, and at end of turn ready 2 Eddies (it's named V). Psycho Squad / Westbrook follow.",
+  "late": "Turns 7+: Kusanagi and Rogue push through. Chrome Reverie the last blocker.",
+  "combos": [
+   [
+    "Nocturne → V",
+    "Nocturne for 1 (empty fixer area), Go Solo -2: an 8-power V for 3 Eddies."
+   ],
+   [
+    "Dying Night on V",
+    "+2 Eddies every turn and -2 to a Gig on each attack."
+   ],
+   [
+    "V + Westbrook",
+    "Westbrook stops their Legends stealing your low Gigs while V races."
+   ],
+   [
+    "V + Evelyn",
+    "V steals → Evelyn readies 1 Eddie, plus Dying Night's 2 at end of turn: up to 3 extra Eddies a turn."
+   ]
+  ],
+  "tips": "V leaving the field removes it from the game (Go Solo rule), so protect V with Reboot Optics and Floor It.",
+  "mu": {
+   "bbg": "Very good: an 8-power V survives Pyramid Song, and Towerfall (-5) still leaves it at 3.",
+   "johnny": "Still the weak spot. Johnny wins every fight against V (CORPO). Spend Evelyn to force him into Rita + Pyramid Song first, and only Go Solo V once he's gone.",
+   "adam": "Medium. Smasher's Play will defeat V, so bait with Psycho Squad first or hold V until Smasher is spent and Bond him."
+  },
+  "sideNote": "Vs Johnny: -3 Dying Night → +3 Maman (play V only after Johnny is gone). Vs BBG: -2 Reboot Optics → +2 Les Élémens.",
+  "prev": [
+   4,
+   1,
+   3
+  ],
+  "swap": "Wakako → <b>Evelyn Parker: Beautiful Enigma</b>. V is CORPO and Rita is a Ganger, so every Gig they steal readies an Eddie through Evelyn, on top of Dying Night's 2. Her Spend can also force Johnny to attack into Rita before you send V in."
  },
- sideNote:"Vs Johnny: -3 Dying Night → +3 Maman (play V only after Johnny is gone). Vs BBG: -2 Reboot Optics → +2 Les Élémens."
-},
-/* ---------------- 15 ---------------- */
-{
- name:"Shrink Ray", style:"-Power control", diff:"Medium", r:[3,5,4],
- blurb:"Stack -power until their bomb hits 0 and gets bottom-decked. Floor It -1, Pyramid -4, Rogue -4, Towerfall -5, and Evelyn forces their bomb to attack straight into it. Johnny never wins a fight here.",
- legends:[L.judy,L.sasha,L.evelyn],
- units:[[3,U.rogue],[3,U.rita],[3,U.psycho],[3,U.west],[2,U.lizzy],[1,U.placide]],
- programs:[[3,P.pyr],[3,P.tow],[3,P.floor],[3,P.chrome],[3,P.tno],[2,P.reboot],[3,P.bond],[2,P.noc]],
- gear:[[3,G.net]],
- side:[[3,U.maman],[2,P.les],[2,U.mox]],
- win:"Every fight goes your way: shrink their attacker or blocker each turn. Their Units at 0 get bottom-decked by Pyramid Song / Towerfall.",
- mull:"Keep: Floor It or Pyramid Song plus a 4-drop. Rogue is a premium keep.",
- early:"Turns 1–3: Trust No One sets up the d4 min Gig (Pyramid's double mode). Evelyn's Spend (1 Eddie) makes their best Unit attack next turn, straight into your Blockers and shrink effects.",
- mid:"Turns 4–6: Rita/Westbrook/Psycho Squad on board. Rogue: 2 Eddies + Spend for -4 on any Unit, at Quick speed during their attack.",
- late:"Turns 6+: Towerfall (-5 all, both modes when behind on Street Cred). Combined with earlier shrinks, their board goes to the bottom.",
- combos:[
-  ["Pyramid double mode","With a min d4: -4 on a Unit, then bottom-deck a Unit at power 0. Pyramid -4 + Rogue -4 = an 8-power Johnny at 0 and gone."],
-  ["Evelyn → Block → Shrink","Spend Evelyn to force their bomb to attack, block with Rita, then Rogue -4 + Floor It -1: it loses the fight on your terms."],
-  ["Towerfall finish","After a -4 from Pyramid, Towerfall's -5 takes a 9-power Smasher to 0 and bottom-decks him."]
- ],
- tips:"Shrink effects last only this turn. Apply them during a fight (Quick: Floor It, Rogue) or right before your bottom-deck effect.",
- mu:{
-  bbg:"Medium. Their Units are few; your -power is weaker here. Side in Maman and Les Élémens and win with Psycho Squad/Westbrook.",
-  johnny:"Excellent. He attacks, you block with Rita, Rogue -4 + Floor It -1: Johnny 3 vs Rita 4. He loses and is defeated, and never readies.",
-  adam:"Good. Pyramid -4 + Towerfall -5 = Smasher 0 → bottom-decked → removed from the game. Or simply make him lose a block."
- },
- sideNote:"Vs BBG: -2 Reboot Optics, -2 Nocturne, -3 Floor It → +3 Maman, +2 Les Élémens, +2 Mox Inciters."
-}
+ {
+  "name": "Shrink Ray",
+  "style": "-Power control",
+  "diff": "Medium",
+  "r": [
+   3,
+   5,
+   4
+  ],
+  "blurb": "Stack -power until their bomb hits 0 and gets bottom-decked. Floor It -1, Pyramid -4, Rogue -4, Towerfall -5, and Evelyn forces their bomb to attack straight into it. Johnny never wins a fight here.",
+  "legends": [
+   "Judy Alvarez: Braindance Maestro",
+   "Sasha Yakovleva: Won't Let You Down",
+   "Evelyn Parker: Beautiful Enigma"
+  ],
+  "units": [
+   [
+    3,
+    "Rogue Amendiares: Queen of the Afterlife"
+   ],
+   [
+    3,
+    "Rita Wheeler: No Stupid Questions"
+   ],
+   [
+    3,
+    "Psycho Squad"
+   ],
+   [
+    3,
+    "Westbrook Netrunner"
+   ],
+   [
+    2,
+    "Lizzy Wizzy: Delicate Weapon"
+   ],
+   [
+    1,
+    "Placide: Voodoo Sentinel"
+   ]
+  ],
+  "programs": [
+   [
+    3,
+    "Pyramid Song"
+   ],
+   [
+    3,
+    "Towerfall"
+   ],
+   [
+    3,
+    "Floor It"
+   ],
+   [
+    3,
+    "Chrome Reverie"
+   ],
+   [
+    3,
+    "Trust No One"
+   ],
+   [
+    2,
+    "Reboot Optics"
+   ],
+   [
+    3,
+    "Unlikely Bond"
+   ],
+   [
+    2,
+    "Nocturne OP55 N1"
+   ]
+  ],
+  "gear": [
+   [
+    3,
+    "NetWatch Netdriver"
+   ]
+  ],
+  "side": [
+   [
+    3,
+    "Maman Brigitte: Spirit of Death"
+   ],
+   [
+    2,
+    "Les Élémens"
+   ],
+   [
+    2,
+    "Mox Inciters"
+   ]
+  ],
+  "win": "Every fight goes your way: shrink their attacker or blocker each turn. Their Units at 0 get bottom-decked by Pyramid Song / Towerfall.",
+  "mull": "Keep: Floor It or Pyramid Song plus a 4-drop. Rogue is a premium keep.",
+  "early": "Turns 1–3: Trust No One sets up the d4 min Gig (Pyramid's double mode). Evelyn's Spend (1 Eddie) makes their best Unit attack next turn, straight into your Blockers and shrink effects.",
+  "mid": "Turns 4–6: Rita/Westbrook/Psycho Squad on board. Rogue: 2 Eddies + Spend for -4 on any Unit, at Quick speed during their attack.",
+  "late": "Turns 6+: Towerfall (-5 all, both modes when behind on Street Cred). Combined with earlier shrinks, their board goes to the bottom.",
+  "combos": [
+   [
+    "Pyramid double mode",
+    "With a min d4: -4 on a Unit, then bottom-deck a Unit at power 0. Pyramid -4 + Rogue -4 = an 8-power Johnny at 0 and gone."
+   ],
+   [
+    "Evelyn → Block → Shrink",
+    "Spend Evelyn to force their bomb to attack, block with Rita, then Rogue -4 + Floor It -1: it loses the fight on your terms."
+   ],
+   [
+    "Towerfall finish",
+    "After a -4 from Pyramid, Towerfall's -5 takes a 9-power Smasher to 0 and bottom-decks him."
+   ]
+  ],
+  "tips": "Shrink effects last only this turn. Apply them during a fight (Quick: Floor It, Rogue) or right before your bottom-deck effect.",
+  "mu": {
+   "bbg": "Medium. Their Units are few; your -power is weaker here. Side in Maman and Les Élémens and win with Psycho Squad/Westbrook.",
+   "johnny": "Excellent. He attacks, you block with Rita, Rogue -4 + Floor It -1: Johnny 3 vs Rita 4. He loses and is defeated, and never readies.",
+   "adam": "Good. Pyramid -4 + Towerfall -5 = Smasher 0 → bottom-decked → removed from the game. Or simply make him lose a block."
+  },
+  "sideNote": "Vs BBG: -2 Reboot Optics, -2 Nocturne, -3 Floor It → +3 Maman, +2 Les Élémens, +2 Mox Inciters.",
+  "prev": [
+   3,
+   5,
+   4
+  ]
+ }
 ];
 
 /* ---------- render ---------- */
 const sum = a => a.reduce((s,x)=>s+x[0],0);
+const sum3 = a => a[0]+a[1]+a[2];
+const chg = d => { const x=sum3(d.r)-sum3(d.prev); return x>0?`<span class="up">(+${x})</span>`:""; };
 const stars = n => "★".repeat(n)+"☆".repeat(5-n);
 const esc = s => s;
 const listHTML = (title, arr) => !arr.length ? "" :
@@ -625,7 +2154,7 @@ TOP.forEach((d,i)=>{
   const ok=total>=40&&total<=50&&sum(d.side)===7&&!over.length&&new Set(d.legends).size===3;
   d._ok=ok;
 
-  fb.insertAdjacentHTML("beforeend",`<tr><td><b style="color:var(--yellow)">#${i+1}</b></td><td><a href="#${id}">${d.name}</a></td><td>${d.orig}</td><td>${d.style}</td><td class="stars">${stars(d.r[0])}</td><td class="stars">${stars(d.r[1])}</td><td class="stars">${stars(d.r[2])}</td><td><b>${d.tot}/15</b></td><td>${d.diff}</td></tr>`);
+  fb.insertAdjacentHTML("beforeend",`<tr><td><b style="color:var(--yellow)">#${i+1}</b></td><td><a href="#${id}">${d.name}</a></td><td>${d.orig}</td><td>${d.style}</td><td class="stars">${stars(d.r[0])}</td><td class="stars">${stars(d.r[1])}</td><td class="stars">${stars(d.r[2])}</td><td><b>${d.tot}/15</b>${chg(d)}</td><td>${d.diff}</td></tr>`);
 
   const sec=document.createElement("section");
   sec.className="deck"; sec.id=id; sec.dataset.r=JSON.stringify(d.r);
@@ -636,6 +2165,7 @@ TOP.forEach((d,i)=>{
      <p>${d.blurb}</p>
      <div class="legends">${d.legends.map(l=>`<span class="legend">◆ ${l}</span>`).join("")}</div>
      <div class="rating"><span class="pill">vs BBG<b>${stars(d.r[0])}</b></span><span class="pill">vs Johnny<b>${stars(d.r[1])}</b></span><span class="pill">vs Smasher<b>${stars(d.r[2])}</b></span></div>
+     ${d.swap?`<div class="swap"><b>Legend swap:</b> ${d.swap}<br><span class="note">Rating with Wakako (one-time Call): ${d.prev.join(" / ")} = ${sum3(d.prev)}/15 → now ${d.r.join(" / ")} = ${sum3(d.r)}/15</span></div>`:""}
    </div>
    <div class="deck-body">
      <div class="col">
