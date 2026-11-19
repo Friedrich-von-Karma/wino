@@ -156,6 +156,7 @@ td.stars{color:var(--yellow);white-space:nowrap;letter-spacing:1px}
   <div class="card warn">
     <ul>
       <li><b>RAM:</b> three Blue Legends give 6 Blue RAM, so every Blue card is legal. The highest Blue RAM is Judy Álvarez: Nothing to Doubt at 5.</li>
+      <li><b>Calling Legends:</b> a Legend's Call effect only happens on the turn you flip it, so Wakako's -2 / draw is one use per game. Her repeatable value is her Spend (lower a Gig by 2), which keeps your min-Gig cards switched on.</li>
       <li><b>Sell Tags:</b> I couldn't confirm which cards carry a Sell Tag. Count yours and aim for <b>at least 30%</b> (12 or more of 40) so you hit your Eddies every turn. If you're short, swap a 1-of for a Sell Tag card.</li>
       <li><b>Turn numbers</b> in the plans assume you sell one card a turn and hit your Eddies. Adjust if you're behind.</li>
       <li><b>Hanako's text</b> wasn't checked. Read it before your BBG games.</li>
@@ -195,9 +196,9 @@ const DECKS = [
  programs:[[3,P.pyr],[2,P.tow],[2,P.les],[3,P.bond],[3,P.chrome],[3,P.noc],[3,P.tno],[3,P.floor],[3,P.three],[2,P.reboot]],
  gear:[],
  side:[[2,U.rogue],[2,U.west],[2,U.psycho],[1,U.mox]],
- win:"Answer every threat one-for-one (or better with Alt recursion), keep the board clear, then win with Placide or Lizzy plus whatever Units survive. You win the long game through card advantage from Three Mouths, Nocturne, Floor It and Wakako's draw.",
+ win:"Answer every threat one-for-one (or better with Alt recursion), keep the board clear, then win with Placide or Lizzy plus whatever Units survive. You win the long game through card advantage from Three Mouths, Nocturne, Floor It, plus Wakako's Spend setting up a min Gig every turn.",
  mull:"Keep: at least one cheap play (Jacked-In Voodoo Boy, Trust No One, Floor It) plus one answer (Pyramid Song, Chrome Reverie or Unlikely Bond). Ship hands with two or more 5–6 drops and no turn-2 play.",
- early:"Turns 1–3: Trust No One to set up a min Gig (Jackie draws when you make a min Gig after a Blue Unit), Jacked-In Voodoo Boy on turn 2, Three Mouths to sculpt your hand. Save Floor It for their combat. Use Wakako's Call to draw if nothing needs shrinking.",
+ early:"Turns 1–3: Trust No One to set up a min Gig (Jackie draws when you make a min Gig after a Blue Unit), Jacked-In Voodoo Boy on turn 2, Three Mouths to sculpt your hand. Save Floor It for their combat. When you flip Wakako, take the draw unless a fight needs her one-time -2. After that, Spend her every turn to drop a Gig to min.",
  mid:"Turns 4–6: Hold Pyramid Song and Chrome Reverie up instead of tapping out. Maman Brigitte their first real threat (discard extra Programs, which become Alt targets later). Lizzy replays a 3-cost Program from trash: Pyramid Song or Chrome Reverie are best.",
  late:"Turns 7+: Alt (1 + Spend) recasts Les Élémens or Towerfall from the trash. Placide attacks, discards a spare Program, bottom-decks their best Unit. Close out Gigs once their hand is empty.",
  combos:[
@@ -207,7 +208,7 @@ const DECKS = [
  ],
  tips:"Don't fire Pyramid Song at the first Unit you see; keep it for Johnny/Smasher-sized threats. Count their Programs vs BBG: once their Towerfalls are gone, start deploying Units.",
  mu:{
-  bbg:"You have their answers plus 3 Unlikely Bond and more Units. Keep Jacked-In Voodoo Boy out as the Les Élémens decoy and hold Pyramid Song for their Placide/Maman. Wakako's Call (draw 1) wins the long game.",
+  bbg:"You have their answers plus 3 Unlikely Bond and more Units. Keep Jacked-In Voodoo Boy out as the Les Élémens decoy and hold Pyramid Song for their Placide/Maman. Wakako's Spend keeps a min Gig every turn, so Pyramid Song, Three Mouths and Alt always run at full power.",
   johnny:"Chrome Reverie on the turn he'd attack, then Maman Brigitte before Mantis Blades lands. If he steals unblocked he stays spent, so Unlikely Bond him. Blocking with Rita + Reboot Optics keeps your blocker alive.",
   adam:"Let him Go Solo into a Jacked-In Voodoo Boy (cheap Unit for his Play to defeat). Next turn, Unlikely Bond the spent Smasher and he's removed from the game. Alt can replay Les Élémens if he's their only Unit."
  },
@@ -371,7 +372,7 @@ const DECKS = [
  mu:{
   bbg:"Medium. They have few Units to force, so this is a value game. Side in Chrome Reverie for Psycho Squad and play it as midrange.",
   johnny:"Your best matchup. Force him into Rita + Pyramid/Floor It so he loses the fight, or let him win and Unlikely Bond him (he readies only on a win; plan accordingly).",
-  adam:"Evelyn forces Smasher to attack into a Blocker. Either he loses to Pyramid + Wakako, or he's spent and gets Bonded: removed from the game."
+  adam:"Evelyn forces Smasher to attack into a Blocker. Either he loses to Pyramid Song + Floor It (or Wakako's one-time -2 if you save her flip for it), or he's spent and gets Bonded: removed from the game."
  },
  sideNote:"Vs BBG: -3 Mox Inciters, -1 Towerfall, -3 Reboot Optics → +3 Chrome Reverie, +2 Psycho Squad, +2 Rogue."
 },
@@ -413,18 +414,18 @@ const DECKS = [
  side:[[3,P.bond],[2,U.maman],[2,U.west]],
  win:"Steady Gig theft with Units that are hard to punish. Kusanagi is never on the board during their turn, so their removal and Smasher's Play have bad targets.",
  mull:"Keep: a 2-drop plus a 4-drop plus a cheap Program. Ship hands without early plays.",
- early:"Turns 1–3: Jacked-In Voodoo Boy + Trust No One. Dying Night lowers Gigs on attack. Wakako's Call draws if the board is empty.",
+ early:"Turns 1–3: Jacked-In Voodoo Boy + Trust No One. Dying Night lowers Gigs on attack. Wakako's Spend lowers a Gig by 2 so your small Units can steal it.",
  mid:"Turns 4–6: Psycho Squad / Delamain Cab. Muramasa (5) readies at end of turn if behind on Street Cred, so it attacks and still blocks.",
  late:"Turns 6+: Kusanagi every turn (8-power haste). Sasha Go Solo 5 for a surprise attacker. Chrome Reverie their best blocker on the final turn.",
  combos:[
   ["Kusanagi + Floor It","Kusanagi 8 attacks, Floor It -1 their blocker. You win fights against anything under 9."],
   ["Muramasa defense","Behind on Street Cred → Muramasa readies at end of turn: attacker and blocker in one."],
-  ["Wakako -2","Call: -2 on their blocker or attacker for the turn, a free combat trick each turn you Call."]
+  ["Wakako Gig-drop","Spend every turn: lower a Gig by 2 so 4-power Units steal Gigs they couldn't before. Save her flip (one-time -2) for the turn a big fight needs it."]
  ],
  tips:"Equip Gear to Psycho Squad/Muramasa, never Kusanagi (it returns to hand).",
  mu:{
   bbg:"Good. Their sorcery-speed removal mostly whiffs on Kusanagi. Keep 2–3 Units on board max vs Towerfall.",
-  johnny:"Race. Kusanagi trades evenly with Johnny (8 vs 8), so add Floor It or Wakako -2 to win the fight. Chrome Reverie on his attack turn.",
+  johnny:"Race. Kusanagi trades evenly with Johnny (8 vs 8), so add Floor It or Pyramid Song to win the fight. Chrome Reverie on his attack turn.",
   adam:"Smasher's Play can't hit Kusanagi (in hand on their turn). Side in Unlikely Bond for the spent Smasher."
  },
  sideNote:"Vs Smasher/Johnny: -2 Rippler, -1 Reboot Optics → +3 Unlikely Bond. Vs BBG: -2 Rita → +2 Westbrook."
@@ -567,20 +568,20 @@ const DECKS = [
 /* ---------------- 15 ---------------- */
 {
  name:"Shrink Ray", style:"-Power control", diff:"Medium", r:[3,5,4],
- blurb:"Stack -power until their bomb hits 0 and gets bottom-decked. Wakako -2, Floor It -1, Pyramid -4, Rogue -4, Towerfall -5. Johnny never wins a fight here.",
- legends:[L.judy,L.sasha,L.wakako],
+ blurb:"Stack -power until their bomb hits 0 and gets bottom-decked. Floor It -1, Pyramid -4, Rogue -4, Towerfall -5, and Evelyn forces their bomb to attack straight into it. Johnny never wins a fight here.",
+ legends:[L.judy,L.sasha,L.evelyn],
  units:[[3,U.rogue],[3,U.rita],[3,U.psycho],[3,U.west],[2,U.lizzy],[1,U.placide]],
  programs:[[3,P.pyr],[3,P.tow],[3,P.floor],[3,P.chrome],[3,P.tno],[2,P.reboot],[3,P.bond],[2,P.noc]],
  gear:[[3,G.net]],
  side:[[3,U.maman],[2,P.les],[2,U.mox]],
  win:"Every fight goes your way: shrink their attacker or blocker each turn. Their Units at 0 get bottom-decked by Pyramid Song / Towerfall.",
  mull:"Keep: Floor It or Pyramid Song plus a 4-drop. Rogue is a premium keep.",
- early:"Turns 1–3: Trust No One sets up the d4 min Gig (Pyramid's double mode). Wakako's Call: -2 on their attacker or draw.",
+ early:"Turns 1–3: Trust No One sets up the d4 min Gig (Pyramid's double mode). Evelyn's Spend (1 Eddie) makes their best Unit attack next turn, straight into your Blockers and shrink effects.",
  mid:"Turns 4–6: Rita/Westbrook/Psycho Squad on board. Rogue: 2 Eddies + Spend for -4 on any Unit, at Quick speed during their attack.",
  late:"Turns 6+: Towerfall (-5 all, both modes when behind on Street Cred). Combined with earlier shrinks, their board goes to the bottom.",
  combos:[
   ["Pyramid double mode","With a min d4: -4 on a Unit, then bottom-deck a Unit at power 0. Pyramid -4 + Rogue -4 = an 8-power Johnny at 0 and gone."],
-  ["Wakako + Floor It","-2 and -1 on the same Unit: a 3-point swing for 1 Eddie, plus a draw."],
+  ["Evelyn → Block → Shrink","Spend Evelyn to force their bomb to attack, block with Rita, then Rogue -4 + Floor It -1: it loses the fight on your terms."],
   ["Towerfall finish","After a -4 from Pyramid, Towerfall's -5 takes a 9-power Smasher to 0 and bottom-decks him."]
  ],
  tips:"Shrink effects last only this turn. Apply them during a fight (Quick: Floor It, Rogue) or right before your bottom-deck effect.",
