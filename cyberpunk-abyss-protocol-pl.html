@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abyss Protocol</title>
+<style>
+:root{
+  --bg:#0b0c10; --panel:#14161d; --panel2:#1b1e27; --line:#2a2f3c;
+  --text:#e7e9ee; --muted:#9aa3b2; --yellow:#f3e600; --cyan:#00e5ff; --red:#ff3b5c; --green:#3ee08f;
+  --blue:#4c8dff; --orange:#ff8a3b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:clamp(28px,6vw,44px);margin:0;letter-spacing:.5px;color:var(--yellow);text-transform:uppercase}
+h1 span{color:var(--cyan)}
+.sub{color:var(--muted);margin:6px 0 16px}
+h2{color:var(--yellow);text-transform:uppercase;font-size:19px;letter-spacing:1px;margin:38px 0 12px;border-bottom:1px solid var(--line);padding-bottom:6px;scroll-margin-top:10px}
+h3{font-size:16px;margin:18px 0 6px;color:var(--cyan)}
+a{color:var(--cyan)}
+p{margin:0 0 10px}
+ul,ol{margin:0 0 10px;padding-left:22px}
+li{margin:4px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0}
+.warn{border-left:4px solid var(--yellow)}
+.bad{border-left:4px solid var(--red)}
+.good{border-left:4px solid var(--green)}
+.legends{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.legend{background:var(--panel2);border:1px solid var(--blue);color:#cfe0ff;border-radius:6px;padding:4px 10px;font-size:13px}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);background:var(--panel2)}
+.pill b{color:var(--yellow);margin-left:4px;letter-spacing:1px}
+nav.toc{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
+nav.toc a{font-size:13px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:5px 11px;text-decoration:none}
+.tbl{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:10px 0}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--cyan);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
+td.q{color:var(--yellow);font-weight:700;white-space:nowrap}
+td.n{white-space:nowrap;font-weight:600}
+.en{display:block;color:var(--muted);font-size:12px;font-style:italic;margin-top:3px}
+.sect{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--cyan);margin:4px 0}
+.turn{background:var(--panel2);border-radius:8px;padding:10px 14px;margin:8px 0}
+.turn b.t{color:var(--yellow);font-size:12px;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:2px}
+.combo{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:8px;padding:10px 14px;margin:10px 0}
+.combo h4{margin:0 0 4px;color:var(--cyan);font-size:15px}
+.combo ol{margin:4px 0 4px}
+.mu{border-radius:8px;padding:12px 14px;margin:10px 0;background:var(--panel)}
+.mu h3{margin:0 0 6px}
+.mu.bbg{border-left:4px solid var(--green)} .mu.bbg h3{color:var(--green)}
+.mu.johnny{border-left:4px solid var(--red)} .mu.johnny h3{color:var(--red)}
+.mu.adam{border-left:4px solid var(--orange)} .mu.adam h3{color:var(--orange)}
+.mu.aggro{border-left:4px solid var(--blue)} .mu.aggro h3{color:var(--blue)}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;margin-left:6px;vertical-align:middle;border:1px solid}
+.tag.new{color:var(--green);border-color:var(--green)}
+.tag.fix{color:var(--red);border-color:var(--red)}
+.total{font-weight:700;color:var(--green);margin-top:6px}
+.note{color:var(--muted);font-size:13px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Abyss <span>Protocol</span></h1>
+  <p class="sub">BBB · Kontrola na wkładaniu na spód talii · Pełny poradnik po weryfikacji zasad i tekstów kart</p>
+  <div class="legends">
+    <span class="legend">◆ Alt Cunningham: Soulkiller Architect</span>
+    <span class="legend">◆ Jackie Welles: Pour One Out For Me</span>
+    <span class="legend">◆ Judy Alvarez: Braindance Maestro</span>
+  </div>
+  <div class="pills"><span class="pill">vs BBG<b>★★★★★</b></span><span class="pill">vs Johnny<b>★★★★☆</b></span><span class="pill">vs Smasher<b>★★★★★</b></span><span class="pill">Trudność<b>Trudna</b></span></div>
+
+  <nav class="toc">
+    <a href="#lista">Lista</a><a href="#poprawki">Co poprawiłem</a><a href="#zasady">Zasady</a><a href="#legendy">Legendy</a><a href="#karty">Rola kart</a><a href="#plan">Plan gry</a><a href="#tury">Tura po turze</a><a href="#combo">Zagrania</a><a href="#matchupy">Matchupy</a><a href="#side">Sideboard</a><a href="#zamienniki">Zamienniki</a><a href="#bledy">Błędy</a><a href="#niepewne">Do potwierdzenia</a>
+  </nav>
+
+  <!-- ================= LISTA ================= -->
+  <h2 id="lista">Lista talii (po weryfikacji)</h2>
+  <p>W stosunku do poprzedniej wersji zmieniłem jedną rzecz: <b>-2 Reboot Optics, +2 Rogue Amendiares</b> do main decku (Reboot Optics poszło do sideboardu). Powód jest w sekcji <a href="#poprawki">Co poprawiłem</a>.</p>
+  <div class="grid2">
+    <div class="tbl"><table>
+      <thead><tr><th colspan="3">Jednostki (15)</th></tr></thead>
+      <tbody>
+        <tr><td class="q">3×</td><td>Jacked-In Voodoo Boy</td><td>€$2</td></tr>
+        <tr><td class="q">2×</td><td>Rita Wheeler: No Stupid Questions</td><td>€$4</td></tr>
+        <tr><td class="q">3×</td><td>Maman Brigitte: Spirit of Death</td><td>€$5</td></tr>
+        <tr><td class="q">3×</td><td>Lizzy Wizzy: Delicate Weapon</td><td>€$5</td></tr>
+        <tr><td class="q">2×</td><td>Rogue Amendiares: Queen of the Afterlife <span class="tag new">NOWE</span></td><td>€$5</td></tr>
+        <tr><td class="q">2×</td><td>Placide: Voodoo Sentinel</td><td>€$8</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tbl"><table>
+      <thead><tr><th colspan="3">Programy (25)</th></tr></thead>
+      <tbody>
+        <tr><td class="q">3×</td><td>Trust No One</td><td>€$1</td></tr>
+        <tr><td class="q">3×</td><td>Floor It</td><td>€$1</td></tr>
+        <tr><td class="q">3×</td><td>Three Mouths, One Desire</td><td>€$2</td></tr>
+        <tr><td class="q">3×</td><td>Pyramid Song</td><td>€$3</td></tr>
+        <tr><td class="q">3×</td><td>Chrome Reverie</td><td>€$3</td></tr>
+        <tr><td class="q">3×</td><td>Nocturne OP55 N1</td><td>€$3 (1)</td></tr>
+        <tr><td class="q">3×</td><td>Unlikely Bond</td><td>€$4</td></tr>
+        <tr><td class="q">2×</td><td>Les Élémens</td><td>€$5</td></tr>
+        <tr><td class="q">2×</td><td>Towerfall</td><td>€$6</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="card"><b>Sideboard (7):</b> 2× Reboot Optics, 2× Westbrook Netrunner, 2× Psycho Squad, 1× Mox Inciters</div>
+  <p class="total">40 kart w main decku + 7 w sideboardzie · maks. 3 kopie każdej karty (licząc sideboard) · 3 różne Legendy · najwyższy RAM w talii to 4 (Maman, Les Élémens, Towerfall) przy limicie 6 niebieskiego RAM ✓</p>
+
+  <!-- ================= POPRAWKI ================= -->
+  <h2 id="poprawki">Co poprawiłem po sprawdzeniu zasad</h2>
+  <p>Porównałem każdy punkt starej strategii z zasadami i tekstami kart. Te rzeczy były <b>błędne</b> albo niedokładne:</p>
+  <div class="card bad">
+    <ol>
+      <li><b>Pyramid Song, Chrome Reverie, Nocturne, Unlikely Bond i Towerfall NIE mają Quick.</b> Gra się je tylko w swojej Main Phase. W turze rywala możesz zagrać wyłącznie karty z Quick i <i>tylko</i> w reakcji na atak (w tej talii: Floor It i Spend Rogue). Stary pomysł „zablokuj Rita, potem Pyramid Song” w turze rywala był niemożliwy.</li>
+      <li><b>Chrome Reverie nie zatrzyma Smashera w turze, w której wchodzi przez Go Solo.</b> Smasher wchodzi gotowy i atakuje od razu w turze rywala, a ty nie masz wtedy jak zagrać Chrome Reverie. Chrome Reverie działa tylko na Jednostkę, która już leży na stole w twojej turze.</li>
+      <li><b>Judy daje +1 siły tylko przy zagraniu Programu BRAINDANCE.</b> Żaden Braindance w tej talii nie ma Quick, więc +1 od Judy działa tylko w twojej turze, czyli przy <i>twoich</i> atakach, nie przy blokach.</li>
+      <li><b>Atakować można tylko ZUŻYTE Jednostki rywala</b> (walka) albo jego strefę Gigów (kradzież). Gotowych Jednostek nie da się zaatakować. To zmienia sposób zabijania Johnny'ego i Smashera, opisany w <a href="#combo">zagraniach</a>.</li>
+      <li><b>Efekt Play Smashera („defeat a rival Unit”) wybiera rywal.</b> Tania Jednostka nie jest „wabikiem”, bo i tak pokona tę, którą sam zechce. Wabik działa tylko na Les Élémens z BBG (ono musi trafić Jednostkę o najniższej sile).</li>
+      <li><b>Reboot Optics nie zatrzymuje Johnny'ego.</b> Johnny nadal <i>wygrywa</i> walkę, tylko nie pokonuje twojej Jednostki, więc i tak staje się gotowy i może zaatakować drugi raz. Dlatego zamieniłem je na Rogue Amendiares: jego Spend ma Quick (-4 siły w reakcji na atak) i realnie sprawia, że Johnny <i>przegrywa</i> albo remisuje walkę.</li>
+      <li><b>Alt nie odtwarza kart za darmo.</b> Jej drugi Spend kosztuje 1 €$ <i>plus pełny koszt</i> Programu. Towerfall z kosza to 7 €$, Les Élémens 6 €$, Unlikely Bond 5 €$, Pyramid Song 4 €$. Oba Spendy Alt wymagają obrócenia jej, więc w jednej turze użyjesz tylko jednego.</li>
+      <li><b>Nocturne kosztuje 1 €$ dopiero przy pustej strefie fixera</b>, czyli gdy wszystkie 6 Gigów jest już wyrzuconych (mniej więcej od 6. tury). Wcześniej kosztuje 3.</li>
+    </ol>
+  </div>
+  <div class="card good">
+    <b>Co się potwierdziło (i jest nawet lepsze, niż myślałem):</b>
+    <ul>
+      <li><b>Legendy nigdy nie trafiają do ręki, talii ani kosza.</b> Jeśli miałyby, zostają usunięte z gry. Smasher na polu, który zostanie <i>pokonany w walce</i>, włożony na spód talii albo opuści pole w jakikolwiek inny sposób, znika do końca gry.</li>
+      <li><b>Remis w walce pokonuje obie Jednostki.</b> Smasher 9 po Pyramid Song (-4) ma 5, więc twoja Jednostka z siłą 5 remisuje i zabiera go ze sobą na zawsze.</li>
+      <li>Unlikely Bond na zużytego Smashera albo Johnny'ego działa w twojej turze, bo Jednostki rywala gotowieją dopiero na początku <i>jego</i> tury.</li>
+      <li>Johnny nie wygra żadnej walki automatycznie, bo w tej talii nie ma Jednostek CORPO.</li>
+    </ul>
+  </div>
+
+  <!-- ================= ZASADY ================= -->
+  <h2 id="zasady">Zasady, które musisz znać do tej talii</h2>
+  <div class="card">
+    <h3>Tura</h3>
+    <ol>
+      <li><b>Start Phase:</b> sprawdzenie zwycięstwa (7+ kości Gig) → efekty „start of turn” → gotowieją wszystkie twoje zużyte karty (Legendy, pole, Eddies) → dobierasz 1 → wybierasz kość ze strefy fixera, rzucasz i kładziesz w strefie Gigów (d20 tylko jako ostatnia).</li>
+      <li><b>Main Phase</b> (dowolna kolejność): sprzedaj 1 kartę z Sell Tagiem jako Eddie (raz na turę), Call Legendy (1 €$, raz na turę), zagrywaj karty, używaj Spendów, atakuj.</li>
+      <li><b>End of Turn:</b> efekty końca tury, znikają efekty „this turn”, wszystkie Jednostki tracą Lag.</li>
+    </ol>
+    <h3>Eddies i Legendy</h3>
+    <ul>
+      <li>Sprzedana karta to 1 Eddie na stałe: co turę gotowieje i daje 1 €$. W 5. turze masz zwykle około 5 Eddies.</li>
+      <li>Legendy zaczynają zakryte, <b>w losowej kolejności</b>. Call (1 €$) odkrywa wybraną zakrytą kartę, ale nie wiesz, która to Legenda. Efekt Call działa tylko przy odkryciu. Alt, Jackie i Judy nie mają efektu Call, więc kolejność odkrywania tu nie ma znaczenia.</li>
+      <li>Odkryta Legenda z Sell Tagiem może zapłacić 1 €$, ale wtedy jest zużyta i nie użyjesz jej Spenda w tej turze. <b>Wybieraj co turę: Eddie czy Spend.</b></li>
+      <li>Gracz zaczynający ma na start 2 Legendy zużyte.</li>
+    </ul>
+    <h3>Atak, kradzież, walka</h3>
+    <ul>
+      <li>Atak zużywa Jednostkę. Jednostki wchodzą z Lagiem (nie atakują i nie używają Spendów w turze zagrania). Blocker działa nawet z Lagiem.</li>
+      <li>Cel ataku: <b>zużyta</b> Jednostka rywala (walka) albo strefa Gigów (kradzież). Kradzież: 1 Gig za siłę 1–9, 2 Gigi za 10–19. Siła 0 nic nie kradnie.</li>
+      <li>Walka: wyższa siła wygrywa, przegrany jest pokonany. <b>Remis pokonuje obie.</b> Blocker przejmuje atak i zamienia kradzież w walkę.</li>
+      <li>Reakcja obrońcy (React Step): Call Legendy, Blocker, karty i efekty z Quick.</li>
+    </ul>
+    <h3>Gigi i zwycięstwo</h3>
+    <ul>
+      <li>Każdy gracz ma 6 kości (d4, d6, d8, d10, d12, d20). <b>Wygrywasz, mając 7+ kości na początku swojej tury, więc musisz ukraść rywalowi co najmniej jedną.</b> Sama kontrola nie wygra.</li>
+      <li><b>min Gig</b> = kość pokazująca 1. <b>Street Cred</b> = suma wartości twoich Gigów.</li>
+      <li>Overtime: gdy obaj gracze przez dwie kolejne tury zaczynają z pustą strefą fixera, kto dojdzie do 7 kości, wygrywa od razu.</li>
+      <li>Mulligan: raz, cała ręka (6 kart) wraca do talii i dobierasz 6 nowych. Nie ma limitu kart na ręce.</li>
+    </ul>
+  </div>
+
+  <!-- ================= LEGENDY ================= -->
+  <h2 id="legendy">Legendy i jak ich używać</h2>
+  <div class="card">
+    <h3>Alt Cunningham: Soulkiller Architect</h3>
+    <p><b>Spend:</b> następny Program w tej turze kosztuje 1 €$ mniej za każdy twój min Gig (minimum 1 €$).<br>
+       <b>1 €$ + Spend:</b> zagraj Program z kosza (płacisz jego koszt), potem włóż go na spód talii.
+       <span class="en">"Your next Program this turn plays for -1 €$ for each friendly min Gig, to a minimum of 1 €$." · "Play a Program from your trash. Bottom-deck it after you play it. (You still pay its cost.)"</span></p>
+    <p><b>Jak grać:</b> z 2 min Gigami Towerfall kosztuje 4 zamiast 6, a Les Élémens 3. Trzymaj 1–2 kości na wartości 1 (Trust No One, Jackie). Odtwarzanie z kosza zostaw na drugi Towerfall albo Unlikely Bond na Smashera.</p>
+
+    <h3>Jackie Welles: Pour One Out For Me</h3>
+    <p>Za pierwszym razem w turze, gdy zagrasz niebieską Jednostkę albo niebieski Sprzęt, możesz zmniejszyć swój Gig o maks. 2. Jeśli stanie się min Gigiem, dobierasz 1.
+       <span class="en">"The first time you play a Blue Unit or Blue Gear each turn, you may decrease a friendly Gig by up to 2. If it becomes a min Gig, draw 1."</span></p>
+    <p><b>Jak grać:</b> to twój silnik min Gigów i dobierania. Celuj w kość, która spadnie dokładnie do 1 (np. d4 pokazujące 3 albo d6 pokazujące 2). Kość, która już jest na 1, nie da dobrania.</p>
+
+    <h3>Judy Alvarez: Braindance Maestro</h3>
+    <p>Gdy zagrasz Program BRAINDANCE, twoja Jednostka dostaje +1 siły do końca tury.<br>
+       <b>Spend:</b> wrzuć wierzchnią kartę talii do kosza. Jeśli to Program, możesz wziąć go na rękę.
+       <span class="en">"When you play a BRAINDANCE Program, give a friendly Unit +1 power this turn." · "Trash the top card of your deck. If it's a Program, you may add it to your hand."</span></p>
+    <p><b>Jak grać:</b> 25 z 40 kart to Programy, więc Spend daje kartę w około 60% przypadków. A jeśli wypadnie Jednostka, i tak masz w koszu paliwo dla Lizzy i Alt. Braindance w talii: Pyramid Song, Towerfall, Chrome Reverie, Trust No One i Three Mouths. Zagraj je <i>przed</i> atakiem, żeby +1 trafiło do atakującej Jednostki.</p>
+  </div>
+
+  <!-- ================= KARTY ================= -->
+  <h2 id="karty">Rola każdej karty</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Karta</th><th>Co robi</th><th>Po co w tej talii</th></tr></thead>
+    <tbody>
+      <tr><td class="n">Jacked-In Voodoo Boy</td><td>Siła 2. Nie może atakować, jeśli w tej turze nie zagrałeś Programu.<span class="en">"This Unit can't attack unless you played a Program this turn."</span></td><td>Tani start, wabik pod Les Élémens z BBG, gotowa Jednostka do zapłaty za Unlikely Bond, kradnie Gigi.</td></tr>
+      <tr><td class="n">Rita Wheeler</td><td>Siła 4, Blocker. Za pierwszym razem w turze, gdy zostanie zużyta, dobierz 1 i odrzuć 1.</td><td>Blocker na aggro, napastnik z +1 od Judy, filtrowanie ręki.</td></tr>
+      <tr><td class="n">Maman Brigitte</td><td>Siła 3. Play: możesz odrzucić 2 Programy; jeśli to zrobisz, włóż na spód talii Jednostkę rywala bez Sprzętu.</td><td>Removal na ciele, który działa na <b>gotową</b> Jednostkę. Odrzucone Programy są paliwem dla Alt i Lizzy.</td></tr>
+      <tr><td class="n">Lizzy Wizzy</td><td>Siła 2, Blocker. Play: zagraj za darmo Program o koszcie ≤3 z ręki albo z kosza, potem włóż go na spód talii.</td><td>Darmowy Pyramid Song albo Chrome Reverie z kosza. Dwa za jeden.</td></tr>
+      <tr><td class="n">Rogue Amendiares <span class="tag new">NOWE</span></td><td>Siła 4. Quick: 2 €$ + Spend: Jednostka rywala traci tyle siły, ile ma Rogue (4). Za pierwszym razem w turze, gdy inna twoja Jednostka ukradnie Gig o wartości niższej niż jej siła, gotowieją 2 Eddies.</td><td><b>Jedyny trik obronny -4 w reakcji na atak.</b> Johnny 8 → 4 przeciw Rita 4 = remis, obaj pokonani. Działa od tury po zagraniu (Lag blokuje Spend).</td></tr>
+      <tr><td class="n">Placide</td><td>Siła 10. Attack: możesz odrzucić 1 Program; jeśli to zrobisz, włóż na spód talii Jednostkę rywala.</td><td>Finisher: kradnie 2 Gigi (siła 10) i przy każdym ataku usuwa Jednostkę, nawet gotową.</td></tr>
+      <tr><td class="n">Trust No One</td><td>Zmniejsz Gig o maks. 3. Potem, jeśli masz min Gig, dobierz 1.</td><td>Ustawia d4 na 1 (podwójny tryb Pyramid Song), zniżki Alt, Braindance dla Judy.</td></tr>
+      <tr><td class="n">Floor It</td><td>Quick: Jednostka rywala -1 siły w tej turze. Dobierz 1.</td><td>Cycling i jedyny tani trik w turze rywala.</td></tr>
+      <tr><td class="n">Three Mouths, One Desire</td><td>Przejrzyj 3 wierzchnie karty, weź 1 (+1 za każdy twój min Gig), resztę na spód.</td><td>Szukanie odpowiedzi. Z 2 min Gigami bierzesz 3 karty.</td></tr>
+      <tr><td class="n">Pyramid Song</td><td>Wybierz jedno: Jednostka rywala -4 siły w tej turze ALBO włóż na spód talii Jednostkę rywala z siłą 0. Jeśli twój d4 jest min Gigiem, oba.</td><td>-4 przed twoim atakiem na zużytą Jednostkę rywala; czysty removal na małe Jednostki.</td></tr>
+      <tr><td class="n">Chrome Reverie</td><td>Jednostka rywala nie może atakować do twojej następnej tury. Jeśli masz min Gig, możesz za darmo zrobić Call Legendy.</td><td>Zatrzymuje zagrożenie, które już leży na stole. Darmowy Call oszczędza 1 €$.</td></tr>
+      <tr><td class="n">Nocturne OP55 N1</td><td>Przy pustej strefie fixera kosztuje 1 €$. Jedno: dobierz 2 / Jednostka nie może atakować do twojej następnej tury / Legenda może użyć Go Solo za -2 €$.</td><td>Wcześnie „dobierz 2”, później tani drugi Chrome Reverie.</td></tr>
+      <tr><td class="n">Unlikely Bond</td><td>Włóż na spód talii swoją gotową Jednostkę. Jeśli to zrobisz, włóż na spód talii zużytą Jednostkę rywala.</td><td>Odpowiedź na bomby, które zaatakowały: Smasher (znika z gry), Johnny po kradzieży.</td></tr>
+      <tr><td class="n">Les Élémens</td><td>Włóż na spód talii Jednostkę rywala o najniższej sile.</td><td>Na BBG (mało Jednostek) i na samotnego Smashera.</td></tr>
+      <tr><td class="n">Towerfall</td><td>Jedno: wszystkie Jednostki rywala -5 w tej turze ALBO włóż na spód talii wszystkie z siłą 0. Jeśli masz mniej Street Cred niż rywal, oba.</td><td>Wipe planszy. Twoja strategia i tak obniża własne Gigi, więc zwykle masz mniej Street Cred i grasz oba tryby.</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- ================= PLAN ================= -->
+  <h2 id="plan">Plan gry</h2>
+  <div class="card">
+    <p><b>Krótko:</b> odpowiadasz na każde ważne zagrożenie (najlepiej na stałe, wkładając je na spód talii), dobierasz więcej kart niż rywal (Judy, Three Mouths, Floor It, Jackie), a gdy jego stół jest pusty, kradniesz Gigi Placide (2 na atak) i resztą Jednostek.</p>
+    <ul>
+      <li><b>Trzymaj 1–2 swoje Gigi na wartości 1</b>, najlepiej d4. To włącza podwójny Pyramid Song, zniżki Alt, dodatkowe karty z Three Mouths, dobieranie z Trust No One i darmowy Call z Chrome Reverie.</li>
+      <li><b>Niski Street Cred to zaleta:</b> Towerfall z obydwoma trybami wymaga, żebyś miał mniej Street Cred niż rywal.</li>
+      <li><b>Nie zmniejszaj Gigów rywala bez powodu.</b> Trust No One może trafić dowolny Gig, ale min Gigi rywala pomagają jego kartom (BBG też gra Alt i Three Mouths). Wyjątek: rozbicie value-pair, z którego Hanako dobiera karty.</li>
+      <li><b>Pamiętaj o kradzieży.</b> Potrzebujesz 7 kości, a masz tylko 6. Od połowy gry każda tura bez ataku to tura stracona.</li>
+    </ul>
+  </div>
+
+  <h2 id="mulligan">Mulligan</h2>
+  <div class="card">
+    <p><b>Zostaw rękę, jeśli ma:</b> co najmniej jedno tanie zagranie (Jacked-In Voodoo Boy, Trust No One, Floor It, Three Mouths) <b>i</b> jedną odpowiedź (Pyramid Song, Chrome Reverie, Unlikely Bond albo Maman), <b>i</b> co najmniej jedną kartę z Sell Tagiem na sprzedaż w 1. turze.</p>
+    <p><b>Mulliganuj:</b> dwie lub więcej kart za 5+ bez zagrania przed 3. turą albo rękę bez żadnej Jednostki i bez Three Mouths.</p>
+    <p class="note">Mulligan jest tylko jeden i bierze całą rękę, więc przy rękach granicznych lepiej zostać.</p>
+  </div>
+
+  <!-- ================= TURY ================= -->
+  <h2 id="tury">Tura po turze</h2>
+  <p class="note">Liczby Eddies zakładają, że sprzedajesz 1 kartę na turę. Odkryte Legendy mogą dopłacić po 1 €$, ale wtedy tracisz ich Spend.</p>
+  <div class="turn"><b class="t">Tura 1 (1 Eddie)</b>Wyrzuć <b>d4</b> jako pierwszy Gig. Sprzedaj kartę. Jeśli d4 nie pokazuje 1: Trust No One na d4 (min Gig → dobierasz 1). Jeśli już jest 1: Call Legendy za 1 €$.</div>
+  <div class="turn"><b class="t">Tura 2 (2 Eddies)</b>Jacked-In Voodoo Boy (triggeruje Jackie, jeśli jest odkryta). Albo Call + Floor It/Trust No One. Three Mouths, gdy masz min Gig.</div>
+  <div class="turn"><b class="t">Tura 3 (3 Eddies)</b>Trzymaj Pyramid Song albo Chrome Reverie na pierwsze realne zagrożenie. Judy (Spend) co turę, gdy nie potrzebujesz jej jako Eddie. Atakuj Gigi Voodoo Boyem w turach, w których grasz Program.</div>
+  <div class="turn"><b class="t">Tury 4–5 (4–5 Eddies)</b>Rita albo Rogue (Rogue od następnej tury to twój trik -4 na obronę). Maman na najlepszą Jednostkę rywala bez Sprzętu. Lizzy, gdy w koszu leży Pyramid Song albo Chrome Reverie (darmowy). Unlikely Bond na zużytą bombę.</div>
+  <div class="turn"><b class="t">Tura 6 (6 Eddies, pusta strefa fixera)</b>Towerfall, jeśli rywal ma 2+ Jednostki (z min Gigami taniej przez Alt). Nocturne kosztuje teraz 1 €$.</div>
+  <div class="turn"><b class="t">Tury 7+ </b>Placide: każdy atak kradnie 2 Gigi i usuwa Jednostkę (odrzuć zbędny Program). Alt odtwarza z kosza Towerfall (7 €$ albo mniej z min Gigami) lub Unlikely Bond (5 €$). Licz kości: potrzebujesz 7 na początku swojej tury.</div>
+
+  <!-- ================= COMBO ================= -->
+  <h2 id="combo">Kluczowe zagrania (sprawdzone z zasadami)</h2>
+
+  <div class="combo"><h4>1. „Niech ukradnie, potem karzę” (na Johnny'ego i Smashera)</h4>
+    <ol>
+      <li>W turze rywala jego bomba atakuje twoje Gigi i kradnie 1 kość. Atak ją zużywa. Johnny gotowieje tylko po <i>wygranej walce</i>, a kradzież to nie walka, więc zostaje zużyty.</li>
+      <li>W twojej turze rywal nadal jest zużyty (gotowieje dopiero w swojej turze). Masz trzy opcje:
+        <ul>
+          <li><b>Unlikely Bond</b> (4 €$): oddajesz gotowego Voodoo Boya i bomba idzie na spód talii.</li>
+          <li><b>Pyramid Song + atak:</b> Johnny 8 - 4 = 4. Judy daje +1 twojej Rita (4+1 = 5) i Rita atakuje zużytego Johnny'ego. 5 &gt; 4, więc Johnny pokonany.</li>
+          <li>Smasher 9 - 4 = 5: Rita z +1 (5) remisuje i <b>obie Jednostki są pokonane, a Smasher usunięty z gry na zawsze</b>.</li>
+        </ul>
+      </li>
+    </ol>
+    <p class="note">Oddajesz jeden Gig, a w zamian usuwasz ich kartę za 6–9 €$. To prawie zawsze dobra wymiana.</p>
+  </div>
+
+  <div class="combo"><h4>2. Trik obronny Rogue (Quick)</h4>
+    <ol>
+      <li>Rogue leży na stole od poprzedniej tury (bez Laga), masz 2 €$.</li>
+      <li>Johnny atakuje. W React Step blokujesz Rita (albo Lizzy) i używasz Spenda Rogue: Johnny -4.</li>
+      <li>Johnny 4 kontra Rita 4 to remis: obaj pokonani. Johnny nie wygrał, więc się nie gotowieje. Dodaj Floor It (-1), a Rita wygrywa i przeżywa.</li>
+    </ol>
+    <p class="note">Z Mantis Blades Johnny ma 10: -4 -1 = 5 kontra Rita 4, więc Rita przegrywa. Wtedy lepiej pozwolić mu ukraść i wrócić do zagrania 1.</p>
+  </div>
+
+  <div class="combo"><h4>3. Podwójny Pyramid Song</h4>
+    <ol>
+      <li>Twój d4 pokazuje 1 (wyrzucony albo obniżony przez Trust No One lub Jackie).</li>
+      <li>Pyramid Song robi oba efekty: -4 jednej Jednostce i włożenie na spód talii Jednostki z siłą 0.</li>
+      <li>Najlepiej: -4 na Jednostkę z siłą 4, a potem ta sama Jednostka (teraz 0) idzie na spód talii. Pełny removal za 3 €$.</li>
+    </ol>
+  </div>
+
+  <div class="combo"><h4>4. Lizzy z kosza</h4>
+    <p>Gdy Pyramid Song albo Chrome Reverie leży w koszu, Lizzy (5 €$) daje ciało z Blockerem <b>plus</b> darmowy ten Program. Odrzucenie 2 Programów pod Maman albo 1 pod Placide też napełnia kosz.</p>
+  </div>
+
+  <div class="combo"><h4>5. Pyramid Song + Towerfall: usuwanie siły 8–9</h4>
+    <ol>
+      <li>Masz mniej Street Cred niż rywal (Towerfall w obu trybach).</li>
+      <li>Pyramid Song: Smasher 9 → 5 (albo Johnny 8 → 4).</li>
+      <li>Towerfall: wszystkie Jednostki rywala -5 → Smasher 0 → wszystkie z siłą 0 idą na spód talii. Smasher usunięty z gry, a reszta jego stołu razem z nim.</li>
+    </ol>
+    <p class="note">Koszt 9 €$ (mniej z zniżką Alt przy min Gigach). To zagranie na późną grę.</p>
+  </div>
+
+  <div class="combo"><h4>6. Chrome lock</h4>
+    <p>Chrome Reverie (z ręki) → Lizzy zagrywa go z kosza → Alt zagrywa go ponownie. Jedna Jednostka rywala nie atakuje przez 3 tury. Działa tylko na Jednostkę, która już jest na stole w twojej turze.</p>
+  </div>
+
+  <!-- ================= MATCHUPY ================= -->
+  <h2 id="matchupy">Matchupy</h2>
+  <div class="mu bbg"><h3>vs BBG (Alt / Hanako / Jackie)</h3>
+    <ul>
+      <li>Hanako: Spend zamienia jej Gig z twoim (to nie kradzież), a na początku jej tury dobiera 1 kartę za każdą value-pair (dwie kości z tą samą wartością). Trust No One na jedną kość z pary odcina jej dobieranie.</li>
+      <li>Trzymaj na stole Voodoo Boya jako najsłabszą Jednostkę, wtedy Les Élémens rywala musi trafić właśnie w niego.</li>
+      <li>Nie wykładaj więcej niż 2–3 Jednostek naraz pod Towerfall. Placide (10) przeżywa Towerfall z siłą 5.</li>
+      <li>Judy daje ci kartę prawie co turę, a oni nie mają takiego źródła poza Hanako. Wygrywasz długą grę.</li>
+      <li>Swojego Pyramid Song używaj na Placide, Lizzy i Maman rywala; ich małe Jednostki ignoruj.</li>
+    </ul>
+  </div>
+  <div class="mu johnny"><h3>vs Johnny Silverhand (Never Stop Fighting)</h3>
+    <ul>
+      <li>Wchodzi z Lagiem, więc atakuje dopiero w swojej następnej turze. W swojej turze masz okno na <b>Maman</b> (bez Sprzętu), <b>Chrome Reverie</b> albo <b>Les Élémens</b> (jeśli jest najmniejszy).</li>
+      <li>Nie blokuj go słabą Jednostką bez triku: wygrana walka go gotowieje i atakuje drugi raz. Lepiej oddać 1 Gig i zagrać „Niech ukradnie, potem karzę”.</li>
+      <li>Gdy masz Rogue gotowego, blok + Rogue -4 kończy go od razu.</li>
+      <li>Placide (10) wygrywa z nim walkę, a jego atak i tak wkłada go na spód talii.</li>
+    </ul>
+  </div>
+  <div class="mu adam"><h3>vs Adam Smasher (Ender of Legends)</h3>
+    <ul>
+      <li>Go Solo za 9 €$ (zwykle 7.–9. tura). Wchodzi gotowy, pokonuje jedną twoją Jednostkę (wybiera rywal) i od razu atakuje.</li>
+      <li><b>Nie stawiaj wszystkiego na jedną Jednostkę</b> w turach, w których rywal może mieć 9 €$. Placide samotnie na stole to idealny cel dla jego Play.</li>
+      <li>Po jego ataku, w twojej turze: <b>Unlikely Bond</b>, <b>Maman</b> (bez Sprzętu), <b>Pyramid Song + remis albo wygrana walka</b> albo Placide. Każde z nich usuwa go <b>z gry na zawsze</b>.</li>
+      <li>Jeśli Smasher nie atakuje i stoi gotowy, Bond nie zadziała. Wtedy Maman, Les Élémens (jeśli jest ich najmniejszą Jednostką) albo atak Placide.</li>
+    </ul>
+  </div>
+  <div class="mu aggro"><h3>vs czerwone/żółte aggro ogólnie (Dum Dum / River Ward / Royce)</h3>
+    <ul>
+      <li>Najwięcej traci się tu na wolnym starcie. Wymień Three Mouths na Psycho Squad i Westbrook z sideboardu.</li>
+      <li>Rita i Lizzy blokują. Floor It plus Rogue w reakcji wygrywają walki.</li>
+      <li>Towerfall wcześniej, nawet na 2 Jednostki.</li>
+    </ul>
+  </div>
+
+  <!-- ================= SIDE ================= -->
+  <h2 id="side">Sideboard: co wchodzi, co wychodzi</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Przeciwko</th><th>Wychodzi</th><th>Wchodzi</th><th>Dlaczego</th></tr></thead>
+    <tbody>
+      <tr><td>BBG</td><td>-2 Rita</td><td>+2 Westbrook Netrunner</td><td>Siła 5 przeżywa Pyramid Song; blokuje kradzieże Legend rywala.</td></tr>
+      <tr><td>Johnny / Smasher</td><td>-2 Three Mouths</td><td>+2 Psycho Squad</td><td>Siła 6 wygrywa walki po -4 i stawia presję.</td></tr>
+      <tr><td>Szybkie aggro</td><td>-3 Three Mouths, -1 Les Élémens</td><td>+2 Psycho Squad, +1 Mox Inciters, +1 Westbrook</td><td>Więcej ciał i Blockerów od 3.–4. tury.</td></tr>
+      <tr><td>Rywal bez Johnny'ego, dużo małych Jednostek</td><td>-2 Rogue</td><td>+2 Reboot Optics</td><td>Tańsza ochrona blokera, gdy nie trzeba zabijać jednej dużej bomby.</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- ================= ZAMIENNIKI ================= -->
+  <h2 id="zamienniki">Zamienniki kart (gdy czegoś nie masz albo chcesz zmienić)</h2>
+  <p class="note">Talia ma 3 niebieskie Legendy, więc RAM pozwala tylko na niebieskie karty. Wszystkie zamienniki są niebieskie i legalne.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Nie masz / chcesz wymienić</th><th>Zamiennik</th><th>Co tracisz / zyskujesz</th></tr></thead>
+    <tbody>
+      <tr><td class="n">Towerfall (Epic, drogi)</td><td>+1 Les Élémens (3. kopia) i +1 Psycho Squad</td><td>Tracisz wipe na szerokie stoły; zyskujesz tańszy removal i ciało. Słabiej na aggro.</td></tr>
+      <tr><td class="n">Placide (Rare)</td><td>Psycho Squad (siła 6, bez tekstu) albo Westbrook Netrunner</td><td>Tracisz removal przy każdym ataku i kradzież 2 Gigów. Psycho Squad jest tani i wystarczy na BBG.</td></tr>
+      <tr><td class="n">Lizzy Wizzy (Rare)</td><td>Mox Inciters (Blocker, wymusza atak) albo 3. Rita</td><td>Tracisz darmowy Program z kosza; Mox Inciters dobrze łączy się z Unlikely Bond (wymuszony atak = zużyta Jednostka).</td></tr>
+      <tr><td class="n">Rogue Amendiares</td><td>Reboot Optics (było w starej liście)</td><td>Tańsze (2 €$) i działa od razu, ale Johnny po walce i tak się gotowieje.</td></tr>
+      <tr><td class="n">Maman Brigitte</td><td>+1 Les Élémens (3. kopia) albo +1 Psycho Squad</td><td>Maman jest kluczowa na Johnny'ego przed Mantis Blades. Wymieniaj tylko z konieczności.</td></tr>
+      <tr><td class="n">Three Mouths, One Desire</td><td>NetWatch Netdriver (Sprzęt: dobierz 1, gdy Jednostka zostaje zużyta)</td><td>Na Rita/Voodoo Boyu daje kartę przy każdym ataku i bloku, i triggeruje Jackie (niebieski Sprzęt).</td></tr>
+      <tr><td class="n">Nocturne OP55 N1</td><td>Reboot Optics albo Tetratronic Rippler</td><td>Nocturne jest drogi do 6. tury; Rippler (1 €$) pozwala kontrolować wierzchnią kartę pod Judy.</td></tr>
+      <tr><td class="n">Jacked-In Voodoo Boy</td><td>Mox Inciters (3 €$)</td><td>Droższy, ale z Blockerem. Mniej tanich gotowych Jednostek do zapłaty za Unlikely Bond.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="card warn"><b>Czego nie wkładać:</b> <b>Hacked Corpo</b> (Jednostka CORPO, Johnny wygrywa z nią każdą walkę) i Jednostek z siłą 0 (<b>Delamain: Rideshare AI, Misty, Evelyn: Scheming Siren</b>) na BBG, bo Pyramid Song i Towerfall wkładają je na spód talii za darmo.</div>
+
+  <!-- ================= BLEDY ================= -->
+  <h2 id="bledy">Najczęstsze błędy</h2>
+  <div class="card">
+    <ul>
+      <li>Wydanie Pyramid Song na pierwszą małą Jednostkę rywala. Trzymaj go na Johnny'ego, Smashera, Placide albo Lizzy.</li>
+      <li>Spend Judy w turze, w której potrzebujesz jej jako Eddie na kluczową kartę. Policz koszt przed Spendem.</li>
+      <li>Atakowanie Rita i Lizzy w turze, w której rywal może cię mocno uderzyć: zużyty Blocker nie zablokuje.</li>
+      <li>Zmniejszanie własnych Gigów aż do zera opcji: kość już na 1 nie spadnie niżej, a Jackie i Trust No One wtedy nie dobiorą.</li>
+      <li>Zapominanie o kradzieży. Bez co najmniej jednej skradzionej kości nie wygrasz.</li>
+      <li>Granie Rogue i liczenie na jego Spend w tej samej turze: Lag blokuje Spend do następnej tury.</li>
+    </ul>
+  </div>
+
+  <!-- ================= NIEPEWNE ================= -->
+  <h2 id="niepewne">Do potwierdzenia przed turniejem</h2>
+  <div class="card warn">
+    <p>Oficjalne Comprehensive Rules na cyberpunktcg.com nie dały się odczytać automatycznie, więc zasady sprawdziłem z dwóch streszczeń (ripperdeck.gg i playdreamz.com), a teksty kart z ripperdeck.gg. Te punkty nie są tam jednoznaczne:</p>
+    <ul>
+      <li><b>Czy Legenda po Go Solo zostaje zużyta po ataku.</b> Wynika to z ogólnej zasady (atak zużywa Jednostkę, a Legenda na polu jest też Jednostką), ale nie jest napisane wprost. Od tego zależy Unlikely Bond na Smashera.</li>
+      <li><b>Czy Call w reakcji na atak rywala zużywa twój Call z tej tury.</b></li>
+      <li><b>Czy Trust No One może zmniejszyć Gig rywala.</b> Tekst mówi „a Gig” (bez „friendly”), więc najpewniej tak.</li>
+      <li><b>Gdzie trafia Sprzęt, gdy Jednostka opuści pole</b> (źródła się różnią).</li>
+      <li><b>Sell Tagi:</b> nie mogłem potwierdzić, które niebieskie karty go mają. Policz swoje i celuj w co najmniej 12 z 40.</li>
+    </ul>
+  </div>
+
+  <p class="note">Pełny poradnik do wszystkich talii: <a href="cyberpunk-bbb-talie-pl.html">cyberpunk-bbb-talie-pl.html</a> · Top 5: <a href="cyberpunk-bbb-top5-pl.html">cyberpunk-bbb-top5-pl.html</a></p>
+</div>
+</body>
+</html>
