@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abyss Matchupy</title>
+<style>
+:root{
+  --bg:#0b0c10; --panel:#14161d; --panel2:#1b1e27; --line:#2a2f3c;
+  --text:#e7e9ee; --muted:#9aa3b2; --yellow:#f3e600; --cyan:#00e5ff; --red:#ff3b5c; --green:#3ee08f;
+  --blue:#4c8dff; --orange:#ff8a3b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:clamp(26px,6vw,42px);margin:0;letter-spacing:.5px;color:var(--yellow);text-transform:uppercase}
+h1 span{color:var(--cyan)}
+.sub{color:var(--muted);margin:6px 0 16px}
+h2{color:var(--yellow);text-transform:uppercase;font-size:19px;letter-spacing:1px;margin:40px 0 12px;border-bottom:1px solid var(--line);padding-bottom:6px;scroll-margin-top:10px}
+h3{font-size:15px;margin:16px 0 6px;color:var(--cyan);text-transform:uppercase;letter-spacing:1px}
+a{color:var(--cyan)}
+p{margin:0 0 10px}
+ul,ol{margin:0 0 10px;padding-left:22px}
+li{margin:4px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0}
+.warn{border-left:4px solid var(--yellow)}
+.bad{border-left:4px solid var(--red)}
+.good{border-left:4px solid var(--green)}
+nav.toc{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
+nav.toc a{font-size:13px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:5px 11px;text-decoration:none}
+.tbl{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:10px 0}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--cyan);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
+td.n{font-weight:600}
+td.q{color:var(--yellow);font-weight:700;white-space:nowrap}
+.mu{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:22px 0;overflow:hidden;scroll-margin-top:10px}
+.mu-head{padding:14px 18px;background:linear-gradient(90deg,rgba(255,59,92,.14),transparent);border-bottom:1px solid var(--line)}
+.mu-head .code{color:var(--red);font-weight:700;font-size:13px;letter-spacing:2px}
+.mu-head h2{border:0;margin:2px 0 4px;padding:0;color:var(--text);text-transform:none;font-size:21px;letter-spacing:0}
+.mu-head p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.mu-body{padding:6px 18px 16px}
+.diff{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;border:1px solid var(--line);margin-left:6px}
+.diff.ok{color:var(--green);border-color:var(--green)} .diff.mid{color:var(--yellow);border-color:var(--yellow)} .diff.hard{color:var(--red);border-color:var(--red)}
+.side{background:var(--panel2);border-radius:8px;padding:10px 12px;margin:10px 0;font-size:14px}
+.side b{color:var(--yellow)}
+.note{color:var(--muted);font-size:13px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.final{border:2px solid var(--yellow);border-radius:12px;padding:16px 18px;background:linear-gradient(180deg,rgba(243,230,0,.07),transparent)}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;margin-left:6px;vertical-align:middle;border:1px solid var(--green);color:var(--green)}
+.tag.up{border-color:var(--cyan);color:var(--cyan)}
+.total{font-weight:700;color:var(--green);margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Abyss Protocol <span>vs meta</span></h1>
+  <p class="sub">Plany i zmiany w sideboardzie na każdą popularną talię, a na końcu zoptymalizowana lista (v4). Listy talii rywali pochodzą z ripperdeck.gg i exburst.dev (listopad 2026), a teksty kart z ripperdeck.gg.</p>
+
+  <nav class="toc">
+    <a href="#zasady">5 zasad</a>
+    <a href="#dumdum">RYY Dum Dum</a>
+    <a href="#yyr">YYR Adam / Johnny</a>
+    <a href="#dex">Dex + Gear (Panam)</a>
+    <a href="#johnny">Johnny + Gear (Kerry)</a>
+    <a href="#rry">RRY</a>
+    <a href="#ggr">GGR Goro</a>
+    <a href="#grr">GRR Adam / Padre</a>
+    <a href="#bbg">BBG</a>
+    <a href="#lista">Lista v4</a>
+  </nav>
+
+  <!-- ======================= ZASADY ======================= -->
+  <h2 id="zasady">5 zasad, które działają na każdą talię</h2>
+  <div class="card">
+    <ol>
+      <li><b>Nie zostawiaj swoich Jednostek zużytych na turę rywala.</b> Zużytą Jednostkę rywal może zaatakować. Johnny po wygranej walce się gotowieje, Wild in the Streets i Overwatch pokonują zużyte Jednostki, a Legenda Johnny (Rocking Renegade) pozwala atakować zużyte Jednostki nawet w turze zagrania. Dlatego atakuj tylko wtedy, gdy kradzież jest naprawdę warta tej Jednostki.</li>
+      <li><b>Wkładanie na spód talii jest lepsze niż pokonanie.</b> Wiele kart rywali daje coś przy pokonaniu: River Ward przeszukuje talię, The Relic zagrywa Jednostkę z kosza, Dexter i Jackie (Ride or Die) dobierają karty, Yorinobu (Steel Dragon) dobiera przy pokonanym ARASAKA. Unlikely Bond, Placide, Maman, Les Élémens, Pyramid Song i Towerfall wkładają na spód talii, więc te efekty się nie odpalają.</li>
+      <li><b>Każda twoja Jednostka powinna dać wartość już przy wejściu.</b> Rywale mają mnóstwo removalu na małe Jednostki: Royce (siła ≤2/≤3), Bonnie and Clyde (≤4), Minotaur (≤5), Over the Edge, Live with the Aftermath, Carnage. Dlatego w v4 zamiast Voodoo Boyów są Delamain (dobierz 2) i Mox Inciters (wymuszony atak), które zwracają się, nawet jeśli zginą od razu.</li>
+      <li><b>Ich karty na Sprzęt są martwe przeciw tobie.</b> Nie grasz Sprzętu, więc Detonate (Quick: pokonaj Sprzęt) i efekt Play Heywood Ripperdoc nic ci nie robią. Liczysz na to, że rywal trzyma w ręce martwe karty.</li>
+      <li><b>Uważaj na efekty, które gotowieją Jednostki rywala na koniec jego tury</b>: Sandevistan, Saul Bright (do 3 Jednostek), Panam (5+ uzbrojonych). Taka Jednostka jest gotowa w twojej turze, więc Unlikely Bond na nią nie zadziała. Wtedy użyj Placide (działa na gotowe), Maman (bez Sprzętu) albo Chrome Reverie.</li>
+    </ol>
+  </div>
+  <div class="card warn">
+    <b>Westbrook Netrunner na Legendy z Go Solo</b> (Royce, Adam Smasher, V Streetkid, Goro, Rogue Preem Solo). Play: do twojej następnej tury Legendy rywala nie mogą ukraść twojego Gigu o wartości niższej niż ich siła. Ty i tak trzymasz Gigi nisko (min Gigi), więc Smasher z siłą 9 przez tę turę praktycznie nie ma czego ukraść. Dlatego Westbrook jest w sideboardzie na każdą talię z dwiema Legendami z Go Solo.
+  </div>
+
+  <!-- ======================= DUM DUM ======================= -->
+  <section class="mu" id="dumdum">
+    <div class="mu-head">
+      <div class="code">RYY · 11% METY · NAJCZĘŚCIEJ GRANA TALIA</div>
+      <h2>Dum Dum / River Ward / Royce (Psycho on the Edge) <span class="diff mid">Średni</span></h2>
+      <p>Rój małych Jednostek obwieszonych Sprzętem: 17 Gearów, 13 Jednostek, 10 Programów.</p>
+    </div>
+    <div class="mu-body">
+      <h3>Co mają</h3>
+      <div class="tbl"><table>
+        <tbody>
+          <tr><td class="n">Dum Dum (Legenda)</td><td>Call: może pokonać własny Sprzęt i dobrać 2. Quick 1 €$ + Spend: Jednostka +1 siły za każdy swój Sprzęt.</td></tr>
+          <tr><td class="n">River Ward (Legenda)</td><td>Quick + Spend: zagraj Sprzęt za ≤2 z ręki za darmo (także w twojej turze, w reakcji). Gdy ich uzbrojona Jednostka zostanie pokonana, przeszukują 2 wierzchnie karty.</td></tr>
+          <tr><td class="n">Royce: Psycho on the Edge (Legenda)</td><td>Go Solo za 6, siła 6, w ich turze +2 siły za każdy swój Sprzęt.</td></tr>
+          <tr><td class="n">Secondhand Bombus ×3, Sketchy Ripper ×2</td><td>Siła 0. Bombus ma Blocker. Ripper przy ataku szuka Sprzętu.</td></tr>
+          <tr><td class="n">Augmented Negotiators ×2</td><td>Siła 2, Blocker. Gdy zablokuje, odrzucasz 1 kartę.</td></tr>
+          <tr><td class="n">Maelstrom Goons ×2, Swordwise Huscle ×2</td><td>Siła 3. Goons: uzbrojony kradnie → odrzucasz 1. Huscle: atak z siłą 5+ → dobierają.</td></tr>
+          <tr><td class="n">Alt Cunningham: Mother of Daemons ×1</td><td>Siła 8. Dobierają przy zużyciu uzbrojonej Jednostki. <b>Może zablokować twoją kradzież</b>, odrzucając kartę o koszcie równym wartości Gigu.</td></tr>
+          <tr><td class="n">Cyberpsychosis ×2</td><td>Quick: uzbrojona Jednostka +3 siły za każdy Sprzęt; jeśli kradnie albo walczy, zostaje pokonana na koniec tury.</td></tr>
+          <tr><td class="n">Safety Override ×2</td><td>Quick: gdy ich Jednostka przegra walkę, pokonują twoją Jednostkę, która z nią walczyła.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Ich plan</h3>
+      <p>Wystawić tanie ciała, obwiesić je Sprzętem (River Ward daje darmowy Sprzęt nawet w twojej turze) i kraść Gigi kilkoma Jednostkami naraz. Royce z 2–3 Gearami ma w ich turze 10–12 siły.</p>
+      <h3>Twój plan</h3>
+      <ol>
+        <li><b>Towerfall to twoja najlepsza karta.</b> Ich Jednostki mają siłę bazową 0–3. Z jednym Sprzętem za +2 mają 2–5, więc Towerfall (-5) sprowadza je do 0. Z obydwoma trybami (masz mniej Street Cred) wszystkie lądują na spodzie talii, bez triggera River Ward. Graj Towerfall, gdy mają 3+ Jednostek.</li>
+        <li><b>Pyramid Song w podwójnym trybie</b> zdejmuje Jednostkę z siłą do 4: -4, a potem na spód talii jako Jednostka z siłą 0.</li>
+        <li><b>Blokuj ich roje.</b> To nie Johnny, więc wygrana walka ich nie gotowieje. Rita i Lizzy zamieniają kradzież w walkę. Uważaj na Safety Override: jeśli ich Jednostka przegra, i tak stracisz blokera. Blokuj tam, gdzie i tak mógłbyś przegrać, żeby uratować Gigi.</li>
+        <li><b>Nie atakuj w ich Blockery.</b> Augmented Negotiators zabiera ci kartę przy każdym bloku. Kradnij Placide: jego efekt Attack wkłada Jednostkę na spód talii, zanim rywal zdąży zablokować.</li>
+        <li><b>Royce (Legenda) po Go Solo</b>: bottom-deck albo pokonanie usuwa go z gry. W twojej turze nie ma premii +2, więc ma 6 + siłę Sprzętu. Bond, gdy jest zużyty, albo Placide.</li>
+      </ol>
+      <h3>Priorytety</h3>
+      <p>1) Alt: Mother of Daemons (blokuje twoje kradzieże i dobiera im karty) → 2) Jednostka z największą ilością Sprzętu → 3) Royce na polu.</p>
+      <div class="side"><b>Sideboard:</b> -2 Les Élémens, -1 Nocturne OP55 N1 → +2 Reboot Optics, +1 Westbrook Netrunner.<br><span class="note">Les Élémens trafiłby tylko w Bombusa (siła 0). Reboot Optics ratuje blokera przed ich uzbrojonym napastnikiem. Westbrook zatrzymuje kradzieże Royce'a po Go Solo.</span></div>
+      <p class="note"><b>Mulligan:</b> szukaj Towerfall albo Pyramid Song plus Rita lub Lizzy.</p>
+    </div>
+  </section>
+
+  <!-- ======================= YYR ======================= -->
+  <section class="mu" id="yyr">
+    <div class="mu-head">
+      <div class="code">YYR / RYY · 4% METY</div>
+      <h2>Adam Smasher / River Ward / Viktor Vektor <span class="diff hard">Trudny</span></h2>
+      <p>3× Johnny Silverhand (Never Stop Fighting), 16 Gearów, 6th Street Recruits, Dexter (w wersji exburst), Live with the Aftermath.</p>
+    </div>
+    <div class="mu-body">
+      <h3>Co mają</h3>
+      <div class="tbl"><table>
+        <tbody>
+          <tr><td class="n">Viktor Vektor: Sit Down and Relax (Legenda)</td><td>Call: przeszukuje 5 kart i bierze do 2 Gearów za ≤2.</td></tr>
+          <tr><td class="n">Adam Smasher (Legenda)</td><td>Go Solo za 9, siła 9, Play: pokonuje twoją Jednostkę (wybierają oni).</td></tr>
+          <tr><td class="n">Johnny Silverhand ×3</td><td>Siła 8, gotowieje po pierwszej wygranej walce w turze, wygrywa z CORPO.</td></tr>
+          <tr><td class="n">Gear: Mantis Blades, Satori, Zetatech Faceplate, Adrenaline Converter, Mandibular Upgrade</td><td>+2/+2/+2/+3 siły. Mandibular daje Blocker. Adrenaline Converter pozwala atakować w turze zagrania, gdy masz 2+ Gigów więcej od nich.</td></tr>
+          <tr><td class="n">Live with the Aftermath ×3</td><td>Każdy gracz pokonuje jedną swoją Jednostkę. <b>Ty wybierasz którą</b>, więc trzymaj na stole coś taniego (Delamain po dobraniu).</td></tr>
+          <tr><td class="n">6th Street Recruits ×3</td><td>Siła 6. Gdy ich Jednostka ukradnie d6, zwiększają Gig o maks. 6.</td></tr>
+          <tr><td class="n">MaxTac Suppression Team</td><td>Siła 7. Twoje Jednostki nie atakują w turze zagrania (tobie to prawie nie przeszkadza).</td></tr>
+          <tr><td class="n">Detonate ×2</td><td>Martwa karta przeciw tobie (pokonuje tylko Sprzęt).</td></tr>
+          <tr><td class="n">Dexter DeShawn: One Last Chance</td><td>Siła 4, przy ataku zmienia Gig o 1; pokonany przy różnicy Street Cred 10+ → dobierają 2.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Twój plan</h3>
+      <ol>
+        <li><b>Johnny: plan z głównego poradnika.</b> Nie dawaj mu walk, pozwól ukraść, a potem zagraj Unlikely Bond. Mox Inciters zmusza go do ataku, gdy rywal trzyma go gotowego jako Blocker (Mandibular).</li>
+        <li><b>Najlepsze okno to Johnny bez Sprzętu.</b> Wchodzi z Lagiem, więc w swojej turze grasz Maman. Viktor i River Ward dokładają Sprzęt bardzo szybko (River Ward nawet w twojej turze w reakcji), więc nie licz, że zostanie nagi na długo.</li>
+        <li><b>Smasher:</b> nie zostawiaj Placide samotnie na stole około 7.–9. tury rywala, bo to idealny cel dla jego Play. Po jego ataku zagraj Unlikely Bond (usuwa go z gry). Westbrook na tę turę zabiera mu cele do kradzieży.</li>
+        <li><b>Live with the Aftermath:</b> zawsze miej na stole Jednostkę, którą możesz oddać (Delamain po dobraniu 2, Mox po efekcie).</li>
+        <li><b>Gigi:</b> 6th Street Recruits podbija im Gigi po kradzieży d6. To podnosi ich Street Cred, więc masz łatwiej z podwójnym Towerfall.</li>
+      </ol>
+      <h3>Priorytety</h3>
+      <p>1) Johnny z 2+ Gearami → 2) Smasher na polu → 3) Jednostka z Zetatech Faceplate (dobiera im karty).</p>
+      <div class="side"><b>Sideboard:</b> -2 Les Élémens, -1 Rogue → +2 Westbrook Netrunner, +1 Psycho Squad.<br><span class="note">Les Élémens i Rogue (-4) nie radzą sobie z uzbrojonymi Jednostkami. Westbrook na turę Go Solo Smashera, Psycho Squad (6) do kradzieży, gdy Chrome Reverie trzyma Johnny'ego.</span></div>
+      <p class="note"><b>Mulligan:</b> Unlikely Bond albo Chrome Reverie to obowiązek. Ręka bez żadnej z nich jest do wymiany.</p>
+    </div>
+  </section>
+
+  <!-- ======================= DEX / PANAM ======================= -->
+  <section class="mu" id="dex">
+    <div class="mu-head">
+      <div class="code">GYR · WYGRAŁA TURNIEJ (NIGHT CITY SHOWDOWN, 16.11.2026)</div>
+      <h2>Dexter + Gear: Panam Palmer / River Ward / Adam Smasher <span class="diff hard">Trudny</span></h2>
+      <p>2× Dexter, 2× Johnny, 3× MaxTac AV, 2× Saul Bright, 13 Gearów (w tym 3× Riot Shield), Corporate Surveillance, Memory Relapse.</p>
+    </div>
+    <div class="mu-body">
+      <h3>Co mają</h3>
+      <div class="tbl"><table>
+        <tbody>
+          <tr><td class="n">Panam Palmer (Legenda)</td><td>2 €$ + Spend: przenosi Sprzęt z Legendy na Jednostkę i ją gotowieje. Na koniec ich tury, jeśli mają 5+ uzbrojonych Jednostek/Legend, gotowieją je.</td></tr>
+          <tr><td class="n">Saul Bright: Stormrider ×2</td><td>Siła 14 (8 €$). Inne ich Jednostki +2 przy ataku. <b>Na koniec tury gotowieje do 3 Jednostek.</b></td></tr>
+          <tr><td class="n">Corporate Surveillance ×3</td><td>Zużywa twoją Jednostkę o koszcie ≤4, np. tę, którą chciałeś zapłacić za Bond, albo twojego blokera.</td></tr>
+          <tr><td class="n">Memory Relapse ×3</td><td>Zużywa twoją Jednostkę i blokuje jej gotowienie do ich następnej tury.</td></tr>
+          <tr><td class="n">MaxTac AV ×3</td><td>Siła 8, Play: zamienia ich Gig z twoim.</td></tr>
+          <tr><td class="n">Riot Shield ×3</td><td>+1 siły i Blocker. Jest też koszt +2 €$ za Go Solo, ale ciebie nie dotyczy, bo nie grasz Go Solo.</td></tr>
+          <tr><td class="n">Pepe Najarro ×3, Meredith Stout ×3</td><td>Siła 6 / siła 5 z Blockerem (CORPO).</td></tr>
+          <tr><td class="n">Detonate ×2, Synapse Burnout ×3</td><td>Detonate jest martwe. Synapse Burnout (Quick): +1 siły za każdą ich odkrytą Legendę w walce.</td></tr>
+          <tr><td class="n">Sideboard: Royce (Simon) ×2, Heywood ×2, Nadia ×2</td><td>Royce zabija twoje Jednostki z siłą ≤2/≤3. Heywood jest przeciw tobie samym ciałem 8.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Twój plan</h3>
+      <ol>
+        <li><b>Bond jest tu słabszy.</b> Saul i Panam gotowieją ich Jednostki na koniec tury, więc często nie będą zużyte w twojej turze. <b>Główną odpowiedzią jest Placide</b> (działa na gotowe), a do tego Maman na Jednostki bez Sprzętu.</li>
+        <li><b>Saul Bright to cel nr 1.</b> Siła 14 i gotowienie całego stołu. Kosztuje 8 €$, więc przychodzi późno, a ma Lag. W swojej turze zagraj Maman (jeśli bez Sprzętu) albo Chrome Reverie i szykuj Placide.</li>
+        <li><b>Trzymaj 2 gotowe Jednostki</b>: Corporate Surveillance i Memory Relapse zużyją jedną, a Bond potrzebuje gotowej. Delamain i Mox to tanie ciała do tego.</li>
+        <li><b>MaxTac AV zamienia Gigi.</b> Twoje niskie Gigi idą do nich, a ich wysokie do ciebie. Twój Street Cred rośnie, więc podwójny Towerfall może przestać działać. Licz Street Cred przed Towerfall.</li>
+        <li><b>Riot Shield:</b> ich Jednostki blokują twoje ataki. Placide i tak usuwa cel efektem Attack, zanim padnie blok.</li>
+      </ol>
+      <h3>Priorytety</h3>
+      <p>1) Saul Bright → 2) Johnny ze Sprzętem → 3) Smasher na polu → 4) Pepe i MaxTac AV.</p>
+      <div class="side"><b>Sideboard:</b> -2 Les Élémens, -1 Three Mouths → +2 Westbrook Netrunner, +1 Psycho Squad.<br><span class="note">Westbrook na Smashera, Psycho Squad jako ciało z siłą 6 (przeżywa Royce'a z sideboardu rywala). Jeśli spodziewasz się Royce'a (Simon), wymień też 2 Mox Inciters (siła 2) na 2 Reboot Optics.</span></div>
+      <p class="note"><b>Mulligan:</b> szukaj Placide albo Chrome Reverie plus tanich Programów. Bond jest tu mniej ważny niż w innych matchupach.</p>
+    </div>
+  </section>
+
+  <!-- ======================= JOHNNY KERRY ======================= -->
+  <section class="mu" id="johnny">
+    <div class="mu-head">
+      <div class="code">RYY · ~1% METY</div>
+      <h2>Johnny + Gear: Johnny Silverhand (Rocking Renegade) / Kerry Eurodyne / Rogue Amendiares (Preem Solo) <span class="diff hard">Trudny</span></h2>
+      <p>3× Johnny (Never Stop Fighting), 3× Jackie (Ride or Die Choom), Gorilla Arms, Mantis Blades, Satori, Safety Override.</p>
+    </div>
+    <div class="mu-body">
+      <h3>Co mają</h3>
+      <div class="tbl"><table>
+        <tbody>
+          <tr><td class="n">Johnny Silverhand: Rocking Renegade (Legenda)</td><td>2 €$ + Spend: ich Jednostka może atakować twoje zużyte Jednostki w turze zagrania (Rocker dostaje +2). Taniej, gdy mają Gigi 8+.</td></tr>
+          <tr><td class="n">Kerry Eurodyne (Legenda)</td><td>Mogą przerzucić Gig przy wyrzucaniu. Dobierają przy min/max wyniku na kości.</td></tr>
+          <tr><td class="n">Rogue: Preem Solo (Legenda)</td><td>Go Solo za 7, siła 7. Gdy ich Legenda kradnie Gig: parzysty → dobierają, nieparzysty → odrzucasz kartę.</td></tr>
+          <tr><td class="n">Jackie Welles: Ride or Die ×3</td><td>Siła 8, przy ataku +2 za każdy ich parzysty Gig. Pokonana → dobierają 1 za każdy nieparzysty Gig.</td></tr>
+          <tr><td class="n">Gorilla Arms ×3</td><td>+3 siły. Pierwsza kradzież w turze → kradnie dodatkowy Gig.</td></tr>
+          <tr><td class="n">All is Lost ×3, Safety Override ×2</td><td>Szukanie Jednostek. Pokonanie twojej Jednostki, gdy ich przegra walkę.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Twój plan</h3>
+      <ol>
+        <li><b>Zasada nr 1 jest tu najważniejsza.</b> Legenda Johnny pozwala świeżo zagranej Jednostce zaatakować twoją zużytą Jednostkę od razu. Żadnych ataków bez potrzeby.</li>
+        <li><b>Jackie (Ride or Die) i Johnny wkładaj na spód talii, nie pokonuj.</b> Pokonana Jackie dobiera im karty. Bond i Placide załatwiają to czysto.</li>
+        <li><b>Gorilla Arms kradnie 2 Gigi za jednym atakiem</b>, a z siłą 10+ nawet 3. Jednostki z Gorilla Arms nie wolno puścić do kradzieży: Chrome Reverie albo usunięcie przed atakiem.</li>
+        <li><b>Rogue (Preem Solo) po Go Solo</b> przy kradzieży nieparzystego Gigu zabiera ci kartę z ręki. Trzymaj min Gigi (1 to nieparzysta wartość), ale Westbrook w tę turę zabiera jej cele.</li>
+      </ol>
+      <h3>Priorytety</h3>
+      <p>1) Jednostka z Gorilla Arms → 2) Johnny ze Sprzętem → 3) Jackie: Ride or Die (wkładaj na spód talii).</p>
+      <div class="side"><b>Sideboard:</b> -2 Les Élémens, -1 Three Mouths → +2 Westbrook Netrunner, +1 Psycho Squad.</div>
+      <p class="note"><b>Mulligan:</b> Bond albo Chrome Reverie plus jedno tanie ciało.</p>
+    </div>
+  </section>
+
+  <!-- ======================= RRY ======================= -->
+  <section class="mu" id="rry">
+    <div class="mu-head">
+      <div class="code">RRY · ~2% METY</div>
+      <h2>RRY: Adam Smasher / Dum Dum / V Streetkid (i podobne z Royce) <span class="diff mid">Średni</span></h2>
+      <p>Tej listy nie udało się pobrać. Plan opiera się na tekstach Legend i na kartach, które te Legendy grają w innych taliach.</p>
+    </div>
+    <div class="mu-body">
+      <h3>Co mają (Legendy)</h3>
+      <div class="tbl"><table>
+        <tbody>
+          <tr><td class="n">Adam Smasher</td><td>Go Solo za 9, siła 9, Play: pokonuje twoją Jednostkę.</td></tr>
+          <tr><td class="n">V: Streetkid</td><td>Go Solo za 5, siła 6. Call: trash 3, biorą Program BRAINDANCE z kosza.</td></tr>
+          <tr><td class="n">Dum Dum</td><td>Call: niszczy swój Sprzęt i dobiera 2. Quick: +1 siły Jednostce za każdy Sprzęt.</td></tr>
+          <tr><td class="n">Royce: Psycho on the Edge (wariant)</td><td>Go Solo za 6, w ich turze +2 siły za Sprzęt.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Twój plan</h3>
+      <ol>
+        <li><b>Dwie Legendy z Go Solo</b> to dwa duże ciała, które wchodzą gotowe i atakują od razu. Każde bottom-deck albo pokonanie usuwa je z gry, więc każdy Bond i każdy atak Placide na nie jest wart podwójnie.</li>
+        <li><b>Westbrook</b> to tu najlepsza karta z sideboardu: przez jedną turę obie Legendy nie ukradną twoich niskich Gigów.</li>
+        <li><b>Czerwone Programy na removal</b> (Over the Edge, Bonnie and Clyde, Carnage) zabijają małe Jednostki. Graj ciała, które dały wartość przy wejściu.</li>
+        <li><b>V Streetkid</b> wchodzi wcześnie (5 €$). Jej siła 6 to w twojej turze cel dla Pyramid Song (-4) i ataku Rita z +1 od Judy (5 vs 2), jeśli V jest zużyta.</li>
+      </ol>
+      <div class="side"><b>Sideboard:</b> -2 Three Mouths, -1 Les Élémens → +2 Westbrook Netrunner, +1 Psycho Squad.</div>
+      <p class="note">Gdy zobaczysz pełną listę rywala, porównaj ją z sekcjami Dum Dum i YYR. Większość kart się powtarza.</p>
+    </div>
+  </section>
+
+  <!-- ======================= GGR ======================= -->
+  <section class="mu" id="ggr">
+    <div class="mu-head">
+      <div class="code">GGR · 6% METY</div>
+      <h2>Goro Takemura (Hands Unclean) / Saburo Arasaka / Yorinobu Arasaka <span class="diff ok">Korzystny</span></h2>
+      <p>Jednostki ARASAKA/CORPO, mało Sprzętu (Satori, Sandevistan, Radioport), Industrial Assembly, Peace Offering, Wild in the Streets.</p>
+    </div>
+    <div class="mu-body">
+      <h3>Co mają</h3>
+      <div class="tbl"><table>
+        <tbody>
+          <tr><td class="n">Goro Takemura: Hands Unclean (Legenda)</td><td>Go Solo za 5, siła 7, Blocker (tylko na polu).</td></tr>
+          <tr><td class="n">Saburo (Legenda)</td><td>Ich ARASAKA +1 siły przy ataku.</td></tr>
+          <tr><td class="n">Yorinobu: Embracing Destruction (Legenda)</td><td>Pierwszy atak ARASAKA w turze → dobierają 1 (i odrzucają, jeśli mają &lt;20 Street Cred).</td></tr>
+          <tr><td class="n">Minotaur ×2</td><td>Siła 9. Play: jeśli mają więcej Street Cred, pokonują twoją Jednostkę z siłą ≤5.</td></tr>
+          <tr><td class="n">Sandayu Oda ×3</td><td>Siła 8. Play: zużywa twoją Jednostkę za każdą ich value-pair. Może atakować Jednostki w turze zagrania.</td></tr>
+          <tr><td class="n">Goro: Losing His Way ×3</td><td>Siła 4, +5 przy ataku, jeśli wszystkie ich Legendy są odkryte.</td></tr>
+          <tr><td class="n">La Llorona ×2, Field Operator ×3, Swordwise Huscle ×3, MaxTac AV ×2</td><td>Blocker podbijający Gig o 3 / dobranie przy parzystym Street Cred / siła 3 / siła 8 z zamianą Gigów.</td></tr>
+          <tr><td class="n">Sandevistan ×3</td><td>Jednostka gotowieje na koniec ich tury, więc Bond na nią nie zadziała.</td></tr>
+          <tr><td class="n">Wild in the Streets ×2, Corporate Surveillance ×2</td><td>Pokonanie zużytej Jednostki / zużycie twojej Jednostki o koszcie ≤4.</td></tr>
+          <tr><td class="n">Industrial Assembly ×3, Peace Offering ×3, Detonate ×3</td><td>Podbijanie Gigów (+4) / value-pairy / Detonate jest martwe przeciw tobie.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Twój plan</h3>
+      <ol>
+        <li><b>Oni podbijają swój Street Cred</b> (Industrial Assembly, La Llorona), a ty obniżasz swój. Podwójny Towerfall będzie działał prawie zawsze: -5 wszystkim, a Field Operator, Huscle, La Llorona i nagi Goro (Losing His Way) lądują na spodzie talii.</li>
+        <li><b>Mało Sprzętu</b> oznacza, że Maman, Pyramid Song i Rogue (-4) działają normalnie. To najlepszy matchup dla trików -4.</li>
+        <li><b>Minotaur</b> zabija twoje Jednostki z siłą ≤5, gdy mają więcej Street Cred, a będą mieli. Placide (10) i Psycho Squad (6) są poza jego zasięgiem.</li>
+        <li><b>Sandayu Oda</b> zużywa twoje Jednostki za każdą value-pair i atakuje je w turze wejścia. Rozbijaj ich pary Trust No One (jeśli zasady pozwalają zmniejszyć Gig rywala) i nie licz na blokerów, gdy mają 2 pary.</li>
+        <li><b>Goro (Legenda) po Go Solo</b> ma Blocker, ale efekt Attack Placide zadziała przed blokiem. Bottom-deck usuwa go z gry.</li>
+        <li><b>Sandevistan</b> gotowieje Jednostkę na koniec ich tury, więc na nią użyj Placide, Maman (jeśli Sandevistan zniknie) albo Chrome Reverie.</li>
+      </ol>
+      <h3>Priorytety</h3>
+      <p>1) Sandayu Oda → 2) Minotaur → 3) Jednostka z Sandevistanem → 4) Goro po Go Solo.</p>
+      <div class="side"><b>Sideboard:</b> -2 Mox Inciters, -1 Three Mouths → +2 Psycho Squad, +1 Rogue Amendiares.<br><span class="note">Mox (siła 2) ginie od wszystkiego, a wymuszony atak tu niewiele daje. Psycho Squad (6) przeżywa Minotaura, a Rogue (-4) działa na Jednostki bez Gearów.</span></div>
+      <p class="note"><b>Mulligan:</b> Towerfall albo Pyramid Song plus Trust No One. Ręki z samymi tanimi Jednostkami nie zostawiaj.</p>
+    </div>
+  </section>
+
+  <!-- ======================= GRR ======================= -->
+  <section class="mu" id="grr">
+    <div class="mu-head">
+      <div class="code">GRR · 4% METY</div>
+      <h2>Adam Smasher / Padre / V Streetkid <span class="diff mid">Średni</span></h2>
+      <p>Mało Sprzętu (6), dużo removalu: Bonnie and Clyde, Carnage at the Colosseum, Memory Relapse. Animals Wrecker (10), Yorinobu (Steel Dragon).</p>
+    </div>
+    <div class="mu-body">
+      <h3>Co mają</h3>
+      <div class="tbl"><table>
+        <tbody>
+          <tr><td class="n">Padre (Legenda)</td><td>Call: zużywa twoją Jednostkę albo dobierają 1. Spend: ustawia Gig gracza na wartość innego Gigu.</td></tr>
+          <tr><td class="n">V: Streetkid, Adam Smasher (Legendy)</td><td>Dwie Legendy z Go Solo (5 i 9).</td></tr>
+          <tr><td class="n">Bonnie and Clyde ×3</td><td>Pokonuje twoją Jednostkę z siłą ≤4 (dwie, jeśli masz 2+ Gigów więcej).</td></tr>
+          <tr><td class="n">Carnage at the Colosseum ×3</td><td>Pokonuje twoją Jednostkę słabszą od którejś z ich Jednostek. Tańszy, gdy mają Gigi 8+.</td></tr>
+          <tr><td class="n">Animals Wrecker ×3</td><td>Siła 10, bez tekstu, <b>kradnie 2 Gigi</b>.</td></tr>
+          <tr><td class="n">Yorinobu: Steel Dragon ×2</td><td>Siła 9. Play: zagrywa za darmo Jednostkę za ≤4 z ręki albo kosza, która może atakować twoje Jednostki w tej turze.</td></tr>
+          <tr><td class="n">Valentino Street Racer ×2</td><td>Daje Adrenaline Jednostce za ≤5, czyli atak w turze zagrania.</td></tr>
+          <tr><td class="n">Memory Relapse ×3, Synapse Burnout ×3, Industrial Assembly ×3, Peace Offering ×3</td><td>Zużywanie twoich Jednostek / pompowanie w walce / podbijanie Gigów.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Twój plan</h3>
+      <ol>
+        <li><b>Mało Sprzętu</b>: Maman działa na prawie wszystko, a Pyramid Song i Rogue (-4) wygrywają walki.</li>
+        <li><b>Ich removal zabija twoje małe Jednostki.</b> Nie licz, że Rita czy Lizzy przeżyją. Każda Jednostka ma dać wartość przy wejściu, a twoim ciałem do kradzieży jest Placide (Carnage go nie ruszy, chyba że mają Jednostkę silniejszą niż 10).</li>
+        <li><b>Animals Wrecker</b> (10, kradnie 2): Maman od razu w twojej turze (wchodzi z Lagiem, bez Sprzętu).</li>
+        <li><b>Dwie Legendy z Go Solo</b>: Westbrook przez turę zabiera im cele do kradzieży.</li>
+        <li><b>Padre</b> ustawia wartości Gigów, więc może zepsuć twoje min Gigi. Miej Trust No One w zapasie, żeby je odbudować.</li>
+      </ol>
+      <h3>Priorytety</h3>
+      <p>1) Animals Wrecker → 2) Yorinobu: Steel Dragon → 3) Smasher / V po Go Solo.</p>
+      <div class="side"><b>Sideboard:</b> -2 Mox Inciters, -2 Les Élémens, -1 Three Mouths → +2 Psycho Squad, +2 Westbrook Netrunner, +1 Rogue Amendiares.<br><span class="note">Psycho Squad (6) przeżywa Bonnie and Clyde. Westbrook na dwie Legendy z Go Solo. Rogue (-4) działa, bo prawie nie mają Gearów.</span></div>
+    </div>
+  </section>
+
+  <!-- ======================= BBG ======================= -->
+  <section class="mu" id="bbg">
+    <div class="mu-head">
+      <div class="code">BBG · 9% METY</div>
+      <h2>Alt Cunningham / Hanako / Jackie (Pour One Out) <span class="diff ok">Korzystny</span></h2>
+      <p>Kontrola na Programach: Pyramid Song, Towerfall, Les Élémens, Nocturne, mało Jednostek, zero Sprzętu.</p>
+    </div>
+    <div class="mu-body">
+      <ol>
+        <li><b>Les Élémens wraca do talii</b>: mają mało Jednostek, więc trafiasz w ważne cele. Ich Les Élémens trafi twoją najsłabszą Jednostkę, więc trzymaj jakąś tanią jako wabik.</li>
+        <li><b>Delamain (siła 0) jest celem ich Pyramid Song i Towerfall.</b> To jednak nie problem: zanim go zdejmą, już dobrałeś 2 karty.</li>
+        <li><b>Hanako</b> dobiera za każdą value-pair na początku swojej tury. Rozbijaj pary Trust No One.</li>
+        <li>Nie wykładaj więcej niż 2–3 Jednostek naraz pod ich Towerfall. Placide (10) go przeżywa.</li>
+      </ol>
+      <div class="side"><b>Sideboard:</b> -2 Mox Inciters, -1 Rogue → +2 Westbrook Netrunner, +1 Psycho Squad.<br><span class="note">Wymuszanie ataku nic nie daje przy talii z kilkoma Jednostkami. Westbrook (5) i Psycho Squad (6) przeżywają Pyramid Song.</span></div>
+    </div>
+  </section>
+
+  <!-- ======================= LISTA V4 ======================= -->
+  <h2 id="lista">Najbardziej zoptymalizowana lista: Abyss Protocol v4</h2>
+  <div class="final">
+    <p><b>Do czego jest zoptymalizowana:</b> pod całą metę z listopada 2026. Ponad połowę czołowych talii stanowią czerwone/żółte talie ze Sprzętem i dużą ilością removalu na małe Jednostki, a do tego dochodzi BBG.</p>
+    <div class="grid2">
+      <div class="tbl"><table>
+        <thead><tr><th colspan="3">Jednostki (15)</th></tr></thead>
+        <tbody>
+          <tr><td class="q">2×</td><td>Delamain: Rideshare AI <span class="tag">NOWE</span></td><td>€$3</td></tr>
+          <tr><td class="q">2×</td><td>Mox Inciters <span class="tag up">+1</span></td><td>€$3</td></tr>
+          <tr><td class="q">2×</td><td>Rita Wheeler: No Stupid Questions</td><td>€$4</td></tr>
+          <tr><td class="q">2×</td><td>Maman Brigitte: Spirit of Death</td><td>€$5</td></tr>
+          <tr><td class="q">3×</td><td>Lizzy Wizzy: Delicate Weapon</td><td>€$5</td></tr>
+          <tr><td class="q">1×</td><td>Rogue Amendiares: Queen of the Afterlife</td><td>€$5</td></tr>
+          <tr><td class="q">3×</td><td>Placide: Voodoo Sentinel</td><td>€$8</td></tr>
+        </tbody>
+      </table></div>
+      <div class="tbl"><table>
+        <thead><tr><th colspan="3">Programy (25)</th></tr></thead>
+        <tbody>
+          <tr><td class="q">3×</td><td>Trust No One</td><td>€$1</td></tr>
+          <tr><td class="q">3×</td><td>Floor It</td><td>€$1</td></tr>
+          <tr><td class="q">3×</td><td>Three Mouths, One Desire</td><td>€$2</td></tr>
+          <tr><td class="q">3×</td><td>Pyramid Song</td><td>€$3</td></tr>
+          <tr><td class="q">3×</td><td>Chrome Reverie</td><td>€$3</td></tr>
+          <tr><td class="q">2×</td><td>Nocturne OP55 N1</td><td>€$3 (1)</td></tr>
+          <tr><td class="q">3×</td><td>Unlikely Bond</td><td>€$4</td></tr>
+          <tr><td class="q">2×</td><td>Les Élémens</td><td>€$5</td></tr>
+          <tr><td class="q">3×</td><td>Towerfall <span class="tag up">+1</span></td><td>€$6</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <p><b>Sideboard (7):</b> 2× Westbrook Netrunner, 2× Psycho Squad, 2× Reboot Optics, 1× Rogue Amendiares</p>
+    <p class="total">40 kart + 7 w sideboardzie · maks. 3 kopie (licząc sideboard) · Legendy: Alt / Jackie / Judy · najwyższy RAM 4 przy limicie 6 ✓</p>
+
+    <h3>Zmiany względem v3 i dlaczego</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Zmiana</th><th>Powód</th></tr></thead>
+      <tbody>
+        <tr><td class="n">-3 Jacked-In Voodoo Boy</td><td>Nic nie dawały przy wejściu, a ze swoją siłą 2 ginęły od Royce'a, Bonnie and Clyde i Live with the Aftermath, zanim zdążyłeś zagrać Bond. Zaatakowane zostawały zużyte, a wtedy Johnny je bił i się gotowiał.</td></tr>
+        <tr><td class="n">+2 Delamain: Rideshare AI</td><td>Play: dobierz 2. Zwraca się od razu, nawet jeśli zginie. Dopóki żyje, jest gotowym ciałem pod Bond i Jednostką do oddania pod Live with the Aftermath. Siła 0 nic nie szkodzi, bo i tak nie atakuje.</td></tr>
+        <tr><td class="n">+1 Mox Inciters (razem 2)</td><td>Play: Jednostka rywala musi atakować. Gdy wszystkie twoje Jednostki są gotowe, może tylko kraść, więc zostaje zużyta i zagrywasz Bond.</td></tr>
+        <tr><td class="n">+1 Towerfall (razem 3)</td><td>Najmocniejsza karta na najczęściej graną talię (Dum Dum: Jednostki z siłą 0–3) i na GGR (oni podbijają Street Cred, więc masz podwójny tryb).</td></tr>
+        <tr><td class="n">-1 Rogue Amendiares (1 w main, 1 w sideboardzie)</td><td>-4 siły nie wystarcza na uzbrojone Jednostki, które dominują metę. Druga kopia wchodzi z sideboardu na GGR i GRR (mało Sprzętu).</td></tr>
+        <tr><td class="n">-1 Nocturne (razem 2), +1 Les Élémens (razem 2)</td><td>Nocturne kosztuje 3 przez pierwszych 5 tur, a Les Élémens to stały removal na BBG i talie z małymi Jednostkami.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Krzywa i Eddies</h3>
+    <p>1 €$: 6 kart · 2 €$: 3 · 3 €$: 12 · 4 €$: 5 · 5 €$: 8 · 6 €$: 3 · 8 €$: 3. To ciężka kontrola: do 4. tury grasz tanie Programy i Jednostki za 3, od 5. tury Maman, Lizzy i Bond, a od 6. Towerfall.</p>
+
+    <h3>Szybka ściąga sideboardu</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Rywal</th><th>Wychodzi</th><th>Wchodzi</th></tr></thead>
+      <tbody>
+        <tr><td>RYY Dum Dum / River / Royce</td><td>-2 Les Élémens, -1 Nocturne</td><td>+2 Reboot Optics, +1 Westbrook</td></tr>
+        <tr><td>YYR Adam / River / Viktor</td><td>-2 Les Élémens, -1 Rogue</td><td>+2 Westbrook, +1 Psycho Squad</td></tr>
+        <tr><td>Dex + Gear (Panam / River / Adam)</td><td>-2 Les Élémens, -1 Three Mouths</td><td>+2 Westbrook, +1 Psycho Squad</td></tr>
+        <tr><td>Johnny / Kerry / Rogue</td><td>-2 Les Élémens, -1 Three Mouths</td><td>+2 Westbrook, +1 Psycho Squad</td></tr>
+        <tr><td>RRY (Adam / Dum Dum / V)</td><td>-2 Three Mouths, -1 Les Élémens</td><td>+2 Westbrook, +1 Psycho Squad</td></tr>
+        <tr><td>GGR Goro / Saburo / Yorinobu</td><td>-2 Mox Inciters, -1 Three Mouths</td><td>+2 Psycho Squad, +1 Rogue</td></tr>
+        <tr><td>GRR Adam / Padre / V</td><td>-2 Mox Inciters, -2 Les Élémens, -1 Three Mouths</td><td>+2 Psycho Squad, +2 Westbrook, +1 Rogue</td></tr>
+        <tr><td>BBG</td><td>-2 Mox Inciters, -1 Rogue</td><td>+2 Westbrook, +1 Psycho Squad</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <h2>Do potwierdzenia</h2>
+  <div class="card warn">
+    <ul>
+      <li>Listy rywali to głównie dane z kreatorów talii na ripperdeck.gg, a nie wyniki turniejów. Wyjątkiem jest talia Panam / River / Adam (wygrana na turnieju 16.11). Twoi przeciwnicy mogą grać inaczej.</li>
+      <li>Listy RRY nie udało się pobrać, więc ten plan opiera się na tekstach Legend.</li>
+      <li>Wciąż niejasne w zasadach: czy Legenda po Go Solo jest zużyta po ataku (od tego zależy Bond na Smashera), czy Trust No One może zmniejszyć Gig rywala, gdzie trafia Sprzęt po zniknięciu Jednostki.</li>
+      <li>Sell Tagi niebieskich kart nie są potwierdzone. Delamain jest Jednostką, więc sprawdź, czy ma Sell Tag. Celuj w co najmniej 12 kart z Sell Tagiem w 40.</li>
+    </ul>
+  </div>
+
+  <p class="note">Pełny poradnik do Abyss Protocol (zasady, rola kart, zagrania): <a href="cyberpunk-abyss-protocol-pl.html">cyberpunk-abyss-protocol-pl.html</a></p>
+</div>
+</body>
+</html>
